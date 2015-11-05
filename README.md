@@ -3,6 +3,7 @@
 ## Index
 
 * [Overview](#overview)
+* [Protocol](#protocol)
 * [Development documentation](#development)
 
 ## <a name="overview"/> Overview
@@ -12,12 +13,22 @@ This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol an
 ## <a name="protocol"/> Protocol
 
 ### Measure reporting
-There are two ways of reporting measures. In order to send multiple measures, a device can publish a JSON payload to an
-MQTT topic with the following structure:
-```
-{{api-key}}/{{device-id}}/json
-```
+There are two ways of reporting measures:
 
+* **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the 
+following structure:
+```
+{{api-key}}/{{device-id}}/attributes
+```
+The message in this case must contain a valid JSON object of a single level; for each key/value pair, the key represents
+the attribute name and the value the attribute value. Attribute type will be taken from the device provision information.
+
+* **Single measures**: In order to send single measures, a device can publish the direct value to an MQTT topic with
+the following structure:
+```
+{{api-key}}/{{device-id}}/attributes/<attributeName>
+```
+Indicating in the topic the name of the attribute to be modified.
 
 
 ## Development documentation
