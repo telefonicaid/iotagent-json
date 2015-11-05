@@ -38,7 +38,7 @@ IoT Agent library. More information about this options can be found [here](https
 These are the currently available MQTT configuration options:
 * **host**: host of the MQTT broker.
 * **port**: port where the MQTT broker is listening.
-* **defaultKey**: default API Key to use when a device is provisioned without a Configuration.
+* **defaultKey**: default API Key to use when a device is provisioned without a configuration.
 
 ## <a name="protocol"/> Protocol
 

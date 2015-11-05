@@ -31,7 +31,7 @@ config.mqtt = {
 config.iota = {
     logLevel: 'DEBUG',
     contextBroker: {
-        host: '192.168.56.101',
+        host: 'localhost',
         port: '1026'
     },
     server: {
@@ -43,7 +43,7 @@ config.iota = {
     types: {},
     service: 'howtoService',
     subservice: '/howto',
-    providerUrl: 'http://192.168.56.1:4041',
+    providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing'
 };
