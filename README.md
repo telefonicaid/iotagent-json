@@ -50,6 +50,9 @@ the API Key and Device ID of the device to simulate. This information can be cha
 In order to use any of the MQTT commands, you have to connect to the MQTT broker first. If no connection is available,
 MQTT commands will show an error message reminding you to connect.
 
+The Command Line Client gets its default values from a config file in the root of the project: `client-config.js`. This
+config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
+ 
 ## Development documentation
 ### Project build
 The project is managed using Grunt Task Runner.

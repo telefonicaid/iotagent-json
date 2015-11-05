@@ -26,15 +26,16 @@
 'use strict';
 
 var fs = require('fs'),
+    defaultConfig = require('../client-config.js'),
     clUtils = require('command-node'),
     mqtt = require('mqtt'),
     async = require('async'),
     mqttClient,
     config = {
-        host: 'localhost',
-        port: 1026,
-        apikey: '1234',
-        deviceId: 'myDeviceId'
+        host: defaultConfig.mqtt.host,
+        port: defaultConfig.mqtt.port,
+        apikey: defaultConfig.device.apikey,
+        deviceId: defaultConfig.device.id
     },
     separator = '\n\n\t',
     token;
@@ -110,10 +111,7 @@ function multipleMeasure(commands) {
 function connect(commands) {
     console.log('\nConnecting to MQTT Broker...');
 
-    mqttClient = mqtt.connect('mqtt://' + config.host, {
-        keepalive: 0,
-        connectTimeout: 60 * 60 * 1000
-    });
+    mqttClient = mqtt.connect('mqtt://' + config.host, defaultConfig.mqtt.options);
 
     clUtils.prompt();
 }
