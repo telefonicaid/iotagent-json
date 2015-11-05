@@ -3,13 +3,42 @@
 ## Index
 
 * [Overview](#overview)
+* [Usage](#usage)
+* [Configuration] (#configuration)
 * [Protocol](#protocol)
 * [Command Line Client](#client)
 * [Development documentation](#development)
 
 ## <a name="overview"/> Overview
+This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the OMA NGSI standard used in FIWARE.
+This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
+[Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
-This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the OMA NGSI standard used in FIWARE. 
+## <a name="usage"/> Usage
+In order to execute the MQTT IoT Agent just execute the following command from the root folder:
+```
+bin/iotagentMqtt.js
+```
+This will start the MQTT IoT Agent in the foreground. Use standard linux commands to start it in background.
+
+When started with no arguments, the IoT Agent will expect to find a `config.js` file with the configuration in the root
+folder. An argument can be passed with the path to a new configuration file (relative to the application folder) to be
+used instead of the default one.
+
+## <a name="configuration"/> Configuration
+### Overview
+All the configuration for the IoT Agent is stored in a single configuration file (typically installed in the root folder).
+
+This configuration file is a JavaScript file and contains two configuration chapters:
+* **iota**: this object stores the configuration of the Northbound of the IoT Agent, and is completely managed by the
+IoT Agent library. More information about this options can be found [here](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+* **mqtt**: this object stores MQTT's specific configuration. A detailed description can be found in the next section.
+
+### MQTT configuration
+These are the currently available MQTT configuration options:
+* **host**: host of the MQTT broker.
+* **port**: port where the MQTT broker is listening.
+* **defaultKey**: default API Key to use when a device is provisioned without a Configuration.
 
 ## <a name="protocol"/> Protocol
 
