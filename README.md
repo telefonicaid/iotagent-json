@@ -4,6 +4,7 @@
 
 * [Overview](#overview)
 * [Protocol](#protocol)
+* [Command Line Client](#client)
 * [Development documentation](#development)
 
 ## <a name="overview"/> Overview
@@ -30,6 +31,24 @@ the following structure:
 ```
 Indicating in the topic the name of the attribute to be modified.
 
+In both cases, the key is the one provisioned in the IOTA through the Configuration API, and the Device ID the ID that
+was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
+provisioned without a link to any particular configuration.
+
+## <a name="client"/> Command Line Client 
+The MQTT IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
+executed with the following command:
+```
+bin/iotaMqttTester.js
+```
+This will show a prompt where commands can be issued to the MQTT broker. For a list of the currently available commands
+type `help`.
+
+The client loads a global configuration used for all the commands, containing the host and port of the MQTT broker and
+the API Key and Device ID of the device to simulate. This information can be changed with the `config` command.
+
+In order to use any of the MQTT commands, you have to connect to the MQTT broker first. If no connection is available,
+MQTT commands will show an error message reminding you to connect.
 
 ## Development documentation
 ### Project build
@@ -41,7 +60,6 @@ grunt --help
 ```
 
 The following sections show the available options in detail.
-
 
 ### Testing
 [Mocha](http://visionmedia.github.io/mocha/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
