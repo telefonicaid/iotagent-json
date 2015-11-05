@@ -76,7 +76,7 @@ fi
 
 PROXY_USER="iotamqtt"
 
-rpmbuild -ba ${RPM_BASE_DIR}/SPECS/iotatt.spec \
+rpmbuild -ba ${RPM_BASE_DIR}/SPECS/iotamqtt.spec \
     --define "_topdir ${RPM_BASE_DIR}" \
     --define "_project_user ${PROXY_USER}" \
     --define "_product_version ${PRODUCT_VERSION}" \
