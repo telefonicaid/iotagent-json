@@ -1,0 +1,101 @@
+#!/bin/bash
+#
+# iotaMQTT         Start/Stop the MQTT IoT Agent
+#
+# chkconfig: 2345 99 60
+# description: MQTT IoT Agent for Telefonica's IoT Platform
+### BEGIN INIT INFO
+# Provides: iotaMQTT
+# Required-Start: $local_fs $syslog
+# Required-Stop: $local_fs $syslog
+# Default-Start:  345
+# Default-Stop: 90
+# Short-Description: run iotaMQTT
+# Description: MQTT IoT Agent is a bridge between a MQTT+JSON based protocol and the NGSI protocol used internally by
+#Telefonica's IoT Platform and FIWARE.
+### END INIT INFO
+
+# Copyright 2015 Telefonica Investigacion y Desarrollo, S.A.U
+#
+# This file is part of the iotagent-mqtt.
+#
+# the iotagent-mqtt is free software: you can redistribute it and/or
+# modify it under the terms of the GNU Affero General Public License as
+# published by the Free Software Foundation, either version 3 of the
+# License, or (at your option) any later version.
+#
+# the iotagent-mqtt is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
+# General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with the iotagent-mqtt. If not, see http://www.gnu.org/licenses/.
+#
+# For those usages not covered by this license please contact with
+# iot_support at tid dot es
+
+. /etc/rc.d/init.d/functions
+
+PARAM=$1
+NAME=iotamqtt
+EXECUTABLE=bin/iotagentMqtt.js
+IOTA_PATH=/opt/iotamqtt
+PIDFILE=$IOTA_PATH/$NAME.pid
+LOG_PATH=/var/log/iotamqtt/iotamqtt.log
+
+iotamqtt_start()
+{
+    printf "%-50s" "Starting ${NAME}..."
+    cd $IOTA_PATH
+    if [[ -x ${EXECUTABLE} ]]; then
+        cd $IOTA_PATH
+        su $IOTA_USER -c "cd $IOTA_PATH; nohup ${EXECUTABLE} &>> $LOG_PATH & echo \$! > $PIDFILE"
+        echo "Success"
+    else
+        printf "%s\n" "Fail - missing ${EXECUTABLE} executable"
+        exit 1
+    fi
+}
+
+iotamqtt_stop()
+{
+    printf "%-50s" "Stopping $NAME..."
+    if [ -f "${PIDFILE}" ]; then
+        kill -9 $(cat ${PIDFILE})
+        rm -f ${PIDFILE}
+        printf "%s\n" "$(success)"
+    else
+        printf "%s\n" "$(failure)"
+    fi
+}
+
+iotamqtt_status()
+{
+    status -p ${PIDFILE} ${EXECUTABLE}
+}
+
+case ${PARAM} in
+
+    'start')
+        echo "Starting..."
+        status -p ${PIDFILE} ${EXECUTABLE} && exit 0
+        iotamqtt_start
+        ;;
+
+    'stop')
+        echo "Stopping..."
+        status -p ${PIDFILE} ${EXECUTABLE} || exit 0
+        iotamqtt_stop
+        ;;
+
+    'restart')
+        iotamqtt_stop
+        iotamqtt_start
+        ;;
+
+    'status')
+        iotamqtt_status
+        ;;
+
+esac
