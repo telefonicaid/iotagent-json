@@ -3,6 +3,7 @@
 ## Index
 
 * [Overview](#overview)
+* [Installation](#installation)
 * [Usage](#usage)
 * [Configuration] (#configuration)
 * [Protocol](#protocol)
@@ -14,6 +15,38 @@ This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol an
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
+## <a name="installation"/> Installation
+There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
+ 
+### Using GIT
+In order to install the TT Agent, just clone the project and install the dependencies:
+```
+git clone https://github.com/telefonicaid/iotagent-mqtt.git
+npm install
+```
+In order to start the IoT Agent, from the root folder of the project, type:
+```
+bin/iotagentMqtt.js
+``` 
+ 
+### Using RPM
+The project contains a script for generating an RPM that can be installed in Red Hat 6.5 compatible Linux distributions. 
+The RPM depends on Node.js 0.10 version, so EPEL repositories are advisable. 
+
+In order to create the RPM, execute the following scritp, inside the `/rpm` folder:
+```
+create-rpm.sh -v <versionNumber> -r <releaseNumber>
+```
+
+Once the RPM is generated, it can be installed using the followogin command:
+```
+yum localinstall --nogpg <nameOfTheRPM>.rpm
+```
+
+The IoTA will then be installed as a linux service, and can ve started with the `service` command as usual:
+```
+service iotaMQTT start
+```
 ## <a name="usage"/> Usage
 In order to execute the MQTT IoT Agent just execute the following command from the root folder:
 ```
