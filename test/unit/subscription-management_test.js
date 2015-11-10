@@ -105,10 +105,10 @@ describe('Subscription management', function() {
                 async.apply(iotagentMqtt.start, config),
                 async.apply(request, provisionOptions),
                 sendMeasures('32', '87'),
-                waitForMqttRelay(100),
+                waitForMqttRelay(50),
                 iotagentMqtt.stop,
                 sendMeasures('53', '1'),
-                waitForMqttRelay(600)
+                waitForMqttRelay(50)
             ], function(error, results) {
                 should.not.exist(error);
                 contextBrokerMock.isDone().should.equal(false);
@@ -118,6 +118,37 @@ describe('Subscription management', function() {
     });
 
     describe('When the iotagent starts', function() {
-        it('should resume sending measures for the provisioned devices');
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasures.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/alternativeUpdate.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+        });
+
+        it('should resume sending measures for the provisioned devices', function(done) {
+            async.series([
+                async.apply(iotagentMqtt.start, config),
+                async.apply(request, provisionOptions),
+                sendMeasures('32', '87'),
+                waitForMqttRelay(50),
+                iotagentMqtt.stop,
+                async.apply(iotagentMqtt.start, config),
+                waitForMqttRelay(50),
+                sendMeasures('53', '1'),
+                waitForMqttRelay(50)
+            ], function(error, results) {
+                should.not.exist(error);
+                contextBrokerMock.isDone().should.equal(true);
+                done();
+            });
+        });
     });
 });
