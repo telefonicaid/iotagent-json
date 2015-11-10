@@ -20,7 +20,7 @@
 
 /var/log/iotamqtt/iotamqtt.log
 {
-      daily
+      size 1024k
       rotate 5
       copytruncate
       compress

@@ -158,6 +158,7 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/init.d/%{_service_name}
 %config /etc/logrotate.d/logrotate-iotamqtt.conf
 %config /etc/cron.d/cron-logrotate-iotamqtt-size
+%config /etc/sysconfig/logrotate-iotatt-size
 %{_install_dir}
 
 %changelog
