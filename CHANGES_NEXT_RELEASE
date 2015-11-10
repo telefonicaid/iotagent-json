@@ -1,3 +1,4 @@
 - Create the IoT Agent Tester (#3).
 - Create the IoT Agent Command (#2).
 - Script for RPM creation (#5).
+- Recreate subscription on IoTA Restart (#1).
