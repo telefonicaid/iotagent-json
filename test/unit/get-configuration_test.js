@@ -108,13 +108,15 @@ describe('Get configuration from the devices', function() {
                 }, 100);
             });
         });
-        it('the requested attributes should be returned to the client in /1234/MQTT_2/configuration/values', function(done) {
-            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
-                setTimeout(function() {
-                    configurationReceived.should.equal(true);
-                    done();
-                }, 100);
+        it('the requested attributes should be returned to the client in /1234/MQTT_2/configuration/values',
+            function(done) {
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
+                    function(error) {
+                        setTimeout(function() {
+                            configurationReceived.should.equal(true);
+                            done();
+                        }, 100);
+                    });
             });
-        });
     });
 });
