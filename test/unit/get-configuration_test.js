@@ -71,7 +71,7 @@ describe('Get configuration from the devices', function() {
     describe('When a configuration request is received in the topic ' +
         '"/{{apikey}}/{{deviceid}}/configuration/commands"', function() {
         var values = {
-                type: '',
+                type: 'configuration',
                 fields: [
                     'sleepTime',
                     'warningLevel'
