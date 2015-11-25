@@ -1,0 +1,13 @@
+{
+  "entities": [
+    {
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "id": "Second MQTT Device"
+    }
+  ],
+  "attributes" : [
+    "sleepTime",
+    "warningLevel"
+  ]
+}

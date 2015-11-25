@@ -1,0 +1,27 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "sleepTime",
+            "type": "number",
+            "value": "200"
+          },
+          {
+            "name": "warningLevel",
+            "type": "number",
+            "value": "80"
+          }
+        ],
+        "id": "AnMQTTDevice",
+        "isPattern": "false",
+        "type": "Second MQTT Device"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
