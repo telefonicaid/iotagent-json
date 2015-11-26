@@ -75,6 +75,35 @@ These are the currently available MQTT configuration options:
 
 ## <a name="protocol"/> Protocol
 
+### Configuration retrieval
+The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
+stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
+commands and a topic to receive configuration information.
+
+#### Configuration command topic 
+```
+/{{apikey}}/{{deviceid}}/configuration/commands
+```
+The IoT Agent listens in this topic for requests coming from the device. The messages must contain a JSON document
+with the following attributes:
+
+* **type**: indicates the type of command the device is sending. The only currently allowed value is `configuration`.
+* **fields**: array with the names of the values to be retrieved from the Context Broker entity representing the device.
+
+This command will trigger a query to the CB that will, as a result, end up with a new message posted to the Configuration
+information topic (described bellow).
+
+#### Configuration information topic 
+```
+/{{apikey}}/{{deviceid}}/configuration/commands
+```
+Every device must subscribe to this topic, so it can receive configuration information. Whenever the device requests any
+information from the IoTA, the information will be posted in this topic. All published messages are JSON Arrays, containing
+one object per requested piece of information, with the following attributes:
+
+* **name**: name of the requested attribute.
+* **value**: current value of the attribute. 
+
 ### Measure reporting
 There are two ways of reporting measures:
 

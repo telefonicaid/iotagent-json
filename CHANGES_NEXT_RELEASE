@@ -2,3 +2,4 @@
 - Create the IoT Agent Command (#2).
 - Script for RPM creation (#5).
 - Recreate subscription on IoTA Restart (#1).
+- Add support for configuration attributes (#10).
