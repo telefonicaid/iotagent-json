@@ -1,0 +1,11 @@
+{
+  "services": [
+    {
+      "resource": "/deviceTest",
+      "apikey": "728289",
+      "type": "Light",
+      "trust": "8970A9078A803H3BL98PINEQRW8342HBAMS",
+      "cbHost": "http://unexistentHost:1026"
+    }
+  ]
+}
