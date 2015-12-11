@@ -4,3 +4,4 @@
 - Recreate subscription on IoTA Restart (#1).
 - Add support for configuration attributes (#10).
 - Add support for configurations in the IOTA (#6).
+- Add Support for conversion of timestamp attributes from the South Bound (#12).

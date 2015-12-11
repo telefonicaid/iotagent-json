@@ -126,6 +126,15 @@ In both cases, the key is the one provisioned in the IOTA through the Configurat
 was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
 provisioned without a link to any particular configuration.
 
+### Value conversion
+The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
+device. This section lists those conversions.
+
+#### Timestamp compression
+Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete basic
+calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
+representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
+
 ## <a name="client"/> Command Line Client 
 The MQTT IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:
