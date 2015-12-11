@@ -92,7 +92,31 @@ describe('Measure reception ', function() {
         });
     });
 
-    describe('When a new single measure arives to the MQTT Topic', function() {
+    describe('When a new multiple measure arrives with a timestamp to the MQTT Topic', function() {
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timestampMeasure.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json'));
+        });
+        it('should send its value to the Context Broker', function(done) {
+            var values = {
+                humidity: '32',
+                temperature: '87',
+                timeInstant: '20071103T131805'
+            };
+
+            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+
+    describe('When a new single measure arrives to the MQTT Topic', function() {
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')

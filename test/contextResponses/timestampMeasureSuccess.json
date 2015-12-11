@@ -1,0 +1,32 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "temperature",
+            "type": "celsius",
+            "value": ""
+          },
+          {
+            "name": "humidity",
+            "type": "degrees",
+            "value": ""
+          },
+          {
+            "name": "timeInstant",
+            "type": "timestamp",
+            "value": ""
+          }
+        ],
+        "type": "MQTTSensor",
+        "isPattern": "false",
+        "id": "MQTTId_2"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
