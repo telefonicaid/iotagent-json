@@ -153,7 +153,7 @@ MQTT commands will show an error message reminding you to connect.
 The Command Line Client gets its default values from a config file in the root of the project: `client-config.js`. This
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
  
-## Development documentation
+##  <a name="development"/> Development documentation
 ### Project build
 The project is managed using Grunt Task Runner.
 
@@ -165,12 +165,21 @@ grunt --help
 The following sections show the available options in detail.
 
 ### Testing
+
 [Mocha](http://visionmedia.github.io/mocha/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
 
 The test environment is preconfigured to run [BDD](http://chaijs.com/api/bdd/) testing style with
 `chai.expect` and `chai.should()` available globally while executing tests, as well as the [Sinon-Chai](http://chaijs.com/plugins/sinon-chai) plugin.
 
 Module mocking during testing can be done with [proxyquire](https://github.com/thlorenz/proxyquire)
+
+#### Requirements
+
+All the tests are designed to test end to end scenarios, and there are some requirements for its current execution:
+- Mosquitto v1.3.5 server running
+- MongoDB v3.x server running
+
+#### Execution
 
 To run tests, type
 ```bash
@@ -182,7 +191,6 @@ To generate TAP report in `report/test/unit_tests.tap`, type
 ```bash
 grunt test-report
 ```
-
 
 ### Coding guidelines
 jshint, gjslint
