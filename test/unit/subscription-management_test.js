@@ -77,13 +77,14 @@ describe('Subscription management', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-        done();
+        iotagentMqtt.start(config, done);
     });
 
     afterEach(function() {
         nock.cleanAll();
         mqttClient.end();
     });
+
     describe('When the iotagent stops', function() {
         beforeEach(function() {
             contextBrokerMock
@@ -97,12 +98,10 @@ describe('Subscription management', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/alternativeUpdate.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
-
         });
 
         it('should cease sending measures to the CB', function(done) {
             async.series([
-                async.apply(iotagentMqtt.start, config),
                 async.apply(request, provisionOptions),
                 sendMeasures('32', '87'),
                 waitForMqttRelay(50),
@@ -133,9 +132,12 @@ describe('Subscription management', function() {
 
         });
 
+        afterEach(function(done) {
+            iotagentMqtt.stop(done);
+        });
+
         it('should resume sending measures for the provisioned devices', function(done) {
             async.series([
-                async.apply(iotagentMqtt.start, config),
                 async.apply(request, provisionOptions),
                 sendMeasures('32', '87'),
                 waitForMqttRelay(50),

@@ -7,3 +7,4 @@
 - Add Support for conversion of timestamp attributes from the South Bound (#12).
 - Support unknown attributes coming from the SouthBound (#14).
 - Assign timeinstant to attribute metadata (#17).
+- Support conversion of ThinkingThing attributes (#19).
