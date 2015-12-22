@@ -91,4 +91,27 @@ describe('Support for Thinking Things Modules', function() {
             });
         });
     });
+
+    describe('When a new measure with Thinking Thing module B arrives', function() {
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleB.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleBSuccess.json'));
+        });
+        it('should send its value to the Context Broker', function(done) {
+            var values = {
+                humidity: '32',
+                B: '4.70,1,1,1,1,0,'
+            };
+
+            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
 });
