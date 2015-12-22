@@ -1,0 +1,27 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "temperature",
+            "type": "celsius",
+            "value": ""
+          },
+          {
+            "name": "B",
+            "type": "compound",
+            "value": ""
+          }
+        ],
+        "type": "MQTTSensor",
+        "isPattern": "false",
+        "id": "MQTTId_2"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}

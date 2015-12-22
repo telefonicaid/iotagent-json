@@ -26,14 +26,12 @@ var iotagentMqtt = require('../../'),
     mqtt = require('mqtt'),
     config = require('../config-test.js'),
     nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
     request = require('request'),
     utils = require('../utils'),
     contextBrokerMock,
     mqttClient;
 
-describe('Measure reception ', function() {
+describe('Support for Thinking Things Modules', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -68,25 +66,21 @@ describe('Measure reception ', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
+        iotagentMqtt.stop(done);
     });
 
-    describe('When a new multiple measure arrives to the MQTT Topic', function() {
+    describe('When a new measure with Thinking Thing module P1 arrives', function() {
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasures.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleP1.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                temperature: '87'
+                P1: '214,7,d22,b00,-64,'
             };
 
             mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
@@ -98,64 +92,21 @@ describe('Measure reception ', function() {
         });
     });
 
-    describe('When a new multiple measure arrives to the MQTT Topic with unknown attributes', function() {
+    describe('When a new measure with Thinking Thing module B arrives', function() {
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unknownMeasures.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/unknownMeasuresSuccess.json'));
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleB.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleBSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                weight: '87'
+                B: '4.70,1,1,1,1,0,'
             };
 
             mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
-                setTimeout(function() {
-                    contextBrokerMock.done();
-                    done();
-                }, 100);
-            });
-        });
-    });
-
-    describe('When a new multiple measure arrives with a timestamp to the MQTT Topic', function() {
-        beforeEach(function() {
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timestampMeasure.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json'));
-        });
-        it('should send its value to the Context Broker', function(done) {
-            var values = {
-                humidity: '32',
-                temperature: '87',
-                timeInstant: '20071103T131805'
-            };
-
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
-                setTimeout(function() {
-                    contextBrokerMock.done();
-                    done();
-                }, 100);
-            });
-        });
-    });
-
-    describe('When a new single measure arrives to the MQTT Topic', function() {
-        beforeEach(function() {
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
-                .reply(200,
-                utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
-        });
-        it('should send its values to the Context Broker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attributes/temperature', '87', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
