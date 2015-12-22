@@ -26,6 +26,8 @@ var iotagentMqtt = require('../../'),
     mqtt = require('mqtt'),
     config = require('../config-test.js'),
     nock = require('nock'),
+    iotAgentLib = require('iotagent-node-lib'),
+    async = require('async'),
     request = require('request'),
     utils = require('../utils'),
     contextBrokerMock,
@@ -66,7 +68,11 @@ describe('Measure reception ', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-        iotagentMqtt.stop(done);
+
+        async.series([
+            iotAgentLib.clearAll,
+            iotagentMqtt.stop
+        ], done);
     });
 
     describe('When a new multiple measure arrives to the MQTT Topic', function() {

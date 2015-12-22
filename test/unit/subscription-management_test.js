@@ -28,6 +28,7 @@ var iotagentMqtt = require('../../'),
     nock = require('nock'),
     request = require('request'),
     should = require('should'),
+    iotAgentLib = require('iotagent-node-lib'),
     async = require('async'),
     utils = require('../utils'),
     contextBrokerMock,
@@ -80,9 +81,10 @@ describe('Subscription management', function() {
         iotagentMqtt.start(config, done);
     });
 
-    afterEach(function() {
+    afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
+        iotAgentLib.clearAll(done);
     });
 
     describe('When the iotagent stops', function() {
@@ -129,11 +131,13 @@ describe('Subscription management', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/alternativeUpdate.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
-
         });
 
         afterEach(function(done) {
-            iotagentMqtt.stop(done);
+            async.series([
+                iotAgentLib.clearAll,
+                iotagentMqtt.stop
+            ], done);
         });
 
         it('should resume sending measures for the provisioned devices', function(done) {
