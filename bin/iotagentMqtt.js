@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
  * Copyright 2015 Telefonica Investigación y Desarrollo, S.A.U
  *
@@ -20,32 +22,30 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-var config = {};
+'use strict';
 
-config.mqtt = {
-    host: 'localhost',
-    port: 1883,
-    defaultKey: '1234'
-};
+var iotAgent = require('../lib/iotagent-mqtt'),
+    context = {
+        op: 'IOTAMQTT.Executable'
+    },
+    logger = require('logops');
 
-config.iota = {
-    logLevel: 'FATAL',
-    contextBroker: {
-        host: '10.11.128.16',
-        port: '1026'
-    },
-    server: {
-        port: 4041
-    },
-    deviceRegistry: {
-        type: 'memory'
-    },
-    types: {},
-    service: 'howtoService',
-    subservice: '/howto',
-    providerUrl: 'http://localhost:4041',
-    deviceRegistrationDuration: 'P1M',
-    defaultType: 'Thing'
-};
+function start() {
+    var config;
 
-module.exports = config;
+    if (process.argv.length === 3) {
+        config = require('../' + process.argv[2]);
+    } else {
+        config = require('../config');
+    }
+
+    iotAgent.start(config, function (error) {
+        if (error) {
+            logger.error(context, 'Error starting MQTT IoT Agent: [%s] Exiting process', error);
+        } else {
+            logger.info(context, 'MQTT IoT Agent started');
+        }
+    });
+}
+
+start();

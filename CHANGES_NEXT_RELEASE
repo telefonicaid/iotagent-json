@@ -1,0 +1,10 @@
+- Create the IoT Agent Tester (#3).
+- Create the IoT Agent Command (#2).
+- Script for RPM creation (#5).
+- Recreate subscription on IoTA Restart (#1).
+- Add support for configuration attributes (#10).
+- Add support for configurations in the IOTA (#6).
+- Add Support for conversion of timestamp attributes from the South Bound (#12).
+- Support unknown attributes coming from the SouthBound (#14).
+- Assign timeinstant to attribute metadata (#17).
+- Support conversion of ThinkingThing attributes (#19).
