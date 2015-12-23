@@ -40,12 +40,11 @@ var fs = require('fs'),
     separator = '\n\n\t',
     token;
 
-
 function setConfig(commands) {
-    configIot.host = commands[0];
-    configIot.port = commands[1];
-    configIot.apikey = commands[2];
-    configIot.deviceId = commands[3];
+    config.host = commands[0];
+    config.port = commands[1];
+    config.apikey = commands[2];
+    config.deviceId = commands[3];
 }
 
 function getConfig(commands) {
