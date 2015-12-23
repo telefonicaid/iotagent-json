@@ -110,7 +110,7 @@ There are two ways of reporting measures:
 * **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the 
 following structure:
 ```
-{{api-key}}/{{device-id}}/attributes
+/{{api-key}}/{{device-id}}/attributes
 ```
 The message in this case must contain a valid JSON object of a single level; for each key/value pair, the key represents
 the attribute name and the value the attribute value. Attribute type will be taken from the device provision information.
@@ -118,7 +118,7 @@ the attribute name and the value the attribute value. Attribute type will be tak
 * **Single measures**: In order to send single measures, a device can publish the direct value to an MQTT topic with
 the following structure:
 ```
-{{api-key}}/{{device-id}}/attributes/<attributeName>
+/{{api-key}}/{{device-id}}/attributes/<attributeName>
 ```
 Indicating in the topic the name of the attribute to be modified.
 
