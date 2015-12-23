@@ -9,7 +9,7 @@
           "name": "humidity",
           "type": "degrees",
           "value": "32",
-          "metadata": [
+          "metadatas": [
             {
               "name": "timeInstant",
               "type": "timestamp",
@@ -21,7 +21,7 @@
           "name": "temperature",
           "type": "celsius",
           "value": "87",
-          "metadata": [
+          "metadatas": [
             {
               "name": "timeInstant",
               "type": "timestamp",
