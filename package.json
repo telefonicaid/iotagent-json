@@ -47,7 +47,7 @@
     "mqtt": "^1.5.0",
     "request": "*",
     "logops": "0.5.0",
-    "iotagent-node-lib": "0.9.1",
+    "iotagent-node-lib": "0.9.2",
     "command-node": "*",
     "async": "*",
     "should": "*"
