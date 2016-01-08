@@ -163,4 +163,14 @@ describe('Measure reception ', function() {
             });
         });
     });
+
+    describe('When a malformed multiple measure arrives to the MQTT Topic', function() {
+        it('should not crash', function(done) {
+            mqttClient.publish('/1234/MQTT_2/attributes', '{"humidity": " }(}', null, function(error) {
+                setTimeout(function() {
+                    done();
+                }, 100);
+            });
+        });
+    });
 });
