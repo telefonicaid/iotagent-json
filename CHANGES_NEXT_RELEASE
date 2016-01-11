@@ -1,2 +1,0 @@
-- FIX Agent crashes when a invalid JSON is received (#27).
-- FIX Configuration values are not correctly retrieved (#30).
