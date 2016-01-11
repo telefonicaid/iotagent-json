@@ -93,9 +93,7 @@ describe('Get configuration from the devices', function() {
                 .reply(200,
                 utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
 
-            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null, function(error, values, pruebas) {
-
-            });
+            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
             configurationReceived = false;
         });
