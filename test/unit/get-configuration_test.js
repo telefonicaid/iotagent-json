@@ -93,11 +93,9 @@ describe('Get configuration from the devices', function() {
                 .reply(200,
                 utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
 
-            configurationReceived = false;
+            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
-            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null, function(error) {
-                configurationReceived = true;
-            });
+            configurationReceived = false;
         });
 
         afterEach(function(done) {
@@ -114,8 +112,15 @@ describe('Get configuration from the devices', function() {
                 }, 100);
             });
         });
+
         it('the requested attributes should be returned to the client in /1234/MQTT_2/configuration/values',
             function(done) {
+                mqttClient.on('message', function(topic, data) {
+                    var result = JSON.parse(data);
+
+                    configurationReceived = result.length === 2;
+                });
+
                 mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
                     function(error) {
                         setTimeout(function() {

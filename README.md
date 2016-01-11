@@ -93,9 +93,20 @@ with the following attributes:
 This command will trigger a query to the CB that will, as a result, end up with a new message posted to the Configuration
 information topic (described bellow).
 
+E.g.:
+```
+{
+  "type": "configuration",
+  "fields": [
+    "sleepTime",
+    "warningLevel"
+  ]
+}
+```
+
 #### Configuration information topic 
 ```
-/{{apikey}}/{{deviceid}}/configuration/commands
+/{{apikey}}/{{deviceid}}/configuration/values
 ```
 Every device must subscribe to this topic, so it can receive configuration information. Whenever the device requests any
 information from the IoTA, the information will be posted in this topic. All published messages are JSON Arrays, containing
@@ -103,6 +114,20 @@ one object per requested piece of information, with the following attributes:
 
 * **name**: name of the requested attribute.
 * **value**: current value of the attribute. 
+
+E.g.:
+```
+[
+  {
+    "name": "sleepTime",
+    "value": "200"
+  },
+  {
+    "name": "warningLevel",
+    "value": "80"
+  }
+]
+```
 
 ### Measure reporting
 There are two ways of reporting measures:
