@@ -11,7 +11,7 @@
           "value": "32",
           "metadatas": [
             {
-              "name": "timeInstant",
+              "name": "TimeInstant",
               "type": "timestamp",
               "value": "+002007-11-03T13:18:05"
             }
@@ -23,14 +23,14 @@
           "value": "87",
           "metadatas": [
             {
-              "name": "timeInstant",
+              "name": "TimeInstant",
               "type": "timestamp",
               "value": "+002007-11-03T13:18:05"
             }
           ]
         },
         {
-          "name": "timeInstant",
+          "name": "TimeInstant",
           "type": "timestamp",
           "value": "+002007-11-03T13:18:05"
         }
