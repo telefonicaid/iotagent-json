@@ -17,7 +17,7 @@
         },
         {
           "id": "tt",
-          "name": "timeInstant",
+          "name": "TimeInstant",
           "type": "timestamp"
         }
       ]
