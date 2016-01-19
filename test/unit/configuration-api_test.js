@@ -27,6 +27,7 @@ var iotagentMqtt = require('../../'),
     mqtt = require('mqtt'),
     config = require('../config-test.js'),
     nock = require('nock'),
+    should = require('should'),
     request = require('request'),
     utils = require('../utils'),
     contextBrokerMock,
@@ -46,6 +47,15 @@ describe('Configuration API support', function() {
             url: 'http://localhost:' + config.iota.server.port + '/iot/services',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration1.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        },
+        configurationOptionsWithResource = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
@@ -97,6 +107,26 @@ describe('Configuration API support', function() {
                         }, 100);
                     });
                 });
+            });
+        });
+    });
+
+    describe('When a configuration is provisioned with a Resource set', function() {
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
+                .reply(200,
+                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
+        });
+
+        it('should reject the configuration provisioning with a BAD FORMAT error', function(done) {
+            request(configurationOptionsWithResource, function(error, response, body) {
+                should.not.exist(error);
+
+                response.statusCode.should.equal(400);
+                done();
             });
         });
     });
