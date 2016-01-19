@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "nock": "*",
+    "should": "*",
     "grunt-contrib-jshint": "~0.6.4",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-gjslint": "~0.1.0",
@@ -45,11 +46,11 @@
   "keywords": [],
   "dependencies": {
     "mqtt": "^1.5.0",
-    "request": "*",
+    "request": "2.67.0",
     "logops": "0.5.0",
-    "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#develop",
-    "command-node": "*",
-    "async": "*",
-    "should": "*"
+    "iotagent-node-lib": "0.9.3",
+    "underscore": "1.8.3",
+    "command-node": "0.1.1",
+    "async": "1.5.2"
   }
 }

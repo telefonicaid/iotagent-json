@@ -27,10 +27,25 @@
 
 var fs = require('fs'),
     defaultConfig = require('../client-config.js'),
+    commandLine = require('iotagent-node-lib').commandLine,
     clUtils = require('command-node'),
     mqtt = require('mqtt'),
     async = require('async'),
+    _ = require('underscore'),
     mqttClient,
+    configCb = {
+        host: 'localhost',
+        port: 1026,
+        service: 'tester',
+        subservice: '/test'
+    },
+    configIot = {
+        host: 'localhost',
+        port: 4041,
+        name: 'default',
+        service: 'tester',
+        subservice: '/test'
+    },
     config = {
         host: defaultConfig.mqtt.host,
         port: defaultConfig.mqtt.port,
@@ -152,5 +167,8 @@ var commands = {
         handler: exitClient
     }
 };
+
+commands = _.extend(commands, commandLine.commands);
+commandLine.init(configCb, configIot);
 
 clUtils.initialize(commands, 'IoT Agent tester> ');
