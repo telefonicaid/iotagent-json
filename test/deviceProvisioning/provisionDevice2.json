@@ -16,7 +16,7 @@
           "type": "degrees"
         },
         {
-          "id": "tt",
+          "object_id": "tt",
           "name": "TimeInstant",
           "type": "timestamp"
         }
