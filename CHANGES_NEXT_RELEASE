@@ -1,3 +1,4 @@
 - Attribute alias don't work along with timestamp (#35).
 - Create a new TT interpreted attribute to get codified Cell information (#42).
 - Change C1 attribute name to P1 (#44).
+- Reject configurations that do specify the resource (#40).
