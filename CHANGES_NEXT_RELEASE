@@ -1,0 +1,1 @@
+- FIX When there is a disconnection in the Mosquitto broker the Agent doesn't notice (#53).
