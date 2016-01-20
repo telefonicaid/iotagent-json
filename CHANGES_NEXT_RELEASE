@@ -1,2 +1,3 @@
 - FIX When there is a disconnection in the Mosquitto broker the Agent doesn't notice (#53).
 - ADD Use MQTT Credentials when provided (#55).
+- FIX /iot/about does not response the agent version (#39).
