@@ -26,6 +26,7 @@ var iotagentMqtt = require('../../'),
     mqtt = require('mqtt'),
     config = require('../config-test.js'),
     nock = require('nock'),
+    should = require('should'),
     iotAgentLib = require('iotagent-node-lib'),
     async = require('async'),
     request = require('request'),
@@ -113,7 +114,7 @@ describe('Get configuration from the devices', function() {
             });
         });
 
-        it('the requested attributes should be returned to the client in /1234/MQTT_2/configuration/values',
+        it('should return the requested attributes to the client in /1234/MQTT_2/configuration/values',
             function(done) {
                 mqttClient.on('message', function(topic, data) {
                     var result = JSON.parse(data);
@@ -127,6 +128,23 @@ describe('Get configuration from the devices', function() {
                     function(error) {
                         setTimeout(function() {
                             configurationReceived.should.equal(true);
+                            done();
+                        }, 100);
+                });
+        });
+
+        it('should add the system timestamp in compressed format to the request',
+            function(done) {
+                mqttClient.on('message', function(topic, data) {
+                    var result = JSON.parse(data);
+
+                    configurationReceived = result.dt && result.dt.should.match(/^\d{8}T\d{6}Z$/);
+                });
+
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
+                    function(error) {
+                        setTimeout(function() {
+                            should.exist(configurationReceived);
                             done();
                         }, 100);
                     });
