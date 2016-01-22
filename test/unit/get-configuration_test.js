@@ -118,7 +118,9 @@ describe('Get configuration from the devices', function() {
                 mqttClient.on('message', function(topic, data) {
                     var result = JSON.parse(data);
 
-                    configurationReceived = result.length === 2;
+                    configurationReceived =
+                        result.sleepTime && result.sleepTime === '200' &&
+                        result.warningLevel && result.warningLevel === '80';
                 });
 
                 mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
