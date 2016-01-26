@@ -1,5 +1,5 @@
-- Attribute alias don't work along with timestamp (#35).
-- Create a new TT interpreted attribute to get codified Cell information (#42).
-- Change C1 attribute name to P1 (#44).
-- Reject configurations that do specify the resource (#40).
-- Add generic IOTAgent functions to the client (#41).
+- FIX When there is a disconnection in the Mosquitto broker the Agent doesn't notice (#53).
+- ADD Use MQTT Credentials when provided (#55).
+- FIX /iot/about does not response the agent version (#39).
+- Change the configuration format (#59).
+- Add the system time in the returned configuration (#61).

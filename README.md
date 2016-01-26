@@ -72,6 +72,8 @@ These are the currently available MQTT configuration options:
 * **host**: host of the MQTT broker.
 * **port**: port where the MQTT broker is listening.
 * **defaultKey**: default API Key to use when a device is provisioned without a configuration.
+* **username**: user name that identifies the IOTA against the MQTT broker (optional).
+* **password**: password to be used if the username is provided (optional).
 
 ## <a name="protocol"/> Protocol
 
@@ -109,24 +111,17 @@ E.g.:
 /{{apikey}}/{{deviceid}}/configuration/values
 ```
 Every device must subscribe to this topic, so it can receive configuration information. Whenever the device requests any
-information from the IoTA, the information will be posted in this topic. All published messages are JSON Arrays, containing
-one object per requested piece of information, with the following attributes:
-
-* **name**: name of the requested attribute.
-* **value**: current value of the attribute. 
+information from the IoTA, the information will be posted in this topic. The information is published in the same format
+used in multiple measure reporting: a plain JSON with an attribute per value requested. An aditional parameter called
+`dt` is added with the system current time.
 
 E.g.:
 ```
-[
-  {
-    "name": "sleepTime",
-    "value": "200"
-  },
-  {
-    "name": "warningLevel",
-    "value": "80"
-  }
-]
+{
+  "sleepTime": "200",
+  "warningLevel": "80",
+  "dt": "20160125T092703Z"
+}
 ```
 
 ### Measure reporting

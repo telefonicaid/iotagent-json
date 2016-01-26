@@ -25,6 +25,7 @@
 'use strict';
 
 var iotAgent = require('../lib/iotagent-mqtt'),
+    info = require('../package.json'),
     context = {
         op: 'IOTAMQTT.Executable'
     },
@@ -38,6 +39,8 @@ function start() {
     } else {
         config = require('../config');
     }
+
+    config.iota.iotaVersion = info.version;
 
     iotAgent.start(config, function (error) {
         if (error) {
