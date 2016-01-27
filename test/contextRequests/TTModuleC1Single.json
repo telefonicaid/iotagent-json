@@ -1,0 +1,38 @@
+{
+  "contextElements": [
+    {
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "id": "Second MQTT Device",
+      "attributes": [
+        {
+          "name": "P1",
+          "type": "compound",
+          "value": [
+            {
+              "name": "mcc",
+              "type": "string",
+              "value": "00D6"
+            },
+            {
+              "name": "mnc",
+              "type": "string",
+              "value": "0007"
+            },
+            {
+              "name": "lac",
+              "type": "string",
+              "value": "0d22"
+            },
+            {
+              "name": "cell-id",
+              "type": "string",
+              "value": "0b00"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}

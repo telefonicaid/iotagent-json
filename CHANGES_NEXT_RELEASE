@@ -1,5 +1,3 @@
-- FIX When there is a disconnection in the Mosquitto broker the Agent doesn't notice (#53).
-- ADD Use MQTT Credentials when provided (#55).
-- FIX /iot/about does not response the agent version (#39).
-- Change the configuration format (#59).
-- Add the system time in the returned configuration (#61).
+- FIX Mandatory resource should be equal to the default resource in the IOTAM (#70).
+- ADD Log entries to improve debugging tasks.
+- FIX P1 and C1 Thinking Thing modules do not work in single attribute mode (#72).
