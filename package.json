@@ -1,7 +1,7 @@
 {
   "name": "iotagent-mqtt",
   "description": "IoT Agent for the MQTT protocol",
-  "version": "0.1.5",
+  "version": "0.1.5-next",
   "homepage": "https://github.com/dmoranj/iotagent-mqtt",
   "author": {
     "name": "Daniel Moran",

@@ -1,3 +1,0 @@
-- FIX Mandatory resource should be equal to the default resource in the IOTAM (#70).
-- ADD Log entries to improve debugging tasks.
-- FIX P1 and C1 Thinking Thing modules do not work in single attribute mode (#72).
