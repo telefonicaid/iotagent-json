@@ -69,7 +69,7 @@ describe('Support for Thinking Things Modules', function() {
         iotagentMqtt.stop(done);
     });
 
-    describe('When a new measure with Thinking Thing module P1 arrives', function() {
+    describe('When a new measure with Thinking Thing module P1 arrives to a multiattribute topic', function() {
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
@@ -92,7 +92,27 @@ describe('Support for Thinking Things Modules', function() {
         });
     });
 
-    describe('When a new measure with Thinking Thing module C1 arrives', function() {
+    describe('When a new measure with Thinking Thing module P1 arrives to a single attribute topic', function() {
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleP1Single.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json'));
+        });
+        it('should send its value to the Context Broker', function(done) {
+            var values = '214,7,d22,b00,-64,';
+
+            mqttClient.publish('/1234/MQTT_2/attributes/P1', values, null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+
+    describe('When a new measure with Thinking Thing module C1 arrives in multiattribute topic', function() {
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
@@ -107,6 +127,26 @@ describe('Support for Thinking Things Modules', function() {
             };
 
             mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+
+    describe('When a new measure with Thinking Thing module C1 arrives in the single attribute topic', function() {
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleC1Single.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json'));
+        });
+        it('should send its value to the Context Broker', function(done) {
+            var values = '00D600070d220b00';
+
+            mqttClient.publish('/1234/MQTT_2/attributes/C1', values, null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();

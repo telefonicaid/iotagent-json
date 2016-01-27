@@ -1,0 +1,22 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "P1",
+            "type": "compound",
+            "value": ""
+          }
+        ],
+        "type": "MQTTSensor",
+        "isPattern": "false",
+        "id": "MQTTId_2"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
