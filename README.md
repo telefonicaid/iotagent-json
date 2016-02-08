@@ -174,6 +174,9 @@ The Command Line Client gets its default values from a config file in the root o
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
  
 ##  <a name="development"/> Development documentation
+### Contributions
+All contributions to this project are wellcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md) 
+
 ### Project build
 The project is managed using Grunt Task Runner.
 
