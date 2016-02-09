@@ -276,10 +276,119 @@ the response.
 
 ## Provisioning multiple devices with a Configuration
 
-Work in progress...
+In those cases where a group of devices with similar characteristics will be provisioned, a common configuration can be
+created for them. This configuration provision can be used to separate device messages between services, by 
+establishing a specific API Key for each group. This can be used to secure access for specific groups of devices (an 
+example of how to do that will be shown in the last section for the Mosquitto MQTT broker).
 
 ### Provisioning the configuration
 
+First of all, we will provision a new configuration with the data we defined in the introduction section. In order to do
+that, we will issue the following command:
+
+```
+curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{ 
+    "services": [ 
+      {
+          "resource": "",
+          "apikey": "AAFF9977",
+          "type": "potSensor"
+      }
+    ]
+}
+
+' 'http://localhost:4041/iot/services'
+```
+
+This will make devices provisioned for that service, subservice and type use the provided APIKey as its APIKey prefix
+in the MQTT topics. As you can see, the `resource` field is left blank (this IoT Agent doesn't make use of this field, 
+but it's a mandatory attribute in the API, so it should always be sent with the empty string).
+
 ### Provisioning the device
 
+For IoT Agents that support automatic device provisioning, provisioning a configuration is enough to start using devices
+that use that configuration. For those who don't, each specific device must be provisioned, in order to save its deviceID
+in the Device Registry. The provision of the device is quite similar to the one of the single device:
+
+```
+curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{ 
+    "devices": [ 
+        { 
+            "device_id": "sensor02", 
+            "entity_name": "RosesPot", 
+            "entity_type": "potSensor",
+            "attributes": [
+              {
+                "name": "humidity",
+                "type": "degrees"
+              },
+              {
+                "name": "happyness",
+                "type": "subjective"
+              }
+            ]
+        }
+    ]
+}
+
+' 'http://localhost:4041/iot/devices'
+```
+
 ### Sending measures
+
+Now we can simulate a measure as in the case of the single device provision. Use the following command to send a new
+simulated measure:
+```
+mosquitto_pub -t /AAFF9977/sensor02/attributes -m '{"humidity": 76,"happyness": "Not bad"}'
+```
+
+Note in this case the APIKey is not the default one, but the one we defined in the Configuration API.
+
+We can check everything went OK calling the Context Broker again:
+```
+curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -d '{
+    "entities": [
+        {
+            "isPattern": "false",
+            "id": "RosesPot",
+            "type": "potSensor"
+        }
+    ]
+}' 'http://localhost:1026/NGSI10/queryContext'
+```
+
+We will get something like this:
+```
+{
+  "contextResponses" : [
+    {
+      "contextElement" : {
+        "type" : "potSensor",
+        "isPattern" : "false",
+        "id" : "RosesPot",
+        "attributes" : [
+          {
+            "name" : "happyness",
+            "type" : "subjective",
+            "value" : "Not bad"
+          },
+          {
+            "name" : "humidity",
+            "type" : "degrees",
+            "value" : "76"
+          }
+        ]
+      },
+      "statusCode" : {
+        "code" : "200",
+        "reasonPhrase" : "OK"
+      }
+    }
+  ]
+}
+```
+
+That shows the information we sent with the measures has been written to the Context Broker properly.
+
+### Using ACLs to secure provisioning access
+
