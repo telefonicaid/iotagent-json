@@ -205,7 +205,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
             "type": "multiSensor"
         }
     ]
-}' 'http://localhost:1026/NGSI10/queryContext'
+}' 'http://localhost:10026/NGSI10/queryContext'
 ```
 
 The resulting response should look like the following:
@@ -241,14 +241,45 @@ The resulting response should look like the following:
 
 ### Retrieving configuration parameters from the Context Broker
 
+The MQTT-JSON IoT Agent offers a special mechanism to retrieve information from the device entity, for device configuration
+purposes. This mechanism is based on two special topics, with sufix `/configuration/commands` and `/configuration/values`.
+
+In order to test this functionality, we will, first of all, add some configuration attributes to the Context Broker entity
+representing the device. We will add the `sleepTime` attribute with the following NGSI request:
+```
+curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Cache-Control: no-cache" -d '{
+"value" : "300"
+}' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attributes/sleepTime'
+```
+
+When the IoTAgent is asked for configuration values, it will ask the Context Broker for those values. Once it has collected
+them, it will send them to the device in the topic with sufix '/configuration/values'. To check this operation with our 
+simulated device, execute the following line:
+```
+mosquitto_sub -t /1234/sensor01/configuration/values
+```
+
+Leave this command in a sepparate window while you execute the following steps.
+
+Now we can ask the IoT Agent for the attribute value sending an MQTT request like the following one:
+```
+mosquitto_pub -t /1234/sensor01/configuration/commands -m '{ "type": "configuration", "fields": [ "sleepTime" ] }'
+```
+
+If we return now to the subscription window, we should be able to see the value of the `sleepTime` command:
+```
+{"sleepTime":"300","dt":"20160209T111442Z"}
+```
+
+Along with all the information requested by the device, the IoTAgent will report the server time in the `dt` field of
+the response.
 
 ## Provisioning multiple devices with a Configuration
 
+Work in progress...
 
 ### Provisioning the configuration
 
-
 ### Provisioning the device
-
 
 ### Sending measures
