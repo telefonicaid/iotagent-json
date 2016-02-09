@@ -1,7 +1,14 @@
 Step by Step guide
 ==================
 
-## Introduction
+## Index
+
+* [Introduction](#introduction)
+* [Provisioning a single device with the default API Key](#singledevice)
+* [Provisioning multiple devices with a Configuration](#withconfiguration)
+* [Using ACLs to secure provisioning access](#acls)
+
+## <a name="introduction"/> Introduction
 
 This guide will show, step-by-step, how to deploy and configure an MQTT-JSON IoT Agent for its use to connect devices
 to an external NGSI Broker (aka Context Broker).
@@ -32,7 +39,7 @@ data, simulating a Smart Home application:
 * *Subservice*: /environment
 * *DevId*: sensor01, sensor02 and actuator01
 
-## Prerequisites
+### Prerequisites
 This step-by-step guide assumes you are going to install all the software in a single machine, with a Red Hat 6.5 
 Linux installation. As such, it may not be an appropriate architecture for production purposes, but it should
 serve as a development machine to test the MQTT IoT Agent. All the commands are meant to be executed from the same
@@ -47,7 +54,7 @@ The following list shows the prerequisite software and versions:
 
 * Orion Context Broker (v0.26)
 * Node.js (v0.12.0)
-* Mosquitto (v1.4.7)
+* Mosquitto (v1.4.7) (out-of-the-box setup)
 * Curl (v7.19.7)
 * Git (v1.7.1)
 
@@ -58,7 +65,7 @@ To enhance readability all the commands will be executed as root. To use other u
 and use `sudo` as usual (installation from the RPM package creates a special user for the agent, but it will not be
 used along this tutorial).
  
-## Provisioning a single device with the default API Key
+## <a name="singledevice"/> Provisioning a single device with the default API Key
 
 ### Installing the IoT Agent
 There are different ways to install the IoT Agent. In this tutorial, we will clone the last version of the agent from 
@@ -274,7 +281,7 @@ If we return now to the subscription window, we should be able to see the value 
 Along with all the information requested by the device, the IoTAgent will report the server time in the `dt` field of
 the response.
 
-## Provisioning multiple devices with a Configuration
+## <a name="withconfiguration"/>  Provisioning multiple devices with a Configuration
 
 In those cases where a group of devices with similar characteristics will be provisioned, a common configuration can be
 created for them. This configuration provision can be used to separate device messages between services, by 
@@ -354,7 +361,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
             "type": "potSensor"
         }
     ]
-}' 'http://localhost:1026/NGSI10/queryContext'
+}' 'http://localhost:10026/NGSI10/queryContext'
 ```
 
 We will get something like this:
@@ -390,5 +397,195 @@ We will get something like this:
 
 That shows the information we sent with the measures has been written to the Context Broker properly.
 
-### Using ACLs to secure provisioning access
+## <a name="introduction"/> Using ACLs to secure provisioning access
 
+### Overview
+The use of special APIKeys gives the IoTAgent administrator the opportunity to set different MQTT-Broker level permissions
+for each group of devices, using different authorization mechanisms to sepparate access between groups. 
+
+With the plain out-of-the-box Mosquitto setup, any device (any MQTT client, in fact) can send information impersonating 
+other devices or read the information in their entities, just knowing their API-Key and deviceId. To avoid this problem, 
+we will create an ACL that will give special permissions for our Configuration, and a set of credentials for the devices 
+of the group (that should be secretly shared with the devices). To make it simple, we will use a set of user and password
+credentials, the same for all the devices of the group (other means of authentication could have been used instead, as
+certificates, check Mosquitto documentation for other options).
+
+The same problem of device impersonation can occur in the case of the IoTA access (as the IoTA is other MQTT client,
+anonymous by default). To protect the interactions for the IoTA, another user will be created.
+
+### Configuration
+
+In order to create the users, we will use the password tool provided by mosquitto. Execute the following commands:
+```
+touch /etc/mosquitto/pwfile
+mosquitto_passwd -b /etc/mosquitto/pwfile iota iota
+mosquitto_passwd -b /etc/mosquitto/pwfile potteduser pottedpass
+```
+
+This will create two sets of credentials (login/password): iota/iota and potteduser/pottedpass.
+
+The permissions for different topics can be given with ACL files. To create one, just create a new `/etc/mosquitto/aclfile` 
+file with the following contents:
+```
+topic read $SYS/#
+
+topic write /1234/+/attributes
+topic write /1234/+/attributes/#
+topic write /1234/+/configuration/commands
+topic read /1234/+/configuration/values
+
+user iota
+topic /#
+
+user potteduser
+topic write /AAFF9977/+/attributes
+topic write /AAFF9977/+/attributes/#
+topic write /AAFF9977/+/configuration/commands
+topic read /AAFF9977/+/configuration/values
+
+pattern write $SYS/broker/connection/%c/state
+```
+
+There are three sections of interest in this file:
+
+* In the first section, a set of topics is defined for the default APIKey (`1234` in this case). This topics are marked
+ with write or read depending on the action devices wil do with that topic. Access for actions other than the ones defined
+ as well as publishing to a read topic or viceversa is forbidden. This ensures no device will be able to impersonate the
+ IoT Agent, but this doesn't forbid one device impersonating others. This access is anonymous.
+
+* An authenticated `iota` user can access everything, as it is supposed to be the owner of the broker (and just administrators
+should have access to this user). 
+
+* For the `potteduser` account, the permissions are similar to those of the anonymous devices, but with a different APIKey
+ as the prefix. This ensures that no device coming from other group (that is supposed not to have valid credentials as
+ `potteduser`) will impersonate a device of the gorup, or subscribe to information sent by the group devices.
+ 
+There are two more changes needed before we restart our test. First of all, we should add the IoTA Mosquitto credentials
+to the IoTA Configuration, to give it full access to the MQTT Broker topics. To do so, edit the `/opt/iotagent-mqtt/config.js`
+ file and change the `config.mqtt` section to look like this:
+```
+config.mqtt = {
+    host: 'localhost',
+    port: 1883,
+    defaultKey: '1234',
+    username: 'iota',
+    password: 'iota'
+};
+```
+
+The last action to take is to edit the `/etc/mosquitto/mosquitto.conf` to add the `aclfile` and `pwfile` files to the 
+configuration. The finished configuration should be something like this:
+```
+pid_file /var/run/mosquitto.pid
+
+persistence true
+persistence_location /var/lib/mosquitto/
+
+log_dest file /var/log/mosquitto/mosquitto.log
+
+#acl_file /etc/mosquitto/aclfile
+password_file /etc/mosquitto/pwfile
+include_dir /etc/mosquitto/conf.d
+```
+
+Now that all the changes have been completed, restart mosquitto:
+```
+service mosquitto restart
+```
+
+and rerun the IoT Agent (you can check its PID with `ps` or `netstat` and kill it).
+
+### Testing
+
+#### Configuration and Device Provisioning
+In order to test the ACL files, first of all, provision the configuration and device as we did in the previous chapter,
+but using a different device, with data:
+
+ * *Name*: DaisyPot
+ * *DevId*: sensor03
+ 
+It's important that you provision the configuration with the exact same APIKey you declared in the ACL.
+
+The device provisioning request will be the following:
+```
+curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{ 
+    "devices": [ 
+        { 
+            "device_id": "sensor03", 
+            "entity_name": "DaisyPot", 
+            "entity_type": "potSensor",
+            "attributes": [
+              {
+                "name": "humidity",
+                "type": "degrees"
+              },
+              {
+                "name": "happyness",
+                "type": "subjective"
+              }
+            ]
+        }
+    ]
+}
+
+' 'http://localhost:4041/iot/devices'
+```
+
+#### Sending mesaures
+
+Now we can try to provision new measures with the same command we used in the first case:
+```
+mosquitto_pub -t /AAFF9977/sensor03/attributes -m '{"humidity": 76,"happyness": "Not bad"}'
+```
+
+If we use a queryContext to check if the changes have been progressed to the Context Broker we will find that those
+measures have been ignored:
+```
+curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -d '{
+    "entities": [
+        {
+            "isPattern": "false",
+            "id": "DaisyPot",
+            "type": "potSensor"
+        }
+    ]
+}' 'http://localhost:10026/NGSI10/queryContext'
+```
+
+Checking the IoTAgent logs you will see that the request was completely ignored. The problem was that the client was
+trying to make an anonymous publish in a ACL protected topic that let only the user `potteduser`publish new messages.
+If we try again using the credentials we generated for the user:
+```
+mosquitto_pub -t /AAFF9977/sensor03/attributes -m '{"humidity": 76,"happyness": "Not bad"}' -u potteduser -P pottedpass
+```
+
+And execute the queryContext again, we will get the updated entity:
+```
+{
+  "contextResponses" : [
+    {
+      "contextElement" : {
+        "type" : "potSensor",
+        "isPattern" : "false",
+        "id" : "DaisyPot",
+        "attributes" : [
+          {
+            "name" : "happyness",
+            "type" : "subjective",
+            "value" : " "
+          },
+          {
+            "name" : "humidity",
+            "type" : "degrees",
+            "value" : " "
+          }
+        ]
+      },
+      "statusCode" : {
+        "code" : "200",
+        "reasonPhrase" : "OK"
+      }
+    }
+  ]
+}
+```
