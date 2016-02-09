@@ -397,7 +397,7 @@ We will get something like this:
 
 That shows the information we sent with the measures has been written to the Context Broker properly.
 
-## <a name="introduction"/> Using ACLs to secure provisioning access
+## <a name="acls"/> Using ACLs to secure provisioning access
 
 ### Overview
 The use of special APIKeys gives the IoTAgent administrator the opportunity to set different MQTT-Broker level permissions

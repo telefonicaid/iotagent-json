@@ -1,6 +1,5 @@
 # Contribution Guidelines
 ==================
-
 ## Overview
 Being an Open Source project, everyone can contribute, provided that it respect the following points:
 * Before contributing any code, the author must make sure all the tests work (see below how to launch the tests). 

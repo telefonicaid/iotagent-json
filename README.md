@@ -17,7 +17,7 @@ This project is based in the Node.js IoT Agent library. More information about t
 
 A quick way to get started is to read the [Step by step guide](./docs/stepbystep.md).
 
-If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guide](./docs/contribution.md).
+If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
 ## <a name="installation"/> Installation
 There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
  
