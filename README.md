@@ -15,6 +15,9 @@ This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol an
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
+A quick way to get started is to read the [Step by step guide](./docs/stepbystep.md).
+
+If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
 ## <a name="installation"/> Installation
 There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
  
@@ -174,6 +177,9 @@ The Command Line Client gets its default values from a config file in the root o
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
  
 ##  <a name="development"/> Development documentation
+### Contributions
+All contributions to this project are wellcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md) 
+
 ### Project build
 The project is managed using Grunt Task Runner.
 
