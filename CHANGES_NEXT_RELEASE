@@ -1,2 +1,3 @@
 - FIX Date in dt configuration attribute is given in PM format (#77).
 - Improve documentation (#84).
+- Improve documentation: Thinking Things plugin and APIKeys (#84).
