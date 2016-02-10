@@ -249,7 +249,7 @@ The resulting response should look like the following:
 ### Retrieving configuration parameters from the Context Broker
 
 The MQTT-JSON IoT Agent offers a special mechanism to retrieve information from the device entity, for device configuration
-purposes. This mechanism is based on two special topics, with sufix `/configuration/commands` and `/configuration/values`.
+purposes. This mechanism is based on two special topics, with suffix `/configuration/commands` and `/configuration/values`.
 
 In order to test this functionality, we will, first of all, add some configuration attributes to the Context Broker entity
 representing the device. We will add the `sleepTime` attribute with the following NGSI request:
@@ -260,7 +260,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
 ```
 
 When the IoTAgent is asked for configuration values, it will ask the Context Broker for those values. Once it has collected
-them, it will send them to the device in the topic with sufix '/configuration/values'. To check this operation with our 
+them, it will send them to the device in the topic with suffix '/configuration/values'. To check this operation with our 
 simulated device, execute the following line:
 ```
 mosquitto_sub -t /1234/sensor01/configuration/values
