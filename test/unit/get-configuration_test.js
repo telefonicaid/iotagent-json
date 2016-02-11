@@ -151,7 +151,7 @@ describe('Get configuration from the devices', function() {
             });
     });
 
-    describe.only('When a subscription request is received in the IoT Agent', function() {
+    describe('When a subscription request is received in the IoT Agent', function() {
         var values = {
                 type: 'subscription',
                 fields: [
