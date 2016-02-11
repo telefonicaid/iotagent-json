@@ -18,7 +18,7 @@
         {
           "object_id": "tt",
           "name": "TimeInstant",
-          "type": "timestamp"
+          "type": "ISO8601"
         }
       ]
     }
