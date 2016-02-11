@@ -166,7 +166,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                B: '4.70,1,1,1,1,0,'
+                B: '4.70,1,1,1,1,0'
             };
 
             mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
