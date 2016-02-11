@@ -1,0 +1,29 @@
+{
+  "subscriptionId": "51c0ac9ed714fb3b37d7d5a8",
+  "originator": "localhost",
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "sleepTime",
+            "type": "string",
+            "value": "200"
+          },
+          {
+            "name": "warningLevel",
+            "type": "string",
+            "value": "ERROR"
+          }
+        ],
+        "type": "AnMQTTDevice",
+        "isPattern": "false",
+        "id": "Second MQTT Device"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
