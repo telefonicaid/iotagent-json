@@ -99,7 +99,6 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 
 ### Measure reporting
 
-
 There are two ways of reporting measures:
 
 * **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the 
@@ -138,7 +137,8 @@ When the plugin is activated, the following rules apply to all the incoming MQTT
 * If an attribute named C1 is found, its content will be parsed as if they would be a P1 attribute, but with all its
 fields codified in hexadecimal with a fixed 4 character length, without comma separation.
 * If an attribute named B is found, its content will be parsed as if they would be Battery information as described
-[here](https://github.com/telefonicaid/iotagent-thinking-things#b).
+[here](https://github.com/telefonicaid/iotagent-thinking-things#b). This implementation admits also an extended version
+of this attribute, adding the "batteryType" and "percentage" fields to the entity.
 
 ### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
