@@ -150,4 +150,73 @@ describe('Get configuration from the devices', function() {
                     });
             });
     });
+
+    describe('When a subscription request is received in the IoT Agent', function() {
+        var values = {
+                type: 'subscription',
+                fields: [
+                    'sleepTime',
+                    'warningLevel'
+                ]
+            },
+            configurationReceived;
+
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
+                .reply(200,
+                    utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
+
+            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
+
+            configurationReceived = false;
+        });
+
+        afterEach(function(done) {
+            mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
+
+            done();
+        });
+
+        it('should create a subscription in the ContextBroker',
+            function(done) {
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
+                    function(error) {
+                        setTimeout(function() {
+                            contextBrokerMock.done();
+                            done();
+                        }, 100);
+                    });
+            });
+        it('should update the values in the MQTT topic when a notification is received',
+            function(done) {
+                var optionsNotify = {
+                    url: 'http://localhost:' + config.iota.server.port + '/notify',
+                    method: 'POST',
+                    json: utils.readExampleFile('./test/subscriptions/notification.json'),
+                    headers: {
+                        'fiware-service': 'smartGondor',
+                        'fiware-servicepath': '/gardens'
+                    }
+                };
+
+                mqttClient.on('message', function(topic, data) {
+                    var result = JSON.parse(data);
+
+                    configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
+                });
+
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
+                    function(error) {
+                        request(optionsNotify, function() {
+                            setTimeout(function() {
+                                configurationReceived.should.equal(true);
+                                done();
+                            }, 100);
+                        });
+                    });
+            });
+    });
 });

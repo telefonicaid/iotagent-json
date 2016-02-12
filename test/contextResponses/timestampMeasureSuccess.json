@@ -15,7 +15,7 @@
           },
           {
             "name": "TimeInstant",
-            "type": "timestamp",
+            "type": "ISO8601",
             "value": ""
           }
         ],

@@ -15,6 +15,10 @@ This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol an
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
+A quick way to get started is to read the [Step by step guide](./docs/stepbystep.md).
+
+If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
+
 ## <a name="installation"/> Installation
 There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
  
@@ -76,55 +80,25 @@ These are the currently available MQTT configuration options:
 * **password**: password to be used if the username is provided (optional).
 
 ## <a name="protocol"/> Protocol
+### Overview
+The MQTT-JSON protocol uses plain JSON objects to send information formatted as key-value maps over an MQTT transport. 
+It uses different topics to separate the different destinations and types of the messages (the different possible interactions
+are described in the following sections).
 
-### Configuration retrieval
-The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
-stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
-commands and a topic to receive configuration information.
+All the topics used in the protocol are prefixed with the APIKey of the device group and the Device ID of the device
+involved in the interaction; i.e.: there is a different set of topics for each service (e.g: `/FF957A98/MyDeviceId/attributes`).
+The API Key is a secret identifier shared among all the devices of a service, and the DeviceID is an ID that uniquely
+identifies the device in a service. API Keys can be configured with the IoTA Configuration API or the public default
+API Key of the IoT Agent can be used in its stead. The Device ID must be provisioned in advance in the IoT Agent before
+information is sent.
 
-#### Configuration command topic 
-```
-/{{apikey}}/{{deviceid}}/configuration/commands
-```
-The IoT Agent listens in this topic for requests coming from the device. The messages must contain a JSON document
-with the following attributes:
-
-* **type**: indicates the type of command the device is sending. The only currently allowed value is `configuration`.
-* **fields**: array with the names of the values to be retrieved from the Context Broker entity representing the device.
-
-This command will trigger a query to the CB that will, as a result, end up with a new message posted to the Configuration
-information topic (described bellow).
-
-E.g.:
-```
-{
-  "type": "configuration",
-  "fields": [
-    "sleepTime",
-    "warningLevel"
-  ]
-}
-```
-
-#### Configuration information topic 
-```
-/{{apikey}}/{{deviceid}}/configuration/values
-```
-Every device must subscribe to this topic, so it can receive configuration information. Whenever the device requests any
-information from the IoTA, the information will be posted in this topic. The information is published in the same format
-used in multiple measure reporting: a plain JSON with an attribute per value requested. An aditional parameter called
-`dt` is added with the system current time.
-
-E.g.:
-```
-{
-  "sleepTime": "200",
-  "warningLevel": "80",
-  "dt": "20160125T092703Z"
-}
-```
+Along this document we will refer some times to "plain JSON objects" or "single-level JSON objects". With that, we mean:
+* valid JSON objects serialized as unescaped strings.
+* JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers (not
+ arrays or other objects).
 
 ### Measure reporting
+
 There are two ways of reporting measures:
 
 * **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the 
@@ -155,6 +129,70 @@ Any attribute coming to the IoTA with the "timeInstant" name will be expected to
 calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
 representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
 
+### Thinking Things plugin
+This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one protocol
+to the other. This features are built in a plugin, that can be activated using the `mqtt.thinkingThingsPlugin` flag.
+When the plugin is activated, the following rules apply to all the incoming MQTT-JSON requests:
+* If an attribute named P1 is found, its content will be parsed as a Phone Cell position, as described [here](https://github.com/telefonicaid/iotagent-thinking-things#p1).
+* If an attribute named C1 is found, its content will be parsed as if they would be a P1 attribute, but with all its
+fields codified in hexadecimal with a fixed 4 character length, without comma separation.
+* If an attribute named B is found, its content will be parsed as if they would be Battery information as described
+[here](https://github.com/telefonicaid/iotagent-thinking-things#b). This implementation admits also an extended version
+of this attribute, adding the "batteryType" and "percentage" fields to the entity.
+
+### Configuration retrieval
+The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
+stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
+commands and a topic to receive configuration information.
+
+#### Configuration command topic 
+```
+/{{apikey}}/{{deviceid}}/configuration/commands
+```
+The IoT Agent listens in this topic for requests coming from the device. The messages must contain a JSON document
+with the following attributes:
+
+* **type**: indicates the type of command the device is sending. See below for accepted values.
+* **fields**: array with the names of the values to be retrieved from the Context Broker entity representing the device.
+
+This command will trigger a query to the CB that will, as a result, end up with a new message posted to the Configuration
+information topic (described bellow).
+
+E.g.:
+```
+{
+  "type": "configuration",
+  "fields": [
+    "sleepTime",
+    "warningLevel"
+  ]
+}
+```
+
+There are two accepted values for the configuration command types:
+* `configuration`: this command will generate a subscription in the Context Broker that will be triggered whenever any of
+the selected values change. In case the value has changed, all the attributes will be retrieved.
+* `subscription`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
+a single publish message in the values topic.
+
+#### Configuration information topic 
+```
+/{{apikey}}/{{deviceid}}/configuration/values
+```
+Every device must subscribe to this topic, so it can receive configuration information. Whenever the device requests any
+information from the IoTA, the information will be posted in this topic. The information is published in the same format
+used in multiple measure reporting: a plain JSON with an attribute per value requested. An aditional parameter called
+`dt` is added with the system current time.
+
+E.g.:
+```
+{
+  "sleepTime": "200",
+  "warningLevel": "80",
+  "dt": "20160125T092703Z"
+}
+```
+
 ## <a name="client"/> Command Line Client 
 The MQTT IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:
@@ -174,6 +212,9 @@ The Command Line Client gets its default values from a config file in the root o
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
  
 ##  <a name="development"/> Development documentation
+### Contributions
+All contributions to this project are welcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md) 
+
 ### Project build
 The project is managed using Grunt Task Runner.
 

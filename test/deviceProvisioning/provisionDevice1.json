@@ -4,8 +4,8 @@
       "device_id": "MQTT_2",
       "protocol": "GENERIC_PROTO",
       "entity_name": "Second MQTT Device",
-      "entity_type": "AnMQTTDevice",
       "timezone": "America/Santiago",
+      "entity_type": "AnMQTTDevice",
       "attributes": [
         {
           "name": "temperature",
