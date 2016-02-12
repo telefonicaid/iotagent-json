@@ -152,7 +152,7 @@ commands and a topic to receive configuration information.
 The IoT Agent listens in this topic for requests coming from the device. The messages must contain a JSON document
 with the following attributes:
 
-* **type**: indicates the type of command the device is sending. The only currently allowed value is `configuration`.
+* **type**: indicates the type of command the device is sending. See below for accepted values.
 * **fields**: array with the names of the values to be retrieved from the Context Broker entity representing the device.
 
 This command will trigger a query to the CB that will, as a result, end up with a new message posted to the Configuration
@@ -168,6 +168,12 @@ E.g.:
   ]
 }
 ```
+
+There are two accepted values for the configuration command types:
+* `configuration`: this command will generate a subscription in the Context Broker that will be triggered whenever any of
+the selected values change. In case the value has changed, all the attributes will be retrieved.
+* `subscription`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
+a single publish message in the values topic.
 
 #### Configuration information topic 
 ```

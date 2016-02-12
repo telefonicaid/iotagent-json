@@ -4,3 +4,4 @@
 - Extra comma in Thinking Things B module (#93).
 - Refactor constants to a constants file (#82).
 - Changes in the Thinking Things B attribute (#92).
+- Add a subscription mechanism for configuration commands (#81).
