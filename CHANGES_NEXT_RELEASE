@@ -1,8 +1,1 @@
-- FIX Date in dt configuration attribute is given in PM format (#77).
-- Improve documentation (#84).
-- Improve documentation: Thinking Things plugin and APIKeys (#84).
-- Extra comma in Thinking Things B module (#93).
-- Refactor constants to a constants file (#82).
-- Changes in the Thinking Things B attribute (#92).
-- Add a subscription mechanism for configuration commands (#81).
-
+- Update to release 1.0.0 of the IoTAgent library.

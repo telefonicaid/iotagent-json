@@ -30,7 +30,7 @@ config.mqtt = {
 };
 
 config.iota = {
-    logLevel: 'DEBUG',
+    logLevel: 'FATAL',
     contextBroker: {
         host: 'localhost',
         port: '1026'
