@@ -24,6 +24,8 @@
 
 var iotagentMqtt = require('../../'),
     mqtt = require('mqtt'),
+    async = require('async'),
+    iotAgentLib = require('iotagent-node-lib'),
     config = require('../config-test.js'),
     nock = require('nock'),
     request = require('request'),
@@ -66,7 +68,11 @@ describe('Support for Thinking Things Modules', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-        iotagentMqtt.stop(done);
+        async.series([
+            iotAgentLib.clearAll,
+            iotagentMqtt.stop
+        ], done);
+
     });
 
     describe('When a new measure with Thinking Thing module P1 arrives to a multiattribute topic', function() {
