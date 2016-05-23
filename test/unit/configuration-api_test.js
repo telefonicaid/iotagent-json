@@ -22,6 +22,8 @@
  */
 'use strict';
 
+/*jshint camelcase:false */
+
 var iotagentMqtt = require('../../'),
     iotAgentLib = require('iotagent-node-lib'),
     mqtt = require('mqtt'),
@@ -65,8 +67,6 @@ describe('Configuration API support', function() {
 
 
     beforeEach(function(done) {
-        /*jshint camelcase:false */
-
         nock.cleanAll();
 
         mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
@@ -112,6 +112,24 @@ describe('Configuration API support', function() {
 
     describe('When a configuration is provisioned for a service', function() {
         beforeEach(function() {
+            iotamMock.post('/iot/protocols', {
+                    protocol: 'TT_MQTT-JSON',
+                    description: 'MQTT-JSON protocol for TT',
+                    iotagent: 'http://localhost:4041/iot',
+                    resource: '/iotamqtt',
+                    services: [
+                        {
+                            apikey: '728289',
+                            token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                            entity_type: 'Light',
+                            resource: '',
+                            service: 'smartGondor',
+                            service_path: '/gardens'
+                        }
+                    ]
+                })
+                .reply(200, {});
+
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
