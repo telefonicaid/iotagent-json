@@ -39,7 +39,7 @@
 
 PARAM=$1
 NAME=iotajson
-EXECUTABLE=bin/iotagentMqtt.js
+EXECUTABLE=bin/iotagent-json
 IOTA_PATH=/opt/iotajson
 PIDFILE=$IOTA_PATH/$NAME.pid
 LOG_PATH=/var/log/iotajson/iotajson.log
