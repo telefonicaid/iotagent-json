@@ -1,36 +1,36 @@
 #!/bin/bash
 #
-# iotaMQTT         Start/Stop the MQTT IoT Agent
+# iotaJSON         Start/Stop the JSON IoT Agent
 #
 # chkconfig: 2345 99 60
-# description: MQTT IoT Agent for Telefonica's IoT Platform
+# description: JSON IoT Agent for Telefonica's IoT Platform
 ### BEGIN INIT INFO
-# Provides: iotaMQTT
+# Provides: iotaJSON
 # Required-Start: $local_fs $syslog
 # Required-Stop: $local_fs $syslog
 # Default-Start:  345
 # Default-Stop: 90
-# Short-Description: run iotaMQTT
-# Description: MQTT IoT Agent is a bridge between a MQTT+JSON based protocol and the NGSI protocol used internally by
+# Short-Description: run iotaJSON
+# Description: JSON IoT Agent is a bridge between a JSON+MQTT based protocol and the NGSI protocol used internally by
 #Telefonica's IoT Platform and FIWARE.
 ### END INIT INFO
 
 # Copyright 2015 Telefonica Investigacion y Desarrollo, S.A.U
 #
-# This file is part of the iotagent-mqtt.
+# This file is part of the iotagent-json.
 #
-# the iotagent-mqtt is free software: you can redistribute it and/or
+# the iotagent-json is free software: you can redistribute it and/or
 # modify it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# the iotagent-mqtt is distributed in the hope that it will be useful,
+# the iotagent-json is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
 # General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with the iotagent-mqtt. If not, see http://www.gnu.org/licenses/.
+# along with the iotagent-json. If not, see http://www.gnu.org/licenses/.
 #
 # For those usages not covered by this license please contact with
 # iot_support at tid dot es
@@ -38,13 +38,13 @@
 . /etc/rc.d/init.d/functions
 
 PARAM=$1
-NAME=iotamqtt
+NAME=iotajson
 EXECUTABLE=bin/iotagentMqtt.js
-IOTA_PATH=/opt/iotamqtt
+IOTA_PATH=/opt/iotajson
 PIDFILE=$IOTA_PATH/$NAME.pid
-LOG_PATH=/var/log/iotamqtt/iotamqtt.log
+LOG_PATH=/var/log/iotajson/iotajson.log
 
-iotamqtt_start()
+iotajson_start()
 {
     printf "%-50s" "Starting ${NAME}..."
     cd $IOTA_PATH
@@ -58,7 +58,7 @@ iotamqtt_start()
     fi
 }
 
-iotamqtt_stop()
+iotajson_stop()
 {
     printf "%-50s" "Stopping $NAME..."
     if [ -f "${PIDFILE}" ]; then
@@ -70,7 +70,7 @@ iotamqtt_stop()
     fi
 }
 
-iotamqtt_status()
+iotajson_status()
 {
     status -p ${PIDFILE} ${EXECUTABLE}
 }
@@ -80,22 +80,22 @@ case ${PARAM} in
     'start')
         echo "Starting..."
         status -p ${PIDFILE} ${EXECUTABLE} && exit 0
-        iotamqtt_start
+        iotajson_start
         ;;
 
     'stop')
         echo "Stopping..."
         status -p ${PIDFILE} ${EXECUTABLE} || exit 0
-        iotamqtt_stop
+        iotajson_stop
         ;;
 
     'restart')
-        iotamqtt_stop
-        iotamqtt_start
+        iotajson_stop
+        iotajson_start
         ;;
 
     'status')
-        iotamqtt_status
+        iotajson_status
         ;;
 
 esac

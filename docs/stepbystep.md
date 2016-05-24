@@ -75,18 +75,18 @@ We will install our IoT Agent in the '/opt'  repository. To do so, go to the fol
 following commands:
 ```
 cd /opt
-git clone https://github.com/telefonicaid/iotagent-mqtt.git
+git clone https://github.com/telefonicaid/iotagent-json.git
 ```
 
 Now the repository has been cloned, enter the new directory and install the dependencies, with the following commands:
 ```
-cd /opt/iotagent-mqtt
+cd iotagent-json
 npm install
 ```
 
 Now, run the agent in the background executing:
 ```
-nohup bin/iotagentMqtt.js &> /var/log/iotAgent&
+nohup bin/iotagentJson.js &> /var/log/iotAgent&
 ```
 
 The agent should be now listening in the northbound port (defaults to 4041). Check it with a netstat command:

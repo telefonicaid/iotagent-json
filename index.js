@@ -1,1 +1,1 @@
-module.exports = require('./lib/iotagent-mqtt');
+module.exports = require('./lib/iotagent-json');

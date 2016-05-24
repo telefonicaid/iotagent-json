@@ -1,4 +1,4 @@
-# iotagent-mqtt
+# iotagent-json
 
 ## Index
 
@@ -25,12 +25,12 @@ There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
 ### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
 ```
-git clone https://github.com/telefonicaid/iotagent-mqtt.git
+git clone https://github.com/telefonicaid/iotagent-json.git
 npm install
 ```
 In order to start the IoT Agent, from the root folder of the project, type:
 ```
-bin/iotagentMqtt.js
+bin/iotagentJson.js
 ``` 
  
 ### Using RPM
@@ -49,7 +49,7 @@ yum localinstall --nogpg <nameOfTheRPM>.rpm
 
 The IoTA will then be installed as a linux service, and can ve started with the `service` command as usual:
 ```
-service iotaMQTT start
+service iotaJSON start
 ```
 ## <a name="usage"/> Usage
 In order to execute the MQTT IoT Agent just execute the following command from the root folder:
@@ -197,7 +197,7 @@ E.g.:
 The MQTT IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:
 ```
-bin/iotaMqttTester.js
+bin/iotaJsonTester.js
 ```
 This will show a prompt where commands can be issued to the MQTT broker. For a list of the currently available commands
 type `help`.
