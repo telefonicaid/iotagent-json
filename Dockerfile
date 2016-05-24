@@ -15,4 +15,4 @@ COPY . /opt/iotajson
 WORKDIR /opt/iotajson
 RUN npm install
 
-ENTRYPOINT bin/iotagentJson.js config.js
+ENTRYPOINT bin/iotagent-json config.js

@@ -30,7 +30,7 @@ npm install
 ```
 In order to start the IoT Agent, from the root folder of the project, type:
 ```
-bin/iotagentJson.js
+bin/iotagent-json
 ``` 
  
 ### Using RPM

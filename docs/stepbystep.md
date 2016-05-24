@@ -86,7 +86,7 @@ npm install
 
 Now, run the agent in the background executing:
 ```
-nohup bin/iotagentJson.js &> /var/log/iotAgent&
+nohup bin/iotagent-json &> /var/log/iotAgent&
 ```
 
 The agent should be now listening in the northbound port (defaults to 4041). Check it with a netstat command:
