@@ -20,7 +20,7 @@ A quick way to get started is to read the [Step by step guide](./docs/stepbystep
 If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
 
 ## <a name="installation"/> Installation
-There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
+There are two ways of installing the JSON IoT Agent: using Git or RPMs.
  
 ### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
@@ -52,11 +52,11 @@ The IoTA will then be installed as a linux service, and can ve started with the 
 service iotaJSON start
 ```
 ## <a name="usage"/> Usage
-In order to execute the MQTT IoT Agent just execute the following command from the root folder:
+In order to execute the JSON IoT Agent just execute the following command from the root folder:
 ```
 bin/iotagentMqtt.js
 ```
-This will start the MQTT IoT Agent in the foreground. Use standard linux commands to start it in background.
+This will start the JSON IoT Agent in the foreground. Use standard linux commands to start it in background.
 
 When started with no arguments, the IoT Agent will expect to find a `config.js` file with the configuration in the root
 folder. An argument can be passed with the path to a new configuration file (relative to the application folder) to be
@@ -194,7 +194,7 @@ E.g.:
 ```
 
 ## <a name="client"/> Command Line Client 
-The MQTT IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
+The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:
 ```
 bin/iotaJsonTester.js
