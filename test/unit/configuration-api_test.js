@@ -79,9 +79,10 @@ describe('Configuration API support', function() {
             port: 8081,
             path: '/iot/protocols',
             protocol: 'TT_MQTT-JSON',
-            description: 'MQTT-JSON protocol for TT',
-            defaultResource: '/iotamqtt'
+            description: 'MQTT-JSON protocol for TT'
         };
+
+        config.iota.defaultResource = '/iotamqtt';
 
         iotamMock = nock('http://127.0.0.1:8081')
             .post('/iot/protocols', {
@@ -104,6 +105,7 @@ describe('Configuration API support', function() {
 
     afterEach(function(done) {
         delete config.iota.iotManager;
+        delete config.iota.defaultResource;
         iotAgentLib.clearAll();
         nock.cleanAll();
         mqttClient.end();
@@ -158,10 +160,10 @@ describe('Configuration API support', function() {
 
             var configurationProvision = {
                 protocol: 'TT_MQTT-JSON',
-                    description: 'MQTT-JSON protocol for TT',
-                    iotagent: 'http://localhost:4041/iot',
-                    resource: '/iotamqtt',
-                    services: [
+                description: 'MQTT-JSON protocol for TT',
+                iotagent: 'http://localhost:4041/iot',
+                resource: '/iotamqtt',
+                services: [
                     {
                         apikey: '728289',
                         token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
