@@ -1,0 +1,17 @@
+{
+  "contextElements": [
+    {
+      "type": "MQTTCommandDevice",
+      "isPattern": "false",
+      "id": "Fourth MQTT Device",
+      "attributes": [
+        {
+          "name": "PING_status",
+          "type": "commandStatus",
+          "value": "PENDING"
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}

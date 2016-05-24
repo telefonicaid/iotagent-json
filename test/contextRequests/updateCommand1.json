@@ -1,0 +1,19 @@
+{
+  "updateAction": "UPDATE",
+  "contextElements": [
+    {
+      "id": "Second MQTT Device",
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "attributes": [
+        {
+          "name": "PING",
+          "type": "command",
+          "value": {
+            "data": "22"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "devices": [
+    {
+      "device_id": "MQTT_4",
+      "entity_name": "Fourth MQTT Device",
+      "entity_type": "MQTTCommandDevice",
+      "protocol": "HTTP_UL",
+      "transport": "MQTT",
+      "commands": [
+        {
+          "name": "PING",
+          "type": "command"
+        }
+      ]
+    }
+  ]
+}
