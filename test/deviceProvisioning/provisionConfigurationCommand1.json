@@ -1,0 +1,10 @@
+{
+  "services": [
+    {
+      "resource": "/iot/d",
+      "entity_type": "MQTTCommandDevice",
+      "apikey": "ALTERNATIVE",
+      "protocol": "MQTT_UL"
+    }
+  ]
+}
