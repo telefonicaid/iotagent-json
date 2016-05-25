@@ -1,20 +1,20 @@
 #!/bin/bash
 # Copyright 2015 Telefonica Investigacion y Desarrollo, S.A.U
 #
-# This file is part of the iotagent-mqtt.
+# This file is part of the iotagent-json.
 #
-# the iotagent-mqtt is free software: you can redistribute it and/or
+# the iotagent-json is free software: you can redistribute it and/or
 # modify it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
 # License, or (at your option) any later version.
 #
-# the iotagent-mqtt is distributed in the hope that it will be useful,
+# the iotagent-json is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero
 # General Public License for more details.
 #
 # You should have received a copy of the GNU Affero General Public License
-# along with the iotagent-mqtt. If not, see http://www.gnu.org/licenses/.
+# along with the iotagent-json. If not, see http://www.gnu.org/licenses/.
 #
 # For those usages not covered by this license please contact with
 # iot_support at tid dot es
@@ -74,10 +74,10 @@ else
 	exit 2
 fi
 
-PROXY_USER="iotamqtt"
+IOTA_USER="iotajson"
 
-rpmbuild -ba ${RPM_BASE_DIR}/SPECS/iotamqtt.spec \
+rpmbuild -ba ${RPM_BASE_DIR}/SPECS/iotajson.spec \
     --define "_topdir ${RPM_BASE_DIR}" \
-    --define "_project_user ${PROXY_USER}" \
+    --define "_project_user ${IOTA_USER}" \
     --define "_product_version ${PRODUCT_VERSION}" \
     --define "_product_release ${PRODUCT_RELEASE}"

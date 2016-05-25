@@ -75,18 +75,18 @@ We will install our IoT Agent in the '/opt'  repository. To do so, go to the fol
 following commands:
 ```
 cd /opt
-git clone https://github.com/telefonicaid/iotagent-mqtt.git
+git clone https://github.com/telefonicaid/iotagent-json.git
 ```
 
 Now the repository has been cloned, enter the new directory and install the dependencies, with the following commands:
 ```
-cd /opt/iotagent-mqtt
+cd iotagent-json
 npm install
 ```
 
 Now, run the agent in the background executing:
 ```
-nohup bin/iotagentMqtt.js &> /var/log/iotAgent&
+nohup bin/iotagent-json &> /var/log/iotAgent&
 ```
 
 The agent should be now listening in the northbound port (defaults to 4041). Check it with a netstat command:
@@ -140,7 +140,7 @@ to the Context Broker, that can be used to test the results.
 
 In order to start the command line client, just type:
 ```
-bin/iotaMqttTester.js
+bin/iotaJsonTester.js
 ```
 
 You can type `help` for a brief description of the full list of commands.
@@ -461,7 +461,7 @@ should have access to this user).
  `potteduser`) will impersonate a device of the gorup, or subscribe to information sent by the group devices.
  
 There are two more changes needed before we restart our test. First of all, we should add the IoTA Mosquitto credentials
-to the IoTA Configuration, to give it full access to the MQTT Broker topics. To do so, edit the `/opt/iotagent-mqtt/config.js`
+to the IoTA Configuration, to give it full access to the MQTT Broker topics. To do so, edit the `/opt/iotajson/config.js`
  file and change the `config.mqtt` section to look like this:
 ```
 config.mqtt = {

@@ -1,3 +1,4 @@
 - Update to release 2.0.0 of the IoTAgent library.
 - Use wildcards for topics subscription instead of subscribing to each topic separately (#112)
 - Implement commands (#108)
+- Git repository rename from iotagent-mqtt iotagent-json, this implies changes in a lot of files.
