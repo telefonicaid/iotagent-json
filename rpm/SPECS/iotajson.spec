@@ -12,7 +12,6 @@ Requires(preun): /sbin/chkconfig, /sbin/service
 Requires(postun): /sbin/service
 Group: Applications/Engineering
 Vendor: Telefonica I+D
-BuildRequires: npm
 
 %description
 JSON IoT Agent is a bridge between a JSON+MQTT based protocol and the NGSI protocol used internally by
