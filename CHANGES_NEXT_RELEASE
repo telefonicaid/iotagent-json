@@ -2,3 +2,4 @@
 - Use wildcards for topics subscription instead of subscribing to each topic separately (#112)
 - Implement commands (#108)
 - Git repository rename from iotagent-mqtt iotagent-json, this implies changes in a lot of files.
+- ADD Travis CI to the repository (#122).
