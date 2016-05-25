@@ -1,3 +1,3 @@
 - Update to release 2.0.0 of the IoTAgent library.
 - Use wildcards for topics subscription instead of subscribing to each topic separately (#112)
-- Implement commands (#89)
+- Implement commands (#108)
