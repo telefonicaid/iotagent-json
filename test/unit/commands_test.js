@@ -35,7 +35,7 @@ var iotagentMqtt = require('../../'),
     mqttClient;
 
 
-describe.only('MQTT Commands', function() {
+describe('MQTT Commands', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -147,10 +147,21 @@ describe.only('MQTT Commands', function() {
     });
 
     describe('When a command update arrives to the MQTT command topic', function() {
-        it('should send an update request to the Context Broker');
-    });
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus2.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus2Success.json'));
+        });
 
-    describe('When a command update arrives with a single text value', function() {
-        it('should publish the command information in the MQTT topic');
+        it('should send an update request to the Context Broker', function(done) {
+            mqttClient.publish('/1234/MQTT_2/cmdexe', '{ "PING": "1234567890" }', null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 200);
+            });
+        });
     });
 });
