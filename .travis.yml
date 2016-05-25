@@ -1,0 +1,24 @@
+language: node_js
+
+sudo: required
+
+node_js:
+ - "0.10"
+ - "4"
+
+branches:
+  only:
+    - develop
+    - master
+
+services:
+ - docker
+ - mongodb
+
+install:
+ - npm install
+
+before_install:
+ - docker pull ansi/mosquitto
+ - docker run -d -p 1883:1883 -l mosquitto ansi/mosquitto
+ - npm install -g grunt-cli
