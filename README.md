@@ -193,6 +193,60 @@ E.g.:
 }
 ```
 
+### Commands
+The IoT Agent implements IoTAgent commands, as specified in the [IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
+When a command is receivied in the IoT Agent, a message is published in the following topic:
+```
+/<APIKey>/<DeviceId>/cmd
+```
+The message payload is a plain JSON object, with an attribute per command, and the parameters of the command as the value
+of that attribute.
+
+Once the device has executed the command, the device can report the result information publishing a new mesage in the
+following topic:
+```
+/<APIKey>/<DeviceId>/cmdexe
+```
+
+This message must contain one attribute per command to be updated; the value of that attribute is considered the result
+of the command, and will be passed as it is to the corresponding `_result` attribute in the entity.
+
+E.g.: if a user wants to send a command `PING` with parameters `data = 22` he will send the following request to the
+Context Broker:
+```
+{
+  "updateAction": "UPDATE",
+  "contextElements": [
+    {
+      "id": "Second MQTT Device",
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "attributes": [
+        {
+          "name": "PING",
+          "type": "command",
+          "value": {
+            "data": "22"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+If the APIKey associated to de device is `1234`, this will generate a message in the `/1234/MQTT_2/cmd` topic with the following
+payload:
+```
+{"PING":{"data":"22"}}
+```
+
+Once the device has executed the command, it can publish its results in the `/1234/MQTT_2/cmdexe` topic with a payload with the following
+format:
+```
+{ "PING": "1234567890" }
+```
+
+
 ## <a name="client"/> Command Line Client 
 The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:

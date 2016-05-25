@@ -47,7 +47,8 @@ config.iota = {
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
-    defaultResource: ''
+    defaultResource: '',
+    defaultKey: '1234'
 };
 
 module.exports = config;
