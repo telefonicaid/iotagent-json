@@ -15,7 +15,7 @@ Vendor: Telefonica I+D
 BuildRequires: npm
 
 %description
-JSON IoT Agent is a bridge between a json+JSON based protocol and the NGSI protocol used internally by
+JSON IoT Agent is a bridge between a JSON+MQTT based protocol and the NGSI protocol used internally by
 Telefonica's IoT Platform and FIWARE.
 
 # System folders
