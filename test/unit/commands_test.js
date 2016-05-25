@@ -88,7 +88,7 @@ describe.only('MQTT Commands', function() {
             iotagentMqtt.stop
         ], done);
     });
-    
+
     describe('When a command arrive to the Agent for a device with the MQTT_UL protocol', function() {
         var commandOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
@@ -115,9 +115,35 @@ describe.only('MQTT Commands', function() {
                 done();
             });
         });
-        it('should reply with the appropriate command information');
-        it('should update the status in the Context Broker');
-        it('should publish the command information in the MQTT topic');
+        it('should reply with the appropriate command information', function(done) {
+            request(commandOptions, function(error, response, body) {
+                should.exist(body);
+                body.contextResponses['0'].statusCode.code.should.equal(200);
+                done();
+            });
+        });
+        it('should update the status in the Context Broker', function(done) {
+            request(commandOptions, function(error, response, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+        it('should publish the command information in the MQTT topic', function(done) {
+            var commandMsg = '{"PING":{"data":"22"}}',
+                payload;
+
+            mqttClient.on('message', function(topic, data) {
+                payload = data.toString();
+            });
+
+            request(commandOptions, function(error, response, body) {
+                setTimeout(function() {
+                    should.exist(payload);
+                    payload.should.equal(commandMsg);
+                    done();
+                }, 100);
+            });
+        });
     });
 
     describe('When a command update arrives to the MQTT command topic', function() {
