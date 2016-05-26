@@ -35,7 +35,7 @@
 # For those usages not covered by this license please contact with
 # iot_support at tid dot es
 
-NAME=iotjson
+NAME=iotajson
 IOTA_USER=""
 BASE_DIR=/opt/$NAME
 PID_DIR=/var/run/$NAME

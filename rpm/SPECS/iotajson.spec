@@ -110,7 +110,7 @@ echo "[INFO] Configuring application"
     ln -s %{_install_dir}/config.js %{_install_dir}/config-default.js
 
     # Chmod iotagent-json binary
-    chmod guo+x %{_install_dir}/bin/%{_iotjson_executable}
+    chmod guo+x %{_install_dir}/bin/%{_iotajson_executable}
 
 echo "Done"
 
