@@ -90,7 +90,7 @@ describe('Attribute alias', function() {
                 tt: '20071103T131805'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();

@@ -52,7 +52,7 @@ describe('Subscription management', function() {
                 temperature: temperature
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 process.nextTick(callback);
             });
         };
