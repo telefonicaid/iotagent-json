@@ -10,7 +10,7 @@
 # Required-Stop: $local_fs $syslog
 # Default-Start:  345
 # Default-Stop: 90
-# Short-Description: run iotaJSON
+# Short-Description: run iotajson
 # Description: JSON IoT Agent is a bridge between a JSON+MQTT based protocol and the NGSI protocol used internally by
 #Telefonica's IoT Platform and FIWARE.
 ### END INIT INFO
@@ -35,67 +35,137 @@
 # For those usages not covered by this license please contact with
 # iot_support at tid dot es
 
+NAME=iotjson
+IOTA_USER=""
+BASE_DIR=/opt/$NAME
+PID_DIR=/var/run/$NAME
+LOG_DIR=/var/log/$NAME
+EXECUTABLE=$BASE_DIR/bin/iotagent-json
+
+# source function library
 . /etc/rc.d/init.d/functions
 
-PARAM=$1
-NAME=iotajson
-EXECUTABLE=bin/iotagent-json
-IOTA_PATH=/opt/iotajson
-PIDFILE=$IOTA_PATH/$NAME.pid
-LOG_PATH=/var/log/iotajson/iotajson.log
+test -x ${EXECUTABLE} || exit 5
 
-iotajson_start()
+# ================================================================================================
+# Handle single instance start operation
+do_start()
 {
-    printf "%-50s" "Starting ${NAME}..."
-    cd $IOTA_PATH
+    local INSTANCE=$1
+    # PID_DIR & BASE_DIR & IOTA_USER & LOG_PATH could be renamed here ...
+    [ -f /etc/sysconfig/${NAME}.${INSTANCE} ] && . /etc/sysconfig/${NAME}.${INSTANCE}
+    local PID_FILE=${PID_DIR}/${NAME}_${INSTANCE}.pid
+    local LOG_PATH=${LOG_DIR}/${NAME}_${INSTANCE}.log
+    local PARAMS=config-${INSTANCE}.js
+
+   # Check if already started and exit if so
+    status -p ${PID_FILE} ${EXECUTABLE} && return $?
+    
+    printf "%-50s" "Starting ${NAME} with ${PARAMS}..."
     if [[ -x ${EXECUTABLE} ]]; then
-        cd $IOTA_PATH
-        su $IOTA_USER -c "cd $IOTA_PATH; nohup ${EXECUTABLE} &>> $LOG_PATH & echo \$! > $PIDFILE"
+        su $IOTA_USER -c "cd $BASE_DIR; nohup ${EXECUTABLE} ${PARAMS} &>> $LOG_PATH & echo \$! > $PID_FILE"
         echo "Success"
+        return 0
     else
         printf "%s\n" "Fail - missing ${EXECUTABLE} executable"
-        exit 1
+        return 1
     fi
 }
 
-iotajson_stop()
+# ================================================================================================
+# Handle single instance stop operation
+do_stop()
 {
+    local RETVAL=0
+    local INSTANCE=$1
+    # PID_DIR could be renamed here ...
+    [ -f /etc/sysconfig/${NAME}.${INSTANCE} ] && . /etc/sysconfig/${NAME}.${INSTANCE}
+    local PID_FILE=${PID_DIR}/${NAME}_${INSTANCE}.pid
+
+    # Check if already stopped and exit if so
+    status -p ${PID_FILE} ${EXECUTABLE} ||  return $?
+
     printf "%-50s" "Stopping $NAME..."
-    if [ -f "${PIDFILE}" ]; then
-        kill -9 $(cat ${PIDFILE})
-        rm -f ${PIDFILE}
+    if [ -f "${PID_FILE}" ]; then
+        kill -9 $(cat ${PID_FILE})
+        RETVAL=$?
+        rm -f ${PID_FILE}
         printf "%s\n" "$(success)"
+        return 3
     else
         printf "%s\n" "$(failure)"
+        RETVAL=127
     fi
+    return $RETVAL
 }
 
-iotajson_status()
+# ================================================================================================
+# Handle single instance status operation
+do_status()
 {
-    status -p ${PIDFILE} ${EXECUTABLE}
+    local INSTANCE=$1
+    # PID_DIR could be renamed here ...
+    [ -f /etc/sysconfig/${NAME}.${INSTANCE} ] && . /etc/sysconfig/${NAME}.${INSTANCE}
+    local PID_FILE=${PID_DIR}/${NAME}_${INSTANCE}.pid
+  
+    status -p ${PID_FILE} "${EXECUTABLE}"
 }
 
-case ${PARAM} in
+# ================================================================================================
+# Handle a single process instance
+do_instance() {
 
-    'start')
-        echo "Starting..."
-        status -p ${PIDFILE} ${EXECUTABLE} && exit 0
-        iotajson_start
-        ;;
+    local OPERATION=$1
+    local INSTANCE=$2
 
-    'stop')
-        echo "Stopping..."
-        status -p ${PIDFILE} ${EXECUTABLE} || exit 0
-        iotajson_stop
-        ;;
+    case ${OPERATION} in
 
-    'restart')
-        iotajson_stop
-        iotajson_start
-        ;;
+        'start')
+            do_start $INSTANCE
+            return $?
+            ;;
 
-    'status')
-        iotajson_status
-        ;;
+        'stop')
+            do_stop $INSTANCE
+            return $?
+            ;;
 
-esac
+        'restart')
+            do_stop  $INSTANCE
+            do_start $INSTANCE
+            ;;
+
+        'status')
+            do_status ${INSTANCE}
+            return $?
+            ;;
+        *)
+            echo $"Usage: $NAME {start|stop|restart|status} ${INSTANCE}"
+            return 2
+            ;;
+
+    esac
+    :
+}
+
+# ---------
+# MAIN CODE
+# ---------
+
+OPERATION=$1
+INSTANCE=$2
+
+# Find available instances
+INSTANCES=$(ls /etc/sysconfig/${NAME}.* | cut -f2 -d.)
+RETVAL=0
+if [ -n "$INSTANCE" ]; then
+    do_instance $OPERATION $INSTANCE
+    RETVAL=$?
+else
+    for inst in ${INSTANCES}
+    do
+        do_instance $OPERATION $inst
+        RETVAL=$((${RETVAL}+$?))
+    done
+fi
+exit $RETVAL
