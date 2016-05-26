@@ -19,10 +19,12 @@ Telefonica's IoT Platform and FIWARE.
 
 # System folders
 %define _srcdir $RPM_BUILD_ROOT/../../..
-%define _service_name iotaJSON
+%define _service_name iotajson
 %define _install_dir /opt/iotajson
 %define _iotajson_log_dir /var/log/iotajson
 %define _iotajson_pid_dir /var/run/iotajson
+
+%define _iotajson_executable iotagent-json
 
 # RPM Building folder
 %define _build_root_project %{buildroot}%{_install_dir}
@@ -101,12 +103,14 @@ echo "[INFO] Configuring application"
     cd /etc/init.d
     chkconfig --add %{_service_name}
 
-    ls /tmp/config.js
-    RET_VAL=$?
+    # restores old configuration if any
+    [ -f /tmp/config.js ] && mv /tmp/config.js %{_install_dir}/config.js
+   
+    # Create the default instance config file as a link
+    ln -s %{_install_dir}/config.js %{_install_dir}/config-default.js
 
-    if [ "$RET_VAL" == "0" ]; then
-        mv /tmp/config.js %{_install_dir}/config.js
-    fi
+    # Chmod iotagent-json binary
+    chmod guo+x %{_install_dir}/bin/%{_iotjson_executable}
 
 echo "Done"
 
@@ -153,11 +157,14 @@ rm -rf $RPM_BUILD_ROOT
 # Files to add to the RPM
 # -------------------------------------------------------------------------------------------- #
 %files
-%defattr(755,%{_project_user},%{_project_user},755)
+%defattr(644,%{_project_user},%{_project_user},755)
 %config /etc/init.d/%{_service_name}
-%config /etc/logrotate.d/logrotate-iotajson.conf
-%config /etc/cron.d/cron-logrotate-iotajson-size
-%config /etc/sysconfig/logrotate-iotajson-size
+%attr(755, root, root) /etc/init.d/%{_service_name}
+%config /etc/init.d/%{_service_name}
+%config /etc/logrotate.d/logrotate-%{_service_name}.conf
+%config /etc/cron.d/cron-logrotate-%{_service_name}-size
+%config /etc/sysconfig/logrotate-%{_service_name}-size
+%config /etc/sysconfig/%{_service_name}.default
 %{_install_dir}
 
 %changelog
