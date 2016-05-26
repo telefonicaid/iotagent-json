@@ -79,6 +79,24 @@ These are the currently available MQTT configuration options:
 * **username**: user name that identifies the IOTA against the MQTT broker (optional).
 * **password**: password to be used if the username is provided (optional).
 
+### Configuration with environment variables
+Some of the more common variables can be configured using environment variables. The ones overriding general parameters
+in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+
+The ones relating specific Ultralight 2.0 bindings are described in the following table.
+
+| Environment variable | Configuration attribute             |
+|:-------------------- |:----------------------------------- |
+| MQTT_HOST            | mqtt.host                           |
+| MQTT_PORT            | mqtt.port                           |
+| MQTT_USERNAME        | mqtt.username                       |
+| MQTT_PASSWORD        | mqtt.password                       |
+| HTTP_HOST            | http.host (still not in use)        |
+| HTTP_PORT            | http.port (still not in use)        |
+
+(HTTP-related environment variables will be used in the upcoming HTTP binding)
+.
+
 ## <a name="protocol"/> Protocol
 ### Overview
 The MQTT-JSON protocol uses plain JSON objects to send information formatted as key-value maps over an MQTT transport. 

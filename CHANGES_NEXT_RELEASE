@@ -4,3 +4,4 @@
 - Git repository rename from iotagent-mqtt iotagent-json, this implies changes in a lot of files.
 - ADD Travis CI to the repository (#122).
 - Add configuration service (#121).
+- Add environment variable configuration (#125).
