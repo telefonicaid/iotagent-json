@@ -143,7 +143,7 @@ describe('Configuration API support', function() {
         it('should use the API Key of that configuration in device topics', function(done) {
             request(configurationOptions, function(error, response, body) {
                 request(provisionOptions, function(error, response, body) {
-                    mqttClient.publish('/728289/MQTT_2/attributes/temperature', '87', null, function(error) {
+                    mqttClient.publish('/728289/MQTT_2/attrs/temperature', '87', null, function(error) {
                         setTimeout(function() {
                             contextBrokerMock.done();
                             done();

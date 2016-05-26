@@ -89,7 +89,7 @@ describe('Measure reception ', function() {
                 temperature: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -112,7 +112,7 @@ describe('Measure reception ', function() {
                 weight: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -136,7 +136,7 @@ describe('Measure reception ', function() {
                 TimeInstant: '20071103T131805'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -155,7 +155,7 @@ describe('Measure reception ', function() {
                 utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
         it('should send its values to the Context Broker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attributes/temperature', '87', null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -166,7 +166,7 @@ describe('Measure reception ', function() {
 
     describe('When a malformed multiple measure arrives to the MQTT Topic', function() {
         it('should not crash', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attributes', '{"humidity": " }(}', null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', '{"humidity": " }(}', null, function(error) {
                 setTimeout(function() {
                     done();
                 }, 100);
