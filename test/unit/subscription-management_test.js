@@ -78,7 +78,9 @@ describe('Subscription management', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-        iotagentMqtt.start(config, done);
+        iotagentMqtt.start(config, function() {
+            iotAgentLib.clearAll(done);
+        });
     });
 
     afterEach(function(done) {
