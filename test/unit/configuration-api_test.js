@@ -1,26 +1,28 @@
 /*
  * Copyright 2015 Telefonica Investigación y Desarrollo, S.A.U
  *
- * This file is part of iotagent-mqtt
+ * This file is part of iotagent-json
  *
- * iotagent-mqtt is free software: you can redistribute it and/or
+ * iotagent-json is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
- * iotagent-mqtt is distributed in the hope that it will be useful,
+ * iotagent-json is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with iotagent-mqtt.
+ * License along with iotagent-json.
  * If not, seehttp://www.gnu.org/licenses/.
  *
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
 'use strict';
+
+/*jshint camelcase:false */
 
 var iotagentMqtt = require('../../'),
     iotAgentLib = require('iotagent-node-lib'),
@@ -65,8 +67,6 @@ describe('Configuration API support', function() {
 
 
     beforeEach(function(done) {
-        /*jshint camelcase:false */
-
         nock.cleanAll();
 
         mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
@@ -79,9 +79,10 @@ describe('Configuration API support', function() {
             port: 8081,
             path: '/iot/protocols',
             protocol: 'TT_MQTT-JSON',
-            description: 'MQTT-JSON protocol for TT',
-            defaultResource: '/iotamqtt'
+            description: 'MQTT-JSON protocol for TT'
         };
+
+        config.iota.defaultResource = '/iotamqtt';
 
         iotamMock = nock('http://127.0.0.1:8081')
             .post('/iot/protocols', {
@@ -104,6 +105,7 @@ describe('Configuration API support', function() {
 
     afterEach(function(done) {
         delete config.iota.iotManager;
+        delete config.iota.defaultResource;
         iotAgentLib.clearAll();
         nock.cleanAll();
         mqttClient.end();
@@ -112,6 +114,24 @@ describe('Configuration API support', function() {
 
     describe('When a configuration is provisioned for a service', function() {
         beforeEach(function() {
+            iotamMock.post('/iot/protocols', {
+                    protocol: 'TT_MQTT-JSON',
+                    description: 'MQTT-JSON protocol for TT',
+                    iotagent: 'http://localhost:4041/iot',
+                    resource: '/iotamqtt',
+                    services: [
+                        {
+                            apikey: '728289',
+                            token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                            entity_type: 'Light',
+                            resource: '',
+                            service: 'smartGondor',
+                            service_path: '/gardens'
+                        }
+                    ]
+                })
+                .reply(200, {});
+
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
@@ -123,7 +143,7 @@ describe('Configuration API support', function() {
         it('should use the API Key of that configuration in device topics', function(done) {
             request(configurationOptions, function(error, response, body) {
                 request(provisionOptions, function(error, response, body) {
-                    mqttClient.publish('/728289/MQTT_2/attributes/temperature', '87', null, function(error) {
+                    mqttClient.publish('/728289/MQTT_2/attrs/temperature', '87', null, function(error) {
                         setTimeout(function() {
                             contextBrokerMock.done();
                             done();
@@ -140,10 +160,10 @@ describe('Configuration API support', function() {
 
             var configurationProvision = {
                 protocol: 'TT_MQTT-JSON',
-                    description: 'MQTT-JSON protocol for TT',
-                    iotagent: 'http://localhost:4041/iot',
-                    resource: '/iotamqtt',
-                    services: [
+                description: 'MQTT-JSON protocol for TT',
+                iotagent: 'http://localhost:4041/iot',
+                resource: '/iotamqtt',
+                services: [
                     {
                         apikey: '728289',
                         token: '8970A9078A803H3BL98PINEQRW8342HBAMS',

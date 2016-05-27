@@ -1,20 +1,20 @@
 /*
  * Copyright 2015 Telefonica Investigación y Desarrollo, S.A.U
  *
- * This file is part of iotagent-mqtt
+ * This file is part of iotagent-json
  *
- * iotagent-mqtt is free software: you can redistribute it and/or
+ * iotagent-json is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
- * iotagent-mqtt is distributed in the hope that it will be useful,
+ * iotagent-json is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with iotagent-mqtt.
+ * License along with iotagent-json.
  * If not, seehttp://www.gnu.org/licenses/.
  *
  * For those usages not covered by the GNU Affero General Public License
@@ -89,7 +89,7 @@ describe('Measure reception ', function() {
                 temperature: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -112,7 +112,7 @@ describe('Measure reception ', function() {
                 weight: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -136,7 +136,7 @@ describe('Measure reception ', function() {
                 TimeInstant: '20071103T131805'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -155,7 +155,7 @@ describe('Measure reception ', function() {
                 utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
         it('should send its values to the Context Broker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attributes/temperature', '87', null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -166,7 +166,7 @@ describe('Measure reception ', function() {
 
     describe('When a malformed multiple measure arrives to the MQTT Topic', function() {
         it('should not crash', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attributes', '{"humidity": " }(}', null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', '{"humidity": " }(}', null, function(error) {
                 setTimeout(function() {
                     done();
                 }, 100);

@@ -1,5 +1,5 @@
-Summary: MQTT IoT Agent
-Name: iotagent-mqtt
+Summary: JSON IoT Agent
+Name: iotagent-json
 Version: %{_product_version}
 Release: %{_product_release}
 License: AGPLv3
@@ -12,18 +12,19 @@ Requires(preun): /sbin/chkconfig, /sbin/service
 Requires(postun): /sbin/service
 Group: Applications/Engineering
 Vendor: Telefonica I+D
-BuildRequires: npm
 
 %description
-MQTT IoT Agent is a bridge between a MQTT+JSON based protocol and the NGSI protocol used internally by
+JSON IoT Agent is a bridge between a JSON+MQTT based protocol and the NGSI protocol used internally by
 Telefonica's IoT Platform and FIWARE.
 
 # System folders
 %define _srcdir $RPM_BUILD_ROOT/../../..
-%define _service_name iotaMQTT
-%define _install_dir /opt/iotamqtt
-%define _iotamqtt_log_dir /var/log/iotamqtt
-%define _iotamqtt_pid_dir /var/run/iotamqtt
+%define _service_name iotajson
+%define _install_dir /opt/iotajson
+%define _iotajson_log_dir /var/log/iotajson
+%define _iotajson_pid_dir /var/run/iotajson
+
+%define _iotajson_executable iotagent-json
 
 # RPM Building folder
 %define _build_root_project %{buildroot}%{_install_dir}
@@ -81,33 +82,35 @@ fi
 # -------------------------------------------------------------------------------------------- #
 %post
 echo "[INFO] Configuring application"
-    echo "[INFO] Creating the home MQTT IoT Agent directory"
+    echo "[INFO] Creating the home JSON IoT Agent directory"
     mkdir -p _install_dir
     echo "[INFO] Creating log & run directory"
-    mkdir -p %{_iotamqtt_log_dir}
-    chown -R %{_project_user}:%{_project_user} %{_iotamqtt_log_dir}
+    mkdir -p %{_iotajson_log_dir}
+    chown -R %{_project_user}:%{_project_user} %{_iotajson_log_dir}
     chown -R %{_project_user}:%{_project_user} _install_dir
-    chmod g+s %{_iotamqtt_log_dir}
-    setfacl -d -m g::rwx %{_iotamqtt_log_dir}
-    setfacl -d -m o::rx %{_iotamqtt_log_dir}
+    chmod g+s %{_iotajson_log_dir}
+    setfacl -d -m g::rwx %{_iotajson_log_dir}
+    setfacl -d -m o::rx %{_iotajson_log_dir}
 
-    mkdir -p %{_iotamqtt_pid_dir}
-    chown -R %{_project_user}:%{_project_user} %{_iotamqtt_pid_dir}
+    mkdir -p %{_iotajson_pid_dir}
+    chown -R %{_project_user}:%{_project_user} %{_iotajson_pid_dir}
     chown -R %{_project_user}:%{_project_user} _install_dir
-    chmod g+s %{_iotamqtt_pid_dir}
-    setfacl -d -m g::rwx %{_iotamqtt_pid_dir}
-    setfacl -d -m o::rx %{_iotamqtt_pid_dir}
+    chmod g+s %{_iotajson_pid_dir}
+    setfacl -d -m g::rwx %{_iotajson_pid_dir}
+    setfacl -d -m o::rx %{_iotajson_pid_dir}
 
     echo "[INFO] Configuring application service"
     cd /etc/init.d
     chkconfig --add %{_service_name}
 
-    ls /tmp/config.js
-    RET_VAL=$?
+    # restores old configuration if any
+    [ -f /tmp/config.js ] && mv /tmp/config.js %{_install_dir}/config.js
+   
+    # Create the default instance config file as a link
+    ln -s %{_install_dir}/config.js %{_install_dir}/config-default.js
 
-    if [ "$RET_VAL" == "0" ]; then
-        mv /tmp/config.js %{_install_dir}/config.js
-    fi
+    # Chmod iotagent-json binary
+    chmod guo+x %{_install_dir}/bin/%{_iotajson_executable}
 
 echo "Done"
 
@@ -123,11 +126,11 @@ if [ $1 == 0 ]; then
 
   echo "[INFO] Removing application log files"
   # Log
-  [ -d %{_iotamqtt_log_dir} ] && rm -rfv %{_iotamqtt_log_dir}
+  [ -d %{_iotajson_log_dir} ] && rm -rfv %{_iotajson_log_dir}
 
   echo "[INFO] Removing application run files"
   # Log
-  [ -d %{_iotamqtt_pid_dir} ] && rm -rfv %{_iotamqtt_pid_dir}
+  [ -d %{_iotajson_pid_dir} ] && rm -rfv %{_iotajson_pid_dir}
 
   echo "[INFO] Removing application files"
   # Installed files
@@ -154,11 +157,14 @@ rm -rf $RPM_BUILD_ROOT
 # Files to add to the RPM
 # -------------------------------------------------------------------------------------------- #
 %files
-%defattr(755,%{_project_user},%{_project_user},755)
+%defattr(644,%{_project_user},%{_project_user},755)
 %config /etc/init.d/%{_service_name}
-%config /etc/logrotate.d/logrotate-iotamqtt.conf
-%config /etc/cron.d/cron-logrotate-iotamqtt-size
-%config /etc/sysconfig/logrotate-iotamqtt-size
+%attr(755, root, root) /etc/init.d/%{_service_name}
+%config /etc/init.d/%{_service_name}
+%config /etc/logrotate.d/logrotate-%{_service_name}.conf
+%config /etc/cron.d/cron-logrotate-%{_service_name}-size
+%config /etc/sysconfig/logrotate-%{_service_name}-size
+%config /etc/sysconfig/%{_service_name}.default
 %{_install_dir}
 
 %changelog
