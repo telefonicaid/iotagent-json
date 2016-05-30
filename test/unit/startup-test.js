@@ -29,21 +29,21 @@ var iotagentJSON = require('../../'),
 describe('Startup tests', function() {
     describe('When the IoT Agent is started with environment variables', function() {
         beforeEach(function() {
-            process.env.MQTT_HOST = '127.0.0.1';
-            process.env.MQTT_PORT = '1883';
-            process.env.MQTT_USERNAME = 'usermqtt';
-            process.env.MQTT_PASSWORD = 'passmqtt';
-            process.env.HTTP_HOST = 'localhost';
-            process.env.HTTP_PORT = '2222';
+            process.env.IOTA_MQTT_HOST = '127.0.0.1';
+            process.env.IOTA_MQTT_PORT = '1883';
+            process.env.IOTA_MQTT_USERNAME = 'usermqtt';
+            process.env.IOTA_MQTT_PASSWORD = 'passmqtt';
+            process.env.IOTA_HTTP_HOST = 'localhost';
+            process.env.IOTA_HTTP_PORT = '2222';
         });
 
         afterEach(function() {
-            delete process.env.MQTT_HOST;
-            delete process.env.MQTT_PORT;
-            delete process.env.MQTT_USERNAME;
-            delete process.env.MQTT_PASSWORD;
-            delete process.env.HTTP_HOST;
-            delete process.env.HTTP_PORT;
+            delete process.env.IOTA_MQTT_HOST;
+            delete process.env.IOTA_MQTT_PORT;
+            delete process.env.IOTA_MQTT_USERNAME;
+            delete process.env.IOTA_MQTT_PASSWORD;
+            delete process.env.IOTA_HTTP_HOST;
+            delete process.env.IOTA_HTTP_PORT;
         });
 
         afterEach(function(done) {
