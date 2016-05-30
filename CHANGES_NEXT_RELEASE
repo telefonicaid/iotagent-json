@@ -6,4 +6,4 @@
 - Add configuration service (#121).
 - Add environment variable configuration (#125).
 - Add a prefix for all the environment variables (#133)
-- Change the final command status name (#84)
+- Change the final command status name (#135)
