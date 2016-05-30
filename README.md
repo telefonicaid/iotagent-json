@@ -85,14 +85,14 @@ in the `config.iota` set are described in the [IoTA Library Configuration manual
 
 The ones relating specific Ultralight 2.0 bindings are described in the following table.
 
-| Environment variable | Configuration attribute             |
-|:-------------------- |:----------------------------------- |
-| MQTT_HOST            | mqtt.host                           |
-| MQTT_PORT            | mqtt.port                           |
-| MQTT_USERNAME        | mqtt.username                       |
-| MQTT_PASSWORD        | mqtt.password                       |
-| HTTP_HOST            | http.host (still not in use)        |
-| HTTP_PORT            | http.port (still not in use)        |
+| Environment variable      | Configuration attribute             |
+|:------------------------- |:----------------------------------- |
+| IOTA_MQTT_HOST            | mqtt.host                           |
+| IOTA_MQTT_PORT            | mqtt.port                           |
+| IOTA_MQTT_USERNAME        | mqtt.username                       |
+| IOTA_MQTT_PASSWORD        | mqtt.password                       |
+| IOTA_HTTP_HOST            | http.host (still not in use)        |
+| IOTA_HTTP_PORT            | http.port (still not in use)        |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 .
