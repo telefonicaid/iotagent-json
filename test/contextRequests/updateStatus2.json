@@ -8,7 +8,7 @@
         {
           "name": "PING_status",
           "type": "commandStatus",
-          "value": "COMPLETED"
+          "value": "OK"
         },
         {
           "name": "PING_result",
