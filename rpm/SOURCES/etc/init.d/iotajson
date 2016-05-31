@@ -40,30 +40,31 @@ IOTA_USER=""
 BASE_DIR=/opt/$NAME
 PID_DIR=/var/run/$NAME
 LOG_DIR=/var/log/$NAME
+CONF_DIR=/etc/${NAME}.d
 EXECUTABLE=$BASE_DIR/bin/iotagent-json
 
 # source function library
 . /etc/rc.d/init.d/functions
 
-test -x ${EXECUTABLE} || exit 5
+# Override IOTA_USER, BASE_DIR, PID_DIR, LOG_DIR, CONF_DIR, EXECUTABLE
+[ -f /etc/sysconfig/${NAME}.conf ] && . /etc/sysconfig/${NAME}.conf
+
+[ -x ${EXECUTABLE} ] || exit 5
 
 # ================================================================================================
 # Handle single instance start operation
 do_start()
 {
     local INSTANCE=$1
-    # PID_DIR & BASE_DIR & IOTA_USER & LOG_PATH could be renamed here ...
-    [ -f /etc/sysconfig/${NAME}.${INSTANCE} ] && . /etc/sysconfig/${NAME}.${INSTANCE}
     local PID_FILE=${PID_DIR}/${NAME}_${INSTANCE}.pid
     local LOG_PATH=${LOG_DIR}/${NAME}_${INSTANCE}.log
-    local PARAMS=config-${INSTANCE}.js
-
+  
    # Check if already started and exit if so
     status -p ${PID_FILE} ${EXECUTABLE} && return $?
     
-    printf "%-50s" "Starting ${NAME} with ${PARAMS}..."
+    printf "%-50s" "Starting ${NAME} instance ${INSTANCE}..."
     if [[ -x ${EXECUTABLE} ]]; then
-        su $IOTA_USER -c "cd $BASE_DIR; nohup ${EXECUTABLE} ${PARAMS} &>> $LOG_PATH & echo \$! > $PID_FILE"
+        su $IOTA_USER -c "cd ${BASE_DIR}; nohup ${EXECUTABLE} &>> ${LOG_PATH} & echo \$! > ${PID_FILE}"
         echo "Success"
         return 0
     else
@@ -78,14 +79,12 @@ do_stop()
 {
     local RETVAL=0
     local INSTANCE=$1
-    # PID_DIR could be renamed here ...
-    [ -f /etc/sysconfig/${NAME}.${INSTANCE} ] && . /etc/sysconfig/${NAME}.${INSTANCE}
     local PID_FILE=${PID_DIR}/${NAME}_${INSTANCE}.pid
 
     # Check if already stopped and exit if so
     status -p ${PID_FILE} ${EXECUTABLE} ||  return $?
 
-    printf "%-50s" "Stopping $NAME..."
+    printf "%-50s" "Stopping $NAME instance ${INSTANCE}..."
     if [ -f "${PID_FILE}" ]; then
         kill -9 $(cat ${PID_FILE})
         RETVAL=$?
@@ -104,8 +103,6 @@ do_stop()
 do_status()
 {
     local INSTANCE=$1
-    # PID_DIR could be renamed here ...
-    [ -f /etc/sysconfig/${NAME}.${INSTANCE} ] && . /etc/sysconfig/${NAME}.${INSTANCE}
     local PID_FILE=${PID_DIR}/${NAME}_${INSTANCE}.pid
   
     status -p ${PID_FILE} "${EXECUTABLE}"
@@ -117,6 +114,9 @@ do_instance() {
 
     local OPERATION=$1
     local INSTANCE=$2
+
+    # Loads instance configuration file
+    [ -f ${CONF_DIR}/${NAME}.${INSTANCE}.conf ] && . ${CONF_DIR}/${NAME}.${INSTANCE}.conf
 
     case ${OPERATION} in
 
@@ -156,9 +156,10 @@ OPERATION=$1
 INSTANCE=$2
 
 # Find available instances
-INSTANCES=$(ls /etc/sysconfig/${NAME}.* | cut -f2 -d.)
+INSTANCES=$(ls ${CONF_DIR}/${NAME}.*.conf | cut -f3 -d.)
 RETVAL=0
 if [ -n "$INSTANCE" ]; then
+    [ -f ${CONF_DIR}/${NAME}.${INSTANCE}.conf ] || echo "instance ${INSTANCE} does not exists" && exit 6
     do_instance $OPERATION $INSTANCE
     RETVAL=$?
 else

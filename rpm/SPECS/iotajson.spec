@@ -23,6 +23,7 @@ Telefonica's IoT Platform and FIWARE.
 %define _install_dir /opt/iotajson
 %define _iotajson_log_dir /var/log/iotajson
 %define _iotajson_pid_dir /var/run/iotajson
+%define _iotajson_conf_dir /etc/iotajson.d
 
 %define _iotajson_executable iotagent-json
 
@@ -106,9 +107,6 @@ echo "[INFO] Configuring application"
     # restores old configuration if any
     [ -f /tmp/config.js ] && mv /tmp/config.js %{_install_dir}/config.js
    
-    # Create the default instance config file as a link
-    ln -s %{_install_dir}/config.js %{_install_dir}/config-default.js
-
     # Chmod iotagent-json binary
     chmod guo+x %{_install_dir}/bin/%{_iotajson_executable}
 
@@ -161,10 +159,11 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/init.d/%{_service_name}
 %attr(755, root, root) /etc/init.d/%{_service_name}
 %config /etc/init.d/%{_service_name}
+%config /etc/iotajson.d/iotajson.default.conf
 %config /etc/logrotate.d/logrotate-%{_service_name}.conf
 %config /etc/cron.d/cron-logrotate-%{_service_name}-size
 %config /etc/sysconfig/logrotate-%{_service_name}-size
-%config /etc/sysconfig/%{_service_name}.default
+%config /etc/sysconfig/iotajson.default
 %{_install_dir}
 
 %changelog
