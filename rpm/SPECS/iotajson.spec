@@ -163,7 +163,7 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/logrotate.d/logrotate-%{_service_name}.conf
 %config /etc/cron.d/cron-logrotate-%{_service_name}-size
 %config /etc/sysconfig/logrotate-%{_service_name}-size
-%config /etc/sysconfig/iotajson.default
+%config /etc/sysconfig/iotajson.conf
 %{_install_dir}
 
 %changelog
