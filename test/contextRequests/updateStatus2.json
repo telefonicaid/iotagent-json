@@ -11,7 +11,7 @@
           "value": "OK"
         },
         {
-          "name": "PING_result",
+          "name": "PING_info",
           "type": "commandResult",
           "value": "1234567890"
         }
