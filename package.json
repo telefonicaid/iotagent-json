@@ -1,7 +1,7 @@
 {
   "name": "iotagent-json",
   "description": "IoT Agent for the JSON protocol",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/telefonicaid/iotagent-json",
   "author": {
     "name": "Daniel Moran",
@@ -49,7 +49,7 @@
   "dependencies": {
     "async": "1.5.2",
     "dateformat": "1.0.12",
-    "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#develop",
+    "iotagent-node-lib": "2.0.0",
     "logops": "1.0.0-alpha.7",
     "mqtt": "1.10.0",
     "request": "2.72.0",
