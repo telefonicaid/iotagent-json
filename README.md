@@ -1,4 +1,4 @@
-# iotagent-mqtt
+# iotagent-json
 
 ## Index
 
@@ -20,17 +20,17 @@ A quick way to get started is to read the [Step by step guide](./docs/stepbystep
 If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
 
 ## <a name="installation"/> Installation
-There are two ways of installing the MQTT IoT Agent: using Git or RPMs.
+There are two ways of installing the JSON IoT Agent: using Git or RPMs.
  
 ### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
 ```
-git clone https://github.com/telefonicaid/iotagent-mqtt.git
+git clone https://github.com/telefonicaid/iotagent-json.git
 npm install
 ```
 In order to start the IoT Agent, from the root folder of the project, type:
 ```
-bin/iotagentMqtt.js
+bin/iotagent-json
 ``` 
  
 ### Using RPM
@@ -49,14 +49,14 @@ yum localinstall --nogpg <nameOfTheRPM>.rpm
 
 The IoTA will then be installed as a linux service, and can ve started with the `service` command as usual:
 ```
-service iotaMQTT start
+service iotaJSON start
 ```
 ## <a name="usage"/> Usage
-In order to execute the MQTT IoT Agent just execute the following command from the root folder:
+In order to execute the JSON IoT Agent just execute the following command from the root folder:
 ```
 bin/iotagentMqtt.js
 ```
-This will start the MQTT IoT Agent in the foreground. Use standard linux commands to start it in background.
+This will start the JSON IoT Agent in the foreground. Use standard linux commands to start it in background.
 
 When started with no arguments, the IoT Agent will expect to find a `config.js` file with the configuration in the root
 folder. An argument can be passed with the path to a new configuration file (relative to the application folder) to be
@@ -78,6 +78,24 @@ These are the currently available MQTT configuration options:
 * **defaultKey**: default API Key to use when a device is provisioned without a configuration.
 * **username**: user name that identifies the IOTA against the MQTT broker (optional).
 * **password**: password to be used if the username is provided (optional).
+
+### Configuration with environment variables
+Some of the more common variables can be configured using environment variables. The ones overriding general parameters
+in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+
+The ones relating specific Ultralight 2.0 bindings are described in the following table.
+
+| Environment variable      | Configuration attribute             |
+|:------------------------- |:----------------------------------- |
+| IOTA_MQTT_HOST            | mqtt.host                           |
+| IOTA_MQTT_PORT            | mqtt.port                           |
+| IOTA_MQTT_USERNAME        | mqtt.username                       |
+| IOTA_MQTT_PASSWORD        | mqtt.password                       |
+| IOTA_HTTP_HOST            | http.host (still not in use)        |
+| IOTA_HTTP_PORT            | http.port (still not in use)        |
+
+(HTTP-related environment variables will be used in the upcoming HTTP binding)
+.
 
 ## <a name="protocol"/> Protocol
 ### Overview
@@ -193,11 +211,65 @@ E.g.:
 }
 ```
 
+### Commands
+The IoT Agent implements IoTAgent commands, as specified in the [IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
+When a command is receivied in the IoT Agent, a message is published in the following topic:
+```
+/<APIKey>/<DeviceId>/cmd
+```
+The message payload is a plain JSON object, with an attribute per command, and the parameters of the command as the value
+of that attribute.
+
+Once the device has executed the command, the device can report the result information publishing a new mesage in the
+following topic:
+```
+/<APIKey>/<DeviceId>/cmdexe
+```
+
+This message must contain one attribute per command to be updated; the value of that attribute is considered the result
+of the command, and will be passed as it is to the corresponding `_result` attribute in the entity.
+
+E.g.: if a user wants to send a command `PING` with parameters `data = 22` he will send the following request to the
+Context Broker:
+```
+{
+  "updateAction": "UPDATE",
+  "contextElements": [
+    {
+      "id": "Second MQTT Device",
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "attributes": [
+        {
+          "name": "PING",
+          "type": "command",
+          "value": {
+            "data": "22"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+If the APIKey associated to de device is `1234`, this will generate a message in the `/1234/MQTT_2/cmd` topic with the following
+payload:
+```
+{"PING":{"data":"22"}}
+```
+
+Once the device has executed the command, it can publish its results in the `/1234/MQTT_2/cmdexe` topic with a payload with the following
+format:
+```
+{ "PING": "1234567890" }
+```
+
+
 ## <a name="client"/> Command Line Client 
-The MQTT IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
+The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:
 ```
-bin/iotaMqttTester.js
+bin/iotaJsonTester.js
 ```
 This will show a prompt where commands can be issued to the MQTT broker. For a list of the currently available commands
 type `help`.

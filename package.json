@@ -1,20 +1,20 @@
 {
-  "name": "iotagent-mqtt",
-  "description": "IoT Agent for the MQTT protocol",
-  "version": "1.0.0",
-  "homepage": "https://github.com/dmoranj/iotagent-mqtt",
+  "name": "iotagent-json",
+  "description": "IoT Agent for the JSON protocol",
+  "version": "1.1.0",
+  "homepage": "https://github.com/telefonicaid/iotagent-json",
   "author": {
     "name": "Daniel Moran",
     "email": "dmj@tid.es"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dmoranj/iotagent-mqtt.git"
+    "url": "git://github.com/telefonicaid/iotagent-json.git"
   },
   "bugs": {
-    "url": "https://github.com/dmoranj/iotagent-mqtt/issues"
+    "url": "https://github.com/telefonicaid/iotagent-json/issues"
   },
-  "main": "lib/iotagent-mqtt",
+  "main": "lib/iotagent-json",
   "engines": {
     "node": ">=0.10.8"
   },
@@ -37,22 +37,22 @@
     "grunt-mocha-test": "0.12.7",
     "grunt-plato": "^1.3.0",
     "mocha": "2.4.5",
-    "should": "8.2.2",
-    "chai": "~1.8.0",
-    "sinon": "~1.7.3",
-    "mongodb": "*",
+    "should": "8.4.0",
+    "chai": "3.5.0",
+    "sinon": "1.17.4",
+    "mongodb": "2.1.19",
     "istanbul": "~0.1.34",
-    "sinon-chai": "2.4.0",
-    "proxyquire": "0.5.1"
+    "sinon-chai": "2.8.0",
+    "proxyquire": "1.7.9"
   },
   "keywords": [],
   "dependencies": {
     "async": "1.5.2",
     "dateformat": "1.0.12",
-    "iotagent-node-lib": "1.0.0",
+    "iotagent-node-lib": "2.0.0",
     "logops": "1.0.0-alpha.7",
-    "mqtt": "1.7.0",
-    "request": "^2.69.0",
+    "mqtt": "1.10.0",
+    "request": "2.72.0",
     "underscore": "1.8.3"
   }
 }

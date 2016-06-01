@@ -1,0 +1,17 @@
+{
+  "updateAction": "UPDATE",
+  "contextElements": [
+    {
+      "id": "Fourth MQTT Device",
+      "type": "MQTTCommandDevice",
+      "isPattern": "false",
+      "attributes": [
+        {
+          "name": "PING",
+          "type": "command",
+          "value": "22"
+        }
+      ]
+    }
+  ]
+}

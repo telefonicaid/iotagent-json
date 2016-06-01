@@ -1,20 +1,20 @@
 /*
  * Copyright 2015 Telefonica Investigación y Desarrollo, S.A.U
  *
- * This file is part of iotagent-mqtt
+ * This file is part of iotagent-json
  *
- * iotagent-mqtt is free software: you can redistribute it and/or
+ * iotagent-json is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the License,
  * or (at your option) any later version.
  *
- * iotagent-mqtt is distributed in the hope that it will be useful,
+ * iotagent-json is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with iotagent-mqtt.
+ * License along with iotagent-json.
  * If not, seehttp://www.gnu.org/licenses/.
  *
  * For those usages not covered by the GNU Affero General Public License
@@ -24,6 +24,8 @@
 
 var iotagentMqtt = require('../../'),
     mqtt = require('mqtt'),
+    async = require('async'),
+    iotAgentLib = require('iotagent-node-lib'),
     config = require('../config-test.js'),
     nock = require('nock'),
     request = require('request'),
@@ -66,7 +68,11 @@ describe('Support for Thinking Things Modules', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-        iotagentMqtt.stop(done);
+        async.series([
+            iotAgentLib.clearAll,
+            iotagentMqtt.stop
+        ], done);
+
     });
 
     describe('When a new measure with Thinking Thing module P1 arrives to a multiattribute topic', function() {
@@ -83,7 +89,7 @@ describe('Support for Thinking Things Modules', function() {
                 P1: '214,7,d22,b00,-64,'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -103,7 +109,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = '214,7,d22,b00,-64,';
 
-            mqttClient.publish('/1234/MQTT_2/attributes/P1', values, null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs/P1', values, null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -126,7 +132,7 @@ describe('Support for Thinking Things Modules', function() {
                 C1: '00D600070d220b00'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -146,7 +152,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = '00D600070d220b00';
 
-            mqttClient.publish('/1234/MQTT_2/attributes/C1', values, null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs/C1', values, null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -169,7 +175,7 @@ describe('Support for Thinking Things Modules', function() {
                 B: '4.70,1,1,1,1,0'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -192,7 +198,7 @@ describe('Support for Thinking Things Modules', function() {
                 B: '4.70,1,1,1,1,0,9,18'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attributes', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
