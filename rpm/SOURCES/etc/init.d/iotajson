@@ -63,14 +63,9 @@ do_start()
     status -p ${PID_FILE} ${EXECUTABLE} && return $?
     
     printf "%-50s" "Starting ${NAME} instance ${INSTANCE}..."
-    if [[ -x ${EXECUTABLE} ]]; then
-        su $IOTA_USER -c "cd ${BASE_DIR}; nohup ${EXECUTABLE} &>> ${LOG_PATH} & echo \$! > ${PID_FILE}"
-        echo "Success"
-        return 0
-    else
-        printf "%s\n" "Fail - missing ${EXECUTABLE} executable"
-        return 1
-    fi
+    su $IOTA_USER -c "cd ${BASE_DIR}; nohup ${EXECUTABLE} &>> ${LOG_PATH} & echo \$! > ${PID_FILE}"
+    printf "%s\n" "$(success)"
+    return 0
 }
 
 # ================================================================================================
@@ -90,7 +85,6 @@ do_stop()
         RETVAL=$?
         rm -f ${PID_FILE}
         printf "%s\n" "$(success)"
-        return 3
     else
         printf "%s\n" "$(failure)"
         RETVAL=127
