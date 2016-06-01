@@ -1,7 +1,7 @@
 {
   "name": "iotagent-json",
   "description": "IoT Agent for the JSON protocol",
-  "version": "1.1.0",
+  "version": "1.1.0-next",
   "homepage": "https://github.com/telefonicaid/iotagent-json",
   "author": {
     "name": "Daniel Moran",
