@@ -48,7 +48,8 @@ config.iota = {
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
     defaultResource: '',
-    defaultKey: '1234'
+    defaultKey: '1234',
+    defaultTransport: 'MQTT'
 };
 
 module.exports = config;
