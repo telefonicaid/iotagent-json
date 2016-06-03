@@ -25,32 +25,42 @@
 var iotagentMqtt = require('../../'),
     config = require('../config-test.js'),
     nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
     should = require('should'),
+    iotAgentLib = require('iotagent-node-lib'),
     async = require('async'),
     request = require('request'),
     utils = require('../utils'),
+    mockedClientServer,
     contextBrokerMock;
 
-describe('HTTP: Measure reception ', function() {
+describe('HTTP: Commands', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceHTTP.json'),
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
             }
         };
 
-        nock.cleanAll();
+        config.logLevel = 'INFO';
 
+        nock.cleanAll();
+        
         contextBrokerMock = nock('http://10.11.128.16:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
+            .post('/NGSI9/registerContext')
+            .reply(200,
+                utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+
+        contextBrokerMock
+            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
 
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -61,28 +71,20 @@ describe('HTTP: Measure reception ', function() {
 
     afterEach(function(done) {
         nock.cleanAll();
-
         async.series([
             iotAgentLib.clearAll,
             iotagentMqtt.stop
         ], done);
     });
 
-    describe('When a POST measure arrives for the HTTP binding', function() {
-        var optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+    describe('When a command arrive to the Agent for a device with the HTTP protocol', function() {
+        var commandOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
             method: 'POST',
-            json: {
-                humidity: '32',
-                temperature: '87'
-            },
+            json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
-            },
-            qs: {
-                i: 'MQTT_2',
-                k: '1234'
             }
         };
 
@@ -90,23 +92,43 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasures.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus1.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+
+            mockedClientServer = nock('http://localhost:9876')
+                .post('/command', function(body) {
+                    return body.PING || body.PING.data || body.PING.data === 22;
+                })
+                .reply(200, '1234567890');
         });
-        it('should return a 200 OK with no error', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+
+        it('should return a 200 OK without errors', function(done) {
+            request(commandOptions, function(error, response, body) {
                 should.not.exist(error);
-                result.statusCode.should.equal(200);
+                response.statusCode.should.equal(200);
                 done();
             });
         });
-        it('should send its value to the Context Broker', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+        it('should reply with the appropriate command information', function(done) {
+            request(commandOptions, function(error, response, body) {
+                should.exist(body);
+                body.contextResponses['0'].statusCode.code.should.equal(200);
+                done();
+            });
+        });
+        it('should update the status in the Context Broker', function(done) {
+            request(commandOptions, function(error, response, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
+        it('should publish the command information in the MQTT topic', function(done) {
+            request(commandOptions, function(error, response, body) {
+                setTimeout(function() {
+                    mockedClientServer.done();
+                    done();
+                }, 100);
+            });
+        });
     });
 });
-
-

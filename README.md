@@ -130,27 +130,24 @@ NGSIv1 are strings). E.g.:
 ```
 The attribute names in the payload can be mapped to different attribute names in the entity, by using alias in the
 device provisioning (see the [Provisioning API](https://github.com/telefonicaid/iotagent-node-lib#provisioningapi) for
-
 details).
 
-##### GET requests
-A device can report new measures to the IoT Platform using an HTTP GET request to the `/iot/d` path with the following
+A device can report new measures to the IoT Platform using an HTTP POST request to the `/iot/d` path with the following
 query parameters:
-
 * **i (device ID)**: Device ID (unique for the API Key).
 * **k (API Key)**: API Key for the service the device is registered on.
 * **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
-* **d (Data)**: JSON Payload.
 
-Payloads for GET requests should not contain multiple measure groups.
+#### Commands
+When using the HTTP transport, the command handling have two flavours:
 
-##### Requests with POST requests
-Another way of reporting measures is to do it using a POST request. In this case, the payload is passed along as the
-request payload. Two query parameters are still mandatory:
+* **Push commands**: in this case, the Device **must** be provisioned with the `endpoint` attribute, that will contain
+the URL where the IoT Agent will send the received commands. The request payload format will be a plain JSON, as described
+in the "Payload" section. The device will reply with a 200OK response containing the result of the command in the JSON
+result format.
 
-* **i (device ID)**: Device ID (unique for the API Key).
-* **k (API Key)**: API Key for the service the device is registered on.
-* **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+* **Polling commands**: in this case, the Agent does not send any messages to the device, being the later responsible
+of retrieving them from the IoTAgent whenever the device is ready to get commands (still not implemented).
 
 ### MQTT Binding
 #### Measure reporting
