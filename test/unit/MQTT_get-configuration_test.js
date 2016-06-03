@@ -34,7 +34,7 @@ var iotagentMqtt = require('../../'),
     contextBrokerMock,
     mqttClient;
 
-describe('Get configuration from the devices', function() {
+describe('MQTT: Get configuration from the devices', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',

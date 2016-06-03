@@ -35,7 +35,7 @@ var iotagentMqtt = require('../../'),
     mqttClient;
 
 
-describe('MQTT Commands', function() {
+describe('MQTT: Commands', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
