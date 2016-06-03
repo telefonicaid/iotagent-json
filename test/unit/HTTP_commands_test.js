@@ -48,7 +48,7 @@ describe('HTTP: Commands', function() {
         config.logLevel = 'INFO';
 
         nock.cleanAll();
-        
+
         contextBrokerMock = nock('http://10.11.128.16:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
@@ -132,3 +132,4 @@ describe('HTTP: Commands', function() {
         });
     });
 });
+
