@@ -96,8 +96,6 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 
-
-
 ## <a name="protocol"/> Protocol
 ### Overview
 The MQTT-JSON protocol uses plain JSON objects to send information formatted as key-value maps over an MQTT transport. 
@@ -116,7 +114,46 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 * JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers (not
  arrays or other objects).
 
-### Measure reporting
+### HTTP Binding
+
+#### Measure reporting
+##### Payload
+The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute
+in the NGSI entity. The value of all the attributes will be copied as a String (as all simple attribute values in
+NGSIv1 are strings). E.g.:
+```
+{
+  "h": "45%",
+  "t": "23",
+  "l": "1570"
+}
+```
+The attribute names in the payload can be mapped to different attribute names in the entity, by using alias in the
+device provisioning (see the [Provisioning API](https://github.com/telefonicaid/iotagent-node-lib#provisioningapi) for
+
+details).
+
+##### GET requests
+A device can report new measures to the IoT Platform using an HTTP GET request to the `/iot/d` path with the following
+query parameters:
+
+* **i (device ID)**: Device ID (unique for the API Key).
+* **k (API Key)**: API Key for the service the device is registered on.
+* **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+* **d (Data)**: JSON Payload.
+
+Payloads for GET requests should not contain multiple measure groups.
+
+##### Requests with POST requests
+Another way of reporting measures is to do it using a POST request. In this case, the payload is passed along as the
+request payload. Two query parameters are still mandatory:
+
+* **i (device ID)**: Device ID (unique for the API Key).
+* **k (API Key)**: API Key for the service the device is registered on.
+* **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+
+### MQTT Binding
+#### Measure reporting
 
 There are two ways of reporting measures:
 
@@ -139,32 +176,12 @@ In both cases, the key is the one provisioned in the IOTA through the Configurat
 was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
 provisioned without a link to any particular configuration.
 
-### Value conversion
-The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
-device. This section lists those conversions.
-
-#### Timestamp compression
-Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete basic
-calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
-representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
-
-### Thinking Things plugin
-This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one protocol
-to the other. This features are built in a plugin, that can be activated using the `mqtt.thinkingThingsPlugin` flag.
-When the plugin is activated, the following rules apply to all the incoming MQTT-JSON requests:
-* If an attribute named P1 is found, its content will be parsed as a Phone Cell position, as described [here](https://github.com/telefonicaid/iotagent-thinking-things#p1).
-* If an attribute named C1 is found, its content will be parsed as if they would be a P1 attribute, but with all its
-fields codified in hexadecimal with a fixed 4 character length, without comma separation.
-* If an attribute named B is found, its content will be parsed as if they would be Battery information as described
-[here](https://github.com/telefonicaid/iotagent-thinking-things#b). This implementation admits also an extended version
-of this attribute, adding the "batteryType" and "percentage" fields to the entity.
-
-### Configuration retrieval
+#### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
 commands and a topic to receive configuration information.
 
-#### Configuration command topic 
+##### Configuration command topic
 ```
 /{{apikey}}/{{deviceid}}/configuration/commands
 ```
@@ -194,7 +211,7 @@ the selected values change. In case the value has changed, all the attributes wi
 * `configuration`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
 a single publish message in the values topic.
 
-#### Configuration information topic 
+##### Configuration information topic
 ```
 /{{apikey}}/{{deviceid}}/configuration/values
 ```
@@ -212,7 +229,7 @@ E.g.:
 }
 ```
 
-### Commands
+#### Commands
 The IoT Agent implements IoTAgent commands, as specified in the [IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
 When a command is receivied in the IoT Agent, a message is published in the following topic:
 ```
@@ -265,6 +282,25 @@ format:
 { "PING": "1234567890" }
 ```
 
+### Value conversion
+The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
+device. This section lists those conversions.
+
+#### Timestamp compression
+Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete basic
+calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
+representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
+
+### Thinking Things plugin
+This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one protocol
+to the other. This features are built in a plugin, that can be activated using the `mqtt.thinkingThingsPlugin` flag.
+When the plugin is activated, the following rules apply to all the incoming MQTT-JSON requests:
+* If an attribute named P1 is found, its content will be parsed as a Phone Cell position, as described [here](https://github.com/telefonicaid/iotagent-thinking-things#p1).
+* If an attribute named C1 is found, its content will be parsed as if they would be a P1 attribute, but with all its
+fields codified in hexadecimal with a fixed 4 character length, without comma separation.
+* If an attribute named B is found, its content will be parsed as if they would be Battery information as described
+[here](https://github.com/telefonicaid/iotagent-thinking-things#b). This implementation admits also an extended version
+of this attribute, adding the "batteryType" and "percentage" fields to the entity.
 
 ## <a name="client"/> Command Line Client 
 The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 

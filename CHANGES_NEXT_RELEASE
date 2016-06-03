@@ -1,1 +1,2 @@
 - Modify the agent to allow multiple transport protocols (#109)
+- Create an HTTP transport binding (#110)
