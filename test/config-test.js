@@ -29,6 +29,10 @@ config.mqtt = {
     thinkingThingsPlugin: true
 };
 
+config.http = {
+    port: 7896
+};
+
 config.iota = {
     logLevel: 'FATAL',
     contextBroker: {
