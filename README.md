@@ -149,6 +149,59 @@ result format.
 * **Polling commands**: in this case, the Agent does not send any messages to the device, being the later responsible
 of retrieving them from the IoTAgent whenever the device is ready to get commands (still not implemented).
 
+#### Configuration retrieval
+The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
+stored in the Context Broker). This mechanism combines calls to the IoTA HTTP endpoint with direct calls to the provided
+device endpoint.
+
+##### Configuration commands
+The IoT Agent listens in this path for configuration requests coming from the device:
+```
+http://<iotaURL>:<HTTP-Port>/configuration/commands
+```
+The messages must contain a JSON document with the following attributes:
+
+* **type**: indicates the type of command the device is sending. See below for accepted values.
+* **fields**: array with the names of the values to be retrieved from the Context Broker entity representing the device.
+
+This command will trigger a query to the CB that will, as a result, end up with a new request to the device endpoint,
+with the `configuration/values` path (described bellow).
+
+E.g.:
+```
+{
+  "type": "configuration",
+  "fields": [
+    "sleepTime",
+    "warningLevel"
+  ]
+}
+```
+
+There are two accepted values for the configuration command types:
+* `subscription`: this command will generate a subscription in the Context Broker that will be triggered whenever any of
+the selected values change. In case the value has changed, all the attributes will be retrieved.
+* `configuration`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
+a single request to the device endpoint.
+
+##### Configuration information retrieval
+Every device should listen in the following path, so it can receive configuration information:
+```
+<device_endpoint>/configuration/values
+```
+Whenever the device requests any information from the IoTA, the information will be posted in this path. The information
+is sent in the same format used in multiple measure reporting: a plain JSON with an attribute per value requested. An
+additional parameter called `dt` is added with the system current time.
+
+E.g.:
+```
+{
+  "sleepTime": "200",
+  "warningLevel": "80",
+  "dt": "20160125T092703Z"
+}
+```
+
 ### MQTT Binding
 #### Measure reporting
 
