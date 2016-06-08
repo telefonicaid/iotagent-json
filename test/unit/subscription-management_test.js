@@ -34,7 +34,7 @@ var iotagentMqtt = require('../../'),
     contextBrokerMock,
     mqttClient;
 
-describe('MQTT: Subscription management', function() {
+describe('Subscription management', function() {
     var provisionOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
         method: 'POST',
