@@ -49,7 +49,7 @@ EXECUTABLE=$BASE_DIR/bin/iotagent-json
 # Override IOTA_USER, BASE_DIR, PID_DIR, LOG_DIR, CONF_DIR, EXECUTABLE
 [ -f /etc/sysconfig/${NAME}.conf ] && . /etc/sysconfig/${NAME}.conf
 
-[ -x ${EXECUTABLE} ] || exit 5
+[ ! -x ${EXECUTABLE} ] && echo "${EXECUTABLE} is not executable or does not exists" && exit 5
 
 # ================================================================================================
 # Handle single instance start operation
@@ -153,7 +153,7 @@ INSTANCE=$2
 INSTANCES=$(ls ${CONF_DIR}/${NAME}.*.conf | cut -f3 -d.)
 RETVAL=0
 if [ -n "$INSTANCE" ]; then
-    [ -f ${CONF_DIR}/${NAME}.${INSTANCE}.conf ] || echo "instance ${INSTANCE} does not exists" && exit 6
+    [[ ! -f ${CONF_DIR}/${NAME}.${INSTANCE}.conf ]] && echo "Instance ${INSTANCE} does not exists" && exit 6
     do_instance $OPERATION $INSTANCE
     RETVAL=$?
 else
