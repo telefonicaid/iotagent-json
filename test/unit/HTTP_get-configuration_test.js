@@ -33,11 +33,107 @@ var iotagentMqtt = require('../../'),
     mockedClientServer,
     contextBrokerMock;
 
-describe('HTTP: Get configuration from the devices', function() {
+describe.only('HTTP: Get configuration from the devices', function() {
+    beforeEach(function(done) {
+        var provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        nock.cleanAll();
+
+        contextBrokerMock = nock('http://10.11.128.16:1026')
+            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-servicepath', '/gardens')
+            .post('/NGSI9/registerContext')
+            .reply(200,
+                utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+
+        contextBrokerMock
+            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-servicepath', '/gardens')
+            .post('/v1/updateContext')
+            .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+
+        iotagentMqtt.start(config, function() {
+            request(provisionOptions, function(error, response, body) {
+                done();
+            });
+        });
+    });
+
+    afterEach(function(done) {
+        nock.cleanAll();
+
+        async.series([
+            iotAgentLib.clearAll,
+            iotagentMqtt.stop
+        ], done);
+    });
+
     describe('When a configuration request is received in the path /configuration/commands', function() {
-        it('should ask the Context Broker for the request attributes');
-        it('should return the requested attributes to the client in the client endpoint');
-        it('should add the system timestamp in compressed format to the request');
+        var configurationRequest = {
+            url: 'http://localhost:' + config.http.port + '/iot/d/configuration',
+            method: 'POST',
+            json: {
+                type: 'configuration',
+                fields: [
+                    'sleepTime',
+                    'warningLevel'
+                ]
+            },
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/queryContext', utils.readExampleFile('./test/contextRequests/getConfiguration.json'))
+                .reply(200,
+                    utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
+
+            mockedClientServer = nock('http://localhost:9876')
+                .post('/command/configuration', function(result) {
+                    return result.sleepTime && result.sleepTime === '200' &&
+                        result.warningLevel && result.warningLevel === '80' &&
+                        result.dt;
+                })
+                .reply(200, '');
+        });
+
+        it('should reply with a 200 OK', function(done) {
+            request(configurationRequest, function(error, response, body) {
+                should.not.exist(error);
+                response.statusCode.should.equal(200);
+                done();
+            });
+        });
+
+        it('should ask the Context Broker for the request attributes', function(done) {
+            request(configurationRequest, function(error, response, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+        it('should return the requested attributes to the client in the client endpoint', function(done) {
+            request(configurationRequest, function(error, response, body) {
+                mockedClientServer.done();
+                done();
+            });
+        });
     });
     describe('When a subscription request is received in the IoT Agent', function() {
         it('should create a subscription in the ContextBroker');
