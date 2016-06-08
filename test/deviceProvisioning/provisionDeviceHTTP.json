@@ -1,0 +1,22 @@
+{
+  "devices": [
+    {
+      "device_id": "MQTT_2",
+      "protocol": "GENERIC_PROTO",
+      "entity_name": "Second MQTT Device",
+      "timezone": "America/Santiago",
+      "entity_type": "AnMQTTDevice",
+      "endpoint": "http://localhost:9876/command",
+      "attributes": [
+        {
+          "name": "temperature",
+          "type": "celsius"
+        },
+        {
+          "name": "humidity",
+          "type": "degrees"
+        }
+      ]
+    }
+  ]
+}

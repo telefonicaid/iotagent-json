@@ -34,7 +34,7 @@ var iotagentMqtt = require('../../'),
     contextBrokerMock,
     mqttClient;
 
-describe('Get configuration from the devices', function() {
+describe('MQTT: Get configuration from the devices', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -210,12 +210,14 @@ describe('Get configuration from the devices', function() {
 
                 mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
                     function(error) {
-                        request(optionsNotify, function() {
-                            setTimeout(function() {
-                                configurationReceived.should.equal(true);
-                                done();
-                            }, 100);
-                        });
+                        setTimeout(function() {
+                            request(optionsNotify, function() {
+                                setTimeout(function() {
+                                    configurationReceived.should.equal(true);
+                                    done();
+                                }, 100);
+                            });
+                        }, 100);
                     });
             });
     });

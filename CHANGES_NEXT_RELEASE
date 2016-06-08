@@ -1,9 +1,2 @@
-- Update to release 2.0.0 of the IoTAgent library.
-- Use wildcards for topics subscription instead of subscribing to each topic separately (#112)
-- Implement commands (#108)
-- Git repository rename from iotagent-mqtt iotagent-json, this implies changes in a lot of files.
-- ADD Travis CI to the repository (#122).
-- Add configuration service (#121).
-- Add environment variable configuration (#125).
-- Add a prefix for all the environment variables (#133)
-- Change the final command status name (#135)
+- Modify the agent to allow multiple transport protocols (#109)
+- Create an HTTP transport binding (#110)

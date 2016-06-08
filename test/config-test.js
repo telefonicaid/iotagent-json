@@ -29,6 +29,10 @@ config.mqtt = {
     thinkingThingsPlugin: true
 };
 
+config.http = {
+    port: 7896
+};
+
 config.iota = {
     logLevel: 'FATAL',
     contextBroker: {
@@ -50,5 +54,7 @@ config.iota = {
     defaultResource: '',
     defaultKey: '1234'
 };
+
+config.defaultTransport = 'MQTT';
 
 module.exports = config;
