@@ -33,7 +33,7 @@ var iotagentMqtt = require('../../'),
     mockedClientServer,
     contextBrokerMock;
 
-describe.only('HTTP: Get configuration from the devices', function() {
+describe('HTTP: Get configuration from the devices', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -136,7 +136,70 @@ describe.only('HTTP: Get configuration from the devices', function() {
         });
     });
     describe('When a subscription request is received in the IoT Agent', function() {
-        it('should create a subscription in the ContextBroker');
-        it('should update the values in the MQTT topic when a notification is received');
+        var configurationRequest = {
+            url: 'http://localhost:' + config.http.port + '/iot/d/configuration',
+            method: 'POST',
+            json: {
+                type: 'subscription',
+                fields: [
+                    'sleepTime',
+                    'warningLevel'
+                ]
+            },
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+
+        beforeEach(function() {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
+                .reply(200,
+                    utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
+
+            mockedClientServer = nock('http://localhost:9876')
+                .post('/command/configuration', function(result) {
+                    return result.sleepTime && result.sleepTime === '200' &&
+                        result.warningLevel && result.warningLevel === 'ERROR' &&
+                        result.dt;
+                })
+                .reply(200, '');
+        });
+
+        it('should create a subscription in the ContextBroker', function(done) {
+            request(configurationRequest, function(error, response, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+        it('should update the values in the MQTT topic when a notification is received', function(done) {
+            var optionsNotify = {
+                url: 'http://localhost:' + config.iota.server.port + '/notify',
+                method: 'POST',
+                json: utils.readExampleFile('./test/subscriptions/notification.json'),
+                headers: {
+                    'fiware-service': 'smartGondor',
+                    'fiware-servicepath': '/gardens'
+                }
+            };
+
+            request(configurationRequest, function(error, response, body) {
+                setTimeout(function() {
+                    request(optionsNotify, function() {
+                        setTimeout(function() {
+                            mockedClientServer.done();
+                            done();
+                        }, 100);
+                    });
+                }, 100);
+            });
+        });
     });
 });

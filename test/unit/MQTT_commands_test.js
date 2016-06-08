@@ -72,8 +72,10 @@ describe('MQTT: Commands', function() {
             .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
 
         iotagentMqtt.start(config, function() {
-            request(provisionOptions, function(error, response, body) {
-                done();
+            iotAgentLib.clearAll(function() {
+                request(provisionOptions, function(error, response, body) {
+                    done();
+                });
             });
         });
     });
