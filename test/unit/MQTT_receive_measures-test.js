@@ -20,6 +20,9 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
+
+/* jshint camelcase: false */
+
 'use strict';
 
 var iotagentMqtt = require('../../'),
@@ -30,7 +33,7 @@ var iotagentMqtt = require('../../'),
     async = require('async'),
     request = require('request'),
     utils = require('../utils'),
-    groupCreation =  {
+    groupCreation = {
         url: 'http://localhost:' + config.iota.server.port + '/iot/services',
         method: 'POST',
         json: {
