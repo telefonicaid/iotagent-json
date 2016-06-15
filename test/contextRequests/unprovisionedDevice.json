@@ -1,0 +1,23 @@
+{
+  "contextElements": [
+    {
+      "type": "TheLightType",
+      "isPattern": "false",
+      "id": "TheLightType:MQTT_UNPROVISIONED",
+      "attributes": [
+        {
+          "name": "humidity",
+          "type": "string",
+          "value": "32"
+        },
+        {
+          "name": "temperature",
+          "type": "string",
+          "value": "87"
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}
+

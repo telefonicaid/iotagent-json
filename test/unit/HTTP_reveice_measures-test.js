@@ -20,6 +20,9 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
+
+/* jshint camelcase: false */
+
 'use strict';
 
 var iotagentMqtt = require('../../'),
@@ -30,6 +33,34 @@ var iotagentMqtt = require('../../'),
     async = require('async'),
     request = require('request'),
     utils = require('../utils'),
+    groupCreation = {
+        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+        method: 'POST',
+        json: {
+            services: [
+                {
+                    resource: '',
+                    apikey: 'KL223HHV8732SFL1',
+                    entity_type: 'TheLightType',
+                    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                    cbHost: 'http://unexistentHost:1026',
+                    commands: [],
+                    lazy: [],
+                    attributes: [
+                        {
+                            name: 'status',
+                            type: 'Boolean'
+                        }
+                    ],
+                    static_attributes: []
+                }
+            ]
+        },
+        headers: {
+            'fiware-service': 'smartGondor',
+            'fiware-servicepath': '/gardens'
+        }
+    },
     contextBrokerMock;
 
 describe('HTTP: Measure reception ', function() {
@@ -100,6 +131,50 @@ describe('HTTP: Measure reception ', function() {
                 done();
             });
         });
+        it('should send its value to the Context Broker', function(done) {
+            request(optionsMeasure, function(error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST measure arrives for an unprovisioned device', function() {
+        var optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/d',
+            method: 'POST',
+            json: {
+                humidity: '32',
+                temperature: '87'
+            },
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_UNPROVISIONED',
+                k: 'KL223HHV8732SFL1'
+            }
+        };
+
+        beforeEach(function(done) {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext')
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedDevice.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+            request(groupCreation, function(error, response, body) {
+                done();
+            });
+        });
+
         it('should send its value to the Context Broker', function(done) {
             request(optionsMeasure, function(error, result, body) {
                 contextBrokerMock.done();
