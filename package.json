@@ -51,7 +51,7 @@
     "express": "^4.11.2",
     "body-parser": "1.15.0",
     "dateformat": "1.0.12",
-    "iotagent-node-lib": "2.0.0",
+    "iotagent-node-lib": "2.1.1",
     "logops": "1.0.0-alpha.7",
     "mqtt": "1.10.0",
     "request": "2.72.0",
