@@ -20,6 +20,9 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
+
+/* jshint camelcase: false */
+
 'use strict';
 
 var iotagentMqtt = require('../../'),
@@ -30,6 +33,34 @@ var iotagentMqtt = require('../../'),
     async = require('async'),
     request = require('request'),
     utils = require('../utils'),
+    groupCreation = {
+        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+        method: 'POST',
+        json: {
+            services: [
+                {
+                    resource: '',
+                    apikey: 'KL223HHV8732SFL1',
+                    entity_type: 'TheLightType',
+                    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                    cbHost: 'http://unexistentHost:1026',
+                    commands: [],
+                    lazy: [],
+                    attributes: [
+                        {
+                            name: 'status',
+                            type: 'Boolean'
+                        }
+                    ],
+                    static_attributes: []
+                }
+            ]
+        },
+        headers: {
+            'fiware-service': 'smartGondor',
+            'fiware-servicepath': '/gardens'
+        }
+    },
     contextBrokerMock,
     mqttClient;
 
@@ -95,6 +126,40 @@ describe('MQTT: Measure reception ', function() {
                     done();
                 }, 100);
             });
+        });
+    });
+
+    describe('When a new multiple measure arrives for an unprovisioned device', function() {
+        beforeEach(function(done) {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext')
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedDevice.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+            request(groupCreation, function(error, response, body) {
+                done();
+            });
+        });
+        it('should send its value to the Context Broker', function(done) {
+            var values = {
+                humidity: '32',
+                temperature: '87'
+            };
+
+            mqttClient.publish('/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null,
+                function(error) {
+                    setTimeout(function() {
+                        contextBrokerMock.done();
+                        done();
+                    }, 100);
+                });
         });
     });
 
