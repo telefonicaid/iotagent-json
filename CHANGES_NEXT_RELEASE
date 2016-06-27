@@ -1,1 +1,1 @@
-- ADD Allow unprovisioned devices for JSON IoTAgents (#153)
+- Autoprovisioned devices omit mapped attributes (#160)
