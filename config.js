@@ -31,6 +31,7 @@ config.mqtt = {
 
 config.iota = {
     logLevel: 'DEBUG',
+    timestamp: true,
     contextBroker: {
         host: 'localhost',
         port: '1026'
@@ -39,7 +40,12 @@ config.iota = {
         port: 4041
     },
     deviceRegistry: {
-        type: 'memory'
+        type: 'mongodb'
+    },
+    mongodb: {
+        host: 'localhost',
+        port: '27017',
+        db: 'iotagentjson'
     },
     types: {},
     service: 'howtoService',
