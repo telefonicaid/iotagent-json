@@ -17,7 +17,14 @@ This project is based in the Node.js IoT Agent library. More information about t
 
 A quick way to get started is to read the [Step by step guide](./docs/stepbystep.md).
 
+As is the case in any IoT Agent, this one follows the interaction model defined in the [Node.js IoT Agent Library](https://github.com/telefonicaid/iotagent-node-lib),
+that is used for the implementation of the Northbound APIs. Information about the IoTAgent's architecture can be found
+on that global repository. This documentation will only address those features and characteristics that are particular
+to the JSON IoTAgent.
+
 If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
+
+Additional information about operating the component can be found in the [Operations: logs and alarms](docs/operations.md) document.
 
 ## <a name="installation"/> Installation
 There are two ways of installing the JSON IoT Agent: using Git or RPMs.
