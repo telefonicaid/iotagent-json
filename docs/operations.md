@@ -105,7 +105,7 @@ Every error has a code composed of a prefix and an ID, codified with the followi
 | Prefix           | Type of operation      |
 |:---------------- |:---------------------- |
 | GLOBAL           | Global errors          |
-| TTHINGS           | Thinking Things plugin errors          |
+| TTHINGS          | Thinking Things plugin errors          |
 | CONFIG           | Errors related with the configuration retrieval mechanism          |
 | MEASURES         | Errors related with measure processing |
 | COMMANDS         | Errors related with command processing |
