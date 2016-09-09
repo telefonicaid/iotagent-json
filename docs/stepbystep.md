@@ -150,7 +150,7 @@ Mosquitto also comes along with two command-line utilities that can be used to t
 Mosquitto-sub can be used to subscribe to a certain topic, showing all the information sent to the topic in the console
 output. To subscribe to a topic, use:
 ```
-mosquitto_sub -h <mosquittoIp> -t /<apiKey>/<devId>/attributes
+mosquitto_sub -h <mosquittoIp> -t /<apiKey>/<devId>/attrs
 ```
 
 Where <mosquittoIp> is the IP where your instance of the Mosquitto broker is listening and <apiKey> and <devId> depende 
@@ -158,7 +158,7 @@ on the device you are using. You can omit the `-h` parameter if working on local
 
 Mosquitto-pub can be used to send information to a topic. This will be a typical execution example:
 ```
-mosquitto_pub -h <mosquittoIp> -t /<apiKey>/<devId>/attributes -m '{"L":4,"T": "31.5","H":30}'
+mosquitto_pub -h <mosquittoIp> -t /<apiKey>/<devId>/attrs -m '{"L":4,"T": "31.5","H":30}'
 ```
 
 If you execute both commands in different windows, when you run the latter command, you should see the string `{"L":4,"T": "31.5","H":30}`
@@ -198,7 +198,7 @@ We have not created a specific configuration for our devices yet, so *the API Ke
 Now we can simulate some measures from the device. Since our device has DeviceID `sensor01` and the API Key we are using
 is the default one, `1234`, we can send a measure with the mosquitto command line client using the following command:
 ```
-mosquitto_pub -t /1234/sensor01/attributes -m '{"l":4,"t": "31.5"}'
+mosquitto_pub -t /1234/sensor01/attrs -m '{"l":4,"t": "31.5"}'
 ```
 
 This command should publish all the information in the Context Broker. A queryContext operation over the device entity
@@ -256,7 +256,7 @@ representing the device. We will add the `sleepTime` attribute with the followin
 ```
 curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Cache-Control: no-cache" -d '{
 "value" : "300"
-}' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attributes/sleepTime'
+}' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attrs/sleepTime'
 ```
 
 When the IoTAgent is asked for configuration values, it will ask the Context Broker for those values. Once it has collected
@@ -346,7 +346,7 @@ curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -
 Now we can simulate a measure as in the case of the single device provision. Use the following command to send a new
 simulated measure:
 ```
-mosquitto_pub -t /AAFF9977/sensor02/attributes -m '{"humidity": 76,"happyness": "Not bad"}'
+mosquitto_pub -t /AAFF9977/sensor02/attrs -m '{"humidity": 76,"happyness": "Not bad"}'
 ```
 
 Note in this case the APIKey is not the default one, but the one we defined in the Configuration API.
@@ -429,8 +429,8 @@ file with the following contents:
 ```
 topic read $SYS/#
 
-topic write /1234/+/attributes
-topic write /1234/+/attributes/#
+topic write /1234/+/attrs
+topic write /1234/+/attrs/#
 topic write /1234/+/configuration/commands
 topic read /1234/+/configuration/values
 
@@ -438,8 +438,8 @@ user iota
 topic /#
 
 user potteduser
-topic write /AAFF9977/+/attributes
-topic write /AAFF9977/+/attributes/#
+topic write /AAFF9977/+/attrs
+topic write /AAFF9977/+/attrs/#
 topic write /AAFF9977/+/configuration/commands
 topic read /AAFF9977/+/configuration/values
 
@@ -535,7 +535,7 @@ curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -
 
 Now we can try to provision new measures with the same command we used in the first case:
 ```
-mosquitto_pub -t /AAFF9977/sensor03/attributes -m '{"humidity": 76,"happyness": "Not bad"}'
+mosquitto_pub -t /AAFF9977/sensor03/attrs -m '{"humidity": 76,"happyness": "Not bad"}'
 ```
 
 If we use a queryContext to check if the changes have been progressed to the Context Broker we will find that those
@@ -556,7 +556,7 @@ Checking the IoTAgent logs you will see that the request was completely ignored.
 trying to make an anonymous publish in a ACL protected topic that let only the user `potteduser`publish new messages.
 If we try again using the credentials we generated for the user:
 ```
-mosquitto_pub -t /AAFF9977/sensor03/attributes -m '{"humidity": 76,"happyness": "Not bad"}' -u potteduser -P pottedpass
+mosquitto_pub -t /AAFF9977/sensor03/attrs -m '{"humidity": 76,"happyness": "Not bad"}' -u potteduser -P pottedpass
 ```
 
 And execute the queryContext again, we will get the updated entity:

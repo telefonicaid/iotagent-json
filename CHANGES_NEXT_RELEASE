@@ -1,1 +1,4 @@
-- ADD Allow unprovisioned devices for JSON IoTAgents (#153)
+- Autoprovisioned devices omit mapped attributes (#160)
+- ADD Operations manual
+- Logger modules not being singleton cause logging inconsistencies (#173)
+- [Documentation] Reference to /iot/d instead of /iot/json (#168)

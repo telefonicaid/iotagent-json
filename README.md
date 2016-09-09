@@ -17,7 +17,14 @@ This project is based in the Node.js IoT Agent library. More information about t
 
 A quick way to get started is to read the [Step by step guide](./docs/stepbystep.md).
 
+As is the case in any IoT Agent, this one follows the interaction model defined in the [Node.js IoT Agent Library](https://github.com/telefonicaid/iotagent-node-lib),
+that is used for the implementation of the Northbound APIs. Information about the IoTAgent's architecture can be found
+on that global repository. This documentation will only address those features and characteristics that are particular
+to the JSON IoTAgent.
+
 If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
+
+Additional information about operating the component can be found in the [Operations: logs and alarms](docs/operations.md) document.
 
 ## <a name="installation"/> Installation
 There are two ways of installing the JSON IoT Agent: using Git or RPMs.
@@ -103,7 +110,7 @@ It uses different topics to separate the different destinations and types of the
 are described in the following sections).
 
 All the topics used in the protocol are prefixed with the APIKey of the device group and the Device ID of the device
-involved in the interaction; i.e.: there is a different set of topics for each service (e.g: `/FF957A98/MyDeviceId/attributes`).
+involved in the interaction; i.e.: there is a different set of topics for each service (e.g: `/FF957A98/MyDeviceId/attrs`).
 The API Key is a secret identifier shared among all the devices of a service, and the DeviceID is an ID that uniquely
 identifies the device in a service. API Keys can be configured with the IoTA Configuration API or the public default
 API Key of the IoT Agent can be used in its stead. The Device ID must be provisioned in advance in the IoT Agent before
@@ -132,7 +139,7 @@ The attribute names in the payload can be mapped to different attribute names in
 device provisioning (see the [Provisioning API](https://github.com/telefonicaid/iotagent-node-lib#provisioningapi) for
 details).
 
-A device can report new measures to the IoT Platform using an HTTP POST request to the `/iot/d` path with the following
+A device can report new measures to the IoT Platform using an HTTP POST request to the `/iot/json` path with the following
 query parameters:
 * **i (device ID)**: Device ID (unique for the API Key).
 * **k (API Key)**: API Key for the service the device is registered on.
@@ -210,7 +217,7 @@ There are two ways of reporting measures:
 * **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the 
 following structure:
 ```
-/{{api-key}}/{{device-id}}/attributes
+/{{api-key}}/{{device-id}}/attrs
 ```
 The message in this case must contain a valid JSON object of a single level; for each key/value pair, the key represents
 the attribute name and the value the attribute value. Attribute type will be taken from the device provision information.
@@ -218,7 +225,7 @@ the attribute name and the value the attribute value. Attribute type will be tak
 * **Single measures**: In order to send single measures, a device can publish the direct value to an MQTT topic with
 the following structure:
 ```
-/{{api-key}}/{{device-id}}/attributes/<attributeName>
+/{{api-key}}/{{device-id}}/attrs/<attributeName>
 ```
 Indicating in the topic the name of the attribute to be modified.
 

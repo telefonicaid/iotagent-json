@@ -88,7 +88,7 @@ describe('Configuration API support', function() {
             .post('/iot/protocols', {
                     protocol: 'TT_MQTT-JSON',
                     description: 'MQTT-JSON protocol for TT',
-                    iotagent: 'http://localhost:4041/iot',
+                    iotagent: 'http://localhost:4041',
                     resource: '/iotamqtt',
                     services: []
                 })
@@ -117,7 +117,7 @@ describe('Configuration API support', function() {
             iotamMock.post('/iot/protocols', {
                     protocol: 'TT_MQTT-JSON',
                     description: 'MQTT-JSON protocol for TT',
-                    iotagent: 'http://localhost:4041/iot',
+                    iotagent: 'http://localhost:4041',
                     resource: '/iotamqtt',
                     services: [
                         {
@@ -161,7 +161,7 @@ describe('Configuration API support', function() {
             var configurationProvision = {
                 protocol: 'TT_MQTT-JSON',
                 description: 'MQTT-JSON protocol for TT',
-                iotagent: 'http://localhost:4041/iot',
+                iotagent: 'http://localhost:4041',
                 resource: '/iotamqtt',
                 services: [
                     {
