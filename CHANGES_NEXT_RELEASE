@@ -1,0 +1,3 @@
+- Autoprovisioned devices omit mapped attributes (#160)
+- ADD Operations manual
+- Logger modules not being singleton cause logging inconsistencies #173
