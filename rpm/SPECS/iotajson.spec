@@ -168,7 +168,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 
-* Fri Sept 09 2016 Daniel Moran <daniel.moranjimenez@telefonica.com> 1.4.0
+* Fri Sep 09 2016 Daniel Moran <daniel.moranjimenez@telefonica.com> 1.4.0
 - Autoprovisioned devices omit mapped attributes (#160)
 - ADD Operations manual
 - Logger modules not being singleton cause logging inconsistencies (#173)
