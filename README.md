@@ -4,10 +4,6 @@
 
 * [Description](#description)
 * [Build & Install](#buildinstall)
-  * [Installation](#installation)
-  * [Usage](#usage)
-  * [Configuration] (#configuration)
-  * [Packaging](#packaging)
 * [API Overview] (#apioverview)
   * [JSON Protocol] (#protocol)
   * [Transport Protocol] (#transportprotocol)
@@ -15,7 +11,7 @@
 * [API Reference Documentation] (#apireference)
 * [Command Line Client](#client)
 * [Testing] (#testing)
-* [Development documentation] (#development)
+* [Development] (#development)
 
 ## <a name="description"/> Description
 This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the OMA NGSI standard used in FIWARE.
@@ -35,82 +31,7 @@ Additional information about operating the component can be found in the [Operat
 
 ## <a name="buildinstall"/> Build & Install
 
-### <a name="installation"/> Installation
-There are two ways of installing the JSON IoT Agent: using Git or RPMs.
- 
-#### Using GIT
-In order to install the TT Agent, just clone the project and install the dependencies:
-```
-git clone https://github.com/telefonicaid/iotagent-json.git
-npm install
-```
-In order to start the IoT Agent, from the root folder of the project, type:
-```
-bin/iotagent-json
-``` 
- 
-#### Using RPM
-The project contains a script for generating an RPM that can be installed in Red Hat 6.5 compatible Linux distributions. 
-The RPM depends on Node.js 0.10 version, so EPEL repositories are advisable. 
-
-In order to create the RPM, execute the following scritp, inside the `/rpm` folder:
-```
-create-rpm.sh -v <versionNumber> -r <releaseNumber>
-```
-
-Once the RPM is generated, it can be installed using the followogin command:
-```
-yum localinstall --nogpg <nameOfTheRPM>.rpm
-```
-
-The IoTA will then be installed as a linux service, and can ve started with the `service` command as usual:
-```
-service iotaJSON start
-```
-### <a name="usage"/> Usage
-In order to execute the JSON IoT Agent just execute the following command from the root folder:
-```
-bin/iotagentMqtt.js
-```
-This will start the JSON IoT Agent in the foreground. Use standard linux commands to start it in background.
-
-When started with no arguments, the IoT Agent will expect to find a `config.js` file with the configuration in the root
-folder. An argument can be passed with the path to a new configuration file (relative to the application folder) to be
-used instead of the default one.
-
-### <a name="configuration"/> Configuration
-#### Overview
-All the configuration for the IoT Agent is stored in a single configuration file (typically installed in the root folder).
-
-This configuration file is a JavaScript file and contains two configuration chapters:
-* **iota**: this object stores the configuration of the Northbound of the IoT Agent, and is completely managed by the
-IoT Agent library. More information about this options can be found [here](https://github.com/telefonicaid/iotagent-node-lib#configuration).
-* **mqtt**: this object stores MQTT's specific configuration. A detailed description can be found in the next section.
-
-#### MQTT configuration
-These are the currently available MQTT configuration options:
-* **host**: host of the MQTT broker.
-* **port**: port where the MQTT broker is listening.
-* **defaultKey**: default API Key to use when a device is provisioned without a configuration.
-* **username**: user name that identifies the IOTA against the MQTT broker (optional).
-* **password**: password to be used if the username is provided (optional).
-
-#### Configuration with environment variables
-Some of the more common variables can be configured using environment variables. The ones overriding general parameters
-in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
-
-The ones relating specific Ultralight 2.0 bindings are described in the following table.
-
-| Environment variable      | Configuration attribute             |
-|:------------------------- |:----------------------------------- |
-| IOTA_MQTT_HOST            | mqtt.host                           |
-| IOTA_MQTT_PORT            | mqtt.port                           |
-| IOTA_MQTT_USERNAME        | mqtt.username                       |
-| IOTA_MQTT_PASSWORD        | mqtt.password                       |
-| IOTA_HTTP_HOST            | http.host (still not in use)        |
-| IOTA_HTTP_PORT            | http.port (still not in use)        |
-
-(HTTP-related environment variables will be used in the upcoming HTTP binding)
+Information about how to install the JSON IoTAgent can be found at the corresponding section of the [Installation & Administration Guide](docs/installationguide.md).
 
 ## <a name="apioverview"/> API Overview
 ### <a name="protocol"/> JSON Protocol
@@ -477,129 +398,5 @@ grunt test-report
 ```
 
 ##  <a name="development"/> Development documentation
-### Contributions
-All contributions to this project are welcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md) 
 
-### Project build
-The project is managed using Grunt Task Runner.
-
-For a list of available task, type
-```bash
-grunt --help
-```
-
-The following sections show the available options in detail.
-
-### Coding guidelines
-jshint, gjslint
-
-Uses provided .jshintrc and .gjslintrc flag files. The latter requires Python and its use can be disabled
-while creating the project skeleton with grunt-init.
-To check source code style, type
-```bash
-grunt lint
-```
-
-Checkstyle reports can be used together with Jenkins to monitor project quality metrics by means of Checkstyle
-and Violations plugins.
-To generate Checkstyle and JSLint reports under `report/lint/`, type
-```bash
-grunt lint-report
-```
-
-
-### Continuous testing
-
-Support for continuous testing by modifying a src file or a test.
-For continuous testing, type
-```bash
-grunt watch
-```
-
-
-### Source Code documentation
-dox-foundation
-
-Generates HTML documentation under `site/doc/`. It can be used together with jenkins by means of DocLinks plugin.
-For compiling source code documentation, type
-```bash
-grunt doc
-```
-
-
-### Code Coverage
-Istanbul
-
-Analizes the code coverage of your tests.
-
-To generate an HTML coverage report under `site/coverage/` and to print out a summary, type
-```bash
-# Use git-bash on Windows
-grunt coverage
-```
-
-To generate a Cobertura report in `report/coverage/cobertura-coverage.xml` that can be used together with Jenkins to
-monitor project quality metrics by means of Cobertura plugin, type
-```bash
-# Use git-bash on Windows
-grunt coverage-report
-```
-
-
-### Code complexity
-Plato
-
-Analizes code complexity using Plato and stores the report under `site/report/`. It can be used together with jenkins
-by means of DocLinks plugin.
-For complexity report, type
-```bash
-grunt complexity
-```
-
-### PLC
-
-Update the contributors for the project
-```bash
-grunt contributors
-```
-
-
-### Development environment
-
-Initialize your environment with git hooks.
-```bash
-grunt init-dev-env 
-```
-
-We strongly suggest you to make an automatic execution of this task for every developer simply by adding the following
-lines to your `package.json`
-```
-{
-  "scripts": {
-     "postinstall": "grunt init-dev-env"
-  }
-}
-``` 
-
-
-### Site generation
-
-There is a grunt task to generate the GitHub pages of the project, publishing also coverage, complexity and JSDocs pages.
-In order to initialize the GitHub pages, use:
-
-```bash
-grunt init-pages
-```
-
-This will also create a site folder under the root of your repository. This site folder is detached from your repository's
-history, and associated to the gh-pages branch, created for publishing. This initialization action should be done only
-once in the project history. Once the site has been initialized, publish with the following command:
-
-```bash
-grunt site
-```
-
-This command will only work after the developer has executed init-dev-env (that's the goal that will create the detached site).
-
-This command will also launch the coverage, doc and complexity task (see in the above sections).
-
+Information about developing for the JSON IoTAgent can be found at the corresponding section of the [User & Programmers Guide](docs/usermanual.md).
