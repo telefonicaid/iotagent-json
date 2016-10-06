@@ -17,7 +17,7 @@
 * [Testing] (#testing)
 * [Development documentation] (#development)
 
-## <a name="Description"/> description
+## <a name="description"/> Description
 This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the OMA NGSI standard used in FIWARE.
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
@@ -368,6 +368,11 @@ fields codified in hexadecimal with a fixed 4 character length, without comma se
 * If an attribute named B is found, its content will be parsed as if they would be Battery information as described
 [here](https://github.com/telefonicaid/iotagent-thinking-things#b). This implementation admits also an extended version
 of this attribute, adding the "batteryType" and "percentage" fields to the entity.
+
+## <a name="apireference"/> API Reference Documentation
+
+Apiary reference for the Configuration API can be found [here](http://docs.telefonicaiotiotagents.apiary.io/#).
+More information about IoTAgents and their APIs can be found in the IoTAgent Library [here](https://github.com/telefonicaid/iotagent-node-lib).
 
 ## <a name="client"/> Command Line Client 
 The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
