@@ -38,7 +38,7 @@ Information about how to install the JSON IoTAgent can be found at the correspon
 
 ## <a name="apioverview"/> API Overview
 
-An Overview of the API can be found in the [User & Programmers Manual](docs/usermanual.md).
+
 
 ## <a name="apireference"/> API Reference Documentation
 
@@ -62,62 +62,6 @@ MQTT commands will show an error message reminding you to connect.
 
 The Command Line Client gets its default values from a config file in the root of the project: `client-config.js`. This
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
-
-## New transport development
-
-### Overview
-This IoT Agent is prepared to serve its protocol (Plain JSON) over multiple transport protocols (MQTT, HTTP...), sharing
-most of the code betweend the different protocols. To do so, all the transport-specific code is encapsulated in a series
-of plugins, added to the `./bindings/` folder. Each plugin must consist of a single Node.js module with the API defined
-in the section below. The IoTA scans this full directory upon start, so there is no need to register new modules (a
-simple restart should be enough).
-
-In order to distinguish which device uses which attribute, a new field, `transport`, will be added to the device
-provisioning. When a command or a notification arrives to the IoTAgent, this field is read to guess what plugin to invoke
-in order to execute the requested task. If the field is not found, the value of the configuration parameter
-`defaultTransport` will be used instead. In order to associate a module with a device, the value of the `transport`
-attribute of the device provisioning must match the value of the `protocol` field of the binding.
-
-### API
-Every plugin in the `plugins/` folder must adhere to the following API (exporting the following functions and
-attributes).
-
-#### function start(callback)
-##### Description
-Start the binding, doing all the appropriate initializations. The configuration is not passed as a parameter, so it
-should be retrieved from the configuration service.
-
-All the functions are passed a callback, that **must** be called once the action has been finished, but the callback
-itself is not described (in that case, the standard Node.js for callbacks applies).
-
-#### function stop(callback)
-##### Description
-Stops all the resources created in the `start()` function, releasing the resources when needed.
-
-#### function sendConfigurationToDevice(apiKey, deviceId, results, callback)
-##### Description
-Send to the device the configuration information requested from the Context Broker.
-
-##### Parameters
-* **apiKey**: API Key of the device that is requesting the information.
-* **deviceId**: Device ID of the device that is requesting the information.
-* **results**: Array containing the results of the query to the Context Broker.
-
-#### function executeCommand(apiKey, device, serializedPayload, callback)
-##### Description
-Execute a command in a remote device with the specified payload.
-
-##### Parameters
-* **apiKey**: API Key of the device that is requesting the information.
-* **device**: Object containing all the data of the device that is requesting the information.
-* **serializedPayload**: String serialization of the command identification and parameters that is going to be send
-using the transport protocol.
-
-#### protocol
-The `protocol` attribute is a single constant string attribute that will be used to identify the transport for a certain
-device. This parameter is mainly used when a command or notification comes to the IoT Agent, as the device itself is
-in charge of selecting its endpoint for incoming active measures or actions. The value of the `protocol` attribute for
-a binding must match the `transport` field in the provisioning of each device that will be using the IoTA.
 
 ##  <a name="testing"/> Testing
 
