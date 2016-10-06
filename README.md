@@ -38,7 +38,7 @@ Information about how to install the JSON IoTAgent can be found at the correspon
 
 ## <a name="apioverview"/> API Overview
 
-
+An Overview of the API can be found in the [User & Programmers Manual](docs/usermanual.md).
 
 ## <a name="apireference"/> API Reference Documentation
 
