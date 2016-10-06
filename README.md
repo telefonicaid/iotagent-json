@@ -2,15 +2,22 @@
 
 ## Index
 
-* [Overview](#overview)
-* [Installation](#installation)
-* [Usage](#usage)
-* [Configuration] (#configuration)
-* [Protocol](#protocol)
+* [Description](#description)
+* [Build & Install](#buildinstall)
+  * [Installation](#installation)
+  * [Usage](#usage)
+  * [Configuration] (#configuration)
+  * [Packaging](#packaging)
+* [API Overview] (#apioverview)
+  * [JSON Protocol] (#protocol)
+  * [Transport Protocol] (#transportprotocol)
+  * [Developing new transports] (#transport)
+* [API Reference Documentation] (#apireference)
 * [Command Line Client](#client)
-* [Development documentation](#development)
+* [Testing] (#testing)
+* [Development documentation] (#development)
 
-## <a name="overview"/> Overview
+## <a name="Description"/> description
 This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the OMA NGSI standard used in FIWARE.
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
@@ -26,10 +33,12 @@ If you want to contribute to the project, check out the [Development section](#d
 
 Additional information about operating the component can be found in the [Operations: logs and alarms](docs/operations.md) document.
 
-## <a name="installation"/> Installation
+## <a name="buildinstall"/> Build & Install
+
+### <a name="installation"/> Installation
 There are two ways of installing the JSON IoT Agent: using Git or RPMs.
  
-### Using GIT
+#### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
 ```
 git clone https://github.com/telefonicaid/iotagent-json.git
@@ -40,7 +49,7 @@ In order to start the IoT Agent, from the root folder of the project, type:
 bin/iotagent-json
 ``` 
  
-### Using RPM
+#### Using RPM
 The project contains a script for generating an RPM that can be installed in Red Hat 6.5 compatible Linux distributions. 
 The RPM depends on Node.js 0.10 version, so EPEL repositories are advisable. 
 
@@ -58,7 +67,7 @@ The IoTA will then be installed as a linux service, and can ve started with the 
 ```
 service iotaJSON start
 ```
-## <a name="usage"/> Usage
+### <a name="usage"/> Usage
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
 ```
 bin/iotagentMqtt.js
@@ -69,8 +78,8 @@ When started with no arguments, the IoT Agent will expect to find a `config.js` 
 folder. An argument can be passed with the path to a new configuration file (relative to the application folder) to be
 used instead of the default one.
 
-## <a name="configuration"/> Configuration
-### Overview
+### <a name="configuration"/> Configuration
+#### Overview
 All the configuration for the IoT Agent is stored in a single configuration file (typically installed in the root folder).
 
 This configuration file is a JavaScript file and contains two configuration chapters:
@@ -78,7 +87,7 @@ This configuration file is a JavaScript file and contains two configuration chap
 IoT Agent library. More information about this options can be found [here](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 * **mqtt**: this object stores MQTT's specific configuration. A detailed description can be found in the next section.
 
-### MQTT configuration
+#### MQTT configuration
 These are the currently available MQTT configuration options:
 * **host**: host of the MQTT broker.
 * **port**: port where the MQTT broker is listening.
@@ -86,7 +95,7 @@ These are the currently available MQTT configuration options:
 * **username**: user name that identifies the IOTA against the MQTT broker (optional).
 * **password**: password to be used if the username is provided (optional).
 
-### Configuration with environment variables
+#### Configuration with environment variables
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 
@@ -103,8 +112,9 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 
-## <a name="protocol"/> Protocol
-### Overview
+## <a name="apioverview"/> API Overview
+### <a name="protocol"/> JSON Protocol
+#### Overview
 The MQTT-JSON protocol uses plain JSON objects to send information formatted as key-value maps over an MQTT transport. 
 It uses different topics to separate the different destinations and types of the messages (the different possible interactions
 are described in the following sections).
@@ -121,10 +131,10 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 * JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers (not
  arrays or other objects).
 
-### HTTP Binding
+#### HTTP Binding
 
-#### Measure reporting
-##### Payload
+##### Measure reporting
+###### Payload
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute
 in the NGSI entity. The value of all the attributes will be copied as a String (as all simple attribute values in
 NGSIv1 are strings). E.g.:
@@ -145,7 +155,7 @@ query parameters:
 * **k (API Key)**: API Key for the service the device is registered on.
 * **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-#### Commands
+##### Commands
 When using the HTTP transport, the command handling have two flavours:
 
 * **Push commands**: in this case, the Device **must** be provisioned with the `endpoint` attribute, that will contain
@@ -156,12 +166,12 @@ result format.
 * **Polling commands**: in this case, the Agent does not send any messages to the device, being the later responsible
 of retrieving them from the IoTAgent whenever the device is ready to get commands (still not implemented).
 
-#### Configuration retrieval
+##### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). This mechanism combines calls to the IoTA HTTP endpoint with direct calls to the provided
 device endpoint.
 
-##### Configuration commands
+###### Configuration commands
 The IoT Agent listens in this path for configuration requests coming from the device:
 ```
 http://<iotaURL>:<HTTP-Port>/configuration/commands
@@ -191,7 +201,7 @@ the selected values change. In case the value has changed, all the attributes wi
 * `configuration`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
 a single request to the device endpoint.
 
-##### Configuration information retrieval
+###### Configuration information retrieval
 Every device should listen in the following path, so it can receive configuration information:
 ```
 <device_endpoint>/configuration/values
@@ -209,8 +219,8 @@ E.g.:
 }
 ```
 
-### MQTT Binding
-#### Measure reporting
+#### MQTT Binding
+##### Measure reporting
 
 There are two ways of reporting measures:
 
@@ -233,12 +243,12 @@ In both cases, the key is the one provisioned in the IOTA through the Configurat
 was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
 provisioned without a link to any particular configuration.
 
-#### Configuration retrieval
+##### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
 commands and a topic to receive configuration information.
 
-##### Configuration command topic
+###### Configuration command topic
 ```
 /{{apikey}}/{{deviceid}}/configuration/commands
 ```
@@ -268,7 +278,7 @@ the selected values change. In case the value has changed, all the attributes wi
 * `configuration`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
 a single publish message in the values topic.
 
-##### Configuration information topic
+###### Configuration information topic
 ```
 /{{apikey}}/{{deviceid}}/configuration/values
 ```
@@ -286,7 +296,7 @@ E.g.:
 }
 ```
 
-#### Commands
+##### Commands
 The IoT Agent implements IoTAgent commands, as specified in the [IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
 When a command is receivied in the IoT Agent, a message is published in the following topic:
 ```
@@ -339,16 +349,16 @@ format:
 { "PING": "1234567890" }
 ```
 
-### Value conversion
+#### Value conversion
 The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
 
-#### Timestamp compression
+##### Timestamp compression
 Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete basic
 calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
 representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
 
-### Thinking Things plugin
+#### Thinking Things plugin
 This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one protocol
 to the other. This features are built in a plugin, that can be activated using the `mqtt.thinkingThingsPlugin` flag.
 When the plugin is activated, the following rules apply to all the incoming MQTT-JSON requests:
@@ -433,21 +443,7 @@ device. This parameter is mainly used when a command or notification comes to th
 in charge of selecting its endpoint for incoming active measures or actions. The value of the `protocol` attribute for
 a binding must match the `transport` field in the provisioning of each device that will be using the IoTA.
 
-##  <a name="development"/> Development documentation
-### Contributions
-All contributions to this project are welcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md) 
-
-### Project build
-The project is managed using Grunt Task Runner.
-
-For a list of available task, type
-```bash
-grunt --help
-```
-
-The following sections show the available options in detail.
-
-### Testing
+##  <a name="testing"/> Testing
 
 [Mocha](http://visionmedia.github.io/mocha/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
 
@@ -474,6 +470,20 @@ To generate TAP report in `report/test/unit_tests.tap`, type
 ```bash
 grunt test-report
 ```
+
+##  <a name="development"/> Development documentation
+### Contributions
+All contributions to this project are welcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md) 
+
+### Project build
+The project is managed using Grunt Task Runner.
+
+For a list of available task, type
+```bash
+grunt --help
+```
+
+The following sections show the available options in detail.
 
 ### Coding guidelines
 jshint, gjslint
