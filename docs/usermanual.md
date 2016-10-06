@@ -3,15 +3,11 @@
 ## Index
 
 * [API Overview](#apioverview)
-  * [JSON Protocol] (#protocol)
-  * [Transport Protocol] (#transportprotocol)
-  * [Developing new transports] (#transport)
 * [Development documentation](#development)
 * [New transport development](#newtransport)
 
 ## <a name="apioverview"/> API Overview
-### <a name="protocol"/> JSON Protocol
-#### Overview
+### Overview
 The MQTT-JSON protocol uses plain JSON objects to send information formatted as key-value maps over an MQTT transport.
 It uses different topics to separate the different destinations and types of the messages (the different possible interactions
 are described in the following sections).
@@ -28,10 +24,10 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 * JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers (not
  arrays or other objects).
 
-#### HTTP Binding
+### HTTP Binding
 
-##### Measure reporting
-###### Payload
+#### Measure reporting
+##### Payload
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute
 in the NGSI entity. The value of all the attributes will be copied as a String (as all simple attribute values in
 NGSIv1 are strings). E.g.:
@@ -52,7 +48,7 @@ query parameters:
 * **k (API Key)**: API Key for the service the device is registered on.
 * **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-##### Commands
+#### Commands
 When using the HTTP transport, the command handling have two flavours:
 
 * **Push commands**: in this case, the Device **must** be provisioned with the `endpoint` attribute, that will contain
@@ -63,12 +59,12 @@ result format.
 * **Polling commands**: in this case, the Agent does not send any messages to the device, being the later responsible
 of retrieving them from the IoTAgent whenever the device is ready to get commands (still not implemented).
 
-##### Configuration retrieval
+#### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). This mechanism combines calls to the IoTA HTTP endpoint with direct calls to the provided
 device endpoint.
 
-###### Configuration commands
+##### Configuration commands
 The IoT Agent listens in this path for configuration requests coming from the device:
 ```
 http://<iotaURL>:<HTTP-Port>/configuration/commands
@@ -98,7 +94,7 @@ the selected values change. In case the value has changed, all the attributes wi
 * `configuration`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
 a single request to the device endpoint.
 
-###### Configuration information retrieval
+##### Configuration information retrieval
 Every device should listen in the following path, so it can receive configuration information:
 ```
 <device_endpoint>/configuration/values
@@ -116,8 +112,8 @@ E.g.:
 }
 ```
 
-#### MQTT Binding
-##### Measure reporting
+### MQTT Binding
+#### Measure reporting
 
 There are two ways of reporting measures:
 
@@ -140,12 +136,12 @@ In both cases, the key is the one provisioned in the IOTA through the Configurat
 was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
 provisioned without a link to any particular configuration.
 
-##### Configuration retrieval
+#### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
 commands and a topic to receive configuration information.
 
-###### Configuration command topic
+##### Configuration command topic
 ```
 /{{apikey}}/{{deviceid}}/configuration/commands
 ```
@@ -175,7 +171,7 @@ the selected values change. In case the value has changed, all the attributes wi
 * `configuration`: this commands will generate a single request to the Context Broker from the IoTAgent, that will trigger
 a single publish message in the values topic.
 
-###### Configuration information topic
+##### Configuration information topic
 ```
 /{{apikey}}/{{deviceid}}/configuration/values
 ```
@@ -193,7 +189,7 @@ E.g.:
 }
 ```
 
-##### Commands
+#### Commands
 The IoT Agent implements IoTAgent commands, as specified in the [IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
 When a command is receivied in the IoT Agent, a message is published in the following topic:
 ```
@@ -246,16 +242,16 @@ format:
 { "PING": "1234567890" }
 ```
 
-#### Value conversion
+### Value conversion
 The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
 
-##### Timestamp compression
+#### Timestamp compression
 Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete basic
 calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
 representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
 
-#### Thinking Things plugin
+### Thinking Things plugin
 This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one protocol
 to the other. This features are built in a plugin, that can be activated using the `mqtt.thinkingThingsPlugin` flag.
 When the plugin is activated, the following rules apply to all the incoming MQTT-JSON requests:
