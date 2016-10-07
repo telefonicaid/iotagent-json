@@ -17,11 +17,11 @@
 * [Development] (#development)
 
 ## <a name="description"/> Description
-This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the OMA NGSI standard used in FIWARE.
+This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the FIWARE NGSI standard used in FIWARE.
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
-A quick way to get started is to read the [Step by step guide](./docs/stepbystep.md).
+A quick way to get started is to read the [Step by step Manual](./docs/stepbystep.md).
 
 As is the case in any IoT Agent, this one follows the interaction model defined in the [Node.js IoT Agent Library](https://github.com/telefonicaid/iotagent-node-lib),
 that is used for the implementation of the Northbound APIs. Information about the IoTAgent's architecture can be found
@@ -31,6 +31,8 @@ to the JSON IoTAgent.
 If you want to contribute to the project, check out the [Development section](#development) and the [Contribution guidelines](./docs/contribution.md).
 
 Additional information about operating the component can be found in the [Operations: logs and alarms](docs/operations.md) document.
+
+This project is part of [FIWARE](https://www.fiware.org/). Check also the [FIWARE Catalogue entry for the IoTAgents](http://catalogue.fiware.org/enablers/backend-device-management-idas)
 
 ## <a name="buildinstall"/> Build & Install
 
