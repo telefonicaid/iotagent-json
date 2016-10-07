@@ -3,7 +3,7 @@
 [![License badge](https://img.shields.io/badge/license-AGPL-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![Documentation badge](https://readthedocs.org/projects/fiware-iotagent-json/badge/?version=latest)](http://fiware-iotagent-json.readthedocs.org/en/latest/?badge=latest)
 [![Docker badge](https://img.shields.io/docker/pulls/fiware/iotagent-json.svg)](https://hub.docker.com/r/fiware/iotagent-json/)
-[![Support badge]( https://img.shields.io/badge/support-sof-yellowgreen.svg)](http://ask.fiware.org)
+[![Support badge]( https://img.shields.io/badge/support-sof-yellowgreen.svg)](http://stackoverflow.com/questions/tagged/fiware)
 
 
 ## Index
