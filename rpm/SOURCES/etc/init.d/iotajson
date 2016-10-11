@@ -6,7 +6,7 @@
 # description: JSON IoT Agent for Telefonica's IoT Platform
 ### BEGIN INIT INFO
 # Provides: iotaJSON
-# Required-Start: $local_fs $syslog
+# Required-Start: $local_fs $syslog $network
 # Required-Stop: $local_fs $syslog
 # Default-Start:  345
 # Default-Stop: 90
@@ -36,7 +36,7 @@
 # iot_support at tid dot es
 
 NAME=iotajson
-IOTA_USER=""
+IOTA_USER="iotajson"
 BASE_DIR=/opt/$NAME
 PID_DIR=/var/run/$NAME
 LOG_DIR=/var/log/$NAME
@@ -63,7 +63,7 @@ do_start()
     status -p ${PID_FILE} ${EXECUTABLE} && return $?
     
     printf "%-50s" "Starting ${NAME} instance ${INSTANCE}..."
-    su $IOTA_USER -c "cd ${BASE_DIR}; nohup ${EXECUTABLE} &>> ${LOG_PATH} & echo \$! > ${PID_FILE}"
+    su $IOTA_USER -p -c "cd ${BASE_DIR}; nohup ${EXECUTABLE} &>> ${LOG_PATH} & echo \$! > ${PID_FILE}"
     printf "%s\n" "$(success)"
     return 0
 }
@@ -110,7 +110,8 @@ do_instance() {
     local INSTANCE=$2
 
     # Loads instance configuration file
-    [ -f ${CONF_DIR}/${NAME}.${INSTANCE}.conf ] && . ${CONF_DIR}/${NAME}.${INSTANCE}.conf
+    set -a
+    [ -f ${CONF_DIR}/${NAME}.${INSTANCE}.conf ] && source ${CONF_DIR}/${NAME}.${INSTANCE}.conf
 
     case ${OPERATION} in
 
