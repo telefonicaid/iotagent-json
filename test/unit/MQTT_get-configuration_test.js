@@ -32,6 +32,7 @@ var iotagentMqtt = require('../../'),
     request = require('request'),
     utils = require('../utils'),
     contextBrokerMock,
+    oldConfigurationFlag,
     mqttClient;
 
 describe('MQTT: Get configuration from the devices', function() {
@@ -59,6 +60,9 @@ describe('MQTT: Get configuration from the devices', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
+        oldConfigurationFlag = config.configRetrieval;
+        config.configRetrieval = true;
+
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
                 done();
@@ -67,6 +71,8 @@ describe('MQTT: Get configuration from the devices', function() {
     });
 
     afterEach(function(done) {
+        config.configRetrieval = oldConfigurationFlag;
+
         nock.cleanAll();
         mqttClient.end();
 

@@ -34,7 +34,8 @@ var iotagentMqtt = require('../../'),
     request = require('request'),
     utils = require('../utils'),
     mockedClientServer,
-    contextBrokerMock;
+    contextBrokerMock,
+    oldConfigurationFlag;
 
 describe('HTTP: Get configuration from the devices', function() {
     beforeEach(function(done) {
@@ -63,6 +64,9 @@ describe('HTTP: Get configuration from the devices', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
 
+        oldConfigurationFlag = config.configRetrieval;
+        config.configRetrieval = true;
+
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
                 done();
@@ -72,6 +76,7 @@ describe('HTTP: Get configuration from the devices', function() {
 
     afterEach(function(done) {
         nock.cleanAll();
+        config.configRetrieval = oldConfigurationFlag;
 
         async.series([
             iotAgentLib.clearAll,
