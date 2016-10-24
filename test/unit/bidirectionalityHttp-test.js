@@ -33,7 +33,7 @@ var iotagentJson = require('../../'),
     mockedClientServer,
     contextBrokerMock;
 
-describe('Data Bidirectionality: HTTP', function() {
+describe.only('Data Bidirectionality: HTTP', function() {
     var notificationOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/notify',
         method: 'POST',
@@ -145,7 +145,7 @@ describe('Data Bidirectionality: HTTP', function() {
         });
     });
 
-    describe.only('When a bidirectional attribute is set and a new value arrives to a device with endpoint', function() {
+    describe('When a bidirectional attribute is set and a new value arrives to a device with endpoint', function() {
         beforeEach(function(done) {
             var provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -184,11 +184,11 @@ describe('Data Bidirectionality: HTTP', function() {
                     './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'));
 
             mockedClientServer = nock('http://localhost:9876')
-                .post('/command', 'MQTT_2@location|12.4, -9.6')
+                .post('/command', '{"location":"12.4, -9.6"}')
                 .reply(200, '')
-                .post('/command', 'MQTT_2@latitude|-9.6')
+                .post('/command', '{"latitude":"-9.6"}')
                 .reply(200, '')
-                .post('/command', 'MQTT_2@longitude|12.4')
+                .post('/command', '{"longitude":"12.4"}')
                 .reply(200, '');
 
             iotagentJson.start(config, function(error) {
@@ -206,7 +206,7 @@ describe('Data Bidirectionality: HTTP', function() {
             });
         });
 
-        xit('should send all the data from the notification in command syntax', function(done) {
+        it('should send all the data from the notification in command syntax', function(done) {
             request(notificationOptions, function(error, response, body) {
                 mockedClientServer.done();
                 done();
