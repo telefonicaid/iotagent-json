@@ -52,7 +52,7 @@ describe('Attribute alias', function() {
             connectTimeout: 60 * 60 * 1000
         });
 
-        contextBrokerMock = nock('http://10.11.128.16:1026')
+        contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')

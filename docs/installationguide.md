@@ -53,10 +53,16 @@ used instead of the default one.
 #### Overview
 All the configuration for the IoT Agent is stored in a single configuration file (typically installed in the root folder).
 
-This configuration file is a JavaScript file and contains two configuration chapters:
+This configuration file is a JavaScript file and contains three configuration chapters:
 * **iota**: this object stores the configuration of the Northbound of the IoT Agent, and is completely managed by the
 IoT Agent library. More information about this options can be found [here](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 * **mqtt**: this object stores MQTT's specific configuration. A detailed description can be found in the next section.
+* **http**: this object stores HTTP's specific configuration. A detailed description can be found in the next section.
+
+There are also some global configuration options:
+* **configRetrieval**: this flag indicates whether the incoming notifications to the IoTAgent should be processed
+using the bidirectionality plugin from the latest versions of the library or the JSON-specific configuration retrieval
+mechanism (described in the User Manual). Simultaneous use of both mechanisms is not allowed.
 
 #### MQTT configuration
 These are the currently available MQTT configuration options:

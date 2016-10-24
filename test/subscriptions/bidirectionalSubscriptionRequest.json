@@ -1,0 +1,22 @@
+{
+  "entities":[
+    {
+      "type":"AnMQTTDevice",
+      "isPattern":"false",
+      "id":"Second MQTT Device"
+    }
+  ],
+  "reference":"http://localhost:4041/notify",
+  "duration":"P1M",
+  "notifyConditions":[
+    {
+      "type":"ONCHANGE",
+      "condValues":[
+        "location"
+      ]
+    }
+  ],
+  "attributes":[
+    "location"
+  ]
+}

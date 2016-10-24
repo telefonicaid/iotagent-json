@@ -139,7 +139,10 @@ provisioned without a link to any particular configuration.
 #### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
-commands and a topic to receive configuration information.
+commands and a topic to receive configuration information. This mechanism can be enabled or disabled using a configuration
+flag, `configRetrieval`.
+
+This mechanism and the bidirectionality plugin cannot be simultaneously activated.
 
 ##### Configuration command topic
 ```
