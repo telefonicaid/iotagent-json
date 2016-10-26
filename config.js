@@ -55,4 +55,6 @@ config.iota = {
     defaultType: 'Thing'
 };
 
+config.configRetrieval = false;
+
 module.exports = config;

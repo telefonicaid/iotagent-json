@@ -139,7 +139,10 @@ provisioned without a link to any particular configuration.
 #### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
 stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
-commands and a topic to receive configuration information.
+commands and a topic to receive configuration information. This mechanism can be enabled or disabled using a configuration
+flag, `configRetrieval`.
+
+This mechanism and the bidirectionality plugin cannot be simultaneously activated.
 
 ##### Configuration command topic
 ```
@@ -241,6 +244,12 @@ format:
 ```
 { "PING": "1234567890" }
 ```
+#### Bidirectionality Syntax
+The latest versions of the Provisioning API allow for the definition of reverse expressions to keep data shared between
+the Context Broker and the device in sync (regardless of whether the data originated in plain data from the device or
+in a transformation expression in the IoTAgent). In this cases, when a reverse expression is defined, whenever the
+bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
+reverse expression attribute and the ID of the device (see Commands Syntax, just above).
 
 ### Value conversion
 The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
