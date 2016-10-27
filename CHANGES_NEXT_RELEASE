@@ -1,1 +1,2 @@
 - Add multientity, bidirectionality and expression plugins (#184)
+- FIX Transformed data should include Metadata field (#190)
