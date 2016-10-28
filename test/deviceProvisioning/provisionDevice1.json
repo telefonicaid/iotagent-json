@@ -6,6 +6,7 @@
       "entity_name": "Second MQTT Device",
       "timezone": "America/Santiago",
       "entity_type": "AnMQTTDevice",
+      "transport": "MQTT",
       "attributes": [
         {
           "name": "temperature",

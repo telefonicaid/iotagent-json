@@ -1,3 +1,4 @@
 - Add multientity, bidirectionality and expression plugins (#184)
 - FIX Transformed data should include Metadata field (#190)
 - FIX TimeInstant in measure update makes null time update in CB (#192)
+- Poll commands not working (#194)

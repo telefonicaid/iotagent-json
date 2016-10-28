@@ -33,7 +33,7 @@ var iotagentUl = require('../../'),
     mockedClientServer,
     contextBrokerMock;
 
-describe.only('HTTP Transport binding: polling commands', function() {
+describe('HTTP Transport binding: polling commands', function() {
     var commandOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
         method: 'POST',
