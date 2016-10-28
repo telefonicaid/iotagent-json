@@ -1,0 +1,27 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "PING_status",
+            "type": "status",
+            "value": ""
+          },
+          {
+            "name": "PING_info",
+            "type": "commandResult",
+            "value": ""
+          }
+        ],
+        "type": "AnMQTTDevice",
+        "isPattern": "false",
+        "id": "Second MQTT Device"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
