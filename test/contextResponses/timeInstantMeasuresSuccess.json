@@ -1,0 +1,27 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "humidity",
+            "type": "percent",
+            "value": ""
+          },
+          {
+            "name": "TimeInstant",
+            "type": "ISO8601",
+            "value": ""
+          }
+        ],
+        "type": "sensor",
+        "isPattern": "false",
+        "id": "e0130101"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}

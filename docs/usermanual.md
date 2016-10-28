@@ -252,13 +252,15 @@ bidirectional attribute is modified, the IoTAgent sends a command to the origina
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
 
 ### Value conversion
-The IoTA performs some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
+The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
 
 #### Timestamp compression
 Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete basic
 calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the extended
 representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and queries).
+
+This feature can be enabled and disabled by using the `compressTimestamp` configuration flag.
 
 ### Thinking Things plugin
 This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one protocol

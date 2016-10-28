@@ -1,0 +1,29 @@
+{
+  "contextElements": [
+    {
+      "type": "sensor",
+      "isPattern": "false",
+      "id": "e0130101",
+      "attributes": [
+        {
+          "name": "humidity",
+          "type": "percent",
+          "value": "111222",
+          "metadatas": [
+            {
+              "name": "TimeInstant",
+              "type": "ISO8601",
+              "value": "2020-02-22T22:22:22"
+            }
+          ]
+        },
+        {
+          "name": "TimeInstant",
+          "type": "ISO8601",
+          "value": "2020-02-22T22:22:22"
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}

@@ -63,6 +63,7 @@ There are also some global configuration options:
 * **configRetrieval**: this flag indicates whether the incoming notifications to the IoTAgent should be processed
 using the bidirectionality plugin from the latest versions of the library or the JSON-specific configuration retrieval
 mechanism (described in the User Manual). Simultaneous use of both mechanisms is not allowed.
+* **compressTimestamp**: this flags enables the timestamp compression mechanism, described in the User Manual.
 
 #### MQTT configuration
 These are the currently available MQTT configuration options:

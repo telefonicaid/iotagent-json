@@ -52,7 +52,8 @@ config.iota = {
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
     defaultResource: '',
-    defaultKey: '1234'
+    defaultKey: '1234',
+    compressTimestamp: true
 };
 
 config.defaultTransport = 'MQTT';
