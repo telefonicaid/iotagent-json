@@ -181,7 +181,7 @@ describe.only('HTTP Transport binding: polling commands', function() {
         it('should retrieve the list sepparated by the "#" character');
     });
 
-    describe.skip('When a device sends the result for a pending command', function() {
+    describe('When a device sends the result for a pending command', function() {
         var commandResponse = {
             uri: 'http://localhost:' + config.http.port + '/iot/d/commands',
             method: 'POST',
