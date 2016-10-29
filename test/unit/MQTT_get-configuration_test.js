@@ -217,7 +217,7 @@ describe('MQTT: Get configuration from the devices', function() {
                 mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
                     function(error) {
                         setTimeout(function() {
-                            request(optionsNotify, function() {
+                            request(optionsNotify, function(error, response, body) {
                                 setTimeout(function() {
                                     configurationReceived.should.equal(true);
                                     done();
