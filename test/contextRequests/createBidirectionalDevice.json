@@ -8,7 +8,7 @@
         {
           "name": "location",
           "type": "geo:point",
-          "value": " "
+          "value": "0, 0"
         }
       ]
     }
