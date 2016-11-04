@@ -33,7 +33,7 @@ var iotagentJson = require('../../'),
     mockedClientServer,
     contextBrokerMock;
 
-describe.only('Data Bidirectionality: HTTP', function() {
+describe('Data Bidirectionality: HTTP', function() {
     var notificationOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/notify',
         method: 'POST',
