@@ -4,3 +4,4 @@
 - Poll commands not working (#194)
 - FIX IoTA JSON Timestamp parameter in measure request is ignored (#195)
 - FIX Error in http json push commands (#197)
+- FIX Missing context in logger entries (#198)
