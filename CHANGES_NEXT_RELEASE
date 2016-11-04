@@ -3,3 +3,4 @@
 - FIX TimeInstant in measure update makes null time update in CB (#192)
 - Poll commands not working (#194)
 - FIX IoTA JSON Timestamp parameter in measure request is ignored (#195)
+- FIX Error in http json push commands (#197)
