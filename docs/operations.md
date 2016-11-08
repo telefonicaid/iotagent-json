@@ -3,6 +3,7 @@
 
 * [Overview](#overview)
 * [Logs](#logs)
+* [Alarms](#alarms)
 * [Error naming code](#errorcode)
 
 
@@ -98,6 +99,15 @@ connectivity from the IoTAgent to the broker.
 Indicates the mandatory "config.http" configuration parameter was not found while starting the IoTAgent. This will
 prevent the IoTAgent from starting. Check the configuration files and fix them to be valid.
 
+## <a name="alarms"/> Alarms
+
+The following table shows the alarms that can be raised in the JSON IoTAgent library. All the alarms are signaled by an
+error log starting with the prefix "Raising [%s]:" (where %s is the alarm name). All the alarms are released by an info
+log with the prefix "Releasing [%s]".
+
+| Alarm name            | Description            |
+|:--------------------- |:---------------------- |
+| MQTTB-ALARM           | Indicates a persistent error accessing the Mosquitto MQTT Broker |
 
 ## <a name="errorcode"/> Error naming code
 Every error has a code composed of a prefix and an ID, codified with the following table:
