@@ -1,0 +1,22 @@
+{
+  "contextElements": [
+    {
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "id": "Second MQTT Device",
+      "attributes": [
+        {
+          "name": "PING_status",
+          "type": "commandStatus",
+          "value": "DELIVERED"
+        },
+        {
+          "name": "PING_info",
+          "type": "commandResult",
+          "value": " "
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}

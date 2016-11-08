@@ -1,0 +1,17 @@
+{
+  "contextElements": [
+    {
+      "type": "AnMQTTDevice",
+      "isPattern": "false",
+      "id": "Second MQTT Device",
+      "attributes": [
+        {
+          "name": "location",
+          "type": "geo:point",
+          "value": "0, 0"
+        }
+      ]
+    }
+  ],
+  "updateAction": "APPEND"
+}

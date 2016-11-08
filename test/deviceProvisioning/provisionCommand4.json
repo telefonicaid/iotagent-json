@@ -1,0 +1,18 @@
+{
+  "devices": [
+    {
+      "device_id": "MQTT_2",
+      "entity_name": "Second MQTT Device",
+      "entity_type": "AnMQTTDevice",
+      "timezone": "America/Santiago",
+      "protocol": "HTTP_JSON",
+      "transport": "HTTP",
+      "commands": [
+        {
+          "name": "PING",
+          "type": "command"
+        }
+      ]
+    }
+  ]
+}

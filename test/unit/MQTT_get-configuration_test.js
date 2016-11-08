@@ -32,6 +32,7 @@ var iotagentMqtt = require('../../'),
     request = require('request'),
     utils = require('../utils'),
     contextBrokerMock,
+    oldConfigurationFlag,
     mqttClient;
 
 describe('MQTT: Get configuration from the devices', function() {
@@ -53,11 +54,14 @@ describe('MQTT: Get configuration from the devices', function() {
             connectTimeout: 60 * 60 * 1000
         });
 
-        contextBrokerMock = nock('http://10.11.128.16:1026')
+        contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+        oldConfigurationFlag = config.configRetrieval;
+        config.configRetrieval = true;
 
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -67,6 +71,8 @@ describe('MQTT: Get configuration from the devices', function() {
     });
 
     afterEach(function(done) {
+        config.configRetrieval = oldConfigurationFlag;
+
         nock.cleanAll();
         mqttClient.end();
 
@@ -211,7 +217,7 @@ describe('MQTT: Get configuration from the devices', function() {
                 mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null,
                     function(error) {
                         setTimeout(function() {
-                            request(optionsNotify, function() {
+                            request(optionsNotify, function(error, response, body) {
                                 setTimeout(function() {
                                     configurationReceived.should.equal(true);
                                     done();

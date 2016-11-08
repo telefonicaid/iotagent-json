@@ -49,7 +49,7 @@ describe('HTTP: Commands', function() {
 
         nock.cleanAll();
 
-        contextBrokerMock = nock('http://10.11.128.16:1026')
+        contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
@@ -95,11 +95,17 @@ describe('HTTP: Commands', function() {
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus1.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
 
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus6.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command', function(body) {
                     return body.PING || body.PING.data || body.PING.data === 22;
                 })
-                .reply(200, '1234567890');
+                .reply(200, '{"PING":{"data":"22"}}');
         });
 
         it('should return a 200 OK without errors', function(done) {
