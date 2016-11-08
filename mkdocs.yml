@@ -1,43 +1,30 @@
 site_name: Fiware-iotagent-json
-
-
 site_url: https://fiware-iotagent-ul.readthedocs.org
-
 repo_url: https://github.com/telefonicaid/iotagent-json.git
-
 site_description: IoT Agent JSON (HTTP or MQTT) Documentation
-
-docs_dir: /
-
+docs_dir: docs
 site_dir: html
-
 markdown_extensions: [toc,fenced_code]
-
 use_directory_urls: false
-
 theme: readthedocs
-
 extra_css: ["https://fiware.org/style/fiware_readthedocs.css"]
-
 
 pages:
 
-- Home: README.md
+- Home: 'index.md'
 
 - 'Getting Started': 'README.md#apioverview'
 
 - 'User & Programmers Manual':
 
-- ‘Introduction’: ‘docs/stepbystep.md’
+- ‘Introduction’: ‘stepbystep.md’
 
-- ‘API Walkthrough & Development intro’: ‘docs/usermanual.md’
+- ‘API Walkthrough & Development intro’: ‘usermanual.md’
 
-- ‘How to Contribute’: ‘docs/contribution.md’
+- ‘How to Contribute’: ‘contribution.md’
 
-- ‘Operations (logs & alarms)’: ‘docs/operations.md’
+- ‘Operations (logs & alarms)’: ‘operations.md’
 
 - 'Docker': ‘Dockerfile’
 
-- 'Installation & Administration Manual': ‘docs/installationguide.md’
-
-
+- 'Installation & Administration Manual': ‘installationguide.md’
