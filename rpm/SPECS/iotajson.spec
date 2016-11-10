@@ -168,6 +168,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %changelog
 
+* Fri Nov 10 2016 Daniel Moran <daniel.moranjimenez@telefonica.com> 1.5.0
+- Add multientity, bidirectionality and expression plugins (#184)
+- FIX Transformed data should include Metadata field (#190)
+- FIX TimeInstant in measure update makes null time update in CB (#192)
+- Poll commands not working (#194)
+- FIX IoTA JSON Timestamp parameter in measure request is ignored (#195)
+- FIX Error in http json push commands (#197)
+- FIX Missing context in logger entries (#198)
+- ADD Alarms for the Mosquitto server (#205)
+- ADD Iota Json retrieve is not working (#208)
+
 * Fri Sep 09 2016 Daniel Moran <daniel.moranjimenez@telefonica.com> 1.4.0
 - Autoprovisioned devices omit mapped attributes (#160)
 - ADD Operations manual
