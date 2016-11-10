@@ -1,9 +1,1 @@
-- Add multientity, bidirectionality and expression plugins (#184)
-- FIX Transformed data should include Metadata field (#190)
-- FIX TimeInstant in measure update makes null time update in CB (#192)
-- Poll commands not working (#194)
-- FIX IoTA JSON Timestamp parameter in measure request is ignored (#195)
-- FIX Error in http json push commands (#197)
-- FIX Missing context in logger entries (#198)
-- ADD Alarms for the Mosquitto server (#205)
-- ADD Iota Json retrieve is not working (#208)
+
