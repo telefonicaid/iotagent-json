@@ -6,3 +6,4 @@
 - FIX Error in http json push commands (#197)
 - FIX Missing context in logger entries (#198)
 - ADD Alarms for the Mosquitto server (#205)
+- ADD Iota Json retrieve is not working (#208)
