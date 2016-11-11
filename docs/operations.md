@@ -103,11 +103,17 @@ prevent the IoTAgent from starting. Check the configuration files and fix them t
 
 The following table shows the alarms that can be raised in the JSON IoTAgent library. All the alarms are signaled by an
 error log starting with the prefix "Raising [%s]:" (where %s is the alarm name). All the alarms are released by an info
-log with the prefix "Releasing [%s]".
+log with the prefix "Releasing [%s]". These texts appear in the `msg=` field of the generic log record format.
 
-| Alarm name            | Description            |
-|:--------------------- |:---------------------- |
-| MQTTB-ALARM           | Indicates a persistent error accessing the Mosquitto MQTT Broker |
+| Alarm name            | Severity     | Description            |
+|:--------------------- |:-------------|:---------------------- |
+| MQTTB-ALARM           | **Critical** | Indicates a persistent error accessing the Mosquitto MQTT Broker |
+
+while the 'Severity' criterium is as follows:
+
+* **Critical** - The system is not working
+* **Major** - The system has a problem that degrades the service and must be addressed
+* **Warning** - It is happening something that must be notified
 
 ## <a name="errorcode"/> Error naming code
 Every error has a code composed of a prefix and an ID, codified with the following table:
