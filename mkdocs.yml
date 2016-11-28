@@ -11,20 +11,16 @@ extra_css: ["https://fiware.org/style/fiware_readthedocs.css"]
 
 pages:
 
-- Home: 'index.md'
-
-- 'Getting Started': 'README.md#apioverview'
+- 'Home': 'index.md'
 
 - 'User & Programmers Manual':
 
-- ‘Introduction’: ‘stepbystep.md’
+- 'Introduction': 'stepbystep.md'
 
-- ‘API Walkthrough & Development intro’: ‘usermanual.md’
+- 'API Walkthrough & Development intro': 'usermanual.md'
 
-- ‘How to Contribute’: ‘contribution.md’
+- 'How to Contribute': 'contribution.md'
 
-- ‘Operations (logs & alarms)’: ‘operations.md’
+- 'Operations (logs & alarms)': 'operations.md'
 
-- 'Docker': ‘Dockerfile’
-
-- 'Installation & Administration Manual': ‘installationguide.md’
+- 'Installation & Administration Manual': 'installationguide.md'
