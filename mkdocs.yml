@@ -10,17 +10,11 @@ theme: readthedocs
 extra_css: ["https://fiware.org/style/fiware_readthedocs.css"]
 
 pages:
-
-- 'Home': 'index.md'
-
-- 'User & Programmers Manual':
-
-- 'Introduction': 'stepbystep.md'
-
-- 'API Walkthrough & Development intro': 'usermanual.md'
-
-- 'How to Contribute': 'contribution.md'
-
-- 'Operations (logs & alarms)': 'operations.md'
-
-- 'Installation & Administration Manual': 'installationguide.md'
+  - 'Home': 'index.md'
+  - 'User & Programmers Manual':
+    - 'Introduction': 'stepbystep.md'
+    - 'API Walkthrough & Development intro': 'usermanual.md'
+    - 'How to Contribute': 'contribution.md'
+  - 'Installation & Administration Manual': 
+    - 'Installation': 'installationguide.md'
+    - 'Operations (logs & alarms)': 'operations.md'
