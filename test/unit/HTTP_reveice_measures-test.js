@@ -145,7 +145,7 @@ describe('HTTP: Measure reception ', function() {
                 method: 'POST',
                 json: {
                     humidity: '111222',
-                    TimeInstant: '2020-02-22T22:22:22'
+                    TimeInstant: '20200222T222222'
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
@@ -219,7 +219,7 @@ describe('HTTP: Measure reception ', function() {
                 qs: {
                     i: 'dev0130101',
                     k: '1234',
-                    t: '2020-02-22T22:22:22'
+                    t: '20200222T222222'
                 }
             },
             provisionOptions = {

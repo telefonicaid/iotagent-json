@@ -49,7 +49,7 @@ function startConnection(exchange, callback) {
     });
 }
 
-describe('AMQP Transport binding: measures', function() {
+describe.skip('AMQP Transport binding: measures', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -87,7 +87,7 @@ describe('AMQP Transport binding: measures', function() {
         ], done);
     });
 
-    describe.only('When a new single measure arrives to a Device routing key', function() {
+    describe('When a new single measure arrives to a Device routing key', function() {
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
