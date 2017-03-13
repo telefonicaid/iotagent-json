@@ -11,6 +11,7 @@ branches:
     - master
 
 services:
+ - rabbitmq
  - docker
  - mongodb
 
