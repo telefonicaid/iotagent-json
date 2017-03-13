@@ -1,0 +1,29 @@
+{
+  "contextElements": [
+    {
+      "type": "clock",
+      "isPattern": "false",
+      "id": "TimeInstant Device",
+      "attributes": [
+        {
+          "name": "temperature",
+          "type": "float",
+          "value": "24.4",
+          "metadatas": [
+            {
+              "name": "TimeInstant",
+              "type": "ISO8601",
+              "value": "2016-09-26T12:19:26.476659Z"
+            }
+          ]
+        },
+        {
+          "name": "TimeInstant",
+          "type": "ISO8601",
+          "value": "2016-09-26T12:19:26.476659Z"
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}

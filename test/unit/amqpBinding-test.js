@@ -34,6 +34,7 @@ var iotagentMqtt = require('../../'),
     apply = async.apply,
     contextBrokerMock,
     amqpConn,
+    oldResource,
     channel;
 
 function startConnection(exchange, callback) {
@@ -49,7 +50,7 @@ function startConnection(exchange, callback) {
     });
 }
 
-describe.skip('AMQP Transport binding: measures', function() {
+describe('AMQP Transport binding: measures', function() {
     beforeEach(function(done) {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -62,6 +63,9 @@ describe.skip('AMQP Transport binding: measures', function() {
         };
 
         nock.cleanAll();
+
+        oldResource = config.iota.defaultResource;
+        config.iota.defaultResource = '/iot/d';
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
@@ -80,6 +84,7 @@ describe.skip('AMQP Transport binding: measures', function() {
         nock.cleanAll();
 
         amqpConn.close();
+        config.iota.defaultResource = oldResource;
 
         async.series([
             iotAgentLib.clearAll,
@@ -92,7 +97,7 @@ describe.skip('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
@@ -151,13 +156,13 @@ describe.skip('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should send a single update context request with all the attributes', function(done) {
             channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer(
-                JSON.stringify({a: 23})
+                JSON.stringify({a: '23'})
             ));
 
             setTimeout(function() {
@@ -172,7 +177,7 @@ describe.skip('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
@@ -197,65 +202,10 @@ describe.skip('AMQP Transport binding: measures', function() {
         it('should send one update context per measure group to the Contet Broker', function(done) {
             channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer(
                 JSON.stringify({
-                    a: 23,
-                    b: 98
+                    a: '23',
+                    b: '98'
                 })
             ));
-
-            setTimeout(function() {
-                contextBrokerMock.done();
-                done();
-            }, 100);
-        });
-    });
-
-    describe('When a measure with a timestamp arrives with an alias to TimeInstant', function() {
-        var provisionProduction = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-            method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionTimeInstant.json'),
-            headers: {
-                'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
-        };
-
-        beforeEach(function(done) {
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantDuplicatedSuccess.json'))
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantDuplicated.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantDuplicatedSuccess.json'));
-
-            config.iota.timestamp = true;
-
-            nock('http://localhost:8082')
-                .post('/protocols')
-                .reply(200, {});
-
-            iotagentMqtt.stop(function() {
-                iotagentMqtt.start(config, function(error) {
-                    request(provisionProduction, function(error, response, body) {
-                        done();
-                    });
-                });
-            });
-        });
-
-        afterEach(function() {
-            config.iota.timestamp = false;
-        });
-
-        it('should use the provided TimeInstant as the general timestamp for the measures', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.timestampedDevice.attrs',
-                new Buffer(
-                    JSON.stringify({
-                        tmp: 24.4,
-                        tt: '2016-09-26T12:19:26.476659Z'
-                    })
-                ));
 
             setTimeout(function() {
                 contextBrokerMock.done();
