@@ -264,9 +264,12 @@ reverse expression attribute and the ID of the device (see Commands Syntax, just
 
 #### <a name="amqpbinding"/> AMQP
 
-AMQP stands for Advance Message Queuing protocol, and is one of the most popular protocols for message-queue systems.
+[AMQP](https://www.amqp.org/) stands for Advance Message Queuing Protocol, and is one of the most popular protocols for message-queue systems.
 Although the protocol itself is software independent and allows for a great architectural flexibility, this transport
-binding has been designed to work with RabbitMQ, in a way that closely resembles the MQTT binding (in the previous section).
+binding has been designed to work with the [RabbitMQ](https://www.rabbitmq.com/) broker, in a way that closely
+resembles the MQTT binding (in the previous section). In fact, for IoT Platform deployments in need of an scalable MQTT
+Broker, RabbitMQ with the MQTT plugin will be used, connecting the IoT Agent to RabbitMQ through AMQP and the clients
+to RabbitMQ through MQTT.
 
 The binding connects the IoT Agent to an exchange (usually `amq.topic`) and creates two queues (to share between all
 the instances of the IoTAgents in a cluster environment): one for the incoming measures, and another for command
