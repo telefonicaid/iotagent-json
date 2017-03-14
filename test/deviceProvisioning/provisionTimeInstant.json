@@ -1,0 +1,22 @@
+{
+  "devices": [
+    {
+      "attributes": [
+        {
+          "name": "TimeInstant",
+          "object_id": "tt",
+          "type": "ISO8601"
+        },
+        {
+          "object_id" : "tmp",
+          "type" : "float",
+          "name" : "temperature"
+        }
+      ],
+      "device_id": "timestampedDevice",
+      "entity_name": "TimeInstant Device",
+      "entity_type": "clock",
+      "protocol": "PDI-IoTA-UltraLight"
+    }
+  ]
+}

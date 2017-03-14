@@ -3,6 +3,9 @@
 ## Index
 
 * [API Overview](#apioverview)
+  * [HTTP Binding](#httpbinding)
+  * [MQTT Binding](#mqttbinding)
+  * [AMQP Binding](#amqpbinding)
 * [Development documentation](#development)
 * [New transport development](#newtransport)
 
@@ -24,7 +27,7 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 * JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers (not
  arrays or other objects).
 
-### HTTP Binding
+### <a name="httpbinding"/> HTTP Binding
 
 #### Measure reporting
 ##### Payload
@@ -120,7 +123,7 @@ E.g.:
 }
 ```
 
-### MQTT Binding
+###  <a name="amqpbinding"/> MQTT Binding
 #### Measure reporting
 
 There are two ways of reporting measures:
@@ -259,6 +262,31 @@ in a transformation expression in the IoTAgent). In this cases, when a reverse e
 bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
 
+#### <a name="amqpbinding"/> AMQP
+
+[AMQP](https://www.amqp.org/) stands for Advance Message Queuing Protocol, and is one of the most popular protocols for message-queue systems.
+Although the protocol itself is software independent and allows for a great architectural flexibility, this transport
+binding has been designed to work with the [RabbitMQ](https://www.rabbitmq.com/) broker, in a way that closely
+resembles the MQTT binding (in the previous section). In fact, for IoT Platform deployments in need of an scalable MQTT
+Broker, RabbitMQ with the MQTT plugin will be used, connecting the IoT Agent to RabbitMQ through AMQP and the clients
+to RabbitMQ through MQTT.
+
+The binding connects the IoT Agent to an exchange (usually `amq.topic`) and creates two queues (to share between all
+the instances of the IoTAgents in a cluster environment): one for the incoming measures, and another for command
+result update messages (named as the measure one, adding the `_commands` sufix).
+
+For both measure reporting and command update status the mechanism is much the same as in the case of the MQTT binding: all
+the messages must be published to the selected exchange, using the following routing keys:
+
+| Key pattern                           | Meaning                    |
+| ------------------------------------- | -------------------------- |
+| .<apiKey>.<deviceId>.attrs            | Multiple measure reporting |
+| .<apiKey>.<deviceId>.attrs.<attrName> | Single measure reporting   |
+| .<apiKey>.<deviceId>.cmd              | Command reception          |
+| .<apiKey>.<deviceId>.cmdexe           | Command update message     |
+
+The payload is the same as for the other bindings.
+
 ### Value conversion
 The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
@@ -368,7 +396,6 @@ Update the contributors for the project
 ```bash
 grunt contributors
 ```
-
 
 ### Development environment
 

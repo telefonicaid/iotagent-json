@@ -1,0 +1,22 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "temperature",
+            "type": "celsius",
+            "value": ""
+          }
+        ],
+        "type": "SensorMachine",
+        "isPattern": "false",
+        "id": "SensorMachine:MQTT_UNPROVISIONED"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
