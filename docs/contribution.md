@@ -38,7 +38,6 @@ branch in the main lightweightm2m-iotagent repository, by following this steps
 Contributions following this guidelines will be added to the `develop` branch, and released in the next version. The 
 release process is explaind in the *Releasing* section below.
 
-
 ## Branching model
 There are two special branches in the repository:
 
