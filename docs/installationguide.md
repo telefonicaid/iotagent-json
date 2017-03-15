@@ -100,4 +100,4 @@ cd rpm
 ./create-rpm.sh -v <version-number> -r  <release-number>
 ```
 Where `<version-number>` is the version (x.y.z) you want the package to have and `<release-number>` is an increasing
-number dependent un previous installations.
+number dependent in previous installations.
