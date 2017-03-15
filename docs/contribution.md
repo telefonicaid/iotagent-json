@@ -70,8 +70,9 @@ content of the changelog is also moved to the release description in the Github 
 
 ## Releasing
 The process of making a release consists of the following steps:
-1. Create a new task branch changing the development version number in the package.json (with a sufix `-next`), to the
-new target version (without any sufix), and PR into `develop`.
+1. Create and PR into `develop` a new task branch with the following changes:
+  * Change the development version number in the package.json (with a sufix `-next`), to the new target version (without any sufix)
+  * Make sure all the dependencies have fixed versions (usually the IoTAgent library will be on `master`).
 2. Create a tag from the last version of `develop` named with the version number and push it to the repository.
 3. Create the release in Github, from the created tag. In the description, add the contents of the Changelog.
 4. Create a release branch from the last version of `develop` named with the version number.
