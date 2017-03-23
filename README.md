@@ -10,11 +10,11 @@
 
 * [Description](#description)
 * [Build & Install](#buildinstall)
-* [API Overview] (#apioverview)
-* [API Reference Documentation] (#apireference)
+* [API Overview](#apioverview)
+* [API Reference Documentation](#apireference)
 * [Command Line Client](#client)
-* [Testing] (#testing)
-* [Development] (#development)
+* [Testing](#testing)
+* [Development](#development)
 
 ## <a name="description"/> Description
 This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the FIWARE NGSI standard used in FIWARE.
