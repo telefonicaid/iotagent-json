@@ -49,7 +49,14 @@ A device can report new measures to the IoT Platform using an HTTP POST request 
 query parameters:
 * **i (device ID)**: Device ID (unique for the API Key).
 * **k (API Key)**: API Key for the service the device is registered on.
-* **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+* **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optio33333nal).
+
+##### Active versus passive attributes
+Current version of the agent only supports active attributes, i.e. those attributes actively reported by the device
+to the agent.
+
+Passive or lazy attributes, i.e. those attributes whose value is only given upon explicit request from the agent, are
+not implemented.
 
 #### Commands
 When using the HTTP transport, the command handling have two flavours:
