@@ -3,34 +3,31 @@
 ## Index
 
 * [API Overview](#apioverview)
-  * [HTTP Binding](#httpbinding)
-  * [MQTT Binding](#mqttbinding)
-  * [AMQP Binding](#amqpbinding)
+  * [HTTP binding](#httpbinding)
+  * [MQTT binding](#mqttbinding)
+  * [AMQP binding](#amqpbinding)
 * [Development documentation](#development)
 * [New transport development](#newtransport)
 
 ## <a name="apioverview"/> API Overview
-### Overview
-The MQTT-JSON protocol uses plain JSON objects to send information formatted as key-value maps over an MQTT transport.
-It uses different topics to separate the different destinations and types of the messages (the different possible interactions
-are described in the following sections).
-
-All the topics used in the protocol are prefixed with the APIKey of the device group and the Device ID of the device
-involved in the interaction; i.e.: there is a different set of topics for each service (e.g: `/FF957A98/MyDeviceId/attrs`).
-The API Key is a secret identifier shared among all the devices of a service, and the DeviceID is an ID that uniquely
-identifies the device in a service. API Keys can be configured with the IoTA Configuration API or the public default
-API Key of the IoT Agent can be used in its stead. The Device ID must be provisioned in advance in the IoT Agent before
-information is sent.
+The JSON protocol uses plain JSON objects to send information formatted as key-value maps over any of the accepted
+transports (HTTP, MQTT or AMQP).
 
 Along this document we will refer some times to "plain JSON objects" or "single-level JSON objects". With that, we mean:
 * valid JSON objects serialized as unescaped strings.
 * JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers (not
  arrays or other objects).
 
-### <a name="httpbinding"/> HTTP Binding
+**IMPORTANT NOTE**: current version of the agent only supports active attributes, i.e. those attributes actively reported
+by the device to the agent. Passive or lazy attributes, i.e. those attributes whose value is only given upon explicit
+request from the agent, are not implemented. Please check the issue
+[#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details and updates regarding its implementation.
+
+### <a name="httpbinding"/> HTTP binding
+HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
+directly put into Http messages.
 
 #### Measure reporting
-##### Payload
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute
 in the NGSI entity. The value of all the attributes will be copied as a String (as all simple attribute values in
 NGSIv1 are strings). E.g.:
@@ -50,14 +47,6 @@ query parameters:
 * **i (device ID)**: Device ID (unique for the API Key).
 * **k (API Key)**: API Key for the service the device is registered on.
 * **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
-
-##### Active versus passive attributes
-Current version of the agent only supports active attributes, i.e. those attributes actively reported by the device
-to the agent.
-
-Passive or lazy attributes, i.e. those attributes whose value is only given upon explicit request from the agent, are
-not implemented. Please check the issue [#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details
-and updates regarding its implementation.
 
 #### Commands
 When using the HTTP transport, the command handling have two flavours:
@@ -131,9 +120,18 @@ E.g.:
 }
 ```
 
-###  <a name="amqpbinding"/> MQTT Binding
-#### Measure reporting
+###  <a name="amqpbinding"/> MQTT binding
+MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
+destinations and types of the messages (the different possible interactions are described in the following sections).
 
+All the topics used in the protocol are prefixed with the APIKey of the device group and the Device ID of the device
+involved in the interaction; i.e.: there is a different set of topics for each service (e.g: `/FF957A98/MyDeviceId/attrs`).
+The API Key is a secret identifier shared among all the devices of a service, and the DeviceID is an ID that uniquely
+identifies the device in a service. API Keys can be configured with the IoTA Configuration API or the public default
+API Key of the IoT Agent can be used in its stead. The Device ID must be provisioned in advance in the IoT Agent before
+information is sent.
+
+#### Measure reporting
 There are two ways of reporting measures:
 
 * **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the
@@ -270,7 +268,7 @@ in a transformation expression in the IoTAgent). In this cases, when a reverse e
 bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
 
-#### <a name="amqpbinding"/> AMQP
+#### <a name="amqpbinding"/> AMQP binding
 
 [AMQP](https://www.amqp.org/) stands for Advance Message Queuing Protocol, and is one of the most popular protocols for message-queue systems.
 Although the protocol itself is software independent and allows for a great architectural flexibility, this transport
