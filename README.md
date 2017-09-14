@@ -67,7 +67,7 @@ config file can be used to permanently tune the MQTT broker parameters, or the d
 
 ##  <a name="testing"/> Testing
 
-[Mocha](http://visionmedia.github.io/mocha/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
+[Mocha](http://mochajs.org/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
 
 The test environment is preconfigured to run [BDD](http://chaijs.com/api/bdd/) testing style with
 `chai.expect` and `chai.should()` available globally while executing tests, as well as the [Sinon-Chai](http://chaijs.com/plugins/sinon-chai) plugin.
