@@ -43,6 +43,7 @@ cp -R %{_srcdir}/lib \
       %{_srcdir}/bin \
       %{_srcdir}/config.js \
       %{_srcdir}/package.json \
+      %{_srcdir}/npm-shrinkwrap.json \
       %{_srcdir}/LICENSE \
       %{_build_root_project}
 
