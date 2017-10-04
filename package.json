@@ -54,8 +54,8 @@
     "amqplib": "^0.5.1",
     "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "1.0.0-alpha.7",
-    "mqtt": "1.10.0",
-    "request": "2.72.0",
+    "mqtt": "1.7.0",
+    "request": "^2.69.0",
     "underscore": "1.8.3"
   }
 }
