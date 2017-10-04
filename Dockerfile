@@ -5,11 +5,11 @@
 # See the included LICENSE file for more details.
 ###
 
-FROM centos:6
+FROM centos:7
 
 MAINTAINER Daniel Moran Jimenez <daniel.moranjimenez@telefonica.com>
 
-ARG NODEJS_VERSION=
+ARG NODEJS_VERSION=4.8.4
 
 COPY . /opt/iotajson/
 WORKDIR /opt/iotajson
