@@ -16,7 +16,7 @@
   },
   "main": "lib/iotagent-json",
   "engines": {
-    "node": ">=0.10.8"
+    "node": ">=4.8.4"
   },
   "scripts": {
     "test": "grunt test"
