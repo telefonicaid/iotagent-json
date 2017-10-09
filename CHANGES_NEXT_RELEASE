@@ -1,1 +1,2 @@
+- FEATURE update node version to 4.8.4
 - Update MongoDB driver in order to fix NODE-818 error (#226)
