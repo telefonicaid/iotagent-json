@@ -3,14 +3,15 @@ language: node_js
 sudo: required
 
 node_js:
- - "0.10"
  - "4"
+ - "6"
 
 branches:
   only:
     - master
 
 services:
+ - rabbitmq
  - docker
  - mongodb
 

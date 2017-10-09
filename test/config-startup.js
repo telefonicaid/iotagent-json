@@ -29,6 +29,13 @@ config.mqtt = {
     thinkingThingsPlugin: true
 };
 
+config.amqp = {
+    port: 5672,
+    exchange: 'amq.topic',
+    queue: 'iota_queue',
+    options: {durable: true}
+};
+
 config.iota = {
     logLevel: 'FATAL',
     contextBroker: {

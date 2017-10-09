@@ -3,7 +3,7 @@
 ## Index
 * [Installation](#installation)
 * [Usage](#usage)
-* [Configuration] (#configuration)
+* [Configuration](#configuration)
 * [Packaging](#packaging)
 
 ### <a name="installation"/> Installation

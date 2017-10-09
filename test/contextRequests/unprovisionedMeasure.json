@@ -1,0 +1,17 @@
+{
+  "contextElements": [
+    {
+      "type": "SensorMachine",
+      "isPattern": "false",
+      "id": "SensorMachine:MQTT_UNPROVISIONED",
+      "attributes": [
+        {
+          "name": "a",
+          "type": "Integer",
+          "value": "23"
+        }
+      ]
+    }
+  ],
+  "updateAction": "UPDATE"
+}

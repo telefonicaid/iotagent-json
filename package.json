@@ -1,7 +1,7 @@
 {
   "name": "iotagent-json",
   "description": "IoT Agent for the JSON protocol",
-  "version": "1.5.0",
+  "version": "1.5.0-next",
   "homepage": "https://github.com/telefonicaid/iotagent-json",
   "author": {
     "name": "Daniel Moran",
@@ -40,7 +40,7 @@
     "should": "8.4.0",
     "chai": "3.5.0",
     "sinon": "1.17.4",
-    "mongodb": "2.1.19",
+    "mongodb": "2.2.10",
     "istanbul": "~0.1.34",
     "sinon-chai": "2.8.0",
     "proxyquire": "1.7.9"
@@ -51,10 +51,12 @@
     "express": "^4.11.2",
     "body-parser": "1.15.0",
     "dateformat": "1.0.12",
-    "iotagent-node-lib": "2.4.x",
+    "amqplib": "^0.5.1",
+    "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "1.0.0-alpha.7",
-    "mqtt": "1.10.0",
-    "request": "2.72.0",
+    "mqtt": "1.7.0",
+    "request": "^2.69.0",
+    "mongodb": "2.2.10",
     "underscore": "1.8.3"
   }
 }

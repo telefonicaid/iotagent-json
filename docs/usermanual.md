@@ -5,12 +5,13 @@
 * [API Overview](#apioverview)
   * [HTTP binding](#httpbinding)
   * [MQTT binding](#mqttbinding)
+  * [AMQP binding](#amqpbinding)
 * [Development documentation](#development)
 * [New transport development](#newtransport)
 
 ## <a name="apioverview"/> API Overview
 The JSON protocol uses plain JSON objects to send information formatted as key-value maps over any of the accepted
-transports (HTTP or MQTT).
+transports (HTTP, MQTT or AMQP).
 
 Along this document we will refer some times to "plain JSON objects" or "single-level JSON objects". With that, we mean:
 * valid JSON objects serialized as unescaped strings.
@@ -122,6 +123,10 @@ E.g.:
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
 destinations and types of the messages (the different possible interactions are described in the following sections).
 
+###  <a name="amqpbinding"/> MQTT binding
+MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
+destinations and types of the messages (the different possible interactions are described in the following sections).
+
 All the topics used in the protocol are prefixed with the APIKey of the device group and the Device ID of the device
 involved in the interaction; i.e.: there is a different set of topics for each service (e.g: `/FF957A98/MyDeviceId/attrs`).
 The API Key is a secret identifier shared among all the devices of a service, and the DeviceID is an ID that uniquely
@@ -134,22 +139,36 @@ There are two ways of reporting measures:
 
 * **Multiple measures**: In order to send multiple measures, a device can publish a JSON payload to an MQTT topic with the
 following structure:
+
 ```
 /{{api-key}}/{{device-id}}/attrs
 ```
+
 The message in this case must contain a valid JSON object of a single level; for each key/value pair, the key represents
 the attribute name and the value the attribute value. Attribute type will be taken from the device provision information.
 
+For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID `id_sen1`, API Key `ABCDEF` and attribute
+IDs `h` and `t`, then all measures (humidity and temperature) are reported this way:
+
+    $ mosquitto_pub -t /ABCDEF/id_sen1/attrs -m '{"h": 70, "t": 15}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+
 * **Single measures**: In order to send single measures, a device can publish the direct value to an MQTT topic with
 the following structure:
+
 ```
 /{{api-key}}/{{device-id}}/attrs/<attributeName>
 ```
+
 Indicating in the topic the name of the attribute to be modified.
 
 In both cases, the key is the one provisioned in the IOTA through the Configuration API, and the Device ID the ID that
 was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
 provisioned without a link to any particular configuration.
+
+For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID `id_sen1`, API Key `ABCDEF` and attribute
+IDs `h` and `t`, then humidity measures are reported this way:
+
+    $ mosquitto_pub -t /ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 
 #### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
@@ -225,19 +244,20 @@ following topic:
 This message must contain one attribute per command to be updated; the value of that attribute is considered the result
 of the command, and will be passed as it is to the corresponding `_result` attribute in the entity.
 
-E.g.: if a user wants to send a command `PING` with parameters `data = 22` he will send the following request to the
-Context Broker:
+For instance, if a user wants to send a command `ping` with parameters `data = 22`, he will send the following request
+to the Context Broker regarding an entity called `sen1` of type `sensor`:
+
 ```
 {
   "updateAction": "UPDATE",
   "contextElements": [
     {
-      "id": "Second MQTT Device",
-      "type": "AnMQTTDevice",
+      "id": "sen1",
+      "type": "sensor",
       "isPattern": "false",
       "attributes": [
         {
-          "name": "PING",
+          "name": "ping",
           "type": "command",
           "value": {
             "data": "22"
@@ -248,23 +268,67 @@ Context Broker:
   ]
 }
 ```
-If the APIKey associated to de device is `1234`, this will generate a message in the `/1234/MQTT_2/cmd` topic with the following
-payload:
+
+If the API key associated to de device is `ABCDEF`, and the device ID related to `sen1` entity is `id_sen1`, this
+will generate a message in the `/ABCDEF/id_sen1/cmd` topic with the following payload:
+
 ```
-{"PING":{"data":"22"}}
+{"ping":{"data":"22"}}
 ```
 
-Once the device has executed the command, it can publish its results in the `/1234/MQTT_2/cmdexe` topic with a payload with the following
-format:
+If using [Mosquitto](https://mosquitto.org/), such a command is received by running the `mosquitto_sub` script:
+
+    $ mosquitto_sub -v -t /# -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+    /ABCDEF/id_sen1/cmd {"ping":{"data":"22"}}
+
+At this point, Context Broker will have updated the value of `ping_status` to `PENDING` for `sen1` entity. Neither
+`ping_info` nor `ping` are updated.
+
+Once the device has executed the command, it can publish its results in the `/ABCDEF/id_sen1/cmdexe` topic with a
+payload with the following format:
+
 ```
-{ "PING": "1234567890" }
+{"ping": "1234567890"}
 ```
+
+If using [Mosquitto](https://mosquitto.org/), such command result is sent by running the `mosquitto_pub` script:
+
+    $ mosquitto_pub -t /ABCDEF/id_sen1/cmdexe -m '{"ping": "1234567890"}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+
+In the end, Context Broker will have updated the values of `ping_info` and `ping_status` to `1234567890` and `OK`,
+respectively. `ping` attribute is never updated.
+
 #### Bidirectionality Syntax
 The latest versions of the Provisioning API allow for the definition of reverse expressions to keep data shared between
 the Context Broker and the device in sync (regardless of whether the data originated in plain data from the device or
 in a transformation expression in the IoTAgent). In this cases, when a reverse expression is defined, whenever the
 bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
+
+#### <a name="amqpbinding"/> AMQP binding
+
+[AMQP](https://www.amqp.org/) stands for Advance Message Queuing Protocol, and is one of the most popular protocols for message-queue systems.
+Although the protocol itself is software independent and allows for a great architectural flexibility, this transport
+binding has been designed to work with the [RabbitMQ](https://www.rabbitmq.com/) broker, in a way that closely
+resembles the MQTT binding (in the previous section). In fact, for IoT Platform deployments in need of an scalable MQTT
+Broker, RabbitMQ with the MQTT plugin will be used, connecting the IoT Agent to RabbitMQ through AMQP and the clients
+to RabbitMQ through MQTT.
+
+The binding connects the IoT Agent to an exchange (usually `amq.topic`) and creates two queues (to share between all
+the instances of the IoTAgents in a cluster environment): one for the incoming measures, and another for command
+result update messages (named as the measure one, adding the `_commands` sufix).
+
+For both measure reporting and command update status the mechanism is much the same as in the case of the MQTT binding: all
+the messages must be published to the selected exchange, using the following routing keys:
+
+| Key pattern                           | Meaning                    |
+| ------------------------------------- | -------------------------- |
+| .<apiKey>.<deviceId>.attrs            | Multiple measure reporting |
+| .<apiKey>.<deviceId>.attrs.<attrName> | Single measure reporting   |
+| .<apiKey>.<deviceId>.cmd              | Command reception          |
+| .<apiKey>.<deviceId>.cmdexe           | Command update message     |
+
+The payload is the same as for the other bindings.
 
 ### Value conversion
 The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
@@ -375,7 +439,6 @@ Update the contributors for the project
 ```bash
 grunt contributors
 ```
-
 
 ### Development environment
 

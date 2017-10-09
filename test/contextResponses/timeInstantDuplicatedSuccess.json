@@ -1,0 +1,27 @@
+{
+  "contextResponses": [
+    {
+      "contextElement": {
+        "attributes": [
+          {
+            "name": "temperature",
+            "type": "float",
+            "value": ""
+          },
+          {
+            "name": "TimeInstant",
+            "type": "ISO8601",
+            "value": ""
+          }
+        ],
+        "type": "clock",
+        "isPattern": "false",
+        "id": "TimeInstant Device"
+      },
+      "statusCode": {
+        "code": "200",
+        "reasonPhrase": "OK"
+      }
+    }
+  ]
+}
