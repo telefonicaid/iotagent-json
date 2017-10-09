@@ -119,6 +119,9 @@ E.g.:
   "dt": "20160125T092703Z"
 }
 ```
+###  <a name="amqpbinding"/> MQTT binding
+MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
+destinations and types of the messages (the different possible interactions are described in the following sections).
 
 ###  <a name="amqpbinding"/> MQTT binding
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
