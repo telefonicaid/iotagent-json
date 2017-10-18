@@ -168,6 +168,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_install_dir}
 
 %changelog
+* Web Oct 18 2017 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.6.0
+- FEATURE update node version to 4.8.4
+- Update MongoDB driver in order to fix NODE-818 error (#226)
 
 * Fri Nov 10 2016 Daniel Moran <daniel.moranjimenez@telefonica.com> 1.5.0
 - Add multientity, bidirectionality and expression plugins (#184)
