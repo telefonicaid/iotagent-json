@@ -52,7 +52,7 @@ information interchanged between simulated devices and the Context Broker.
 
 The following list shows the prerequisite software and versions:
 
-* Orion Context Broker (v0.26)
+* Orion Context Broker (v1.0)
 * Node.js (v0.12.0)
 * Mosquitto (v1.4.7) (out-of-the-box setup)
 * Curl (v7.19.7)
