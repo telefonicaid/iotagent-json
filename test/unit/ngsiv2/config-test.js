@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Telefonica Investigación y Desarrollo, S.A.U
+ * Copyright 2015 Telefonica Investigación y Desarrollo, S.A.U
  *
  * This file is part of iotagent-json
  *
@@ -22,31 +22,50 @@
  *
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
+var config = {};
 
-'use strict';
-
-module.exports = {
-    MEASURES_SUFIX: 'attrs',
-    CONFIGURATION_SUFIX: 'configuration',
-    CONFIGURATION_COMMAND_SUFIX: 'commands',
-    CONFIGURATION_COMMAND_UPDATE: 'cmdexe',
-    CONFIGURATION_VALUES_SUFIX: 'values',
-
-    DATE_FORMAT: 'yyyymmdd\'T\'HHMMss\'Z\'',
-
-    HTTP_MEASURE_PATH: '/iot/d',
-    HTTP_CONFIGURATION_PATH: '/configuration',
-    HTTP_COMMANDS_PATH: '/commands',
-
-    TIMESTAMP_ATTRIBUTE: 'TimeInstant',
-    TIMESTAMP_TYPE: 'ISO8601',
-    TIMESTAMP_TYPE_NGSI2: 'DateTime',
-
-    DEFAULT_ATTRIBUTE_TYPE: 'string',
-
-    COMMAND_STATUS_PENDING: 'PENDING',
-    COMMAND_STATUS_ERROR: 'ERROR',
-    COMMAND_STATUS_COMPLETED: 'OK',
-
-    MQTTB_ALARM: 'MQTTB-ALARM'
+config.mqtt = {
+    host: 'localhost',
+    port: 1883,
+    defaultKey: '1234',
+    thinkingThingsPlugin: true
 };
+
+config.http = {
+    port: 7896
+};
+
+config.amqp = {
+    port: 5672,
+    exchange: 'amq.topic',
+    queue: 'iota_queue',
+    options: {durable: true}
+};
+
+config.iota = {
+    logLevel: 'FATAL',
+    contextBroker: {
+        host: '192.168.1.1',
+        port: '1026',
+        ngsiVersion: 'v2'
+    },
+    server: {
+        port: 4041
+    },
+    deviceRegistry: {
+        type: 'memory'
+    },
+    types: {},
+    service: 'howtoService',
+    subservice: '/howto',
+    providerUrl: 'http://localhost:4041',
+    deviceRegistrationDuration: 'P1M',
+    defaultType: 'Thing',
+    defaultResource: '',
+    defaultKey: '1234',
+    compressTimestamp: true
+};
+
+config.defaultTransport = 'MQTT';
+
+module.exports = config;
