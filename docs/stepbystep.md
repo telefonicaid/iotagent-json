@@ -25,7 +25,7 @@ Where `apiKey` is an alphanumerical string used to group devices logically (and 
 an ID that uniquely identifies the device. The API Key can be configured globally for an instance of the IoT Agent, or
 specifically for a given group of devices (as will be explained in the following sections). 
 
-A detailed specification of the protocol can be found [here](../README#protocol).
+A detailed specification of the protocol can be found [here](usermanual.md).
 
 This guide will give a step-by-step example for the most common scenarios of use of the agent, from the IoT Agent
 setup to the measure reporting (both for the case where individual devices are provisioned and the case where a group
@@ -121,7 +121,7 @@ You can also check the logs in the `/var/log/iotAgent` file created with the noh
 All the configuration of the IoTAgent can be done modifying a single file, `config.js`. The default values should meet
 the needs of this tutorial. 
 
-For a detailed description of these values, check the [configuration documentation](../README.md#configuration).
+For a detailed description of these values, check the [iotagent-node-lib configuration documentation](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/installationguide.md).
 
 There is a configuration value that you may want to change while following this tutorial, and that's the `logLevel`. If
 you have any problems following the instructions, or you simply want to know more of what's going on in the IoTA internals,
