@@ -256,7 +256,7 @@ representing the device. We will add the `sleepTime` attribute with the followin
 ```
 curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Cache-Control: no-cache" -d '{
 "value" : "300"
-}' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attrs/sleepTime'
+}' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attributes/sleepTime'
 ```
 
 When the IoTAgent is asked for configuration values, it will ask the Context Broker for those values. Once it has collected
