@@ -52,6 +52,7 @@ config.iota = {
     subservice: '/howto',
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
+    defaultKey: '1234',
     defaultType: 'Thing'
 };
 
