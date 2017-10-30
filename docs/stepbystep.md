@@ -8,7 +8,7 @@ Step by Step guide
 * [Provisioning multiple devices with a Configuration](#withconfiguration)
 * [Using ACLs to secure provisioning access](#acls)
 
-## <a name="introduction"/> Introduction
+## <a name="introduction">Introduction</a>
 
 This guide will show, step-by-step, how to deploy and configure an MQTT-JSON IoT Agent for its use to connect devices
 to an external NGSI Broker (aka Context Broker).
@@ -65,7 +65,7 @@ To enhance readability all the commands will be executed as root. To use other u
 and use `sudo` as usual (installation from the RPM package creates a special user for the agent, but it will not be
 used along this tutorial).
  
-## <a name="singledevice"/> Provisioning a single device with the default API Key
+## <a name="singledevice">Provisioning a single device with the default API Key</a>
 
 ### Installing the IoT Agent
 There are different ways to install the IoT Agent. In this tutorial, we will clone the last version of the agent from 
@@ -281,7 +281,7 @@ If we return now to the subscription window, we should be able to see the value 
 Along with all the information requested by the device, the IoTAgent will report the server time in the `dt` field of
 the response.
 
-## <a name="withconfiguration"/>  Provisioning multiple devices with a Configuration
+## <a name="withconfiguration">Provisioning multiple devices with a Configuration</a>
 
 In those cases where a group of devices with similar characteristics will be provisioned, a common configuration can be
 created for them. This configuration provision can be used to separate device messages between services, by 
@@ -397,7 +397,7 @@ We will get something like this:
 
 That shows the information we sent with the measures has been written to the Context Broker properly.
 
-## <a name="acls"/> Using ACLs to secure provisioning access
+## <a name="acls">Using ACLs to secure provisioning access</a>
 
 ### Overview
 The use of special APIKeys gives the IoTAgent administrator the opportunity to set different MQTT-Broker level permissions
