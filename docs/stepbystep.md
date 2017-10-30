@@ -212,7 +212,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
             "type": "multiSensor"
         }
     ]
-}' 'http://localhost:1026/NGSI10/queryContext'
+}' 'http://localhost:1026/v1/queryContext'
 ```
 
 The resulting response should look like the following:
@@ -361,7 +361,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
             "type": "potSensor"
         }
     ]
-}' 'http://localhost:1026/NGSI10/queryContext'
+}' 'http://localhost:1026/v1/queryContext'
 ```
 
 We will get something like this:
@@ -549,7 +549,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
             "type": "potSensor"
         }
     ]
-}' 'http://localhost:1026/NGSI10/queryContext'
+}' 'http://localhost:1026/v1/queryContext'
 ```
 
 Checking the IoTAgent logs you will see that the request was completely ignored. The problem was that the client was
