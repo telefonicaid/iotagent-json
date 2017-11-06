@@ -25,6 +25,7 @@ var config = {};
 config.mqtt = {
     host: 'localhost',
     port: 1883,
+    defaultKey: '1234',
     thinkingThingsPlugin: true
 };
 
@@ -51,7 +52,6 @@ config.iota = {
     subservice: '/howto',
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
-    defaultKey: '1234',
     defaultType: 'Thing'
 };
 
