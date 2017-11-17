@@ -168,6 +168,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_install_dir}
 
 %changelog
+* Fri Nov 17 2017 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.6.1
+- Update iotagent-node-lib to 2.5.x
+
 * Wed Oct 18 2017 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.6.0
 - FEATURE update node version to 4.8.4
 - Update MongoDB driver in order to fix NODE-818 error (#226)
