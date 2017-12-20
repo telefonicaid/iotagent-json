@@ -9,14 +9,14 @@
 ## Index
 
 * [Description](#description)
-* [Build & Install](#buildinstall)
-* [API Overview](#apioverview)
-* [API Reference Documentation](#apireference)
-* [Command Line Client](#client)
+* [Build & Install](#build--install)
+* [API Overview](#api-overview)
+* [API Reference Documentation](#api-reference-documentation)
+* [Command Line Client](#command-line-client)
 * [Testing](#testing)
-* [Development](#development)
+* [Development](#development-documentation)
 
-## <a name="description"/> Description
+## Description
 This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the FIWARE NGSI standard used in FIWARE.
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
@@ -34,20 +34,20 @@ Additional information about operating the component can be found in the [Operat
 
 This project is part of [FIWARE](https://www.fiware.org/). Check also the [FIWARE Catalogue entry for the IoTAgents](http://catalogue.fiware.org/enablers/backend-device-management-idas)
 
-## <a name="buildinstall"/> Build & Install
+## Build & Install
 
 Information about how to install the JSON IoTAgent can be found at the corresponding section of the [Installation & Administration Guide](docs/installationguide.md).
 
-## <a name="apioverview"/> API Overview
+## API Overview
 
 An Overview of the API can be found in the [User & Programmers Manual](docs/usermanual.md).
 
-## <a name="apireference"/> API Reference Documentation
+## API Reference Documentation
 
 Apiary reference for the Configuration API can be found [here](http://docs.telefonicaiotiotagents.apiary.io/#).
 More information about IoTAgents and their APIs can be found in the IoTAgent Library [here](https://github.com/telefonicaid/iotagent-node-lib).
 
-## <a name="client"/> Command Line Client 
+## Command Line Client 
 The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
 executed with the following command:
 ```
@@ -65,7 +65,7 @@ MQTT commands will show an error message reminding you to connect.
 The Command Line Client gets its default values from a config file in the root of the project: `client-config.js`. This
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
 
-##  <a name="testing"/> Testing
+## Testing
 
 [Mocha](http://mochajs.org/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
 
@@ -93,6 +93,6 @@ To generate TAP report in `report/test/unit_tests.tap`, type
 grunt test-report
 ```
 
-##  <a name="development"/> Development documentation
+##  Development documentation
 
 Information about developing for the JSON IoTAgent can be found at the corresponding section of the [User & Programmers Guide](docs/usermanual.md).
