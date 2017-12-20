@@ -52,7 +52,7 @@
     "body-parser": "1.15.0",
     "dateformat": "1.0.12",
     "amqplib": "^0.5.1",
-    "iotagent-node-lib": "https://github.com/dcalvoalonso/iotagent-node-lib.git#task/pluginsNgsi2",
+    "iotagent-node-lib": "https://github.com/dcalvoalonso/iotagent-node-lib.git#task/activeAttsNgsi2",
     "logops": "1.0.0-alpha.7",
     "mqtt": "1.7.0",
     "request": "^2.69.0",
