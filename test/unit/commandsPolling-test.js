@@ -177,6 +177,78 @@ describe('HTTP Transport binding: polling commands', function() {
         });
     });
 
+
+    describe('When a device asks for the pending commands without empty body', function() {
+        var deviceRequest = {
+            url: 'http://localhost:' + config.http.port + '/iot/d',
+            method: 'GET',
+            json: {
+                a: 23
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234',
+                getCmd: 1
+            }
+        };
+
+        var deviceRequestWithoutPayload = {
+            url: 'http://localhost:' + config.http.port + '/iot/d',
+            method: 'GET',
+            qs: {
+                i: 'MQTT_2',
+                k: '1234',
+                getCmd: 1
+            }
+        };
+
+        beforeEach(function(done) {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/pollingMeasure.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/pollingMeasureSuccess.json'));
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus4.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus4Success.json'));
+
+            request(commandOptions, done);
+        });
+
+        it('should return a list of the pending commands', function(done) {
+            request(deviceRequestWithOutPayload, function(error, response, body) {
+                should.not.exist(error);
+                response.statusCode.should.equal(200);
+                should.exist(body.PING);
+                should.exist(body.PING.data);
+                body.PING.data.should.equal('22');
+                done();
+            });
+        });
+
+        it('should be marked as delivered in the Context Broker', function(done) {
+            request(deviceRequest, function(error, response, body) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 50);
+            });
+        });
+
+        it('should remove them from the IoTAgent', function(done) {
+            request(deviceRequest, function(error, response, body) {
+                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
+                    should.not.exist(error);
+                    list.count.should.equal(0);
+                    done();
+                });
+            });
+        });
+    });
+
     describe('When a device asks for the list of commands and there is more than one command', function() {
         it('should retrieve the list sepparated by the "#" character');
     });
