@@ -58,14 +58,15 @@ result format.
 
 * **Polling commands**:  in this case, the Agent does not send any messages to the device, being the later responsible
 of retrieving them from the IoTAgent whenever the device is ready to get commands. In order to retrieve commands from
-the IoT Agent, the device will send, as part of a normal measure, the query parameter 'getCmd' with value '1'. As a
-result of this action, the IoTAgent, instead of returning an empty body (the typical response to a measurement report),
-it will return a list of all the commands available for the device, in JSON format: each attribute will represent a
-command, and its value the command value. The use of a JSON return object implies that only one value can be returned
-for each command (last value will be returned for each one). Implementation imposes another limitation in the available
-values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
-Whenever the device has completed the execution of the command, it will send the response in the same way measurements
-are reported, but using the **command result format** as exposed in the [Protocol section](#protocol).
+the IoT Agent, the device will send the query parameter 'getCmd' with value '1'. This parameter can be send as part of 
+a normal measure or in a request without any measure (so the device is not forced to send a measure in order to get the 
+list of commands). As a result of this action, the IoTAgent, instead of returning an empty body (the typical response to 
+a measurement report), it will return a list of all the commands available for the device, in JSON format: each attribute 
+will represent a command, and its value the command value. The use of a JSON return object implies that only one value 
+can be returned for each command (last value will be returned for each one). Implementation imposes another limitation 
+in the available values for the commands: a command value can't be an empty string, or a string composed exclusively by
+whitespaces. Whenever the device has completed the execution of the command, it will send the response in the same way 
+measurements are reported, but using the **command result format** as exposed in the [Protocol section](#protocol).
 
 #### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
