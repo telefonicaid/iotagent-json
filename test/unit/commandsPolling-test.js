@@ -178,10 +178,10 @@ describe('HTTP Transport binding: polling commands', function() {
     });
 
 
-    describe('When a device asks for the pending commands without empty body', function() {
+    describe('When a device asks for the pending commands without body', function() {
         var deviceRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/d',
-            method: 'GET',
+            method: 'POST',
             json: {
                 a: 23
             },
