@@ -219,7 +219,7 @@ describe('HTTP Transport binding: polling commands', function() {
         });
 
         it('should return a list of the pending commands', function(done) {
-            request(deviceRequestWithOutPayload, function(error, response, body) {
+            request(deviceRequestWithoutPayload, function(error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(200);
                 should.exist(body.PING);
