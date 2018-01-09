@@ -195,6 +195,7 @@ describe('HTTP Transport binding: polling commands', function() {
         var deviceRequestWithoutPayload = {
             url: 'http://localhost:' + config.http.port + '/iot/d',
             method: 'GET',
+            json: true,
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
