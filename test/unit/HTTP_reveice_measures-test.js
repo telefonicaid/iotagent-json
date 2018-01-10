@@ -313,6 +313,35 @@ describe('HTTP: Measure reception ', function() {
                 done();
             });
         });
+        it('should add a transport to the registered devices', function(done) {
+            var getDeviceOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+                method: 'GET',
+                headers: {
+                    'fiware-service': 'smartGondor',
+                    'fiware-servicepath': '/gardens'
+                },
+                qs: {
+                    i: 'MQTT_UNPROVISIONED',
+                    k: 'KL223HHV8732SFL1'
+                }
+            };
+
+            request(optionsMeasure, function(error, response, body) {
+                request(getDeviceOptions, function(error, response, body) {
+                    var parsedBody;
+
+                    should.not.exist(error);
+                    parsedBody = JSON.parse(body);
+
+                    response.statusCode.should.equal(200);
+                    console.log(parsedBody);
+                    should.exist(parsedBody.devices[0].transport);
+                    parsedBody.devices[0].transport.should.equal('HTTP');
+                    done();
+                });
+            });
+        });
     });
 });
 
