@@ -1,2 +1,3 @@
 Fix typo in logger level of ApiKey configuration [#247]
 Fix transport in autoprovision device depending on binding [#257]
+Fix: apiKey in config.js (supposely fixing #222 and #207)
