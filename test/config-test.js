@@ -57,7 +57,7 @@ config.iota = {
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
-    defaultResource: '',
+    defaultResource: '/iot/json',
     compressTimestamp: true
 };
 
