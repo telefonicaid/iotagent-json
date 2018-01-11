@@ -335,7 +335,6 @@ describe('HTTP: Measure reception ', function() {
                     parsedBody = JSON.parse(body);
 
                     response.statusCode.should.equal(200);
-                    console.log(parsedBody);
                     should.exist(parsedBody.devices[0].transport);
                     parsedBody.devices[0].transport.should.equal('HTTP');
                     done();
