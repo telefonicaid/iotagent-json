@@ -118,7 +118,7 @@ describe('HTTP Transport binding: polling commands', function() {
 
     describe('When a device asks for the pending commands', function() {
         var deviceRequest = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 a: 23
@@ -180,7 +180,7 @@ describe('HTTP Transport binding: polling commands', function() {
 
     describe('When a device asks for the pending commands without body', function() {
         var deviceRequest = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 a: 23
@@ -193,7 +193,7 @@ describe('HTTP Transport binding: polling commands', function() {
         };
 
         var deviceRequestWithoutPayload = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'GET',
             json: true,
             qs: {
@@ -256,7 +256,7 @@ describe('HTTP Transport binding: polling commands', function() {
 
     describe('When a device sends the result for a pending command', function() {
         var commandResponse = {
-            uri: 'http://localhost:' + config.http.port + '/iot/d/commands',
+            uri: 'http://localhost:' + config.http.port + '/iot/json/commands',
             method: 'POST',
             json: {
                 PING: 'MADE_OK'
