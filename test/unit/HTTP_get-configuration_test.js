@@ -86,7 +86,7 @@ describe('HTTP: Get configuration from the devices', function() {
 
     describe('When a configuration request is received in the path /configuration/commands', function() {
         var configurationRequest = {
-            url: 'http://localhost:' + config.http.port + '/iot/d/configuration',
+            url: 'http://localhost:' + config.http.port + '/iot/json/configuration',
             method: 'POST',
             json: {
                 type: 'configuration',
@@ -145,7 +145,7 @@ describe('HTTP: Get configuration from the devices', function() {
     });
     describe('When a subscription request is received in the IoT Agent', function() {
         var configurationRequest = {
-            url: 'http://localhost:' + config.http.port + '/iot/d/configuration',
+            url: 'http://localhost:' + config.http.port + '/iot/json/configuration',
             method: 'POST',
             json: {
                 type: 'subscription',

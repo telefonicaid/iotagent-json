@@ -39,7 +39,7 @@ var iotagentMqtt = require('../../'),
         json: {
             services: [
                 {
-                    resource: '',
+                    resource: '/iot/json',
                     apikey: 'KL223HHV8732SFL1',
                     entity_type: 'TheLightType',
                     trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
@@ -101,7 +101,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives for the HTTP binding', function() {
         var optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 humidity: '32',
@@ -141,7 +141,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
         var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/d',
+                url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
                     humidity: '111222',
@@ -207,7 +207,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives with a TimeInstant query parameter in the body', function() {
         var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/d',
+                url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
                     humidity: '111222'
@@ -273,7 +273,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives for an unprovisioned device', function() {
         var optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 humidity: '32',
@@ -311,6 +311,34 @@ describe('HTTP: Measure reception ', function() {
             request(optionsMeasure, function(error, result, body) {
                 contextBrokerMock.done();
                 done();
+            });
+        });
+        it('should add a transport to the registered devices', function(done) {
+            var getDeviceOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+                method: 'GET',
+                headers: {
+                    'fiware-service': 'smartGondor',
+                    'fiware-servicepath': '/gardens'
+                },
+                qs: {
+                    i: 'MQTT_UNPROVISIONED',
+                    k: 'KL223HHV8732SFL1'
+                }
+            };
+
+            request(optionsMeasure, function(error, response, body) {
+                request(getDeviceOptions, function(error, response, body) {
+                    var parsedBody;
+
+                    should.not.exist(error);
+                    parsedBody = JSON.parse(body);
+
+                    response.statusCode.should.equal(200);
+                    should.exist(parsedBody.devices[0].transport);
+                    parsedBody.devices[0].transport.should.equal('HTTP');
+                    done();
+                });
             });
         });
     });

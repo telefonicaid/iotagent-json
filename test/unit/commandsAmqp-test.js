@@ -148,7 +148,7 @@ describe('AMQP Transport binding: commands', function() {
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
 
             channel.assertQueue('client-queue', {exclusive: false}, function(err, q) {
-                channel.bindQueue(q.queue, config.amqp.exchange, '.' + config.iota.defaultKey + '.MQTT_2.cmd');
+                channel.bindQueue(q.queue, config.amqp.exchange, '.' + config.defaultKey + '.MQTT_2.cmd');
 
                 channel.consume(q.queue, function(msg) {
                     payload = msg.content.toString();

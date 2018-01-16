@@ -65,7 +65,7 @@ describe('AMQP Transport binding: measures', function() {
         nock.cleanAll();
 
         oldResource = config.iota.defaultResource;
-        config.iota.defaultResource = '/iot/d';
+        config.iota.defaultResource = '/iot/json';
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')

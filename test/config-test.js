@@ -25,7 +25,6 @@ var config = {};
 config.mqtt = {
     host: 'localhost',
     port: 1883,
-    defaultKey: '1234',
     thinkingThingsPlugin: true
 };
 
@@ -58,11 +57,11 @@ config.iota = {
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
-    defaultResource: '',
-    defaultKey: '1234',
+    defaultResource: '/iot/json',
     compressTimestamp: true
 };
 
+config.defaultKey = '1234';
 config.defaultTransport = 'MQTT';
 
 module.exports = config;

@@ -1,7 +1,7 @@
 {
   "services": [
     {
-      "resource": "/iot/d",
+      "resource": "/iot/json",
       "apikey": "80K09H324HV8732",
       "transport": "AMQP",
       "entity_type": "SensorMachine",

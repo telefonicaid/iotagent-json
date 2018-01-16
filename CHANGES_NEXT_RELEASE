@@ -1,1 +1,5 @@
 Fix typo in logger level of ApiKey configuration [#247]
+Allow get list of commands without sending measures (empty payload) [#256]
+Fix transport in autoprovision device depending on binding [#257]
+Fix: defaultKey in config.js (supposely fixing #222 and #207)
+Fix default resource /iot/json instead of /iot/d in config and tests
