@@ -41,7 +41,7 @@ var iotagentMqtt = require('../../../'),
         json: {
             services: [
                 {
-                    resource: '',
+                    resource: '/iot/json',
                     apikey: 'KL223HHV8732SFL1',
                     entity_type: 'TheLightType',
                     trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
@@ -103,7 +103,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives for the HTTP binding', function() {
         var optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 humidity: '32',
@@ -146,7 +146,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
         var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/d',
+                url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
                     humidity: '111222',
@@ -213,7 +213,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives with a TimeInstant query parameter in the body', function() {
         var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/d',
+                url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
                     humidity: '111222'
@@ -280,7 +280,7 @@ describe('HTTP: Measure reception ', function() {
 
     describe('When a POST measure arrives for an unprovisioned device', function() {
         var optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/d',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 humidity: '32',
