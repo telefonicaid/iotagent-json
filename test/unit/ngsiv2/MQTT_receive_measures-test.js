@@ -41,7 +41,7 @@ var iotagentMqtt = require('../../../'),
         json: {
             services: [
                 {
-                    resource: '',
+                    resource: '/iot/json',
                     apikey: 'KL223HHV8732SFL1',
                     entity_type: 'TheLightType',
                     trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',

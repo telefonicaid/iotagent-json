@@ -55,7 +55,7 @@
     "iotagent-node-lib": "https://github.com/dcalvoalonso/iotagent-node-lib.git#task/activeAttsNgsi2",
     "logops": "1.0.0-alpha.7",
     "mqtt": "1.7.0",
-    "request": "^2.69.0",
+    "request": "2.39.0 - 2.81.0",
     "mongodb": "2.2.10",
     "underscore": "1.8.3"
   }
