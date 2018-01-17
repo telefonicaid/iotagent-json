@@ -1,0 +1,25 @@
+{
+  "subject":{
+    "entities": [
+      {
+        "id": "Second MQTT Device",
+        "type": "AnMQTTDevice"
+      }
+    ],
+    "condition":{
+      "attrs":[
+        "location"
+      ]
+    }
+  },
+  "notification":{
+    "http":{
+      "url":"http://localhost:4041/notify"
+    },
+    "attrs":[
+      "location"
+    ],
+    "attrsFormat": "normalized"
+  },
+  "throttling": 0
+}
