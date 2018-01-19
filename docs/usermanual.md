@@ -58,15 +58,20 @@ result format.
 
 * **Polling commands**:  in this case, the Agent does not send any messages to the device, being the later responsible
 of retrieving them from the IoTAgent whenever the device is ready to get commands. In order to retrieve commands from
-the IoT Agent, the device will send the query parameter 'getCmd' with value '1'. This parameter can be send as part of 
-a normal measure or in a request without any measure (so the device is not forced to send a measure in order to get the 
-list of commands). As a result of this action, the IoTAgent, instead of returning an empty body (the typical response to 
-a measurement report), it will return a list of all the commands available for the device, in JSON format: each attribute 
-will represent a command, and its value the command value. The use of a JSON return object implies that only one value 
-can be returned for each command (last value will be returned for each one). Implementation imposes another limitation 
-in the available values for the commands: a command value can't be an empty string, or a string composed exclusively by
-whitespaces. Whenever the device has completed the execution of the command, it will send the response in the same way 
-measurements are reported, but using the **command result format** as exposed in the [Protocol section](#protocol).
+the IoT Agent, the device will send the query parameter 'getCmd' with value '1' as part of a normal measure. As a result 
+of this action, the IoTAgent, instead of returning an empty body (the typical response to a measurement report), will 
+return a list of all the commands available for the device, in JSON format: each attribute will represent a command, and
+its value the command value. The use of a JSON return object implies that only one value can be returned for each command 
+(last value will be returned for each one). Implementation imposes another limitation in the available values for the 
+commands: a command value can't be an empty string, or a string composed exclusively by whitespaces. Whenever the device 
+has completed the execution of the command, it will send the response in the same way measurements are reported, but using the
+**command result format** as exposed in the [Protocol section](#protocol).
+
+Some additional remarks regarding polling commands:
+
+* Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send a
+measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry the 
+`getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
 
 #### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
@@ -226,6 +231,11 @@ E.g.:
 
 #### Commands
 The IoT Agent implements IoTAgent commands, as specified in the [IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
+
+Commands using the MQTT transport protocol binding always work in PUSH mode: the server publishes a message in a topic
+where the device is subscribed: the *commands topic*. Once the device has finished with the command, it publishes it result
+to another topic.
+
 When a command is receivied in the IoT Agent, a message is published in the following topic:
 ```
 /<APIKey>/<DeviceId>/cmd
