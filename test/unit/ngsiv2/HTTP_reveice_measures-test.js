@@ -291,7 +291,7 @@ describe('HTTP: Measure reception ', function() {
                 'fiware-servicepath': '/gardens'
             },
             qs: {
-                i: 'MQTT_UNPROVISIONED',
+                i: 'JSON_UNPROVISIONED',
                 k: 'KL223HHV8732SFL1'
             }
         };
@@ -306,7 +306,7 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/TheLightType:MQTT_UNPROVISIONED/attrs',
+                .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
                  utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'))
                 .reply(204);
 
