@@ -27,7 +27,7 @@
 
 'use strict';
 
-var iotagentMqtt = require('../../../'),
+var iotaJson = require('../../../'),
     config = require('./config-test.js'),
     nock = require('nock'),
     iotAgentLib = require('iotagent-node-lib'),
@@ -85,7 +85,7 @@ describe('HTTP: Measure reception ', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-        iotagentMqtt.start(config, function() {
+        iotaJson.start(config, function() {
             request(provisionOptions, function(error, response, body) {
                 done();
             });
@@ -97,7 +97,7 @@ describe('HTTP: Measure reception ', function() {
 
         async.series([
             iotAgentLib.clearAll,
-            iotagentMqtt.stop
+            iotaJson.stop
         ], done);
     });
 
@@ -187,10 +187,10 @@ describe('HTTP: Measure reception ', function() {
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'))
                 .reply(204);
 
-            iotagentMqtt.stop(function() {
+            iotaJson.stop(function() {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
-                iotagentMqtt.start(config, function() {
+                iotaJson.start(config, function() {
                     request(provisionOptions, function(error, response, body) {
                         done();
                     });
@@ -254,10 +254,10 @@ describe('HTTP: Measure reception ', function() {
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'))
                 .reply(204);
 
-            iotagentMqtt.stop(function() {
+            iotaJson.stop(function() {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
-                iotagentMqtt.start(config, function() {
+                iotaJson.start(config, function() {
                     request(provisionOptions, function(error, response, body) {
                         done();
                     });

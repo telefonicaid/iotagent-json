@@ -24,7 +24,7 @@
  */
 'use strict';
 
-var iotagentMqtt = require('../../../'),
+var iotaJson = require('../../../'),
     mqtt = require('mqtt'),
     config = require('./config-test.js'),
     nock = require('nock'),
@@ -80,7 +80,7 @@ describe('Subscription management', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-        iotagentMqtt.start(config, function() {
+        iotaJson.start(config, function() {
             iotAgentLib.clearAll(done);
         });
     });
@@ -113,7 +113,7 @@ describe('Subscription management', function() {
                 async.apply(request, provisionOptions),
                 sendMeasures('32', '87'),
                 waitForMqttRelay(50),
-                iotagentMqtt.stop,
+                iotaJson.stop,
                 sendMeasures('53', '1'),
                 waitForMqttRelay(50)
             ], function(error, results) {
@@ -144,7 +144,7 @@ describe('Subscription management', function() {
         afterEach(function(done) {
             async.series([
                 iotAgentLib.clearAll,
-                iotagentMqtt.stop
+                iotaJson.stop
             ], done);
         });
 
@@ -153,8 +153,8 @@ describe('Subscription management', function() {
                 async.apply(request, provisionOptions),
                 sendMeasures('32', '87'),
                 waitForMqttRelay(50),
-                iotagentMqtt.stop,
-                async.apply(iotagentMqtt.start, config),
+                iotaJson.stop,
+                async.apply(iotaJson.start, config),
                 waitForMqttRelay(50),
                 sendMeasures('53', '1'),
                 waitForMqttRelay(50)

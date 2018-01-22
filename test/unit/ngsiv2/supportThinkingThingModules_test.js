@@ -24,7 +24,7 @@
  */
 'use strict';
 
-var iotagentMqtt = require('../../../'),
+var iotaJson = require('../../../'),
     mqtt = require('mqtt'),
     async = require('async'),
     iotAgentLib = require('iotagent-node-lib'),
@@ -60,7 +60,7 @@ describe('Support for Thinking Things Modules', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-        iotagentMqtt.start(config, function() {
+        iotaJson.start(config, function() {
             request(provisionOptions, function(error, response, body) {
                 done();
             });
@@ -72,7 +72,7 @@ describe('Support for Thinking Things Modules', function() {
         mqttClient.end();
         async.series([
             iotAgentLib.clearAll,
-            iotagentMqtt.stop
+            iotaJson.stop
         ], done);
 
     });

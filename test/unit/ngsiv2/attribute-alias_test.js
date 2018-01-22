@@ -24,7 +24,7 @@
  */
 'use strict';
 
-var iotagentMqtt = require('../../../'),
+var iotaJson = require('../../../'),
     mqtt = require('mqtt'),
     config = require('./config-test.js'),
     nock = require('nock'),
@@ -60,7 +60,7 @@ describe('Attribute alias', function() {
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-        iotagentMqtt.start(config, function() {
+        iotaJson.start(config, function() {
             request(provisionOptions, function(error, response, body) {
                 done();
             });
@@ -73,7 +73,7 @@ describe('Attribute alias', function() {
 
         async.series([
             iotAgentLib.clearAll,
-            iotagentMqtt.stop
+            iotaJson.stop
         ], done);
     });
 

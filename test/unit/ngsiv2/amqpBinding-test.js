@@ -25,7 +25,7 @@
 
 'use strict';
 
-var iotagentMqtt = require('../../../'),
+var iotaJson = require('../../../'),
     config = require('./config-test.js'),
     nock = require('nock'),
     async = require('async'),
@@ -76,7 +76,7 @@ describe('AMQP Transport binding: measures', function() {
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         async.series([
-            apply(iotagentMqtt.start, config),
+            apply(iotaJson.start, config),
             apply(request, provisionOptions),
             apply(startConnection, config.amqp.exchange)
         ], done);
@@ -90,7 +90,7 @@ describe('AMQP Transport binding: measures', function() {
 
         async.series([
             iotAgentLib.clearAll,
-            iotagentMqtt.stop
+            iotaJson.stop
         ], done);
     });
 
