@@ -73,12 +73,13 @@ describe('Subscription management', function() {
             keepalive: 0,
             connectTimeout: 60 * 60 * 1000
         });
-
+        
+        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
         contextBrokerMock = nock('http://192.168.1.1:1026', {allowUnmocked: false})
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(200, '{}');
 
         iotaJson.start(config, function() {
             iotAgentLib.clearAll(done);
