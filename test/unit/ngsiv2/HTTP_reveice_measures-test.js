@@ -79,11 +79,12 @@ describe('HTTP: Measure reception ', function() {
 
         nock.cleanAll();
 
+        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(200, '{}');
 
         iotaJson.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -174,11 +175,12 @@ describe('HTTP: Measure reception ', function() {
         beforeEach(function(done) {
             nock.cleanAll();
 
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .reply(200, '{}');
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
@@ -241,11 +243,12 @@ describe('HTTP: Measure reception ', function() {
         beforeEach(function(done) {
             nock.cleanAll();
 
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .reply(200, '{}');
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
@@ -297,11 +300,12 @@ describe('HTTP: Measure reception ', function() {
         };
 
         beforeEach(function(done) {
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .reply(200, '{}');
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')

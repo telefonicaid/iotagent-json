@@ -69,11 +69,12 @@ describe('AMQP Transport binding: measures', function() {
         oldResource = config.iota.defaultResource;
         config.iota.defaultResource = '/iot/json';
 
+        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(200, '{}');
 
         async.series([
             apply(iotaJson.start, config),
@@ -126,12 +127,13 @@ describe('AMQP Transport binding: measures', function() {
         };
 
         beforeEach(function(done) {
+            
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
-
+                .reply(200, '{}');
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'TestService')
