@@ -70,7 +70,7 @@ describe('HTTP: Measure reception ', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceHTTP.json'),
+            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
@@ -79,7 +79,8 @@ describe('HTTP: Measure reception ', function() {
 
         nock.cleanAll();
 
-        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
+        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
+        // as far as it is a 200 OK
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
@@ -108,7 +109,13 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
+                luminosity: 10,
+                pollution: 43.4,
+                configuration: {firmware: {verson: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
+                tags: ['iot', 'device'],
+                enabled: true,
+                alive: null
             },
             headers: {
                 'fiware-service': 'smartGondor',
@@ -125,7 +132,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json'))
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'))
                 .reply(204);
         });
         it('should return a 200 OK with no error', function(done) {
@@ -175,7 +182,8 @@ describe('HTTP: Measure reception ', function() {
         beforeEach(function(done) {
             nock.cleanAll();
 
-            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
+            // as far as it is a 200 OK
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
@@ -243,7 +251,8 @@ describe('HTTP: Measure reception ', function() {
         beforeEach(function(done) {
             nock.cleanAll();
 
-            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
+            // as far as it is a 200 OK
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
@@ -300,7 +309,8 @@ describe('HTTP: Measure reception ', function() {
         };
 
         beforeEach(function(done) {
-            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
+            // as far as it is a 200 OK
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')

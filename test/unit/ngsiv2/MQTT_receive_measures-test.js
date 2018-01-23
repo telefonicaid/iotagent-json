@@ -71,7 +71,7 @@ describe('MQTT: Measure reception ', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
+            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
@@ -84,8 +84,9 @@ describe('MQTT: Measure reception ', function() {
             keepalive: 0,
             connectTimeout: 60 * 60 * 1000
         });
-        
-        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
+
+        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
+        // as far as it is a 200 OK
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
@@ -115,13 +116,19 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json'))
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'))
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
+                luminosity: 10,
+                pollution: 43.4,
+                configuration: {firmware: {verson: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
+                tags: ['iot', 'device'],
+                enabled: true,
+                alive: null
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -136,7 +143,8 @@ describe('MQTT: Measure reception ', function() {
     describe('When a new multiple measure arrives for an unprovisioned device', function() {
         beforeEach(function(done) {
 
-            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant, as far as it is a 200 OK
+            // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
+            // as far as it is a 200 OK
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')

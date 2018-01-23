@@ -47,16 +47,17 @@
   },
   "keywords": [],
   "dependencies": {
+    "amqplib": "^0.5.1",
     "async": "1.5.2",
-    "express": "^4.11.2",
     "body-parser": "1.15.0",
     "dateformat": "1.0.12",
-    "amqplib": "^0.5.1",
+    "express": "^4.11.2",
     "iotagent-node-lib": "https://github.com/dcalvoalonso/iotagent-node-lib.git#task/exportConfigNgsi2",
+    "iso8601-validator": "^1.0.1",
     "logops": "1.0.0-alpha.7",
+    "mongodb": "2.2.10",
     "mqtt": "1.7.0",
     "request": "2.39.0 - 2.81.0",
-    "mongodb": "2.2.10",
     "underscore": "1.8.3"
   }
 }
