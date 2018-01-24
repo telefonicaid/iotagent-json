@@ -112,7 +112,7 @@ describe('AMQP Transport binding: measures', function() {
             setTimeout(function() {
                 contextBrokerMock.done();
                 done();
-            }, 100);
+            }, 300);
         });
     });
 
@@ -155,7 +155,7 @@ describe('AMQP Transport binding: measures', function() {
             setTimeout(function() {
                 contextBrokerMock.done();
                 done();
-            }, 100);
+            }, 300);
         });
     });
 
@@ -177,7 +177,7 @@ describe('AMQP Transport binding: measures', function() {
             setTimeout(function() {
                 contextBrokerMock.done();
                 done();
-            }, 100);
+            }, 300);
         });
     });
 
@@ -196,7 +196,7 @@ describe('AMQP Transport binding: measures', function() {
 
             setTimeout(function() {
                 done();
-            }, 100);
+            }, 300);
         });
     });
 
@@ -221,7 +221,7 @@ describe('AMQP Transport binding: measures', function() {
             setTimeout(function() {
                 contextBrokerMock.done();
                 done();
-            }, 100);
+            }, 300);
         });
     });
 });
