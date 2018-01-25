@@ -255,5 +255,4 @@ describe('MQTT: Measure reception ', function() {
             });
         });
     });
-
 });
