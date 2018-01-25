@@ -112,7 +112,7 @@ describe('HTTP: Measure reception ', function() {
                 temperature: '87',
                 luminosity: 10,
                 pollution: 43.4,
-                configuration: {firmware: {verson: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
+                configuration: {firmware: {version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
                 tags: ['iot', 'device'],
                 enabled: true,
                 alive: null
