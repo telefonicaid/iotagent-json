@@ -142,7 +142,6 @@ describe('MQTT: Measure reception ', function() {
 
     describe('When a new multiple measure arrives for an unprovisioned device', function() {
         beforeEach(function(done) {
-
             // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
             // as far as it is a 200 OK
             contextBrokerMock
