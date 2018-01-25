@@ -154,7 +154,7 @@ describe('MQTT: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/TheLightType:MQTT_UNPROVISIONED/attrs',
+                .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'))
                 .reply(204);
 
@@ -168,7 +168,7 @@ describe('MQTT: Measure reception ', function() {
                 temperature: '87'
             };
 
-            mqttClient.publish('/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null,
+            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null,
                 function(error) {
                     setTimeout(function() {
                         contextBrokerMock.done();
