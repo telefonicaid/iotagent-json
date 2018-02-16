@@ -35,11 +35,11 @@ Telefonica's IoT Platform and FIWARE.
 %prep
 echo "[INFO] Preparing installation"
 # Create rpm/BUILDROOT folder
-rm -Rf $RPM_BUILD_ROOT && mkdir -p $RPM_BUILD_ROOT
-[ -d %{_build_root_project} ] || mkdir -p %{_build_root_project}
+/bin/rm -Rf $RPM_BUILD_ROOT && /bin/mkdir -p $RPM_BUILD_ROOT
+[ -d %{_build_root_project} ] || /bin/mkdir -p %{_build_root_project}
 
 # Copy src files
-cp -R %{_srcdir}/lib \
+/bin/cp -R %{_srcdir}/lib \
       %{_srcdir}/bin \
       %{_srcdir}/config.js \
       %{_srcdir}/package.json \
@@ -47,7 +47,7 @@ cp -R %{_srcdir}/lib \
       %{_srcdir}/LICENSE \
       %{_build_root_project}
 
-cp -R %{_topdir}/SOURCES/etc %{buildroot}
+/bin/cp -R %{_topdir}/SOURCES/etc %{buildroot}
 
 # -------------------------------------------------------------------------------------------- #
 # Build section:
@@ -57,7 +57,7 @@ echo "[INFO] Building RPM"
 cd %{_build_root_project}
 
 # Only production modules
-rm -fR node_modules/
+/bin/rm -fR node_modules/
 npm cache clear
 npm install --production
 
@@ -76,7 +76,7 @@ if [ "$RET_VAL" != "0" ]; then
          exit $RET_VAL
       fi
 else
-      mv %{_install_dir}/config.js /tmp
+      /bin/mv %{_install_dir}/config.js /tmp
 fi
 
 # -------------------------------------------------------------------------------------------- #
@@ -85,16 +85,16 @@ fi
 %post
 echo "[INFO] Configuring application"
     echo "[INFO] Creating the home JSON IoT Agent directory"
-    mkdir -p _install_dir
+    /bin/mkdir -p _install_dir
     echo "[INFO] Creating log & run directory"
-    mkdir -p %{_iotajson_log_dir}
+    /bin/mkdir -p %{_iotajson_log_dir}
     chown -R %{_project_user}:%{_project_user} %{_iotajson_log_dir}
     chown -R %{_project_user}:%{_project_user} _install_dir
     chmod g+s %{_iotajson_log_dir}
     setfacl -d -m g::rwx %{_iotajson_log_dir}
     setfacl -d -m o::rx %{_iotajson_log_dir}
 
-    mkdir -p %{_iotajson_pid_dir}
+    /bin/mkdir -p %{_iotajson_pid_dir}
     chown -R %{_project_user}:%{_project_user} %{_iotajson_pid_dir}
     chown -R %{_project_user}:%{_project_user} _install_dir
     chmod g+s %{_iotajson_pid_dir}
@@ -106,7 +106,7 @@ echo "[INFO] Configuring application"
     chkconfig --add %{_service_name}
 
     # restores old configuration if any
-    [ -f /tmp/config.js ] && mv /tmp/config.js %{_install_dir}/config.js
+    [ -f /tmp/config.js ] && /bin/mv /tmp/config.js %{_install_dir}/config.js
    
     # Chmod iotagent-json binary
     chmod guo+x %{_install_dir}/bin/%{_iotajson_executable}
@@ -125,22 +125,22 @@ if [ $1 == 0 ]; then
 
   echo "[INFO] Removing application log files"
   # Log
-  [ -d %{_iotajson_log_dir} ] && rm -rf %{_iotajson_log_dir}
+  [ -d %{_iotajson_log_dir} ] && /bin/rm -rf %{_iotajson_log_dir}
 
   echo "[INFO] Removing application run files"
   # Log
-  [ -d %{_iotajson_pid_dir} ] && rm -rf %{_iotajson_pid_dir}
+  [ -d %{_iotajson_pid_dir} ] && /bin/rm -rf %{_iotajson_pid_dir}
 
   echo "[INFO] Removing application files"
   # Installed files
-  [ -d %{_install_dir} ] && rm -rf %{_install_dir}
+  [ -d %{_install_dir} ] && /bin/rm -rf %{_install_dir}
 
   echo "[INFO] Removing application user"
   userdel -fr %{_project_user}
 
   echo "[INFO] Removing application service"
   chkconfig --del %{_service_name}
-  rm -Rf /etc/init.d/%{_service_name}
+  /bin/rm -Rf /etc/init.d/%{_service_name}
   echo "Done"
 fi
 
@@ -150,7 +150,7 @@ fi
 # -------------------------------------------------------------------------------------------- #
 %postun
 %clean
-rm -rf $RPM_BUILD_ROOT
+/bin/rm -rf $RPM_BUILD_ROOT
 
 # -------------------------------------------------------------------------------------------- #
 # Files to add to the RPM
