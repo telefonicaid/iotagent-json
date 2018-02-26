@@ -168,6 +168,14 @@ fi
 %{_install_dir}
 
 %changelog
+* Mon Feb 26 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.7.0
+- Update ioagent-node-lib to 2.6.x
+- Allow get list of commands without sending measures (empty payload) (#256)
+- Fix: typo in logger level of ApiKey configuration (#247)
+- Fix: transport in autoprovision device depending on binding (#257)
+- Fix: defaultKey in config.js (supposely fixing #222 and #207)
+- Fix: default resource /iot/json instead of /iot/d in config and tests
+
 * Wed Oct 18 2017 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.6.0
 - FEATURE update node version to 4.8.4
 - Update MongoDB driver in order to fix NODE-818 error (#226)
