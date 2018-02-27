@@ -1,6 +1,6 @@
 {
   "name": "iotagent-json",
-  "version": "1.7.0",
+  "version": "1.7.0-next",
   "dependencies": {
     "amqplib": {
       "version": "0.5.2",
