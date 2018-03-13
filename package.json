@@ -47,6 +47,7 @@
   },
   "keywords": [],
   "dependencies": {
+    "express": "^4.11.2",
     "amqplib": "^0.5.1",
     "async": "1.5.2",
     "body-parser": "1.15.0",
