@@ -159,7 +159,7 @@ describe('AMQP Transport binding: commands', function() {
                         should.exist(payload);
                         payload.should.equal(commandMsg);
                         done();
-                    }, 2000);
+                    }, 1000);
                 });
             });
         });
