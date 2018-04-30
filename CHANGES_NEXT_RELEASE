@@ -1,0 +1,1 @@
+Remove mongodb dependence from packages.json (already in iota-node-lib)
