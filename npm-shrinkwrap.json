@@ -469,13 +469,13 @@
       "integrity": "sha1-f3zC5cK3pQgAYKI8UJcMutVdN1E=",
       "dev": true,
       "requires": {
-        "colors": "1.2.3"
+        "colors": "1.2.4"
       },
       "dependencies": {
         "colors": {
-          "version": "1.2.3",
-          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.3.tgz",
-          "integrity": "sha512-qTfM2pNFeMZcLvf/RbrVAzDEVttZjFhaApfx9dplNjvHSX88Ui66zBRb/4YGob/xUWxDceirgoC1lT676asfCQ==",
+          "version": "1.2.4",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.4.tgz",
+          "integrity": "sha512-6Y+iBnWmXL+AWtlOp2Vr6R2w5MUlNJRwR0ShVFaAb1CqWzhPOpQg4L0jxD+xpw/Nc8QJwaq3KM79QUCriY8CWQ==",
           "dev": true
         }
       }
@@ -920,9 +920,9 @@
       }
     },
     "duplexify": {
-      "version": "3.5.4",
-      "resolved": "https://registry.npmjs.org/duplexify/-/duplexify-3.5.4.tgz",
-      "integrity": "sha512-JzYSLYMhoVVBe8+mbHQ4KgpvHpm0DZpJuL8PY93Vyv1fW7jYJ90LoXa1di/CVbJM+TgMs91rbDapE/RNIfnJsA==",
+      "version": "3.6.0",
+      "resolved": "https://registry.npmjs.org/duplexify/-/duplexify-3.6.0.tgz",
+      "integrity": "sha512-fO3Di4tBKJpYTFHAxTU00BcfWMY9w24r/x21a6rZRbsD/ToUgGxsMbiGRmB7uVAXeGKXD9MwiLZa5E97EVgIRQ==",
       "requires": {
         "end-of-stream": "1.4.1",
         "inherits": "2.0.3",
@@ -2327,7 +2327,7 @@
       }
     },
     "iotagent-node-lib": {
-      "version": "git+https://github.com/dcalvoalonso/iotagent-node-lib.git#ba3d547a6a79484286593970c373ec17464ff05e",
+      "version": "git+https://github.com/dcalvoalonso/iotagent-node-lib.git#2d9c012e09fa84954e0e7fd632b706799234f008",
       "requires": {
         "async": "1.5.2",
         "body-parser": "1.15.0",
@@ -2350,9 +2350,9 @@
       },
       "dependencies": {
         "colors": {
-          "version": "1.2.3",
-          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.3.tgz",
-          "integrity": "sha512-qTfM2pNFeMZcLvf/RbrVAzDEVttZjFhaApfx9dplNjvHSX88Ui66zBRb/4YGob/xUWxDceirgoC1lT676asfCQ=="
+          "version": "1.2.4",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.4.tgz",
+          "integrity": "sha512-6Y+iBnWmXL+AWtlOp2Vr6R2w5MUlNJRwR0ShVFaAb1CqWzhPOpQg4L0jxD+xpw/Nc8QJwaq3KM79QUCriY8CWQ=="
         },
         "isarray": {
           "version": "1.0.0",
@@ -2364,7 +2364,7 @@
           "resolved": "https://registry.npmjs.org/logops/-/logops-1.0.0.tgz",
           "integrity": "sha1-RTdh2vumwKa/PJMZeJt4gs5Nqrw=",
           "requires": {
-            "colors": "1.2.3",
+            "colors": "1.2.4",
             "json-stringify-safe": "5.0.1",
             "lodash": "4.17.10",
             "serr": "0.3.0"
@@ -2872,16 +2872,16 @@
       "resolved": "https://registry.npmjs.org/logops/-/logops-1.0.0-alpha.7.tgz",
       "integrity": "sha1-XeHmXUtgENXnt2HPOq79uPDGHg8=",
       "requires": {
-        "colors": "1.2.3",
+        "colors": "1.2.4",
         "json-stringify-safe": "5.0.1",
         "lodash.omit": "4.5.0",
         "serr": "0.2.0"
       },
       "dependencies": {
         "colors": {
-          "version": "1.2.3",
-          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.3.tgz",
-          "integrity": "sha512-qTfM2pNFeMZcLvf/RbrVAzDEVttZjFhaApfx9dplNjvHSX88Ui66zBRb/4YGob/xUWxDceirgoC1lT676asfCQ=="
+          "version": "1.2.4",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.4.tgz",
+          "integrity": "sha512-6Y+iBnWmXL+AWtlOp2Vr6R2w5MUlNJRwR0ShVFaAb1CqWzhPOpQg4L0jxD+xpw/Nc8QJwaq3KM79QUCriY8CWQ=="
         },
         "serr": {
           "version": "0.2.0",
@@ -4744,7 +4744,7 @@
       "resolved": "https://registry.npmjs.org/websocket-stream/-/websocket-stream-3.3.3.tgz",
       "integrity": "sha1-Nh2lQEozfmDPvCm0pGNodiZ53ws=",
       "requires": {
-        "duplexify": "3.5.4",
+        "duplexify": "3.6.0",
         "inherits": "2.0.3",
         "through2": "2.0.3",
         "ws": "1.1.5",
