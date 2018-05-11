@@ -469,13 +469,13 @@
       "integrity": "sha1-f3zC5cK3pQgAYKI8UJcMutVdN1E=",
       "dev": true,
       "requires": {
-        "colors": "1.2.4"
+        "colors": "1.2.5"
       },
       "dependencies": {
         "colors": {
-          "version": "1.2.4",
-          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.4.tgz",
-          "integrity": "sha512-6Y+iBnWmXL+AWtlOp2Vr6R2w5MUlNJRwR0ShVFaAb1CqWzhPOpQg4L0jxD+xpw/Nc8QJwaq3KM79QUCriY8CWQ==",
+          "version": "1.2.5",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.5.tgz",
+          "integrity": "sha512-erNRLao/Y3Fv54qUa0LBB+//Uf3YwMUmdJinN20yMXm9zdKKqH9wt7R9IIVZ+K7ShzfpLV/Zg8+VyrBJYB4lpg==",
           "dev": true
         }
       }
@@ -2327,7 +2327,7 @@
       }
     },
     "iotagent-node-lib": {
-      "version": "git+https://github.com/dcalvoalonso/iotagent-node-lib.git#2d9c012e09fa84954e0e7fd632b706799234f008",
+      "version": "git+https://github.com/dcalvoalonso/iotagent-node-lib.git#ad30fa9d35c5d9f5262be4e49e37a2dc6aeaebb8",
       "requires": {
         "async": "1.5.2",
         "body-parser": "1.15.0",
@@ -2336,8 +2336,8 @@
         "jison": "0.4.17",
         "logops": "1.0.0",
         "moment": "2.22.1",
-        "mongodb": "2.2.20",
-        "mongoose": "4.13.11",
+        "mongodb": "2.2.35",
+        "mongoose": "4.13.12",
         "mu2": "0.5.21",
         "mustache": "2.2.1",
         "node-uuid": "1.4.8",
@@ -2350,48 +2350,19 @@
       },
       "dependencies": {
         "colors": {
-          "version": "1.2.4",
-          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.4.tgz",
-          "integrity": "sha512-6Y+iBnWmXL+AWtlOp2Vr6R2w5MUlNJRwR0ShVFaAb1CqWzhPOpQg4L0jxD+xpw/Nc8QJwaq3KM79QUCriY8CWQ=="
-        },
-        "isarray": {
-          "version": "1.0.0",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",
-          "integrity": "sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE="
+          "version": "1.2.5",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.5.tgz",
+          "integrity": "sha512-erNRLao/Y3Fv54qUa0LBB+//Uf3YwMUmdJinN20yMXm9zdKKqH9wt7R9IIVZ+K7ShzfpLV/Zg8+VyrBJYB4lpg=="
         },
         "logops": {
           "version": "1.0.0",
           "resolved": "https://registry.npmjs.org/logops/-/logops-1.0.0.tgz",
           "integrity": "sha1-RTdh2vumwKa/PJMZeJt4gs5Nqrw=",
           "requires": {
-            "colors": "1.2.4",
+            "colors": "1.2.5",
             "json-stringify-safe": "5.0.1",
             "lodash": "4.17.10",
             "serr": "0.3.0"
-          }
-        },
-        "mongodb": {
-          "version": "2.2.20",
-          "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.20.tgz",
-          "integrity": "sha1-pqANMyIodODv6etZjr6Nv+zPAdQ=",
-          "requires": {
-            "es6-promise": "3.2.1",
-            "mongodb-core": "2.1.5",
-            "readable-stream": "2.1.5"
-          }
-        },
-        "readable-stream": {
-          "version": "2.1.5",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz",
-          "integrity": "sha1-ZvqLcg4UOLNkaB8q0aY8YYRIydA=",
-          "requires": {
-            "buffer-shims": "1.0.0",
-            "core-util-is": "1.0.2",
-            "inherits": "2.0.3",
-            "isarray": "1.0.0",
-            "process-nextick-args": "1.0.7",
-            "string_decoder": "0.10.31",
-            "util-deprecate": "1.0.2"
           }
         }
       }
@@ -2872,16 +2843,16 @@
       "resolved": "https://registry.npmjs.org/logops/-/logops-1.0.0-alpha.7.tgz",
       "integrity": "sha1-XeHmXUtgENXnt2HPOq79uPDGHg8=",
       "requires": {
-        "colors": "1.2.4",
+        "colors": "1.2.5",
         "json-stringify-safe": "5.0.1",
         "lodash.omit": "4.5.0",
         "serr": "0.2.0"
       },
       "dependencies": {
         "colors": {
-          "version": "1.2.4",
-          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.4.tgz",
-          "integrity": "sha512-6Y+iBnWmXL+AWtlOp2Vr6R2w5MUlNJRwR0ShVFaAb1CqWzhPOpQg4L0jxD+xpw/Nc8QJwaq3KM79QUCriY8CWQ=="
+          "version": "1.2.5",
+          "resolved": "https://registry.npmjs.org/colors/-/colors-1.2.5.tgz",
+          "integrity": "sha512-erNRLao/Y3Fv54qUa0LBB+//Uf3YwMUmdJinN20yMXm9zdKKqH9wt7R9IIVZ+K7ShzfpLV/Zg8+VyrBJYB4lpg=="
         },
         "serr": {
           "version": "0.2.0",
@@ -3134,63 +3105,57 @@
       "integrity": "sha512-shJkRTSebXvsVqk56I+lkb2latjBs8I+pc2TzWc545y2iFnSjm7Wg0QMh+ZWcdSLQyGEau5jI8ocnmkyTgr9YQ=="
     },
     "mongodb": {
-      "version": "2.2.10",
-      "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.10.tgz",
-      "integrity": "sha1-0RJzpaU7COF7zEyKKV3tDxUcyuY=",
+      "version": "2.2.35",
+      "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.35.tgz",
+      "integrity": "sha512-3HGLucDg/8EeYMin3k+nFWChTA85hcYDCw1lPsWR6yV9A6RgKb24BkLiZ9ySZR+S0nfBjWoIUS7cyV6ceGx5Gg==",
       "requires": {
         "es6-promise": "3.2.1",
-        "mongodb-core": "2.0.12",
-        "readable-stream": "2.1.5"
+        "mongodb-core": "2.1.19",
+        "readable-stream": "2.2.7"
       },
       "dependencies": {
-        "bson": {
-          "version": "0.5.7",
-          "resolved": "https://registry.npmjs.org/bson/-/bson-0.5.7.tgz",
-          "integrity": "sha1-DRH+CTbB/uAp4R9wY/XQqyQi6j4="
-        },
         "isarray": {
           "version": "1.0.0",
           "resolved": "https://registry.npmjs.org/isarray/-/isarray-1.0.0.tgz",
           "integrity": "sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE="
         },
-        "mongodb-core": {
-          "version": "2.0.12",
-          "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.0.12.tgz",
-          "integrity": "sha1-u2aq1VDiUnMfitSSdoFSZKkcM3w=",
-          "requires": {
-            "bson": "0.5.7",
-            "require_optional": "1.0.1"
-          }
-        },
         "readable-stream": {
-          "version": "2.1.5",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.1.5.tgz",
-          "integrity": "sha1-ZvqLcg4UOLNkaB8q0aY8YYRIydA=",
+          "version": "2.2.7",
+          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.2.7.tgz",
+          "integrity": "sha1-BwV6y+JGeyIELTb5jFrVBwVOlbE=",
           "requires": {
             "buffer-shims": "1.0.0",
             "core-util-is": "1.0.2",
             "inherits": "2.0.3",
             "isarray": "1.0.0",
             "process-nextick-args": "1.0.7",
-            "string_decoder": "0.10.31",
+            "string_decoder": "1.0.3",
             "util-deprecate": "1.0.2"
+          }
+        },
+        "string_decoder": {
+          "version": "1.0.3",
+          "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.0.3.tgz",
+          "integrity": "sha512-4AH6Z5fzNNBcH+6XDMfA/BTt87skxqJlO0lAh3Dker5zThcAxG6mKz+iGu308UKoPPQ8Dcqx/4JhujzltRa+hQ==",
+          "requires": {
+            "safe-buffer": "5.1.2"
           }
         }
       }
     },
     "mongodb-core": {
-      "version": "2.1.5",
-      "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.1.5.tgz",
-      "integrity": "sha1-utEukNXhqJUhTpvDN16joc1TnsA=",
+      "version": "2.1.19",
+      "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.1.19.tgz",
+      "integrity": "sha512-Jt4AtWUkpuW03kRdYGxga4O65O1UHlFfvvInslEfLlGi+zDMxbBe3J2NVmN9qPJ957Mn6Iz0UpMtV80cmxCVxw==",
       "requires": {
         "bson": "1.0.6",
         "require_optional": "1.0.1"
       }
     },
     "mongoose": {
-      "version": "4.13.11",
-      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.13.11.tgz",
-      "integrity": "sha512-OgXmFc3vzXwq4zWp41XfSBDnKZLqnBc4Kh7mwwGjBE5iWH5tfkixaPK0uFtpEuzDzUvAIg33bgniyTsmc00olA==",
+      "version": "4.13.12",
+      "resolved": "https://registry.npmjs.org/mongoose/-/mongoose-4.13.12.tgz",
+      "integrity": "sha512-pH8NK5AYGbnPeEFFGs5ACk18vzzcy4DFT48U9kKvkfg6SI3nJZkzGfN7o1NDWjy+kP26hWyU/AMhYTfe5hSVnA==",
       "requires": {
         "async": "2.1.4",
         "bson": "1.0.6",
