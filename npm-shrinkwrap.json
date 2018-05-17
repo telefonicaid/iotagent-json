@@ -2327,7 +2327,7 @@
       }
     },
     "iotagent-node-lib": {
-      "version": "git+https://github.com/dcalvoalonso/iotagent-node-lib.git#ad30fa9d35c5d9f5262be4e49e37a2dc6aeaebb8",
+      "version": "git://github.com/telefonicaid/iotagent-node-lib.git#3b4729a3d23ea24f838d316297082bedae8bf332",
       "requires": {
         "async": "1.5.2",
         "body-parser": "1.15.0",
