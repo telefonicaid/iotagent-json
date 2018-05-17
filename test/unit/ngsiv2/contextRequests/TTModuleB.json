@@ -1,0 +1,41 @@
+{
+  "humidity":{
+          "type": "degrees",
+          "value": "32"
+  },
+  "B":{
+          "type": "compound",
+          "value": [
+            {
+              "name": "voltage",
+              "type": "string",
+              "value": "4.70"
+            },
+            {
+              "name": "state",
+              "type": "string",
+              "value": "1"
+            },
+            {
+              "name": "charger",
+              "type": "string",
+              "value": "1"
+            },
+            {
+              "name": "charging",
+              "type": "string",
+              "value": "1"
+            },
+            {
+              "name": "mode",
+              "type": "string",
+              "value": "1"
+            },
+            {
+              "name": "disconnection",
+              "type": "string",
+              "value": "0"
+            }
+          ]   
+  }
+}

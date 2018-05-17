@@ -3,7 +3,6 @@
     {
       "attributes": [
         {
-          "expression": "${@humedad / 1000}",
           "type": "percent",
           "name": "humidity",
           "object_id": "h"

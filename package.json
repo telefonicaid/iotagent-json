@@ -22,7 +22,7 @@
     "test": "grunt test"
   },
   "devDependencies": {
-    "nock": "7.0.2",
+    "nock": "9.0.14",
     "grunt": "0.4.5",
     "closure-linter-wrapper": "1.0.1",
     "grunt-contrib-clean": "0.7.0",
@@ -46,15 +46,15 @@
   },
   "keywords": [],
   "dependencies": {
-    "async": "1.5.2",
     "express": "^4.11.2",
+    "amqplib": "^0.5.1",
+    "async": "1.5.2",
     "body-parser": "1.15.0",
     "dateformat": "1.0.12",
-    "amqplib": "^0.5.1",
     "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "1.0.0-alpha.7",
     "mqtt": "1.7.0",
-    "request": "^2.69.0",
+    "request": "2.39.0 - 2.81.0",
     "underscore": "1.8.3"
   }
 }

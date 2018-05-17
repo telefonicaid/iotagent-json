@@ -1,0 +1,10 @@
+{
+  "a":{
+    "type": "celsius",
+    "value": "23"    
+  },
+  "b":{
+    "type": "degrees",
+    "value": "98"    
+  }   
+}
