@@ -72,7 +72,7 @@ These are the currently available MQTT configuration options:
 * **defaultKey**: default API Key to use when a device is provisioned without a configuration.
 * **username**: user name that identifies the IOTA against the MQTT broker (optional).
 * **password**: password to be used if the username is provided (optional).
-* **qos**: QoS level: At most once (0),  At least once (1),  Exactly once (2). (default is 2).
+* **qos**: QoS level: at most once (0), at least once (1), exactly once (2). (default is 2).
 * **retain**: retain flag ( default is true).
 
 #### Configuration with environment variables
