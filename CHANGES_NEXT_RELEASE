@@ -1,4 +1,4 @@
-Add: enable qos=2 and retain=true in mqtt binding (#279)
+Add: unhardwire MQTT qos and retain parameters in config.js (involving new env vars IOTA_MQTT_QOS and IOTA_MQTT_RETAIN) (#279)
 Remove mongodb dependence from packages.json (already in iota-node-lib)
 Add: allow NGSIv2 for updating active attributes at CB, through configuration based on iotagent-node-lib (#250)
 Add: measures are sent in native JSON format when NGSIv2 is enabled (#250)
