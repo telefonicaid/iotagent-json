@@ -25,7 +25,9 @@ var config = {};
 config.mqtt = {
     host: 'localhost',
     port: 1883,
-    thinkingThingsPlugin: true
+    thinkingThingsPlugin: true,
+    qos: 0,
+    retain: false
 };
 
 config.iota = {
