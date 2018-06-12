@@ -610,7 +610,7 @@
     "iotagent-node-lib": {
       "version": "2.6.0-next",
       "from": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
-      "resolved": "git://github.com/telefonicaid/iotagent-node-lib.git#68700afa22f0cc1b63ab144c83483a9f3ea8eeea",
+      "resolved": "git://github.com/telefonicaid/iotagent-node-lib.git#55b7c5f9bb9afee935bd70768d88685da9b275fe",
       "dependencies": {
         "colors": {
           "version": "1.3.0",
