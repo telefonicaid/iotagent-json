@@ -2,3 +2,4 @@ Add: unhardwire MQTT qos and retain parameters in config.js (involving new env v
 Remove mongodb dependence from packages.json (already in iota-node-lib)
 Add: allow NGSIv2 for updating active attributes at CB, through configuration based on iotagent-node-lib (#250)
 Add: measures are sent in native JSON format when NGSIv2 is enabled (#250)
+Add: supports NGSIv2 for device provisioning (entity creation and context registration) at CB (#250)
