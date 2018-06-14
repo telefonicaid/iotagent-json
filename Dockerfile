@@ -62,7 +62,10 @@ RUN yum update -y && \
   # This cannot be removed using yum as yum uses hard dependencies and doing so will uninstall essential packages
   rm -rf /usr/share/i18n /usr/{lib,lib64}/gconv && \
   # Don't need old log files inside docker images
-  rm -f /var/log/*log
+  rm -f /var/log/*log && \
+  # Create config directory and populate it with the default configuration
+  mkdir /opt/iotajson/config && \
+  mv /opt/iotajson/config.js /opt/iotajson/config/config.js
 
-ENTRYPOINT bin/iotagent-json config.js
+ENTRYPOINT bin/iotagent-json config/config.js
 

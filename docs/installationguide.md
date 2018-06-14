@@ -38,6 +38,19 @@ The IoTA will then be installed as a linux service, and can ve started with the 
 ```
 service iotaJSON start
 ```
+
+#### Using Docker
+A docker container is available on docker hub. It will start the container with the default settings defined
+in `config.js`.
+```
+docker run fiware/iotagent-json
+```
+
+To use your own configuration you can mount a local `config.js` to `/opt/iotajson/config/config.js`.
+```
+docker run -v <path-to-configuration-file>:/opt/iotajson/config/config.js fiware/iotagent-json
+```
+
 ### <a name="usage"/> Usage
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
 ```
