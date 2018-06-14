@@ -54,13 +54,11 @@ describe('Support for Thinking Things Modules', function() {
             connectTimeout: 60 * 60 * 1000
         });
 
-        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
-        // as far as it is a 200 OK
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v1/updateContext')
-            .reply(200, '{}');
+            .post('/v2/entities')
+            .reply(201);
 
         iotaJson.start(config, function() {
             request(provisionOptions, function(error, response, body) {
