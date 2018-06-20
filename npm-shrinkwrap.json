@@ -610,7 +610,7 @@
     "iotagent-node-lib": {
       "version": "2.6.0-next",
       "from": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
-      "resolved": "git://github.com/telefonicaid/iotagent-node-lib.git#b6bc7e28dd46bd319106d40e08cfec931f5fc4bd",
+      "resolved": "git://github.com/telefonicaid/iotagent-node-lib.git#033211db45d8874f4cd2af85c788b5d2e4bca4da",
       "dependencies": {
         "colors": {
           "version": "1.3.0",
@@ -840,9 +840,9 @@
       "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz"
     },
     "moment": {
-      "version": "2.22.2",
-      "from": "moment@>=2.19.4 <3.0.0",
-      "resolved": "https://registry.npmjs.org/moment/-/moment-2.22.2.tgz"
+      "version": "2.20.1",
+      "from": "moment@>=2.20.1 <2.21.0",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.20.1.tgz"
     },
     "mongodb": {
       "version": "2.2.35",
