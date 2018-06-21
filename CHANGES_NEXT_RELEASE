@@ -4,3 +4,4 @@ Add: allow NGSIv2 for updating active attributes at CB, through configuration ba
 Add: measures are sent in native JSON format when NGSIv2 is enabled (#250)
 Fix: parameter order for the MEASURE-001 error message (#290)
 Add: momment dep to packages.json
+Using precise dependencies (~=) in packages.json
