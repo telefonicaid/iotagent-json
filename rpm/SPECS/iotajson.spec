@@ -43,9 +43,10 @@ echo "[INFO] Preparing installation"
       %{_srcdir}/bin \
       %{_srcdir}/config.js \
       %{_srcdir}/package.json \
-      %{_srcdir}/npm-shrinkwrap.json \
       %{_srcdir}/LICENSE \
       %{_build_root_project}
+
+[ -f %{_srcdir}/npm-shrinkwrap.json ] && /bin/cp %{_srcdir}/npm-shrinkwrap.json %{_build_root_project}
 
 /bin/cp -R %{_topdir}/SOURCES/etc %{buildroot}
 
