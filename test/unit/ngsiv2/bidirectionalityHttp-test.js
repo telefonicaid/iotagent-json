@@ -105,9 +105,9 @@ describe('Data Bidirectionality: HTTP', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities', utils.readExampleFile(
+                .post('/v2/entities?options=upsert', utils.readExampleFile(
                     './test/unit/ngsiv2/contextRequests/createBidirectionalDevice.json'))
-                .reply(201);
+                .reply(204);
 
 
             iotagentJson.start(config, function(error) {
@@ -215,9 +215,9 @@ describe('Data Bidirectionality: HTTP', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities', utils.readExampleFile(
+                .post('/v2/entities?options=upsert', utils.readExampleFile(
                     './test/unit/ngsiv2/contextRequests/createBidirectionalDevice.json'))
-                .reply(201);
+                .reply(204);
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')

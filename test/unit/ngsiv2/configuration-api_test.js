@@ -99,8 +99,8 @@ describe('Configuration API support', function() {
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v2/entities')
-            .reply(201);
+            .post('/v2/entities?options=upsert')
+            .reply(204);
 
         iotagentJson.start(config, done);
     });
