@@ -69,6 +69,9 @@ describe('AMQP Transport binding: measures', function() {
         oldResource = config.iota.defaultResource;
         config.iota.defaultResource = '/iot/json';
 
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
@@ -126,7 +129,10 @@ describe('AMQP Transport binding: measures', function() {
         };
 
         beforeEach(function(done) {
-
+            
+            // This mock does not check the payload since the aim of the test is not to verify
+            // device provisioning functionality. Appropriate verification is done in tests under
+            // provisioning folder of iotagent-node-lib
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
