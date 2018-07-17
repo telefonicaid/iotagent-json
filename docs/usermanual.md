@@ -9,7 +9,7 @@
 * [Development documentation](#development)
 * [New transport development](#newtransport)
 
-## <a name="apioverview"/> API Overview
+## API Overview
 The JSON protocol uses plain JSON objects to send information formatted as key-value maps over any of the accepted
 transports (HTTP, MQTT or AMQP).
 
@@ -23,7 +23,7 @@ by the device to the agent. Passive or lazy attributes, i.e. those attributes wh
 request from the agent, are not implemented. Please check the issue
 [#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details and updates regarding its implementation.
 
-### <a name="httpbinding"/> HTTP binding
+###  HTTP binding
 HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
 directly put into Http messages.
 
@@ -31,7 +31,8 @@ directly put into Http messages.
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute
 in the NGSI entity. The value of all the attributes will be copied as a String (as all simple attribute values in
 NGSIv1 are strings). E.g.:
-```
+
+```json
 {
   "h": "45%",
   "t": "23",
@@ -58,19 +59,19 @@ result format.
 
 * **Polling commands**:  in this case, the Agent does not send any messages to the device, being the later responsible
 of retrieving them from the IoTAgent whenever the device is ready to get commands. In order to retrieve commands from
-the IoT Agent, the device will send the query parameter 'getCmd' with value '1' as part of a normal measure. As a result 
-of this action, the IoTAgent, instead of returning an empty body (the typical response to a measurement report), will 
+the IoT Agent, the device will send the query parameter 'getCmd' with value '1' as part of a normal measure. As a result
+of this action, the IoTAgent, instead of returning an empty body (the typical response to a measurement report), will
 return a list of all the commands available for the device, in JSON format: each attribute will represent a command, and
-its value the command value. The use of a JSON return object implies that only one value can be returned for each command 
-(last value will be returned for each one). Implementation imposes another limitation in the available values for the 
-commands: a command value can't be an empty string, or a string composed exclusively by whitespaces. Whenever the device 
+its value the command value. The use of a JSON return object implies that only one value can be returned for each command
+(last value will be returned for each one). Implementation imposes another limitation in the available values for the
+commands: a command value can't be an empty string, or a string composed exclusively by whitespaces. Whenever the device
 has completed the execution of the command, it will send the response in the same way measurements are reported, but using the
 **command result format** as exposed in the [Protocol section](#protocol).
 
 Some additional remarks regarding polling commands:
 
 * Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send a
-measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry the 
+measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry the
 `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
 
 #### Configuration retrieval
@@ -80,6 +81,7 @@ device endpoint.
 
 ##### Configuration commands
 The IoT Agent listens in this path for configuration requests coming from the device:
+
 ```
 http://<iotaURL>:<HTTP-Port>/configuration/commands
 ```
@@ -92,7 +94,7 @@ This command will trigger a query to the CB that will, as a result, end up with 
 with the `configuration/values` path (described bellow).
 
 E.g.:
-```
+```json
 {
   "type": "configuration",
   "fields": [
@@ -118,7 +120,7 @@ is sent in the same format used in multiple measure reporting: a plain JSON with
 additional parameter called `dt` is added with the system current time.
 
 E.g.:
-```
+```json
 {
   "sleepTime": "200",
   "warningLevel": "80",
@@ -195,7 +197,7 @@ This command will trigger a query to the CB that will, as a result, end up with 
 information topic (described bellow).
 
 E.g.:
-```
+```json
 {
   "type": "configuration",
   "fields": [
@@ -221,7 +223,7 @@ used in multiple measure reporting: a plain JSON with an attribute per value req
 `dt` is added with the system current time.
 
 E.g.:
-```
+```json
 {
   "sleepTime": "200",
   "warningLevel": "80",
@@ -255,7 +257,7 @@ of the command, and will be passed as it is to the corresponding `_result` attri
 For instance, if a user wants to send a command `ping` with parameters `data = 22`, he will send the following request
 to the Context Broker regarding an entity called `sen1` of type `sensor`:
 
-```
+```json
 {
   "updateAction": "UPDATE",
   "contextElements": [
@@ -280,7 +282,7 @@ to the Context Broker regarding an entity called `sen1` of type `sensor`:
 If the API key associated to de device is `ABCDEF`, and the device ID related to `sen1` entity is `id_sen1`, this
 will generate a message in the `/ABCDEF/id_sen1/cmd` topic with the following payload:
 
-```
+```json
 {"ping":{"data":"22"}}
 ```
 
@@ -295,7 +297,7 @@ At this point, Context Broker will have updated the value of `ping_status` to `P
 Once the device has executed the command, it can publish its results in the `/ABCDEF/id_sen1/cmdexe` topic with a
 payload with the following format:
 
-```
+```json
 {"ping": "1234567890"}
 ```
 
@@ -313,7 +315,7 @@ in a transformation expression in the IoTAgent). In this cases, when a reverse e
 bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
 
-#### <a name="amqpbinding"/> AMQP binding
+#### AMQP binding
 
 [AMQP](https://www.amqp.org/) stands for Advance Message Queuing Protocol, and is one of the most popular protocols for message-queue systems.
 Although the protocol itself is software independent and allows for a great architectural flexibility, this transport
@@ -361,7 +363,7 @@ fields codified in hexadecimal with a fixed 4 character length, without comma se
 of this attribute, adding the "batteryType" and "percentage" fields to the entity.
 
 
-##  <a name="development"/> Development documentation
+##  Development documentation
 ### Contributions
 All contributions to this project are welcome. Developers planning to contribute should follow the [Contribution Guidelines](./docs/contribution.md)
 
@@ -451,13 +453,15 @@ grunt contributors
 ### Development environment
 
 Initialize your environment with git hooks.
+
 ```bash
 grunt init-dev-env
 ```
 
 We strongly suggest you to make an automatic execution of this task for every developer simply by adding the following
 lines to your `package.json`
-```
+
+```json
 {
   "scripts": {
      "postinstall": "grunt init-dev-env"
@@ -486,7 +490,7 @@ This command will only work after the developer has executed init-dev-env (that'
 
 This command will also launch the coverage, doc and complexity task (see in the above sections).
 
-## <a name="newtransport"/> New transport development
+## New transport development
 
 ### Overview
 This IoT Agent is prepared to serve its protocol (Plain JSON) over multiple transport protocols (MQTT, HTTP...), sharing

@@ -7,11 +7,11 @@
 * [Error naming code](#errorcode)
 
 
-## <a name="overview"/>  Overview
+## Overview
 The following document shows all the errors that can appear in the IoTAgent Ultralight 2.0 log file, and gives a brief
 idea of the severity and how to react to those errors.
 
-## <a name="logs"/>  Logs
+## Logs
 The following section contains the error log entries that can appear in the IoTA logs, grouped by category.
 
 ### Command errors
@@ -99,7 +99,7 @@ connectivity from the IoTAgent to the broker.
 Indicates the mandatory "config.http" configuration parameter was not found while starting the IoTAgent. This will
 prevent the IoTAgent from starting. Check the configuration files and fix them to be valid.
 
-## <a name="alarms"/> Alarms
+## Alarms
 
 The following table shows the alarms that can be raised in the JSON IoTAgent library. All the alarms are signaled by an
 error log starting with the prefix "Raising [%s]:" (where %s is the alarm name). All the alarms are released by an info
@@ -115,7 +115,7 @@ while the 'Severity' criterium is as follows:
 * **Major** - The system has a problem that degrades the service and must be addressed
 * **Warning** - It is happening something that must be notified
 
-## <a name="errorcode"/> Error naming code
+## Error naming code
 Every error has a code composed of a prefix and an ID, codified with the following table:
 
 | Prefix           | Type of operation      |
