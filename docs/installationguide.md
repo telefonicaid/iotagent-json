@@ -1,10 +1,10 @@
 # Installation & Administration Guide
 
 ## Index
+
 * [Installation](#installation)
 * [Usage](#usage)
 * [Configuration](#configuration)
-* [Packaging](#packaging)
 
 ### Installation
 There are two ways of installing the JSON IoT Agent: using Git or RPMs.

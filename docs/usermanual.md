@@ -2,12 +2,13 @@
 
 ## Index
 
-* [API Overview](#apioverview)
-  * [HTTP binding](#httpbinding)
-  * [MQTT binding](#mqttbinding)
-  * [AMQP binding](#amqpbinding)
-* [Development documentation](#development)
-* [New transport development](#newtransport)
+* [API Overview](#api-overview)
+  + [HTTP binding](#http-binding)
+  + [MQTT binding](#mqtt-binding)
+  + [Value conversion](#value-conversion)
+  + [Thinking Things plugin](#thinking-things-plugin)
+* [Development documentation](#development-documentation)
+* [New transport development](#new-transport-development)
 
 ## API Overview
 The JSON protocol uses plain JSON objects to send information formatted as key-value maps over any of the accepted
@@ -128,7 +129,7 @@ E.g.:
 }
 ```
 
-###  <a name="amqpbinding"/> MQTT binding
+### MQTT binding
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
 destinations and types of the messages (the different possible interactions are described in the following sections).
 
@@ -166,8 +167,8 @@ the following structure:
 
 Indicating in the topic the name of the attribute to be modified.
 
-In both cases, the key is the one provisioned in the IOTA through the Configuration API, and the Device ID the ID that
-was provisioned using the Provisioning API. API Key MUST be present, although can be any string in case the Device was
+In both cases, the key is the one provisioned in the IoT Agent through the Configuration API, and the Device ID the ID that
+was provisioned using the Provisioning API. API Key **must** be present, although can be any string in case the Device was
 provisioned without a link to any particular configuration.
 
 For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID `id_sen1`, API Key `ABCDEF` and attribute

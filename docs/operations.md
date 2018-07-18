@@ -4,7 +4,7 @@
 * [Overview](#overview)
 * [Logs](#logs)
 * [Alarms](#alarms)
-* [Error naming code](#errorcode)
+* [Error naming code](#error-naming-code)
 
 
 ## Overview
@@ -77,8 +77,8 @@ The received MQTT message did not contain a valid JSON payload. This will usuall
 side: either the JSON itself is not well-formed, or it has been encoded in a way the IoTAgent was not able to decode.
 
 #### MEASURES-004: Device not found for topic [%s]
-This error log will appear whenever a measure arrives to the IoTAgent for a device that has not been provisioned or for
-an API Key that has not been registered in the IOTAgent. This could have several origins: the may be a typo in the
+This error log will appear whenever a measure arrives to the IoT Agent for a device that has not been provisioned or for
+an API Key that has not been registered in the IoT Agent. This could have several origins: the may be a typo in the
 DeviceId or APIKey used by the customer; or either the Configuration or the Device for the corresponding measure may
 have been removed; or the customer may have forgotten to provision both the Configuration and the Device.
 
@@ -91,7 +91,7 @@ client itself.
 
 #### GLOBAL-001: Error subscribing to topics: %s
 Error subscribing the IoT Agent to the appropriate MQTT Topics. This error can only happen at startup time, and should
-prevent the IOTA from starting. If this error occurs, check the Mosquitto MQTT broker is up and running and check the
+prevent the IoT Agent from starting. If this error occurs, check the Mosquitto MQTT broker is up and running and check the
 connectivity from the IoTAgent to the broker.
 
 #### GLOBAL-002: Configuration error. Configuration object [config.http] is missing

@@ -4,9 +4,9 @@ Step by Step guide
 ## Index
 
 * [Introduction](#introduction)
-* [Provisioning a single device with the default API Key](#singledevice)
-* [Provisioning multiple devices with a Configuration](#withconfiguration)
-* [Using ACLs to secure provisioning access](#acls)
+* [Provisioning a single device with the default API Key](#provisioning-a-single-device-with-the-default-api-key)
+* [Provisioning multiple devices with a Configuration](#provisioning-multiple-devices-with-a-configuration)
+* [Using ACLs to secure provisioning access](#using-acls-to-secure-provisioning-access)
 
 ## Introduction
 
