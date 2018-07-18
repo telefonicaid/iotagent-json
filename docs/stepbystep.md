@@ -174,8 +174,8 @@ mosquitto_pub -h <mosquittoIp> -t /<apiKey>/<devId>/attrs -m '{"L":4,"T": "31.5"
 If you execute both commands in different windows, when you run the latter command, you should see the string `{"L":4,"T": "31.5","H":30}`
 appearing in the former.
 
-This tutorial will use mainly the mosquitto clients and curl commands, to give a detailed view of how the APIs (
-NGSI traffic north of the IoT Agent and JSON south of the IoT Agent). Whenever a command is needed, the exact command to be executed will be given.
+This tutorial will use mainly the mosquitto clients and curl commands, to give a detailed view of how the APIs -
+NGSI traffic north of the IoT Agent and MQTT (with a JSON payload) south of the IoT Agent. Whenever a command is needed, the exact command to be executed will be given.
 
 ### Provisioning the device
 
