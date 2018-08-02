@@ -17,7 +17,7 @@
 * [Development](#development-documentation)
 
 ## Description
-This IoT Agent is designed to be a bridge between an MQTT+JSON based protocol and the FIWARE NGSI standard used in FIWARE.
+This IoT Agent is designed to be a bridge between an MQTT/HTTP+JSON based protocol and the FIWARE NGSI standard used in FIWARE.
 This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
