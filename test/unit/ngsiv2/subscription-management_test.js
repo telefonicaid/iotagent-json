@@ -74,13 +74,14 @@ describe('Subscription management', function() {
             connectTimeout: 60 * 60 * 1000
         });
 
-        // Note /v1/updateContext response is not processed by IOTA so its content is irrelevant,
-        // as far as it is a 200 OK
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026', {allowUnmocked: false})
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v1/updateContext')
-            .reply(200, '{}');
+            .post('/v2/entities?options=upsert')
+            .reply(204);
 
         iotaJson.start(config, function() {
             iotAgentLib.clearAll(done);
