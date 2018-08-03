@@ -5,4 +5,5 @@ Add: measures are sent in native JSON format when NGSIv2 is enabled (#250)
 Fix: parameter order for the MEASURE-001 error message (#290)
 Add: momment dep to packages.json
 Using precise dependencies (~=) in packages.json
+Fix: upgrade mqtt dep from 1.7.0 to 1.14.1
 Add: supports NGSIv2 for device provisioning (entity creation and context registration) at CB (#250)

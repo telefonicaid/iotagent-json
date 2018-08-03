@@ -1,12 +1,12 @@
 # Installation & Administration Guide
 
 ## Index
+
 * [Installation](#installation)
 * [Usage](#usage)
 * [Configuration](#configuration)
-* [Packaging](#packaging)
 
-### <a name="installation"/> Installation
+### Installation
 There are two ways of installing the JSON IoT Agent: using Git or RPMs.
 
 #### Using GIT
@@ -38,7 +38,7 @@ The IoTA will then be installed as a linux service, and can ve started with the 
 ```
 service iotaJSON start
 ```
-### <a name="usage"/> Usage
+### Usage
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
 ```
 bin/iotagentMqtt.js
@@ -49,12 +49,12 @@ When started with no arguments, the IoT Agent will expect to find a `config.js` 
 folder. An argument can be passed with the path to a new configuration file (relative to the application folder) to be
 used instead of the default one.
 
-### <a name="configuration"/> Configuration
+### Configuration
 #### Overview
 All the configuration for the IoT Agent is stored in a single configuration file (typically installed in the root folder).
 
 This configuration file is a JavaScript file and contains three configuration chapters:
-* **iota**: this object stores the configuration of the Northbound of the IoT Agent, and is completely managed by the
+* **iota**: this object stores the configuration of the North Port of the IoT Agent, and is completely managed by the
 IoT Agent library. More information about this options can be found [here](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 * **mqtt**: this object stores MQTT's specific configuration. A detailed description can be found in the next section.
 * **http**: this object stores HTTP's specific configuration. A detailed description can be found in the next section.
