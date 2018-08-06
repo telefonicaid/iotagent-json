@@ -169,6 +169,18 @@ fi
 %{_install_dir}
 
 %changelog
+* Mon Aug 06 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.8.0
+- Update ioagent-node-lib to 2.7.x
+- Add: allow NGSIv2 for updating active attributes at CB, through configuration based on iotagent-node-lib (#250)
+- Add: measures are sent in native JSON format when NGSIv2 is enabled (#250)
+- Add: supports NGSIv2 for device provisioning (entity creation and context registration) at CB (#250)
+- Add: unhardwire MQTT qos and retain parameters in config.js (involving new env vars IOTA_MQTT_QOS and IOTA_MQTT_RETAIN) (#279)
+- Add: momment dep to packages.json
+- Fix: parameter order for the MEASURE-001 error message (#290)
+- Fix: upgrade mqtt dep from 1.7.0 to 1.14.1
+- Using precise dependencies (~=) in packages.json
+- Remove mongodb dependence from packages.json (already in iota-node-lib)
+
 * Mon Feb 26 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.7.0
 - Update ioagent-node-lib to 2.6.x
 - Allow get list of commands without sending measures (empty payload) (#256)
