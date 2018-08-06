@@ -1,9 +1,0 @@
-Add: unhardwire MQTT qos and retain parameters in config.js (involving new env vars IOTA_MQTT_QOS and IOTA_MQTT_RETAIN) (#279)
-Remove mongodb dependence from packages.json (already in iota-node-lib)
-Add: allow NGSIv2 for updating active attributes at CB, through configuration based on iotagent-node-lib (#250)
-Add: measures are sent in native JSON format when NGSIv2 is enabled (#250)
-Fix: parameter order for the MEASURE-001 error message (#290)
-Add: momment dep to packages.json
-Using precise dependencies (~=) in packages.json
-Fix: upgrade mqtt dep from 1.7.0 to 1.14.1
-Add: supports NGSIv2 for device provisioning (entity creation and context registration) at CB (#250)
