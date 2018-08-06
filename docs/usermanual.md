@@ -5,6 +5,7 @@
 * [API Overview](#api-overview)
   + [HTTP binding](#http-binding)
   + [MQTT binding](#mqtt-binding)
+  + [AMQP binding](#amqp-binding)
   + [Value conversion](#value-conversion)
   + [Thinking Things plugin](#thinking-things-plugin)
 * [Development documentation](#development-documentation)
