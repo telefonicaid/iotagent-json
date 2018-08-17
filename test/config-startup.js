@@ -29,6 +29,7 @@ config.mqtt = {
 };
 
 config.amqp = {
+    host: 'localhost',    
     port: 5672,
     exchange: 'amq.topic',
     queue: 'iota_queue',
