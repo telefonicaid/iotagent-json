@@ -1,1 +1,2 @@
+Feature: add and use AMQP config env vars
 Fix: upgrade mqtt dep from 1.14.1 to 2.18.3
