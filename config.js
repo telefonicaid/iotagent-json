@@ -30,13 +30,13 @@ config.mqtt = {
     retain: false
 };
 
-// config.amqp = {
-//     host: 'localhost',
-//     port: 5672,
-//     exchange: 'iota-exchange',
-//     queue: 'iotaqueue',
-//     options: {durable: true}
-// };
+config.amqp = {
+    host: 'localhost',
+    port: 5672,
+    exchange: 'iota-exchange',
+    queue: 'iotaqueue',
+    options: {durable: true}
+};
 
 config.iota = {
     logLevel: 'DEBUG',
