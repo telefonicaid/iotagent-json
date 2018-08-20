@@ -75,6 +75,17 @@ These are the currently available MQTT configuration options:
 * **qos**: QoS level: at most once (0), at least once (1), exactly once (2). (default is 0).
 * **retain**: retain flag (default is false).
 
+#### AMQP Binding configuration
+
+The `config.amqp` section of the config file contains all the information needed to connect to the AMQP Broker from the
+IoT Agent. The following attributes are accepted:
+
+* **host**: Host where the AMQP Broker is located.
+* **port**: Port where the AMQP Broker is listening
+* **exchange**: Exchange in the AMQP broker
+* **queue**: Queue in the AMQP broker
+* **durable**: durable queue flag (default is `false`).
+
 #### Configuration with environment variables
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
@@ -89,6 +100,11 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 | IOTA_MQTT_PASSWORD        | mqtt.password                       |
 | IOTA_MQTT_QOS             | mqtt.qos                            |
 | IOTA_MQTT_RETAIN          | mqtt.retain                         |
+| IOTA_AMQP_HOST            | amqp.host                           |
+| IOTA_AMQP_PORT            | amqp.port                           |
+| IOTA_AMQP_EXCHANGE        | amqp.exchange                       |
+| IOTA_AMQP_QUEUE           | amqp.queue                          |
+| IOTA_AMQP_DURABLE         | amqp.durable                        |
 | IOTA_HTTP_HOST            | http.host (still not in use)        |
 | IOTA_HTTP_PORT            | http.port (still not in use)        |
 
