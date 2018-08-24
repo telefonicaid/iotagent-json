@@ -33,6 +33,8 @@ config.mqtt = {
 config.amqp = {
     host: 'localhost',
     port: 5672,
+    // username: 'username',
+    // password: 'password',
     exchange: 'iota-exchange',
     queue: 'iotaqueue',
     options: {durable: true}
