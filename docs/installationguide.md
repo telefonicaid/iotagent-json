@@ -113,3 +113,15 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 | IOTA_HTTP_PORT            | http.port (still not in use)        |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
+
+## <a name="packaging"/> Packaging
+The only package type allowed is RPM. In order to execute the packaging scripts, the RPM Build Tools must be available
+in the system.
+
+From the root folder of the project, create the RPM with the following commands:
+```
+cd rpm
+./create-rpm.sh -v <version-number> -r  <release-number>
+```
+Where `<version-number>` is the version (x.y.z) you want the package to have and `<release-number>` is an increasing
+number dependent in previous installations.
