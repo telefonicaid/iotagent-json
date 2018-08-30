@@ -25,11 +25,17 @@ var config = {};
 config.mqtt = {
     host: 'localhost',
     port: 1883,
-    thinkingThingsPlugin: true
+    thinkingThingsPlugin: true,
+    username: 'guest',
+    password: 'guest'
+};
+
+config.http = {
+    port: 7896
 };
 
 config.amqp = {
-    host: 'localhost',    
+    host: 'localhost',
     port: 5672,
     exchange: 'amq.topic',
     queue: 'iota_queue',

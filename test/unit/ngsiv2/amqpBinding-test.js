@@ -129,7 +129,7 @@ describe('AMQP Transport binding: measures', function() {
         };
 
         beforeEach(function(done) {
-            
+
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
