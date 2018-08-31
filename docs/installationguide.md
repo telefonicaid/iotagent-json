@@ -88,7 +88,7 @@ IoT Agent. The following attributes are accepted:
 * **queue**: Queue in the AMQP broker
 * **durable**: durable queue flag (default is `false`).
 * **retries**: Number of AMQP connection errror retries (default is 5).
-* **retryTime**: Time between AMQP connection retries (default is 5'').
+* **retryTime**: Time between AMQP connection retries (default is 5 seconds).
 
 #### Configuration with environment variables
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
