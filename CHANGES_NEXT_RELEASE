@@ -1,1 +1,4 @@
-Fix: upgrade mqtt dep from 1.14.1 to 2.18.3
+Fix: check retain option for MQTT commands
+Feature: use AMQP message handler, add reconnections and error handlers
+Feature: add and use AMQP config env vars (#297)
+Fix: upgrade mqtt dep from 1.14.1 to 2.18.8
