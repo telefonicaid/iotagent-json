@@ -316,7 +316,7 @@ that, we will issue the following command:
 curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -H "Content-Type: application/json" -H "Cache-Control: no-cache" -d '{
     "services": [
       {
-          "resource": "",
+          "resource": "/iot/json",
           "apikey": "AAFF9977",
           "type": "potSensor"
       }
@@ -327,8 +327,7 @@ curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -
 ```
 
 This will make devices provisioned for that service, subservice and type use the provided APIKey as its APIKey prefix
-in the MQTT topics. As you can see, the `resource` field is left blank (this IoT Agent doesn't make use of this field,
-but it's a mandatory attribute in the API, so it should always be sent with the empty string).
+in the MQTT topics.
 
 ### Provisioning the device
 
