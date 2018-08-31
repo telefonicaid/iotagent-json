@@ -87,6 +87,8 @@ IoT Agent. The following attributes are accepted:
 * **exchange**: Exchange in the AMQP broker
 * **queue**: Queue in the AMQP broker
 * **durable**: durable queue flag (default is `false`).
+* **retries**: Number of AMQP connection errror retries (default is 5).
+* **retryTime**: Time between AMQP connection retries (default is 5'').
 
 #### Configuration with environment variables
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
@@ -109,6 +111,8 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 | IOTA_AMQP_EXCHANGE        | amqp.exchange                       |
 | IOTA_AMQP_QUEUE           | amqp.queue                          |
 | IOTA_AMQP_DURABLE         | amqp.durable                        |
+| IOTA_AMQP_RETRIES         | amqp.retries                        |
+| IOTA_AMQP_RETRY_TIME      | amqp.retryTime                      |
 | IOTA_HTTP_HOST            | http.host (still not in use)        |
 | IOTA_HTTP_PORT            | http.port (still not in use)        |
 
