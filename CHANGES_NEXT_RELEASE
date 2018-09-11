@@ -1,4 +1,4 @@
-Fix: check QpS option for MQTT commands
+Fix: check QoS option for MQTT commands
 Fix: check retain option for MQTT commands
 Feature: use AMQP message handler, add reconnections and error handlers
 Feature: add and use AMQP config env vars (#297)
