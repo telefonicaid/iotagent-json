@@ -52,10 +52,10 @@ query parameters:
 * **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
 #### Commands
+MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the `endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the command will be poll.
 When using the HTTP transport, the command handling have two flavours:
 
-* **Push commands**: in this case, the Device **must** be provisioned with the `endpoint` attribute, that will contain
-the URL where the IoT Agent will send the received commands. The request payload format will be a plain JSON, as described
+* **Push commands**: The request payload format will be a plain JSON, as described
 in the "Payload" section. The device will reply with a 200OK response containing the result of the command in the JSON
 result format.
 
