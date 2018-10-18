@@ -5,6 +5,7 @@
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](http://fiware-iotagent-json.readthedocs.org/en/latest/?badge=latest)
 [![Docker badge](https://img.shields.io/docker/pulls/fiware/iotagent-json.svg)](https://hub.docker.com/r/fiware/iotagent-json/)
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
+![Status](https://nexus.lab.fiware.org/repository/raw/public/static/badges/statuses/iot-json.svg)
 
 
 
