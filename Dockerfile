@@ -9,7 +9,7 @@ FROM centos:7
 
 MAINTAINER Daniel Moran Jimenez <daniel.moranjimenez@telefonica.com>
 
-ARG NODEJS_VERSION=4.8.4
+ARG NODEJS_VERSION=8.12.0
 
 COPY . /opt/iotajson/
 WORKDIR /opt/iotajson
