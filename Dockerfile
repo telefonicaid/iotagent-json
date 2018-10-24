@@ -16,4 +16,7 @@ RUN \
   apt-get remove -y git && \
   apt-get -y autoremove
 
-ENTRYPOINT bin/iotagent-json config.js
+RUN npm install pm2@latest -g
+USER node
+ENV NODE_ENV=production
+CMD ["pm2-runtime", "bin/iotagent-json", "config.js"]
