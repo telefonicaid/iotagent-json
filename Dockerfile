@@ -14,9 +14,10 @@ RUN \
   # Clean apt cache
   apt-get clean && \
   apt-get remove -y git && \
-  apt-get -y autoremove
+  apt-get -y autoremove && \
+  npm install pm2@3.2.2 -g
 
-RUN npm install pm2@latest -g
 USER node
 ENV NODE_ENV=production
+
 CMD ["pm2-runtime", "bin/iotagent-json", "config.js"]
