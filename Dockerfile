@@ -20,4 +20,5 @@ RUN \
 USER node
 ENV NODE_ENV=production
 
-CMD ["pm2-runtime", "bin/iotagent-json", "config.js"]
+ENTRYPOINT ["pm2-runtime", "bin/iotagent-json"]
+CMD ["-- ","config.js"]
