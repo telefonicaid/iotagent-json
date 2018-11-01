@@ -19,29 +19,18 @@
     "node": ">=4.8.4"
   },
   "scripts": {
-    "test": "grunt test"
+    "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf coverage",
+    "test": "mocha --recursive 'test/**/*.js' --reporter spec --timeout 3000 --ui bdd --exit",
+    "test:watch": "npm run test -- -w ./lib",
+    "lint": "jshint lib/**/*.js test/**/*.js --config .jshintrc",
+    "test:coverage": "istanbul cover _mocha -- --recursive 'test/**/*.js' --reporter spec --exit",
+    "watch": "watch 'npm test && npm run lint' ./lib ./test"
   },
   "devDependencies": {
     "nock": "10.0.1",
-    "grunt": "1.0.3",
-    "closure-linter-wrapper": "1.1.0",
-    "grunt-contrib-clean": "2.0.0",
-    "grunt-contrib-jshint": "2.0.0",
-    "grunt-contrib-watch": "1.1.0",
-    "grunt-dox": "0.5.0",
-    "grunt-exec": "3.0.0",
-    "grunt-githooks": "0.6.0",
-    "grunt-github-pages": "0.0.4",
-    "grunt-gjslint": "0.2.1",
-    "grunt-mkdir": "1.0.0",
-    "grunt-mocha-test": "0.13.3",
-    "grunt-plato": "~1.4.0",
-    "mocha": "5.2.0",
+    "mocha": "2.4.5",
     "should": "13.2.3",
-    "chai": "4.2.0",
-    "sinon": "7.1.0",
     "istanbul": "~0.4.5",
-    "sinon-chai": "3.2.0",
     "proxyquire": "2.1.0",
     "moment": "~2.22.2"
   },
