@@ -38,7 +38,7 @@
   "dependencies": {
     "express": "~4.16.4",
     "amqplib": "~0.5.1",
-    "async": "1.5.2",
+    "async": "2.6.1",
     "body-parser": "1.18.3",
     "dateformat": "3.0.3",
     "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
