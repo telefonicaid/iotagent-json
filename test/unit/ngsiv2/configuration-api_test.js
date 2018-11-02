@@ -36,7 +36,8 @@ var iotagentJson = require('../../../'),
     utils = require('../../utils'),
     contextBrokerMock,
     iotamMock,
-    mqttClient;
+    mqttClient,
+    originalResource;
 
 describe('Configuration API support', function() {
     var provisionOptions = {
@@ -70,7 +71,7 @@ describe('Configuration API support', function() {
 
     beforeEach(function(done) {
         nock.cleanAll();
-
+        originalResource = config.iota.defaultResource;
         mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
             keepalive: 0,
             connectTimeout: 60 * 60 * 1000
@@ -111,6 +112,7 @@ describe('Configuration API support', function() {
     afterEach(function(done) {
         delete config.iota.iotManager;
         delete config.iota.defaultResource;
+        config.iota.defaultResource = originalResource;
         iotAgentLib.clearAll();
         nock.cleanAll();
         mqttClient.end();
