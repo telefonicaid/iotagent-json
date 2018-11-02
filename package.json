@@ -32,7 +32,8 @@
     "should": "13.2.3",
     "istanbul": "~0.4.5",
     "proxyquire": "2.1.0",
-    "moment": "~2.22.2"
+    "moment": "~2.22.2",
+    "watch": "~1.0.2"
   },
   "keywords": [],
   "dependencies": {
