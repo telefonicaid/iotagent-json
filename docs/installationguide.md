@@ -7,7 +7,7 @@
 * [Configuration](#configuration)
 
 ### Installation
-There are two ways of installing the JSON IoT Agent: using Git or RPMs.
+There are three ways of installing the JSON IoT Agent: using Git, RPMs or Docker image.
 
 #### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
@@ -38,6 +38,19 @@ The IoTA will then be installed as a linux service, and can ve started with the 
 ```
 service iotaJSON start
 ```
+#### Using Docker
+A docker container is available on docker hub. It will start the container with the default settings defined
+in `config.js`.
+```
+docker run -it --init fiware/iotagent-json
+```
+To use your own configuration you can mount a local configuration file:
+```
+docker run -it --init -v <path-to-configuration-file>:/opt/iotajson/new_config.js fiware/iotagent-json  -- new_config.js
+```
+As an alternative, it is also possible to pass configuration using environmental variables, as explained in [Configuration with environment variables](#configuration-with-environment-variables) subsection.
+
+
 ### Usage
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
 ```
