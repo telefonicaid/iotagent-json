@@ -1,8 +1,6 @@
 Step by Step guide
 ==================
 
-## Index
-
 * [Introduction](#introduction)
 * [Provisioning a single device with the default API Key](#provisioning-a-single-device-with-the-default-api-key)
 * [Provisioning multiple devices with a Configuration](#provisioning-multiple-devices-with-a-configuration)
@@ -17,6 +15,7 @@ The MQTT-JSON IoT Agent acts as a gateway for communicating devices using the MQ
 other piece which uses the NGSI protocol). The communication is based on a series of unidirectional MQTT topics
 (i.e.: each topic is used to *publish* device information or to *subscribe* to entity updates, but not both). Every
 topic has the same prefix, of the form:
+
 ```
 /<apiKey>/<deviceId>/topicSpecificPart
 ```
@@ -486,7 +485,7 @@ There are two more changes needed before we restart our test. First of all, we s
 to the IoTA Configuration, to give it full access to the MQTT Broker topics. To do so, edit the `/opt/iotajson/config.js`
  file and change the `config.mqtt` section to look like this:
 
-```
+```javascript
 config.mqtt = {
     host: 'localhost',
     port: 1883,
@@ -560,7 +559,8 @@ curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -
 #### Sending mesaures
 
 Now we can try to provision new measures with the same command we used in the first case:
-```
+
+```bash
 mosquitto_pub -t /AAFF9977/sensor03/attrs -m '{"humidity": 76,"happiness": "Not bad"}'
 ```
 

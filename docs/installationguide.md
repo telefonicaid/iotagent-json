@@ -1,7 +1,5 @@
 # Installation & Administration Guide
 
-## Index
-
 * [Installation](#installation)
 * [Usage](#usage)
 * [Configuration](#configuration)
@@ -11,12 +9,14 @@ There are three ways of installing the JSON IoT Agent: using Git, RPMs or Docker
 
 #### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
-```
+
+```bash
 git clone https://github.com/telefonicaid/iotagent-json.git
 npm install
 ```
 In order to start the IoT Agent, from the root folder of the project, type:
-```
+
+```bash
 bin/iotagent-json
 ```
 
@@ -25,27 +25,32 @@ The project contains a script for generating an RPM that can be installed in Red
 The RPM depends on Node.js 0.10 version, so EPEL repositories are advisable.
 
 In order to create the RPM, execute the following scritp, inside the `/rpm` folder:
-```
+
+```bash
 create-rpm.sh -v <versionNumber> -r <releaseNumber>
 ```
 
 Once the RPM is generated, it can be installed using the followogin command:
-```
+
+```bash
 yum localinstall --nogpg <nameOfTheRPM>.rpm
 ```
 
 The IoTA will then be installed as a linux service, and can ve started with the `service` command as usual:
-```
+
+```bash
 service iotaJSON start
 ```
 #### Using Docker
 A docker container is available on docker hub. It will start the container with the default settings defined
 in `config.js`.
-```
+
+```bash
 docker run -it --init fiware/iotagent-json
 ```
 To use your own configuration you can mount a local configuration file:
-```
+
+```bash
 docker run -it --init -v <path-to-configuration-file>:/opt/iotajson/new_config.js fiware/iotagent-json  -- new_config.js
 ```
 As an alternative, it is also possible to pass configuration using environmental variables, as explained in [Configuration with environment variables](#configuration-with-environment-variables) subsection.
@@ -53,7 +58,8 @@ As an alternative, it is also possible to pass configuration using environmental
 
 ### Usage
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
-```
+
+```bash
 bin/iotagentMqtt.js
 ```
 This will start the JSON IoT Agent in the foreground. Use standard linux commands to start it in background.
@@ -136,7 +142,8 @@ The only package type allowed is RPM. In order to execute the packaging scripts,
 in the system.
 
 From the root folder of the project, create the RPM with the following commands:
-```
+
+```bash
 cd rpm
 ./create-rpm.sh -v <version-number> -r  <release-number>
 ```

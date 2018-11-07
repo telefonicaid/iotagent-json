@@ -1,7 +1,5 @@
 # User & Programmers Manual
 
-## Index
-
 * [API Overview](#api-overview)
   + [HTTP binding](#http-binding)
   + [MQTT binding](#mqtt-binding)
@@ -175,7 +173,9 @@ provisioned without a link to any particular configuration.
 For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID `id_sen1`, API Key `ABCDEF` and attribute
 IDs `h` and `t`, then humidity measures are reported this way:
 
-    $ mosquitto_pub -t /ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+```bash
+$ mosquitto_pub -t /ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+```
 
 #### Configuration retrieval
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
@@ -290,8 +290,9 @@ will generate a message in the `/ABCDEF/id_sen1/cmd` topic with the following pa
 
 If using [Mosquitto](https://mosquitto.org/), such a command is received by running the `mosquitto_sub` script:
 
-    $ mosquitto_sub -v -t /# -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
-    /ABCDEF/id_sen1/cmd {"ping":{"data":"22"}}
+```bash
+$ mosquitto_sub -v -t /# -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password> /ABCDEF/id_sen1/cmd {"ping":{"data":"22"}}
+```
 
 At this point, Context Broker will have updated the value of `ping_status` to `PENDING` for `sen1` entity. Neither
 `ping_info` nor `ping` are updated.
@@ -305,7 +306,9 @@ payload with the following format:
 
 If using [Mosquitto](https://mosquitto.org/), such command result is sent by running the `mosquitto_pub` script:
 
-    $ mosquitto_pub -t /ABCDEF/id_sen1/cmdexe -m '{"ping": "1234567890"}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+```bash
+$ mosquitto_pub -t /ABCDEF/id_sen1/cmdexe -m '{"ping": "1234567890"}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+```
 
 In the end, Context Broker will have updated the values of `ping_info` and `ping_status` to `1234567890` and `OK`,
 respectively. `ping` attribute is never updated.
@@ -431,7 +434,7 @@ npm run test:coverage
 
 ### Clean
 
-Removes `node_modules` and `coverage` folders, and  `package-lock.json` file so that a fresh copy of the project is restored. 
+Removes `node_modules` and `coverage` folders, and  `package-lock.json` file so that a fresh copy of the project is restored.
 
 ```bash
 # Use git-bash on Windows
