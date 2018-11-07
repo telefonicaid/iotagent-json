@@ -8,7 +8,6 @@ WORKDIR /opt/iotajson
 RUN \
   apt-get update && \
   apt-get install -y git && \
-  npm install -g grunt-cli && \
   npm install pm2@3.2.2 -g && \
   echo "INFO: npm install --production..." && \
   cd /opt/iotajson && npm install --production && \

@@ -1,4 +1,8 @@
 {
+  "humidity":{
+          "type":"degrees",
+          "value":"32"
+  },
   "B":{
           "type": "compound",
           "value": [
