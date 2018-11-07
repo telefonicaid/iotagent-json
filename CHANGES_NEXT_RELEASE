@@ -27,3 +27,4 @@ Remove: old unused development dependencies
 	chai
 	grunt and grunt related modules
 Add: npm scripts to execute tests, coverage, watch and clean
+Fix: AMQP callback over-calling
