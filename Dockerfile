@@ -1,6 +1,7 @@
-FROM node:8.12.0-slim
+ARG  NODE_VERSION=8.12.0-slim
+FROM node:${NODE_VERSION}
 
-MAINTAINER FIWARE IoTAgent Team. TelefÃ³nica I+D
+MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 
 COPY . /opt/iotajson/
 WORKDIR /opt/iotajson
