@@ -1,3 +1,4 @@
+Fix: update logops dependence from 1.0.0 to 1.0.8
 Add: use timestamp configuration from group device
 Add: use nodejs 8 in Dockerfile
 Fix: check QoS option for MQTT commands
