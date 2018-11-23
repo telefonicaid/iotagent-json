@@ -22,29 +22,30 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # COPY . /opt/iotajson/
 #
 RUN if [ ${DOWNLOAD_TYPE} = "latest" ] ; then RELEASE="master"; else RELEASE=$(curl -s https://api.github.com/repos/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/releases/latest | grep 'tag_name' | cut -d\" -f4); fi && \
-  	if [ ${DOWNLOAD_TYPE} = "latest" ] ; then echo "INFO: Building Latest Development"; else echo "INFO: Building Release: ${RELEASE}"; fi && \
-  	apt-get update && \
-  	apt-get install -y  --no-install-recommends unzip && \
-  	wget --no-check-certificate -O source.zip https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/archive/${RELEASE}.zip && \
+	if [ ${DOWNLOAD_TYPE} = "latest" ] ; then echo "INFO: Building Latest Development"; else echo "INFO: Building Release: ${RELEASE}"; fi && \
+	apt-get update && \
+	apt-get install -y  --no-install-recommends unzip && \
+	wget --no-check-certificate -O source.zip https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}/archive/${RELEASE}.zip && \
 	unzip source.zip && \
+	rm source.zip && \
 	mv ${GITHUB_REPOSITORY}-${RELEASE} /opt/iotajson && \
 	apt-get clean && \
-    apt-get remove -y unzip && \
-    apt-get -y autoremove
+	apt-get remove -y unzip && \
+	apt-get -y autoremove
 
 
 WORKDIR /opt/iotajson
 
 RUN \
-  apt-get update && \
-  apt-get install -y git && \
-  npm install pm2@3.2.2 -g && \
-  echo "INFO: npm install --production..." && \
-  npm install --production && \
-  # Clean apt cache
-  apt-get clean && \
-  apt-get remove -y git && \
-  apt-get -y autoremove
+	apt-get update && \
+	apt-get install -y git && \
+	npm install pm2@3.2.2 -g && \
+	echo "INFO: npm install --production..." && \
+	npm install --production && \
+	# Clean apt cache
+	apt-get clean && \
+	apt-get remove -y git && \
+	apt-get -y autoremove
 
 USER node
 ENV NODE_ENV=production
