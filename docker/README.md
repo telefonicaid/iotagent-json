@@ -20,7 +20,6 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information
 check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
-
 ## How to use this image
 
 The IoT Agent must be instantiated and connected to an instance of the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), a sample `docker-compose` file can be found below. If the
@@ -83,8 +82,6 @@ services:
     command: -dbhost mongodb
 ```
 
-
-
 ## Configuration with environment variables
 
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
@@ -142,7 +139,7 @@ If you want to build directly from your own sources, please copy the ` Dockerfil
 copy over your local source using :
 
 ```
-COPY . /opt/iotaul/
+COPY . /opt/iotajson/
 ```
 
 Full instructions can be found within the `Dockerfile` itself.
