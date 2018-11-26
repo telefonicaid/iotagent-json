@@ -64,6 +64,7 @@ var iotaJson = require('../../../'),
         }
     },
     contextBrokerMock,
+    contextBrokerUnprovMock,
     mqttClient;
 
 describe('MQTT: Measure reception ', function() {
@@ -153,7 +154,7 @@ describe('MQTT: Measure reception ', function() {
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
-            contextBrokerMock
+            contextBrokerUnprovMock = nock('http://unexistenthost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -174,6 +175,7 @@ describe('MQTT: Measure reception ', function() {
                 function(error) {
                     setTimeout(function() {
                         contextBrokerMock.done();
+                        contextBrokerUnprovMock.done();
                         done();
                     }, 100);
                 });

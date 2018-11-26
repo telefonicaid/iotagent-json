@@ -62,6 +62,7 @@ var iotagentMqtt = require('../../'),
         }
     },
     contextBrokerMock,
+    contextBrokerUnprovMock,
     mqttClient;
 
 describe('MQTT: Measure reception ', function() {
@@ -137,7 +138,7 @@ describe('MQTT: Measure reception ', function() {
                 .post('/v1/updateContext')
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
-            contextBrokerMock
+            contextBrokerUnprovMock = nock('http://unexistenthost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedDevice.json'))
@@ -157,6 +158,7 @@ describe('MQTT: Measure reception ', function() {
                 function(error) {
                     setTimeout(function() {
                         contextBrokerMock.done();
+                        contextBrokerUnprovMock.done();
                         done();
                     }, 100);
                 });

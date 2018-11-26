@@ -174,6 +174,7 @@ describe('Configuration API support', function() {
                     {
                         apikey: '728289',
                         token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                        cbHost: 'http://unexistentHost:1026',
                         entity_type: 'Light',
                         resource: '/AnotherValue',
                         service: 'smartGondor',
