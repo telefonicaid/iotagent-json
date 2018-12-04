@@ -22,8 +22,11 @@ check the FIWARE Catalogue entry for the
 
 ## How to use this image
 
-The IoT Agent must be instantiated and connected to an instance of the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), a sample `docker-compose` file can be found below. If the
-`IOTA_REGISTRY_TYPE=mongodb`, a [MongoDB](https://www.mongodb.com/) database instance is also required.
+The IoT Agent must be instantiated and connected to an instance of the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), a sample `docker-compose` file can be found below.
+
+If the `IOTA_REGISTRY_TYPE=mongodb`, a [MongoDB](https://www.mongodb.com/) database instance is also required - the example below assumes that you
+have a `/data` directory in your hosting system in order to hold database
+files (please amend the attached volume to suit your own configuration)
 
 ```yml
 version: '3.1'
@@ -66,7 +69,7 @@ services:
         - mongodb:/data
 
   orion:
-    image: fiware/orion:2.0.0
+    image: fiware/orion
     hostname: orion
     container_name: fiware-orion
     depends_on:
@@ -116,23 +119,28 @@ The [Dockerfile](https://github.com/telefonicaid/iotagent-json/blob/master/docke
 * By default, the `Dockerfile` retrieves the **latest** version of the codebase direct from GitHub (the `build-arg` is optional):
 
 ```console
-docker build -t iot-agent . --build-arg DOWNLOAD_TYPE=latest
+docker build -t iot-agent . --build-arg DOWNLOAD=latest
 ```
 
-* You can alter this to obtain the last **stable** release run this `Dockerfile` with the build argument `DOWNLOAD_TYPE=stable`
+* You can alter this to obtain the last **stable** release run this `Dockerfile` with the build argument `DOWNLOAD=stable`
 
 ```console
-docker build -t iot-agent . --build-arg DOWNLOAD_TYPE=stable
+docker build -t iot-agent . --build-arg DOWNLOAD=stable
 ```
 
-* You can also alter this to download code from your own fork of the GitHub repository by adding `GITHUB_ACCOUNT` and `GITHUB_REPOSITORY` arguments
+* You can also download a specific release by running this `Dockerfile` with the build argument `DOWNLOAD=<version>`
+
+```console
+docker build -t iot-agent . --build-arg DOWNLOAD=1.7.0
+```
+
+* To download code from your own fork of the GitHub repository add the `GITHUB_ACCOUNT` and `GITHUB_REPOSITORY` arguments to the `docker build` command.
 
 ```console
 docker build -t iot-agent . --build-arg GITHUB_ACCOUNT=<your account> --build-arg GITHUB_REPOSITORY=<your repo>
 ```
 
-If you want to build directly from your own sources, please copy the ` Dockerfile` into file the root of the repository and amend it to
-copy over your local source using :
+Alternatively, if you want to build directly from your own sources, please copy the existing `Dockerfile` into file the root of the repository and amend it to copy over your local source using :
 
 ```
 COPY . /opt/iotajson/
