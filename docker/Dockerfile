@@ -2,11 +2,15 @@ ARG NODE_VERSION=8.12.0-slim
 FROM node:${NODE_VERSION}
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
-ARG DOWNLOAD_TYPE=latest
+ARG DOWNLOAD=latest
+
+# Copying Build time arguments to environment variables so they are persisted at run time and can be 
+# inspected within a running container.
+# see: https://vsupalov.com/docker-build-time-env-values/  for a deeper explanation.
 
 ENV GITHUB_ACCOUNT=${GITHUB_ACCOUNT}
 ENV GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
-ENV DOWNLOAD_TYPE=${DOWNLOAD_TYPE}
+ENV DOWNLOAD=${DOWNLOAD}
 
 MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 
