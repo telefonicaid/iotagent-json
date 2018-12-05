@@ -33,6 +33,7 @@ var iotagentMqtt = require('../../'),
     amqp = require('amqplib/callback_api'),
     apply = async.apply,
     contextBrokerMock,
+    contextBrokerUnprovMock,
     amqpConn,
     oldResource,
     channel;
@@ -123,14 +124,14 @@ describe('AMQP Transport binding: measures', function() {
         };
 
         beforeEach(function(done) {
-            contextBrokerMock = nock('http://192.168.1.1:1026')
+            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v1/updateContext')
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
 
-            contextBrokerMock
+            contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedMeasure.json'))
@@ -145,7 +146,7 @@ describe('AMQP Transport binding: measures', function() {
             channel.publish(config.amqp.exchange, '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a', new Buffer('23'));
 
             setTimeout(function() {
-                contextBrokerMock.done();
+                contextBrokerUnprovMock.done();
                 done();
             }, 100);
         });
