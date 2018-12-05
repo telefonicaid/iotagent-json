@@ -24,9 +24,10 @@ check the FIWARE Catalogue entry for the
 
 The IoT Agent must be instantiated and connected to an instance of the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), a sample `docker-compose` file can be found below.
 
-If the `IOTA_REGISTRY_TYPE=mongodb`, a [MongoDB](https://www.mongodb.com/) database instance is also required - the example below assumes that you
+If the `IOTA_REGISTRY_TYPE=mongodb`, a [MongoDB](https://www.mongodb.com/) database 
+instance is also required - the example below assumes that you
 have a `/data` directory in your hosting system in order to hold database
-files (please amend the attached volume to suit your own configuration)
+files - please amend the attached volume to suit your own configuration.
 
 ```yml
 version: '3.1'
@@ -83,66 +84,68 @@ services:
 
 ## Configuration with environment variables
 
-Some of the more common variables can be configured using environment variables. The ones overriding general parameters
-in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+Many settings can be configured using Docker environment variables. A typical IoT Agent
+Docker container is driven by environment variables such as those shown below:
 
-The ones specifically relating to JSON bindings are described in the following table.
+* `IOTA_CB_HOST`  - Hostname of the context broker to update context
+* `IOTA_CB_PORT`  - Port that context broker listens on to update context
+* `IOTA_NORTH_PORT` - Port used for configuring the IoT Agent and receiving context 
+  updates from the context broker
+* `IOTA_REGISTRY_TYPE` - Whether to hold IoT device info in memory or in a database
+* `IOTA_MONGO_HOST` - The hostname of MongoDB - used for holding device and service
+  information
+* `IOTA_MONGO_PORT` - The port that MongoDB is listening on
+* `IOTA_MONGO_DB` - The name of the database used in MongoDB
+* `IOTA_HTTP_PORT` - The port where the IoT Agent listens for IoT device traffic over HTTP
+* `IOTA_PROVIDER_URL` - URL passed to the Context Broker when commands are registered,
+  used as a forwarding URL location when the Context Broker issues a command to a device
 
-| Environment variable      | Configuration attribute             |
-|:------------------------- |:----------------------------------- |
-| IOTA_MQTT_HOST            | mqtt.host                           |
-| IOTA_MQTT_PORT            | mqtt.port                           |
-| IOTA_MQTT_USERNAME        | mqtt.username                       |
-| IOTA_MQTT_PASSWORD        | mqtt.password                       |
-| IOTA_MQTT_QOS             | mqtt.qos                            |
-| IOTA_MQTT_RETAIN          | mqtt.retain                         |
-| IOTA_AMQP_HOST            | amqp.host                           |
-| IOTA_AMQP_PORT            | amqp.port                           |
-| IOTA_AMQP_USERNAME        | amqp.username                       |
-| IOTA_AMQP_PASSWORD        | amqp.password                       |
-| IOTA_AMQP_EXCHANGE        | amqp.exchange                       |
-| IOTA_AMQP_QUEUE           | amqp.queue                          |
-| IOTA_AMQP_DURABLE         | amqp.durable                        |
-| IOTA_AMQP_RETRIES         | amqp.retries                        |
-| IOTA_AMQP_RETRY_TIME      | amqp.retryTime                      |
-| IOTA_HTTP_HOST            | http.host (still not in use)        |
-| IOTA_HTTP_PORT            | http.port (still not in use)        |
+### Further Information
 
-(HTTP-related environment variables will be used in the upcoming HTTP binding)
+The full set of overrides for the general parameters applicable to all IoT Agents are 
+described in the Configuration section of the IoT Agent Library
+[Installation Guide](https://iotagent-node-lib.readthedocs.io/en/latest/installationguide/index.html#configuration).
 
-More details, and further settings can be found within the IoT Agent for JSON [documentation](https://fiware-iotagent-json.rtfd.io) itself.
+Further settings for IoT Agent for JSON itself - such as specific configurations
+for MQTT, AMPQ and HTTP - can be found in the IoT Agent for JSON
+[Installation Guide](https://fiware-iotagent-json.rtfd.io/en/latest/installationguide/index.html#configuration).
 
 ## How to build your own image
 
 The [Dockerfile](https://github.com/telefonicaid/iotagent-json/blob/master/docker/Dockerfile) associated with this image can be used to build an image in several ways:
 
-* By default, the `Dockerfile` retrieves the **latest** version of the codebase direct from GitHub (the `build-arg` is optional):
+* By default, the `Dockerfile` retrieves the **latest** version of the codebase direct from 
+  GitHub (the `build-arg` is optional):
 
 ```console
 docker build -t iot-agent . --build-arg DOWNLOAD=latest
 ```
 
-* You can alter this to obtain the last **stable** release run this `Dockerfile` with the build argument `DOWNLOAD=stable`
+* You can alter this to obtain the last **stable** release run this `Dockerfile` with the build
+  argument `DOWNLOAD=stable`
 
 ```console
 docker build -t iot-agent . --build-arg DOWNLOAD=stable
 ```
 
-* You can also download a specific release by running this `Dockerfile` with the build argument `DOWNLOAD=<version>`
+* You can also download a specific release by running this `Dockerfile` with the build argument
+  `DOWNLOAD=<version>`
 
 ```console
 docker build -t iot-agent . --build-arg DOWNLOAD=1.7.0
 ```
 
-* To download code from your own fork of the GitHub repository add the `GITHUB_ACCOUNT` and `GITHUB_REPOSITORY` arguments to the `docker build` command.
+* To download code from your own fork of the GitHub repository add the `GITHUB_ACCOUNT` and
+  `GITHUB_REPOSITORY` arguments to the `docker build` command.
 
 ```console
 docker build -t iot-agent . --build-arg GITHUB_ACCOUNT=<your account> --build-arg GITHUB_REPOSITORY=<your repo>
 ```
 
-Alternatively, if you want to build directly from your own sources, please copy the existing `Dockerfile` into file the root of the repository and amend it to copy over your local source using :
+Alternatively, if you want to build directly from your own sources, please copy the existing
+`Dockerfile` into file the root of the repository and amend it to copy over your local source using :
 
-```
+```Dockerfile
 COPY . /opt/iotajson/
 ```
 
