@@ -106,16 +106,18 @@ tune the MQTT broker parameters, or the default device ID and APIKey.
 
 ## Testing
 
-[Mocha](http://mochajs.org/) Test Runner + [Chai](http://chaijs.com/) Assertion
-Library + [Sinon](http://sinonjs.org/) Spies, stubs.
+[Mocha](http://visionmedia.github.io/mocha/) Test Runner + [Should.js](https://shouldjs.github.io/) Assertion Library.
 
-The test environment is preconfigured to run [BDD](http://chaijs.com/api/bdd/)
-testing style with `chai.expect` and `chai.should()` available globally while
-executing tests, as well as the
-[Sinon-Chai](http://chaijs.com/plugins/sinon-chai) plugin.
+The test environment is preconfigured to run BDD testing style.
 
 Module mocking during testing can be done with
 [proxyquire](https://github.com/thlorenz/proxyquire)
+
+To run tests, type
+
+```console
+npm test
+```
 
 #### Requirements
 
