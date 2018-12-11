@@ -66,12 +66,14 @@ Additional information about operating the component can be found in the
 
 Information about how to install the JSON IoTAgent can be found at the
 corresponding section of the
-[Installation & Administration Guide](https://fiware-iotagent-json.readthedocs.io/en/latest/installationguide).
+[Installation & Administration Guide](docs/installationguide.md).
+
+A `Dockerfile` is also available for your use - further information can be found [here](docker/README.md)
 
 ## Usage
 
 Information about how to use the IoT Agent can be found in the
-[User & Programmers Manual](https://fiware-iotagent-json.readthedocs.io/en/latest/stepbystep).
+[User & Programmers Manual](docs/usermanual.md).
 
 ## API
 
@@ -79,6 +81,8 @@ Apiary reference for the Configuration API can be found
 [here](http://docs.telefonicaiotiotagents.apiary.io/#reference/configuration-api)
 More information about IoT Agents and their APIs can be found in the IoT Agent
 Library [documentation](https://iotagent-node-lib.rtfd.io/).
+
+The latest IoT Agent for JSON documentation is also available on [ReadtheDocs](https://fiware-iotagent-json.readthedocs.io/en/latest/)
 
 ## Command Line Client
 
@@ -127,22 +131,6 @@ requirements for its current execution:
 -   Mosquitto v1.3.5 server running
 -   MongoDB v3.x server running
 
-#### Execution
-
-To run tests, type
-
-```console
-grunt test
-```
-
-Tests reports can be used together with Jenkins to monitor project quality
-metrics by means of TAP or XUnit plugins. To generate TAP report in
-`report/test/unit_tests.tap`, type
-
-```console
-grunt test-report
-```
-
 ## Quality Assurance
 
 This project is part of [FIWARE](https://fiware.org/) and has been rated as
@@ -164,7 +152,7 @@ follows:
 
 ---
 
-## Licence
+## License
 
 The IoT Agent for JSON is licensed under Affero General Public License (GPL)
 version 3.
