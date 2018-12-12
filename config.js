@@ -46,8 +46,8 @@ config.mqtt = {
      */
     qos: 0,
     /**
-     * Retain flag. (default is true). Normally if a publisher publishes a message to a topic, and no one is 
-     * subscribed to that topic(i.e retain flag is set to false) the message is simply discarded by the broker.
+     * Retain flag. (default is true.) Normally if a publisher publishes a message to a topic, and no one is 
+     * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
      * The publisher can tell the broker to keep the last message on that topic by setting the retained message flag to true  .
      */
     retain: false
@@ -58,8 +58,8 @@ config.mqtt = {
  */
 config.amqp = {
     /**
-		 * Host where the AMQP broker is located.
-		 */
+     * Host where the AMQP broker is located.
+     */
     host: 'localhost',
     /**
      * Port where the AMQP broker is listening.
@@ -89,8 +89,8 @@ config.amqp = {
 
 config.iota = {
     /**
-	 * Configures the log level. Appropriate values are: FATAL, ERROR, INFO, WARN and DEBUG.
-	 */
+     * Configures the log level. Appropriate values are: FATAL, ERROR, INFO, WARN and DEBUG.
+     */
     logLevel: 'DEBUG',
     /**
      * When this flag is active, the IoTAgent will add the TimeInstant attribute to every entity created, as well
@@ -102,11 +102,11 @@ config.iota = {
      * the IoT Agent will send the device data.
      */
     contextBroker: {
-        /**
+    /**
      * Host where the Context Broker is located.
      */
         host: 'localhost',
-        /**
+    /**
      * Port where the Context Broker is listening.
      */
         port: '1026'
@@ -115,9 +115,9 @@ config.iota = {
      * Configuration of the North Port of the IoT Agent.
      */
     server: {
-        /**
-    	 * Port where the IoT Agent will be listening for NGSI and Provisioning requests.
-    	 */
+    /**
+     * Port where the IoT Agent will be listening for NGSI and Provisioning requests.
+     */
         port: 4041
     },
     /**
@@ -138,10 +138,10 @@ config.iota = {
      * 'mongodb'.
      */
     mongodb: {
-        /**
-    	 * Host where MongoDB is located. If the MongoDB used is a replicaSet, this property will contain a
-         * comma-separated list of the instance names or IPs.
-    	 */
+     /**
+      * Host where MongoDB is located. If the MongoDB used is a replicaSet, this property will contain a
+      * comma-separated list of the instance names or IPs.
+      */
         host: 'localhost',
         /**
          * Port where MongoDB is listening. In the case of a replicaSet, all the instances are supposed to be listening
