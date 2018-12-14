@@ -25,6 +25,9 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information
 check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
+| :books: [Documentation](https://fiware-iotagent-json.rtfd.io) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/)|
+|---|---|
+
 ## Contents
 
 -   [Background](#background)
