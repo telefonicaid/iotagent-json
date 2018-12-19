@@ -169,6 +169,33 @@ fi
 %{_install_dir}
 
 %changelog
+* Wed Dec 19 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.9.0
+- Add: use timestamp configuration from group device
+- Add: use AMQP message handler, add reconnections and error handlers
+- Add: AMQP config env vars (#297)
+- Add: npm scripts to execute tests, coverage, watch and clean
+- Add: use NodeJS 8 in Dockerfile
+- Add: use PM2 in Dockerfile (#336)
+- Fix: AMQP callback over-calling
+- Fix: check QoS option for MQTT commands
+- Fix: check retain option for MQTT commands
+- Upgrade: iotagent-node-lib dependence from 2.7.x to 2.8.1
+- Upgrade: mqtt dependence from 1.14.1 to 2.18.8
+- Upgrade: update logops dependence from 1.0.0-alpha.7 to 1.0.8
+- Upgrade: async dependence from 1.5.2 to 2.6.1
+- Upgrade: body-parser dependence from 1.15.0 to 1.18.3
+- Upgrade: express dependence from ~4.11.2 to ~4.16.4
+- Upgrade: request dependence from 2.81.0 to 2.88.0
+- Upgrade: underscore dependence from 1.8.3 to 1.9.1
+- Upgrade: dateformat dependence from 1.0.12 to 3.0.3
+- Upgrade: nock development dependence from 9.0.14 to 10.0.1
+- Upgrade: mocha development dependence from 2.4.5 to 5.2.0
+- Upgrade: should development dependence from 8.4.0 to 13.2.3
+- Upgrade: istanbul development dependence from ~0.1.34 to ~0.4.5
+- Upgrade: proxyquire development dependence from 1.7.9 to 2.1.0
+- Upgrade: moment development dependence from ~2.20.1 to ~2.22.2
+- Remove: old unused development dependencies (closure-linter-wrapper, sinon-chai, sinon, chai, grunt and grunt related modules)
+
 * Mon Aug 06 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.8.0
 - Update ioagent-node-lib to 2.7.x
 - Add: allow NGSIv2 for updating active attributes at CB, through configuration based on iotagent-node-lib (#250)
