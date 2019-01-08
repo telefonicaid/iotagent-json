@@ -140,4 +140,4 @@ requirements for its current execution:
 The IoT Agent for JSON is licensed under Affero General Public License (GPL)
 version 3.
 
-© 2018 Telefonica Investigación y Desarrollo, S.A.U
+© 2019 Telefonica Investigación y Desarrollo, S.A.U
