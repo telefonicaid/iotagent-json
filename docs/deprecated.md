@@ -15,6 +15,7 @@ not maintained or evolved any longer. In particular:
 
 A list of deprecated features and the version in which they were deprecated follows:
 
+* Support to NGSIv1.
 * Support to Node.js v4 in iotagent-json 1.9.0. The use of Node.js v8 is highly recommended.
 
 ## Using old iotagent-json versions
@@ -27,7 +28,7 @@ information in the case you want to use old versions:
 	* A tag, e.g. `1.8.0 `. It points to the base version.
 	* A release branch, `release/1.8.0 `. The HEAD of this branch usually matches the aforementioned tag. However, if some
     hotfixes were developed on the base version, this branch contains such hotfixes.
-* Documentation corresponding to old versions can be found at [readthedocs.io](https://fiware-iotagent-json.readthedocs.io).Use the panel in the right bottom corner to navigate to the right version.
+* Documentation corresponding to old versions can be found at [readthedocs.io](https://fiware-iotagent-json.readthedocs.io). Use the panel in the right bottom corner to navigate to the right version.
     
 * Docker images corresponding to iotagent-json can be found at [Dockerhub](https://hub.docker.com/r/fiware/iotagent-json/tags/).
 
@@ -35,5 +36,6 @@ The following table provides information about the last iotagent-json version su
 
 | **Removed feature**                                                        | **Last iotagent-json version supporting feature** | **That version release date**   |
 |----------------------------------------------------------------------------|-------------------------------------------|---------------------------------|
-| Support to Node.js v6                    | Not yet defined but it will be done by May 2019                 | Not yet defined                  
-| Support to Node.js v4                    | 0.4.0                           | Novemeber 28th, 2017             |
+| NGSIv1 API                               | Not yet defined                 | Not yet defined
+| Support to Node.js v6                    | 1.9.0                           | December 19th, 2018            
+| Support to Node.js v4                    | 1.8.0                           | Novemeber 28th, 2017             |
