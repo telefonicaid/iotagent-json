@@ -37,5 +37,5 @@ The following table provides information about the last iotagent-json version su
 | **Removed feature**                                                        | **Last iotagent-json version supporting feature** | **That version release date**   |
 |----------------------------------------------------------------------------|-------------------------------------------|---------------------------------|
 | NGSIv1 API                               | Not yet defined                 | Not yet defined
-| Support to Node.js v6                    | 1.9.0                           | December 19th, 2018            
-| Support to Node.js v4                    | 1.8.0                           | Novemeber 28th, 2017             |
+| Support to Node.js v6                    |  Not yet defined but it will be done by May 2019                  | Not yet defined            
+| Support to Node.js v4                    | 1.9.0                           | December 19th, 2018             |
