@@ -109,6 +109,13 @@ IoT Agent. The following attributes are accepted:
 * **retries**: Number of AMQP connection error retries (default is 5).
 * **retryTime**: Time between AMQP connection retries (default is 5 seconds).
 
+#### HTTP Binding configuration
+The `config.http` section of the config file contains all the information needed to start the HTTP server for the HTTP
+transport protocol binding. The following options are accepted:
+
+* **port**: South Port where the HTTP listener will be listening for information from the devices.
+* **timeout**: HTTP Timeout for the HTTP endpoint (in miliseconds).
+
 #### Configuration with environment variables
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
@@ -132,8 +139,9 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 | IOTA_AMQP_DURABLE         | amqp.durable                        |
 | IOTA_AMQP_RETRIES         | amqp.retries                        |
 | IOTA_AMQP_RETRY_TIME      | amqp.retryTime                      |
-| IOTA_HTTP_HOST            | http.host (still not in use)        |
-| IOTA_HTTP_PORT            | http.port (still not in use)        |
+| IOTA_HTTP_HOST            | http.host                           |
+| IOTA_HTTP_PORT            | http.port                           |
+| IOTA_HTTP_TIMEOUT         | http.timeout                        |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 
