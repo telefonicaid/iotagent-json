@@ -28,6 +28,7 @@
     "watch": "watch 'npm test && npm run lint' ./lib ./test"
   },
   "devDependencies": {
+    "coveralls": "~3.0.2",
     "nock": "10.0.1",
     "mocha": "5.2.0",
     "should": "13.2.3",
@@ -42,7 +43,6 @@
     "amqplib": "~0.5.1",
     "async": "2.6.1",
     "body-parser": "1.18.3",
-    "coveralls": "^3.0.2",
     "dateformat": "3.0.3",
     "express": "~4.16.4",
     "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
