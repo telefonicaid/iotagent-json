@@ -24,10 +24,11 @@
     "test:watch": "npm run test -- -w ./lib",
     "lint": "jshint lib/ --config .jshintrc && jshint test/ --config test/.jshintrc",
     "test:coverage": "istanbul cover _mocha -- --recursive 'test/**/*.js' --reporter spec --exit",
-    "test:coveralls": "npm run test:coverage && && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
+    "test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "watch": "watch 'npm test && npm run lint' ./lib ./test"
   },
   "devDependencies": {
+    "coveralls": "~3.0.2",
     "nock": "10.0.1",
     "mocha": "5.2.0",
     "should": "13.2.3",
@@ -39,11 +40,11 @@
   },
   "keywords": [],
   "dependencies": {
-    "express": "~4.16.4",
     "amqplib": "~0.5.1",
     "async": "2.6.1",
     "body-parser": "1.18.3",
     "dateformat": "3.0.3",
+    "express": "~4.16.4",
     "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "2.1.0",
     "mqtt": "2.18.8",
