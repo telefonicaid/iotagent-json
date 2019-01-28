@@ -85,14 +85,24 @@ mechanism (described in the User Manual). Simultaneous use of both mechanisms is
 * **compressTimestamp**: this flags enables the timestamp compression mechanism, described in the User Manual.
 
 #### MQTT configuration
+
 These are the currently available MQTT configuration options:
+
+* **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`).
 * **host**: host of the MQTT broker.
 * **port**: port where the MQTT broker is listening.
 * **defaultKey**: default API Key to use when a device is provisioned without a configuration.
+* **ca**: ca certificates to use for validating server certificates (optional). Default is to trust the well-known CAs curated by Mozilla. Mozilla's CAs are completely replaced when CAs are explicitly specified using this option.
+* **cert**: cert chains in PEM format to use for authenticating into the MQTT broker (optional). Only used when using `mqtts`, `tls` or `wss` as connnection protocol.
+* **key**: optional private keys in PEM format to use on the client side for connecting with the MQTT broker (optional). Only used when using `mqtts`, `tls` or `wss` as connection protocol.
+* **rejectUnauthorized**: whether to reject any connection which is not authorized with the list of supplied CAs. This option only has an effect when using `mqtts`, `tls` or `wss` protocols (default is `true`).
 * **username**: user name that identifies the IOTA against the MQTT broker (optional).
 * **password**: password to be used if the username is provided (optional).
 * **qos**: QoS level: at most once (0), at least once (1), exactly once (2). (default is 0).
 * **retain**: retain flag (default is false).
+
+TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
+
 
 #### AMQP Binding configuration
 
@@ -120,30 +130,37 @@ transport protocol binding. The following options are accepted:
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 
-The ones relating specific Ultralight 2.0 bindings are described in the following table.
+The ones relating specific JSON bindings are described in the following table.
 
-| Environment variable      | Configuration attribute             |
-|:------------------------- |:----------------------------------- |
-| IOTA_MQTT_HOST            | mqtt.host                           |
-| IOTA_MQTT_PORT            | mqtt.port                           |
-| IOTA_MQTT_USERNAME        | mqtt.username                       |
-| IOTA_MQTT_PASSWORD        | mqtt.password                       |
-| IOTA_MQTT_QOS             | mqtt.qos                            |
-| IOTA_MQTT_RETAIN          | mqtt.retain                         |
-| IOTA_AMQP_HOST            | amqp.host                           |
-| IOTA_AMQP_PORT            | amqp.port                           |
-| IOTA_AMQP_USERNAME        | amqp.username                       |
-| IOTA_AMQP_PASSWORD        | amqp.password                       |
-| IOTA_AMQP_EXCHANGE        | amqp.exchange                       |
-| IOTA_AMQP_QUEUE           | amqp.queue                          |
-| IOTA_AMQP_DURABLE         | amqp.durable                        |
-| IOTA_AMQP_RETRIES         | amqp.retries                        |
-| IOTA_AMQP_RETRY_TIME      | amqp.retryTime                      |
-| IOTA_HTTP_HOST            | http.host                           |
-| IOTA_HTTP_PORT            | http.port                           |
-| IOTA_HTTP_TIMEOUT         | http.timeout                        |
+| Environment variable          | Configuration attribute             |
+|:----------------------------- |:----------------------------------- |
+| IOTA_MQTT_PROTOCOL            | mqtt.protocol                       |
+| IOTA_MQTT_HOST                | mqtt.host                           |
+| IOTA_MQTT_PORT                | mqtt.port                           |
+| IOTA_MQTT_CA                  | mqtt.ca                             |
+| IOTA_MQTT_CERT                | mqtt.cert                           |
+| IOTA_MQTT_KEY                 | mqtt.key                            |
+| IOTA_MQTT_REJECT_UNAUTHORIZED | mqtt.rejectUnauthorized             |
+| IOTA_MQTT_USERNAME            | mqtt.username                       |
+| IOTA_MQTT_PASSWORD            | mqtt.password                       |
+| IOTA_MQTT_QOS                 | mqtt.qos                            |
+| IOTA_MQTT_RETAIN              | mqtt.retain                         |
+| IOTA_AMQP_HOST                | amqp.host                           |
+| IOTA_AMQP_PORT                | amqp.port                           |
+| IOTA_AMQP_USERNAME            | amqp.username                       |
+| IOTA_AMQP_PASSWORD            | amqp.password                       |
+| IOTA_AMQP_EXCHANGE            | amqp.exchange                       |
+| IOTA_AMQP_QUEUE               | amqp.queue                          |
+| IOTA_AMQP_DURABLE             | amqp.durable                        |
+| IOTA_AMQP_RETRIES             | amqp.retries                        |
+| IOTA_AMQP_RETRY_TIME          | amqp.retryTime                      |
+| IOTA_HTTP_HOST                | http.host                           |
+| IOTA_HTTP_PORT                | http.port                           |
+| IOTA_HTTP_TIMEOUT             | http.timeout                        |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
+
+`IOTA_MQTT_CA`, `IOTA_MQTT_CERT`, `IOTA_MQTT_KEY` environment variables should provide the file name of the file whose contents will be used for the configuration attribute.
 
 ## <a name="packaging"/> Packaging
 The only package type allowed is RPM. In order to execute the packaging scripts, the RPM Build Tools must be available
