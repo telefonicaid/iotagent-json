@@ -23,45 +23,45 @@
 var config = {};
 
 config.mqtt = {
-    host: 'localhost',
-    port: 1883,
-    thinkingThingsPlugin: true,
-    username: 'guest',
-    password: 'guest'
+  host: 'localhost',
+  port: 1883,
+  thinkingThingsPlugin: true,
+  username: 'guest',
+  password: 'guest',
 };
 
 config.http = {
-    port: 7896
+  port: 7896,
 };
 
 config.amqp = {
-    host: 'localhost',
-    port: 5672,
-    exchange: 'amq.topic',
-    queue: 'iota_queue',
-    options: {durable: true}
+  host: 'localhost',
+  port: 5672,
+  exchange: 'amq.topic',
+  queue: 'iota_queue',
+  options: { durable: true },
 };
 
 config.iota = {
-    logLevel: 'FATAL',
-    contextBroker: {
-        host: '192.168.1.1',
-        port: '1026'
-    },
-    server: {
-        port: 4041
-    },
-    deviceRegistry: {
-        type: 'memory'
-    },
-    types: {},
-    service: 'howtoService',
-    subservice: '/howto',
-    providerUrl: 'http://localhost:4041',
-    deviceRegistrationDuration: 'P1M',
-    defaultType: 'Thing',
-    defaultResource: '/iot/json',
-    compressTimestamp: true
+  logLevel: 'FATAL',
+  contextBroker: {
+    host: '192.168.1.1',
+    port: '1026',
+  },
+  server: {
+    port: 4041,
+  },
+  deviceRegistry: {
+    type: 'memory',
+  },
+  types: {},
+  service: 'howtoService',
+  subservice: '/howto',
+  providerUrl: 'http://localhost:4041',
+  deviceRegistrationDuration: 'P1M',
+  defaultType: 'Thing',
+  defaultResource: '/iot/json',
+  compressTimestamp: true,
 };
 
 config.defaultKey = '1234';

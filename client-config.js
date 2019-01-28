@@ -23,17 +23,17 @@
 var config = {};
 
 config.mqtt = {
-    host: 'localhost',
-    port: 1883,
-    options: {
-        keepalive: 0,
-        connectTimeout: 60 * 60 * 1000
-    }
+  host: 'localhost',
+  port: 1883,
+  options: {
+    keepalive: 0,
+    connectTimeout: 60 * 60 * 1000,
+  },
 };
 
 config.device = {
-    id: 'myDeviceId',
-    apikey: '1234'
-}
+  id: 'myDeviceId',
+  apikey: '1234',
+};
 
 module.exports = config;
