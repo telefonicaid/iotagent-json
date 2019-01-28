@@ -87,6 +87,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -111,6 +112,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1Single.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -132,6 +134,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -156,6 +159,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1Single.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -177,6 +181,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleB.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -201,6 +206,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleBLong.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {

@@ -119,6 +119,7 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -159,6 +160,7 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'))
+                .query({type: 'TheLightType'})
                 .reply(204);
 
             request(groupCreation, function(error, response, body) {
@@ -188,6 +190,7 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -212,6 +215,7 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -237,6 +241,7 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json'))
+                .query({type: 'AnMQTTDevice'})
                 .reply(204);
         });
         it('should send its values to the Context Broker', function(done) {
