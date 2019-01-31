@@ -110,6 +110,7 @@ describe('AMQP Transport binding: measures', function() {
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
                 )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
 
@@ -151,6 +152,7 @@ describe('AMQP Transport binding: measures', function() {
                     '/v2/entities/SensorMachine:JSON_UNPROVISIONED/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedMeasure.json')
                 )
+                .query({ type: 'SensorMachine' })
                 .reply(204);
 
             request(groupCreation, function(error, response, body) {
@@ -177,6 +179,7 @@ describe('AMQP Transport binding: measures', function() {
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
                 )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
@@ -220,6 +223,7 @@ describe('AMQP Transport binding: measures', function() {
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasure.json')
                 )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
 

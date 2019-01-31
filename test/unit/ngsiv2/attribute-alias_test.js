@@ -89,6 +89,7 @@ describe('Attribute alias', function() {
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json')
                 )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {

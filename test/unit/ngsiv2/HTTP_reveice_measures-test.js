@@ -134,6 +134,7 @@ describe('HTTP: Measure reception ', function() {
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
                 )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should return a 200 OK with no error', function(done) {
@@ -197,6 +198,7 @@ describe('HTTP: Measure reception ', function() {
                     '/v2/entities/e0130101/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
                 )
+                .query({ type: 'sensor' })
                 .reply(204);
 
             iotaJson.stop(function() {
@@ -268,6 +270,7 @@ describe('HTTP: Measure reception ', function() {
                     '/v2/entities/e0130101/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
                 )
+                .query({ type: 'sensor' })
                 .reply(204);
 
             iotaJson.stop(function() {
@@ -328,6 +331,7 @@ describe('HTTP: Measure reception ', function() {
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
                 )
+                .query({ type: 'TheLightType' })
                 .reply(204);
 
             request(groupCreation, function(error, response, body) {
