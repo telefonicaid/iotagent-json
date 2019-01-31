@@ -43,15 +43,15 @@ describe('Subscription management', function() {
         json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+            'fiware-servicepath': '/gardens',
+        },
     };
 
     function sendMeasures(humidity, temperature) {
         return function(callback) {
             var values = {
                 humidity: humidity,
-                temperature: temperature
+                temperature: temperature,
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -69,15 +69,18 @@ describe('Subscription management', function() {
     beforeEach(function(done) {
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000,
+            }
+        );
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
-        contextBrokerMock = nock('http://192.168.1.1:1026', {allowUnmocked: false})
+        contextBrokerMock = nock('http://192.168.1.1:1026', { allowUnmocked: false })
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
@@ -99,31 +102,38 @@ describe('Subscription management', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json'))
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json')
+                )
                 .reply(204);
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/alternativeUpdate.json'))
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/alternativeUpdate.json')
+                )
                 .reply(204);
         });
 
         it('should cease sending measures to the CB', function(done) {
-            async.series([
-                async.apply(request, provisionOptions),
-                sendMeasures('32', '87'),
-                waitForMqttRelay(50),
-                iotaJson.stop,
-                sendMeasures('53', '1'),
-                waitForMqttRelay(50)
-            ], function(error, results) {
-                should.not.exist(error);
-                contextBrokerMock.isDone().should.equal(false);
-                done();
-            });
+            async.series(
+                [
+                    async.apply(request, provisionOptions),
+                    sendMeasures('32', '87'),
+                    waitForMqttRelay(50),
+                    iotaJson.stop,
+                    sendMeasures('53', '1'),
+                    waitForMqttRelay(50),
+                ],
+                function(error, results) {
+                    should.not.exist(error);
+                    contextBrokerMock.isDone().should.equal(false);
+                    done();
+                }
+            );
         });
     });
 
@@ -132,40 +142,44 @@ describe('Subscription management', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json'))
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json')
+                )
                 .reply(204);
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/alternativeUpdate.json'))
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/alternativeUpdate.json')
+                )
                 .reply(204);
         });
 
         afterEach(function(done) {
-            async.series([
-                iotAgentLib.clearAll,
-                iotaJson.stop
-            ], done);
+            async.series([iotAgentLib.clearAll, iotaJson.stop], done);
         });
 
         it('should resume sending measures for the provisioned devices', function(done) {
-            async.series([
-                async.apply(request, provisionOptions),
-                sendMeasures('32', '87'),
-                waitForMqttRelay(50),
-                iotaJson.stop,
-                async.apply(iotaJson.start, config),
-                waitForMqttRelay(50),
-                sendMeasures('53', '1'),
-                waitForMqttRelay(50)
-            ], function(error, results) {
-                should.not.exist(error);
-                contextBrokerMock.isDone().should.equal(true);
-                done();
-            });
+            async.series(
+                [
+                    async.apply(request, provisionOptions),
+                    sendMeasures('32', '87'),
+                    waitForMqttRelay(50),
+                    iotaJson.stop,
+                    async.apply(iotaJson.start, config),
+                    waitForMqttRelay(50),
+                    sendMeasures('53', '1'),
+                    waitForMqttRelay(50),
+                ],
+                function(error, results) {
+                    should.not.exist(error);
+                    contextBrokerMock.isDone().should.equal(true);
+                    done();
+                }
+            );
         });
     });
 });

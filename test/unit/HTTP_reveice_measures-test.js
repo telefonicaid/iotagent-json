@@ -49,17 +49,17 @@ var iotagentMqtt = require('../../'),
                     attributes: [
                         {
                             name: 'status',
-                            type: 'Boolean'
-                        }
+                            type: 'Boolean',
+                        },
                     ],
-                    static_attributes: []
-                }
-            ]
+                    static_attributes: [],
+                },
+            ],
         },
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+            'fiware-servicepath': '/gardens',
+        },
     },
     contextBrokerMock,
     contextBrokerUnprovMock;
@@ -72,8 +72,8 @@ describe('HTTP: Measure reception ', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         nock.cleanAll();
@@ -94,10 +94,7 @@ describe('HTTP: Measure reception ', function() {
     afterEach(function(done) {
         nock.cleanAll();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a POST measure arrives for the HTTP binding', function() {
@@ -106,16 +103,16 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
+                'fiware-servicepath': '/gardens',
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234'
-            }
+                k: '1234',
+            },
         };
 
         beforeEach(function() {
@@ -146,16 +143,16 @@ describe('HTTP: Measure reception ', function() {
                 method: 'POST',
                 json: {
                     humidity: '111222',
-                    TimeInstant: '20200222T222222'
+                    TimeInstant: '20200222T222222',
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
+                    'fiware-servicepath': '/gardens',
                 },
                 qs: {
                     i: 'dev0130101',
-                    k: '1234'
-                }
+                    k: '1234',
+                },
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -163,9 +160,9 @@ describe('HTTP: Measure reception ', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-        };
+                    'fiware-servicepath': '/gardens',
+                },
+            };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -211,17 +208,17 @@ describe('HTTP: Measure reception ', function() {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
-                    humidity: '111222'
+                    humidity: '111222',
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
+                    'fiware-servicepath': '/gardens',
                 },
                 qs: {
                     i: 'dev0130101',
                     k: '1234',
-                    t: '20200222T222222'
-                }
+                    t: '20200222T222222',
+                },
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -229,8 +226,8 @@ describe('HTTP: Measure reception ', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
+                    'fiware-servicepath': '/gardens',
+                },
             };
 
         beforeEach(function(done) {
@@ -278,16 +275,16 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
+                'fiware-servicepath': '/gardens',
             },
             qs: {
                 i: 'MQTT_UNPROVISIONED',
-                k: 'KL223HHV8732SFL1'
-            }
+                k: 'KL223HHV8732SFL1',
+            },
         };
 
         beforeEach(function(done) {
@@ -320,12 +317,12 @@ describe('HTTP: Measure reception ', function() {
                 method: 'GET',
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
+                    'fiware-servicepath': '/gardens',
                 },
                 qs: {
                     i: 'MQTT_UNPROVISIONED',
-                    k: 'KL223HHV8732SFL1'
-                }
+                    k: 'KL223HHV8732SFL1',
+                },
             };
 
             request(optionsMeasure, function(error, response, body) {
@@ -344,5 +341,3 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 });
-
-

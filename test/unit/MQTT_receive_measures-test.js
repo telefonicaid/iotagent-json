@@ -49,17 +49,17 @@ var iotagentMqtt = require('../../'),
                     attributes: [
                         {
                             name: 'status',
-                            type: 'Boolean'
-                        }
+                            type: 'Boolean',
+                        },
                     ],
-                    static_attributes: []
-                }
-            ]
+                    static_attributes: [],
+                },
+            ],
         },
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+            'fiware-servicepath': '/gardens',
+        },
     },
     contextBrokerMock,
     contextBrokerUnprovMock,
@@ -73,16 +73,19 @@ describe('MQTT: Measure reception ', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000,
+            }
+        );
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
@@ -101,10 +104,7 @@ describe('MQTT: Measure reception ', function() {
         nock.cleanAll();
         mqttClient.end();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a new multiple measure arrives to the MQTT Topic', function() {
@@ -118,7 +118,7 @@ describe('MQTT: Measure reception ', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -151,16 +151,17 @@ describe('MQTT: Measure reception ', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
             };
 
-            mqttClient.publish('/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null,
-                function(error) {
-                    setTimeout(function() {
-                        contextBrokerUnprovMock.done();
-                        done();
-                    }, 100);
-                });
+            mqttClient.publish('/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
+                error
+            ) {
+                setTimeout(function() {
+                    contextBrokerUnprovMock.done();
+                    done();
+                }, 100);
+            });
         });
     });
 
@@ -175,7 +176,7 @@ describe('MQTT: Measure reception ', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                weight: '87'
+                weight: '87',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -199,7 +200,7 @@ describe('MQTT: Measure reception ', function() {
             var values = {
                 humidity: '32',
                 temperature: '87',
-                TimeInstant: '20071103T131805'
+                TimeInstant: '20071103T131805',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -217,8 +218,7 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
-                .reply(200,
-                utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
         it('should send its values to the Context Broker', function(done) {
             mqttClient.publish('/1234/MQTT_2/attrs/temperature', '87', null, function(error) {

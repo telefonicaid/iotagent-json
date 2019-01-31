@@ -51,17 +51,17 @@ var iotaJson = require('../../../'),
                     attributes: [
                         {
                             name: 'status',
-                            type: 'Boolean'
-                        }
+                            type: 'Boolean',
+                        },
                     ],
-                    static_attributes: []
-                }
-            ]
+                    static_attributes: [],
+                },
+            ],
         },
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+            'fiware-servicepath': '/gardens',
+        },
     },
     contextBrokerMock,
     contextBrokerUnprovMock;
@@ -74,8 +74,8 @@ describe('HTTP: Measure reception ', function() {
             json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         nock.cleanAll();
@@ -99,10 +99,7 @@ describe('HTTP: Measure reception ', function() {
     afterEach(function(done) {
         nock.cleanAll();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotaJson.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
     describe('When a POST measure arrives for the HTTP binding', function() {
@@ -114,27 +111,29 @@ describe('HTTP: Measure reception ', function() {
                 temperature: '87',
                 luminosity: 10,
                 pollution: 43.4,
-                configuration: {firmware: {version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
+                configuration: { firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' } },
                 tags: ['iot', 'device'],
                 enabled: true,
-                alive: null
+                alive: null,
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
+                'fiware-servicepath': '/gardens',
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234'
-            }
+                k: '1234',
+            },
         };
 
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'))
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                )
                 .reply(204);
         });
         it('should return a 200 OK with no error', function(done) {
@@ -151,7 +150,6 @@ describe('HTTP: Measure reception ', function() {
                 done();
             });
         });
-
     });
 
     describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
@@ -160,16 +158,16 @@ describe('HTTP: Measure reception ', function() {
                 method: 'POST',
                 json: {
                     humidity: '111222',
-                    TimeInstant: '20200222T222222'
+                    TimeInstant: '20200222T222222',
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
+                    'fiware-servicepath': '/gardens',
                 },
                 qs: {
                     i: 'dev0130101',
-                    k: '1234'
-                }
+                    k: '1234',
+                },
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -177,9 +175,9 @@ describe('HTTP: Measure reception ', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-        };
+                    'fiware-servicepath': '/gardens',
+                },
+            };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -195,8 +193,10 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'))
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                )
                 .reply(204);
 
             iotaJson.stop(function() {
@@ -228,17 +228,17 @@ describe('HTTP: Measure reception ', function() {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
-                    humidity: '111222'
+                    humidity: '111222',
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
+                    'fiware-servicepath': '/gardens',
                 },
                 qs: {
                     i: 'dev0130101',
                     k: '1234',
-                    t: '20200222T222222'
-                }
+                    t: '20200222T222222',
+                },
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
@@ -246,8 +246,8 @@ describe('HTTP: Measure reception ', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
+                    'fiware-servicepath': '/gardens',
+                },
             };
 
         beforeEach(function(done) {
@@ -264,8 +264,10 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'))
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                )
                 .reply(204);
 
             iotaJson.stop(function() {
@@ -298,16 +300,16 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
+                'fiware-servicepath': '/gardens',
             },
             qs: {
                 i: 'JSON_UNPROVISIONED',
-                k: 'KL223HHV8732SFL1'
-            }
+                k: 'KL223HHV8732SFL1',
+            },
         };
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -322,8 +324,10 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
-                 utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'))
+                .post(
+                    '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                )
                 .reply(204);
 
             request(groupCreation, function(error, response, body) {
@@ -338,8 +342,4 @@ describe('HTTP: Measure reception ', function() {
             });
         });
     });
-
-
 });
-
-

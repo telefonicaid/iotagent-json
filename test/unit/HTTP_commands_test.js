@@ -41,8 +41,8 @@ describe('HTTP: Commands', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         config.logLevel = 'INFO';
@@ -53,8 +53,7 @@ describe('HTTP: Commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(200,
-                utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -71,10 +70,7 @@ describe('HTTP: Commands', function() {
 
     afterEach(function(done) {
         nock.cleanAll();
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a command arrive to the Agent for a device with the HTTP protocol', function() {
@@ -84,8 +80,8 @@ describe('HTTP: Commands', function() {
             json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         beforeEach(function() {
@@ -138,4 +134,3 @@ describe('HTTP: Commands', function() {
         });
     });
 });
-

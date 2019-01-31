@@ -41,16 +41,19 @@ describe('Support for Thinking Things Modules', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000,
+            }
+        );
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
@@ -68,11 +71,7 @@ describe('Support for Thinking Things Modules', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
-
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a new measure with Thinking Thing module P1 arrives to a multiattribute topic', function() {
@@ -86,7 +85,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                P1: '214,7,d22,b00,-64,'
+                P1: '214,7,d22,b00,-64,',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -129,7 +128,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                C1: '00D600070d220b00'
+                C1: '00D600070d220b00',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -172,7 +171,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                B: '4.70,1,1,1,1,0'
+                B: '4.70,1,1,1,1,0',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -195,7 +194,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                B: '4.70,1,1,1,1,0,9,18'
+                B: '4.70,1,1,1,1,0,9,18',
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {

@@ -40,8 +40,8 @@ describe('HTTP Transport binding: polling commands', function() {
         json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+            'fiware-servicepath': '/gardens',
+        },
     };
 
     beforeEach(function(done) {
@@ -51,8 +51,8 @@ describe('HTTP Transport binding: polling commands', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand4.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
+                'fiware-servicepath': '/gardens',
+            },
         };
 
         nock.cleanAll();
@@ -61,8 +61,7 @@ describe('HTTP Transport binding: polling commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(200,
-                utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -121,13 +120,13 @@ describe('HTTP Transport binding: polling commands', function() {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                a: 23
+                a: 23,
             },
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
-                getCmd: 1
-            }
+                getCmd: 1,
+            },
         };
 
         beforeEach(function(done) {
@@ -177,19 +176,18 @@ describe('HTTP Transport binding: polling commands', function() {
         });
     });
 
-
     describe('When a device asks for the pending commands without body', function() {
         var deviceRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                a: 23
+                a: 23,
             },
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
-                getCmd: 1
-            }
+                getCmd: 1,
+            },
         };
 
         var deviceRequestWithoutPayload = {
@@ -199,8 +197,8 @@ describe('HTTP Transport binding: polling commands', function() {
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
-                getCmd: 1
-            }
+                getCmd: 1,
+            },
         };
 
         beforeEach(function(done) {
@@ -259,12 +257,12 @@ describe('HTTP Transport binding: polling commands', function() {
             uri: 'http://localhost:' + config.http.port + '/iot/json/commands',
             method: 'POST',
             json: {
-                PING: 'MADE_OK'
+                PING: 'MADE_OK',
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234'
-            }
+                k: '1234',
+            },
         };
 
         beforeEach(function(done) {

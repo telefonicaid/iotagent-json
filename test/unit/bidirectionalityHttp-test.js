@@ -40,8 +40,8 @@ describe('Data Bidirectionality: HTTP', function() {
         json: utils.readExampleFile('./test/subscriptions/bidirectionalNotification.json'),
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+            'fiware-servicepath': '/gardens',
+        },
     };
 
     afterEach(function(done) {
@@ -60,8 +60,8 @@ describe('Data Bidirectionality: HTTP', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectional.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
+                    'fiware-servicepath': '/gardens',
+                },
             };
 
             nock.cleanAll();
@@ -69,26 +69,35 @@ describe('Data Bidirectionality: HTTP', function() {
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/subscribeContext', utils.readExampleFile(
-                    './test//subscriptions/bidirectionalSubscriptionRequest.json'))
-                .reply(200, utils.readExampleFile(
-                    './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'));
+                .post(
+                    '/v1/subscribeContext',
+                    utils.readExampleFile('./test//subscriptions/bidirectionalSubscriptionRequest.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile(
-                    './test/contextRequests/createBidirectionalDevice.json'))
-                .reply(200, utils.readExampleFile(
-                    './test/contextResponses/createBidirectionalDeviceSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/createBidirectionalDevice.json')
+                )
+                .reply(200, utils.readExampleFile('./test/contextResponses/createBidirectionalDeviceSuccess.json'));
 
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/unsubscribeContext', utils.readExampleFile(
-                    './test/subscriptions/simpleSubscriptionRemove.json'))
-                .reply(200, utils.readExampleFile(
-                    './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'));
+                .post(
+                    '/v1/unsubscribeContext',
+                    utils.readExampleFile('./test/subscriptions/simpleSubscriptionRemove.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                );
 
             iotagentJson.start(config, function(error) {
                 request(provisionOptions, function(error, response, body) {
@@ -123,15 +132,19 @@ describe('Data Bidirectionality: HTTP', function() {
                         longitudeFound = false;
 
                     for (var i = 0; i < list.commands.length; i++) {
-                        if (list.commands[i].name === 'latitude' &&
+                        if (
+                            list.commands[i].name === 'latitude' &&
                             list.commands[i].type === 'string' &&
-                            list.commands[i].value === '-9.6') {
+                            list.commands[i].value === '-9.6'
+                        ) {
                             latitudeFound = true;
                         }
 
-                        if (list.commands[i].name === 'longitude' &&
+                        if (
+                            list.commands[i].name === 'longitude' &&
                             list.commands[i].type === 'string' &&
-                            list.commands[i].value === '12.4') {
+                            list.commands[i].value === '12.4'
+                        ) {
                             longitudeFound = true;
                         }
                     }
@@ -153,8 +166,8 @@ describe('Data Bidirectionality: HTTP', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectionalWithUrl.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
+                    'fiware-servicepath': '/gardens',
+                },
             };
 
             nock.cleanAll();
@@ -162,26 +175,35 @@ describe('Data Bidirectionality: HTTP', function() {
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/subscribeContext', utils.readExampleFile(
-                    './test//subscriptions/bidirectionalSubscriptionRequest.json'))
-                .reply(200, utils.readExampleFile(
-                    './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'));
+                .post(
+                    '/v1/subscribeContext',
+                    utils.readExampleFile('./test//subscriptions/bidirectionalSubscriptionRequest.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile(
-                    './test/contextRequests/createBidirectionalDevice.json'))
-                .reply(200, utils.readExampleFile(
-                    './test/contextResponses/createBidirectionalDeviceSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/createBidirectionalDevice.json')
+                )
+                .reply(200, utils.readExampleFile('./test/contextResponses/createBidirectionalDeviceSuccess.json'));
 
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/unsubscribeContext', utils.readExampleFile(
-                    './test/subscriptions/simpleSubscriptionRemove.json'))
-                .reply(200, utils.readExampleFile(
-                    './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'));
+                .post(
+                    '/v1/unsubscribeContext',
+                    utils.readExampleFile('./test/subscriptions/simpleSubscriptionRemove.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                );
 
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command', '{"location":"12.4, -9.6"}')
