@@ -120,6 +120,15 @@ config.iota = {
      */
         port: 4041
     },
+    authentication: {
+        enabled: true,
+        type: 'keystone',
+        header: 'X-Auth-Token',
+        host: 'localhost',
+        port: '5000',
+        user: 'iotagent',
+        password: 'iotagent'
+    },
     /**
      * Defines the configuration for the Device Registry, where all the information about devices and configuration
      * groups will be stored. There are currently just two types of registries allowed:
