@@ -6,6 +6,8 @@
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
 <br/>
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](http://fiware-iotagent-json.readthedocs.org/en/latest/?badge=latest)
+[![Build badge](https://img.shields.io/travis/telefonicaid/iotagent-json.svg)](https://travis-ci.org/telefonicaid/iotagent-json/)
+[![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
 ![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
 
 An Internet of Things Agent for a JSON based protocol (with
@@ -25,8 +27,8 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information
 check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
-| :books: [Documentation](https://fiware-iotagent-json.rtfd.io) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/)|
-|---|---|
+| :books: [Documentation](https://fiware-iotagent-json.rtfd.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/) |
+|---|---|---|
 
 ## Contents
 
@@ -142,4 +144,4 @@ requirements for its current execution:
 The IoT Agent for JSON is licensed under Affero General Public License (GPL)
 version 3.
 
-© 2018 Telefonica Investigación y Desarrollo, S.A.U
+© 2019 Telefonica Investigación y Desarrollo, S.A.U
