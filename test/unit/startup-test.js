@@ -21,17 +21,13 @@
  * please contact with::[contacto@tid.es]
  */
 'use strict';
-var chai = require('chai'),
-    fs = require('fs'),
+var fs = require('fs'),
     iotagentJSON = require('../../'),
     should = require('should'),
     config = require('../../lib/configService'),
     iotAgentConfig = require('../config-startup.js'),
     mqtt = require('mqtt'),
-    sinon = require('sinon'),
-    sinonChai = require('sinon-chai');
-chai.should();
-chai.use(sinonChai);
+    sinon = require('sinon');
 
 describe('Startup tests', function() {
     describe('When the IoT Agent is started with environment variables', function() {
@@ -85,7 +81,7 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
-                mqtt.connect.should.have.been.calledOnceWithExactly({
+                mqtt.connect.calledOnceWithExactly({
                     ca: null,
                     cert: null,
                     connectTimeout: 3600000,
@@ -97,7 +93,7 @@ describe('Startup tests', function() {
                     protocol: 'mqtt',
                     rejectUnauthorized: true,
                     username: 'usermqtt'
-                });
+                }).should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.host.should.equal('127.0.0.1');
@@ -122,7 +118,7 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
-                mqtt.connect.should.have.been.calledOnceWithExactly({
+                mqtt.connect.calledOnceWithExactly({
                     ca: null,
                     cert: null,
                     connectTimeout: 3600000,
@@ -134,7 +130,7 @@ describe('Startup tests', function() {
                     protocol: 'mqtts',
                     rejectUnauthorized: false,
                     username: null
-                });
+                }).should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.protocol.should.equal('mqtts');
@@ -169,7 +165,7 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
-                mqtt.connect.should.have.been.calledOnceWithExactly({
+                mqtt.connect.calledOnceWithExactly({
                     ca: 'cacontent',
                     cert: 'certcontent',
                     connectTimeout: 3600000,
@@ -181,7 +177,7 @@ describe('Startup tests', function() {
                     protocol: 'mqtts',
                     rejectUnauthorized: true,
                     username: null
-                });
+                }).should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.protocol.should.equal('mqtts');

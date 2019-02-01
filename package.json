@@ -33,7 +33,6 @@
     "mocha": "5.2.0",
     "should": "13.2.3",
     "sinon": "~6.1.0",
-    "sinon-chai": "3.2.0",
     "istanbul": "~0.4.5",
     "proxyquire": "2.1.0",
     "moment": "~2.22.2",
