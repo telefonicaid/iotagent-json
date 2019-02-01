@@ -87,6 +87,20 @@ config.amqp = {
     options: {durable: true}
 };
 
+/**
+ * Configuration for the HTTP transport binding.
+ */
+config.http = {
+    /**
+     * South Port where the Ultralight transport binding for HTTP will be listening for device requests.
+     */
+    port: 7896,
+    /**
+     * HTTP Timeout for the http command endpoint (in miliseconds).
+     */
+    //timeout: 1000
+};
+
 config.iota = {
     /**
      * Configures the log level. Appropriate values are: FATAL, ERROR, INFO, WARN and DEBUG.
