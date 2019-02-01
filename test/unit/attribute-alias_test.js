@@ -41,8 +41,8 @@ describe('Attribute alias', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice2.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         nock.cleanAll();
@@ -51,7 +51,7 @@ describe('Attribute alias', function() {
             'mqtt://' + config.mqtt.host,
             {
                 keepalive: 0,
-                connectTimeout: 60 * 60 * 1000,
+                connectTimeout: 60 * 60 * 1000
             }
         );
 
@@ -59,7 +59,10 @@ describe('Attribute alias', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(
+                200,
+                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+            );
 
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -80,14 +83,20 @@ describe('Attribute alias', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timestampAliasMeasure.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/timestampAliasMeasure.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json')
+                );
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
                 temperature: '87',
-                tt: '20071103T131805',
+                tt: '20071103T131805'
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {

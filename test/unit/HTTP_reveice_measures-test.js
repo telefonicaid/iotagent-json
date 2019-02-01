@@ -49,17 +49,17 @@ var iotagentMqtt = require('../../'),
                     attributes: [
                         {
                             name: 'status',
-                            type: 'Boolean',
-                        },
+                            type: 'Boolean'
+                        }
                     ],
-                    static_attributes: [],
-                },
-            ],
+                    static_attributes: []
+                }
+            ]
         },
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens',
-        },
+            'fiware-servicepath': '/gardens'
+        }
     },
     contextBrokerMock,
     contextBrokerUnprovMock;
@@ -72,8 +72,8 @@ describe('HTTP: Measure reception ', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         nock.cleanAll();
@@ -82,7 +82,10 @@ describe('HTTP: Measure reception ', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(
+                200,
+                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+            );
 
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -103,24 +106,30 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87',
+                temperature: '87'
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
+                'fiware-servicepath': '/gardens'
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234',
-            },
+                k: '1234'
+            }
         };
 
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasures.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/multipleMeasures.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+                );
         });
         it('should return a 200 OK with no error', function(done) {
             request(optionsMeasure, function(error, result, body) {
@@ -143,25 +152,27 @@ describe('HTTP: Measure reception ', function() {
                 method: 'POST',
                 json: {
                     humidity: '111222',
-                    TimeInstant: '20200222T222222',
+                    TimeInstant: '20200222T222222'
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
+                    'fiware-servicepath': '/gardens'
                 },
                 qs: {
                     i: 'dev0130101',
-                    k: '1234',
-                },
+                    k: '1234'
+                }
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+                json: utils.readExampleFile(
+                    './test/deviceProvisioning/provisionDeviceTimeinstant.json'
+                ),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
         beforeEach(function(done) {
@@ -171,13 +182,22 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantMeasures.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/timeInstantMeasures.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json')
+                );
 
             iotagentMqtt.stop(function() {
                 config.iota.timestamp = true;
@@ -208,26 +228,28 @@ describe('HTTP: Measure reception ', function() {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
-                    humidity: '111222',
+                    humidity: '111222'
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
+                    'fiware-servicepath': '/gardens'
                 },
                 qs: {
                     i: 'dev0130101',
                     k: '1234',
-                    t: '20200222T222222',
-                },
+                    t: '20200222T222222'
+                }
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+                json: utils.readExampleFile(
+                    './test/deviceProvisioning/provisionDeviceTimeinstant.json'
+                ),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
         beforeEach(function(done) {
@@ -237,13 +259,22 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantMeasures.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/timeInstantMeasures.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json')
+                );
 
             iotagentMqtt.stop(function() {
                 config.iota.timestamp = true;
@@ -275,16 +306,16 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87',
+                temperature: '87'
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
+                'fiware-servicepath': '/gardens'
             },
             qs: {
                 i: 'MQTT_UNPROVISIONED',
-                k: 'KL223HHV8732SFL1',
-            },
+                k: 'KL223HHV8732SFL1'
+            }
         };
 
         beforeEach(function(done) {
@@ -292,13 +323,22 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+                );
 
             contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedDevice.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/unprovisionedDevice.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+                );
 
             request(groupCreation, function(error, response, body) {
                 done();
@@ -317,12 +357,12 @@ describe('HTTP: Measure reception ', function() {
                 method: 'GET',
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
+                    'fiware-servicepath': '/gardens'
                 },
                 qs: {
                     i: 'MQTT_UNPROVISIONED',
-                    k: 'KL223HHV8732SFL1',
-                },
+                    k: 'KL223HHV8732SFL1'
+                }
             };
 
             request(optionsMeasure, function(error, response, body) {

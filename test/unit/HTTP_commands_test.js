@@ -41,8 +41,8 @@ describe('HTTP: Commands', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         config.logLevel = 'INFO';
@@ -53,7 +53,12 @@ describe('HTTP: Commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .reply(
+                200,
+                utils.readExampleFile(
+                    './test/contextAvailabilityResponses/registerIoTAgent1Success.json'
+                )
+            );
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -80,22 +85,34 @@ describe('HTTP: Commands', function() {
             json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus1.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus1.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus1Success.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus6.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus6.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus1Success.json')
+                );
 
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command', function(body) {

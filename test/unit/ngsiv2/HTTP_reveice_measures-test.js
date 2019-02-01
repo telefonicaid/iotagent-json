@@ -51,17 +51,17 @@ var iotaJson = require('../../../'),
                     attributes: [
                         {
                             name: 'status',
-                            type: 'Boolean',
-                        },
+                            type: 'Boolean'
+                        }
                     ],
-                    static_attributes: [],
-                },
-            ],
+                    static_attributes: []
+                }
+            ]
         },
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens',
-        },
+            'fiware-servicepath': '/gardens'
+        }
     },
     contextBrokerMock,
     contextBrokerUnprovMock;
@@ -71,11 +71,13 @@ describe('HTTP: Measure reception ', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
+            json: utils.readExampleFile(
+                './test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'
+            ),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         nock.cleanAll();
@@ -111,19 +113,21 @@ describe('HTTP: Measure reception ', function() {
                 temperature: '87',
                 luminosity: 10,
                 pollution: 43.4,
-                configuration: { firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' } },
+                configuration: {
+                    firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                },
                 tags: ['iot', 'device'],
                 enabled: true,
-                alive: null,
+                alive: null
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
+                'fiware-servicepath': '/gardens'
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234',
-            },
+                k: '1234'
+            }
         };
 
         beforeEach(function() {
@@ -132,7 +136,9 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'
+                    )
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -159,25 +165,27 @@ describe('HTTP: Measure reception ', function() {
                 method: 'POST',
                 json: {
                     humidity: '111222',
-                    TimeInstant: '20200222T222222',
+                    TimeInstant: '20200222T222222'
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
+                    'fiware-servicepath': '/gardens'
                 },
                 qs: {
                     i: 'dev0130101',
-                    k: '1234',
-                },
+                    k: '1234'
+                }
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+                json: utils.readExampleFile(
+                    './test/deviceProvisioning/provisionDeviceTimeinstant.json'
+                ),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
         beforeEach(function(done) {
@@ -196,7 +204,9 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'
+                    )
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
@@ -230,26 +240,28 @@ describe('HTTP: Measure reception ', function() {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
                 json: {
-                    humidity: '111222',
+                    humidity: '111222'
                 },
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
+                    'fiware-servicepath': '/gardens'
                 },
                 qs: {
                     i: 'dev0130101',
                     k: '1234',
-                    t: '20200222T222222',
-                },
+                    t: '20200222T222222'
+                }
             },
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+                json: utils.readExampleFile(
+                    './test/deviceProvisioning/provisionDeviceTimeinstant.json'
+                ),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
         beforeEach(function(done) {
@@ -268,7 +280,9 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'
+                    )
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
@@ -303,16 +317,16 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: {
                 humidity: '32',
-                temperature: '87',
+                temperature: '87'
             },
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
+                'fiware-servicepath': '/gardens'
             },
             qs: {
                 i: 'JSON_UNPROVISIONED',
-                k: 'KL223HHV8732SFL1',
-            },
+                k: 'KL223HHV8732SFL1'
+            }
         };
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -329,7 +343,9 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'
+                    )
                 )
                 .query({ type: 'TheLightType' })
                 .reply(204);

@@ -27,11 +27,11 @@ config.mqtt = {
     port: 1883,
     thinkingThingsPlugin: true,
     username: 'guest',
-    password: 'guest',
+    password: 'guest'
 };
 
 config.http = {
-    port: 7896,
+    port: 7896
 };
 
 config.amqp = {
@@ -39,20 +39,20 @@ config.amqp = {
     port: 5672,
     exchange: 'amq.topic',
     queue: 'iota_queue',
-    options: { durable: true },
+    options: { durable: true }
 };
 
 config.iota = {
     logLevel: 'FATAL',
     contextBroker: {
         host: '192.168.1.1',
-        port: '1026',
+        port: '1026'
     },
     server: {
-        port: 4041,
+        port: 4041
     },
     deviceRegistry: {
-        type: 'memory',
+        type: 'memory'
     },
     types: {},
     service: 'howtoService',
@@ -61,7 +61,7 @@ config.iota = {
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
     defaultResource: '/iot/json',
-    compressTimestamp: true,
+    compressTimestamp: true
 };
 
 config.defaultKey = '1234';

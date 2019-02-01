@@ -27,13 +27,13 @@ config.mqtt = {
     port: 1883,
     options: {
         keepalive: 0,
-        connectTimeout: 60 * 60 * 1000,
-    },
+        connectTimeout: 60 * 60 * 1000
+    }
 };
 
 config.device = {
     id: 'myDeviceId',
-    apikey: '1234',
+    apikey: '1234'
 };
 
 module.exports = config;

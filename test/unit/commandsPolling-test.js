@@ -40,8 +40,8 @@ describe('HTTP Transport binding: polling commands', function() {
         json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens',
-        },
+            'fiware-servicepath': '/gardens'
+        }
     };
 
     beforeEach(function(done) {
@@ -51,8 +51,8 @@ describe('HTTP Transport binding: polling commands', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand4.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         nock.cleanAll();
@@ -61,7 +61,12 @@ describe('HTTP Transport binding: polling commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .reply(
+                200,
+                utils.readExampleFile(
+                    './test/contextAvailabilityResponses/registerIoTAgent1Success.json'
+                )
+            );
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -105,7 +110,10 @@ describe('HTTP Transport binding: polling commands', function() {
 
         it('should be stored in the commands collection', function(done) {
             request(commandOptions, function(error, response, body) {
-                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
+                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(
+                    error,
+                    list
+                ) {
                     should.not.exist(error);
                     list.count.should.equal(1);
                     list.commands[0].name.should.equal('PING');
@@ -120,27 +128,39 @@ describe('HTTP Transport binding: polling commands', function() {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                a: 23,
+                a: 23
             },
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
-                getCmd: 1,
-            },
+                getCmd: 1
+            }
         };
 
         beforeEach(function(done) {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/pollingMeasure.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/pollingMeasureSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/pollingMeasure.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/pollingMeasureSuccess.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus4.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus4Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus4.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus4Success.json')
+                );
 
             request(commandOptions, done);
         });
@@ -167,7 +187,10 @@ describe('HTTP Transport binding: polling commands', function() {
 
         it('should remove them from the IoTAgent', function(done) {
             request(deviceRequest, function(error, response, body) {
-                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
+                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(
+                    error,
+                    list
+                ) {
                     should.not.exist(error);
                     list.count.should.equal(0);
                     done();
@@ -181,13 +204,13 @@ describe('HTTP Transport binding: polling commands', function() {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                a: 23,
+                a: 23
             },
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
-                getCmd: 1,
-            },
+                getCmd: 1
+            }
         };
 
         var deviceRequestWithoutPayload = {
@@ -197,22 +220,34 @@ describe('HTTP Transport binding: polling commands', function() {
             qs: {
                 i: 'MQTT_2',
                 k: '1234',
-                getCmd: 1,
-            },
+                getCmd: 1
+            }
         };
 
         beforeEach(function(done) {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/pollingMeasure.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/pollingMeasureSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/pollingMeasure.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/pollingMeasureSuccess.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus4.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus4Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus4.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus4Success.json')
+                );
 
             request(commandOptions, done);
         });
@@ -239,7 +274,10 @@ describe('HTTP Transport binding: polling commands', function() {
 
         it('should remove them from the IoTAgent', function(done) {
             request(deviceRequest, function(error, response, body) {
-                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
+                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(
+                    error,
+                    list
+                ) {
                     should.not.exist(error);
                     list.count.should.equal(0);
                     done();
@@ -257,20 +295,26 @@ describe('HTTP Transport binding: polling commands', function() {
             uri: 'http://localhost:' + config.http.port + '/iot/json/commands',
             method: 'POST',
             json: {
-                PING: 'MADE_OK',
+                PING: 'MADE_OK'
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234',
-            },
+                k: '1234'
+            }
         };
 
         beforeEach(function(done) {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus5.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus4Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus5.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus4Success.json')
+                );
 
             request(commandOptions, done);
         });

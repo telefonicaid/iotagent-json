@@ -45,8 +45,8 @@ describe('Configuration API support', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         },
         configurationOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/services',
@@ -54,8 +54,8 @@ describe('Configuration API support', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         },
         configurationOptionsWithResource = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/services',
@@ -63,8 +63,8 @@ describe('Configuration API support', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
     beforeEach(function(done) {
@@ -74,7 +74,7 @@ describe('Configuration API support', function() {
             'mqtt://' + config.mqtt.host,
             {
                 keepalive: 0,
-                connectTimeout: 60 * 60 * 1000,
+                connectTimeout: 60 * 60 * 1000
             }
         );
 
@@ -83,7 +83,7 @@ describe('Configuration API support', function() {
             port: 8081,
             path: '/iot/protocols',
             protocol: 'TT_MQTT-JSON',
-            description: 'MQTT-JSON protocol for TT',
+            description: 'MQTT-JSON protocol for TT'
         };
 
         config.iota.defaultResource = '/iotamqtt';
@@ -94,7 +94,7 @@ describe('Configuration API support', function() {
                 description: 'MQTT-JSON protocol for TT',
                 iotagent: 'http://localhost:4041',
                 resource: '/iotamqtt',
-                services: [],
+                services: []
             })
             .reply(200, {});
 
@@ -102,7 +102,10 @@ describe('Configuration API support', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+            .reply(
+                200,
+                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
+            );
 
         iotagentMqtt.start(config, done);
     });
@@ -133,23 +136,31 @@ describe('Configuration API support', function() {
                             entity_type: 'Light',
                             resource: '',
                             service: 'smartGondor',
-                            service_path: '/gardens',
-                        },
-                    ],
+                            service_path: '/gardens'
+                        }
+                    ]
                 })
                 .reply(200, {});
 
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/singleMeasure.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
+                );
         });
 
         it('should use the API Key of that configuration in device topics', function(done) {
             request(configurationOptions, function(error, response, body) {
                 request(provisionOptions, function(error, response, body) {
-                    mqttClient.publish('/728289/MQTT_2/attrs/temperature', '87', null, function(error) {
+                    mqttClient.publish('/728289/MQTT_2/attrs/temperature', '87', null, function(
+                        error
+                    ) {
                         setTimeout(function() {
                             contextBrokerUnprovMock.done();
                             done();
@@ -177,9 +188,9 @@ describe('Configuration API support', function() {
                         cbHost: 'http://unexistentHost:1026',
                         resource: '/AnotherValue',
                         service: 'smartGondor',
-                        service_path: '/gardens',
-                    },
-                ],
+                        service_path: '/gardens'
+                    }
+                ]
             };
 
             iotamMock.post('/iot/protocols', configurationProvision).reply(200, {});

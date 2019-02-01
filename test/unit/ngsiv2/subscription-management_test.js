@@ -43,15 +43,15 @@ describe('Subscription management', function() {
         json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens',
-        },
+            'fiware-servicepath': '/gardens'
+        }
     };
 
     function sendMeasures(humidity, temperature) {
         return function(callback) {
             var values = {
                 humidity: humidity,
-                temperature: temperature,
+                temperature: temperature
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -73,7 +73,7 @@ describe('Subscription management', function() {
             'mqtt://' + config.mqtt.host,
             {
                 keepalive: 0,
-                connectTimeout: 60 * 60 * 1000,
+                connectTimeout: 60 * 60 * 1000
             }
         );
 
@@ -104,7 +104,9 @@ describe('Subscription management', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/multipleMeasures.json'
+                    )
                 )
                 .reply(204);
 
@@ -113,7 +115,9 @@ describe('Subscription management', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/alternativeUpdate.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/alternativeUpdate.json'
+                    )
                 )
                 .reply(204);
         });
@@ -126,7 +130,7 @@ describe('Subscription management', function() {
                     waitForMqttRelay(50),
                     iotaJson.stop,
                     sendMeasures('53', '1'),
-                    waitForMqttRelay(50),
+                    waitForMqttRelay(50)
                 ],
                 function(error, results) {
                     should.not.exist(error);
@@ -144,7 +148,9 @@ describe('Subscription management', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasures.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/multipleMeasures.json'
+                    )
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -154,7 +160,9 @@ describe('Subscription management', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/alternativeUpdate.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/alternativeUpdate.json'
+                    )
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -174,7 +182,7 @@ describe('Subscription management', function() {
                     async.apply(iotaJson.start, config),
                     waitForMqttRelay(50),
                     sendMeasures('53', '1'),
-                    waitForMqttRelay(50),
+                    waitForMqttRelay(50)
                 ],
                 function(error, results) {
                     should.not.exist(error);

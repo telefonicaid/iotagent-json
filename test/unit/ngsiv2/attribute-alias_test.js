@@ -40,11 +40,13 @@ describe('Attribute alias', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice2.json'),
+            json: utils.readExampleFile(
+                './test/unit/ngsiv2/deviceProvisioning/provisionDevice2.json'
+            ),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         nock.cleanAll();
@@ -53,7 +55,7 @@ describe('Attribute alias', function() {
             'mqtt://' + config.mqtt.host,
             {
                 keepalive: 0,
-                connectTimeout: 60 * 60 * 1000,
+                connectTimeout: 60 * 60 * 1000
             }
         );
 
@@ -87,7 +89,9 @@ describe('Attribute alias', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json'
+                    )
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -96,7 +100,7 @@ describe('Attribute alias', function() {
             var values = {
                 humidity: '32',
                 temperature: '87',
-                tt: '20071103T131805',
+                tt: '20071103T131805'
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {

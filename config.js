@@ -50,7 +50,7 @@ config.mqtt = {
      * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
      * The publisher can tell the broker to keep the last message on that topic by setting the retained message flag to true  .
      */
-    retain: false,
+    retain: false
 };
 
 /**
@@ -84,7 +84,7 @@ config.amqp = {
     /**
      * durable queue flag (default is false).
      */
-    options: { durable: true },
+    options: { durable: true }
 };
 
 /**
@@ -94,7 +94,7 @@ config.http = {
     /**
      * South Port where the Ultralight transport binding for HTTP will be listening for device requests.
      */
-    port: 7896,
+    port: 7896
     /**
      * HTTP Timeout for the http command endpoint (in miliseconds).
      */
@@ -123,7 +123,7 @@ config.iota = {
         /**
          * Port where the Context Broker is listening.
          */
-        port: '1026',
+        port: '1026'
     },
     /**
      * Configuration of the North Port of the IoT Agent.
@@ -132,7 +132,7 @@ config.iota = {
         /**
          * Port where the IoT Agent will be listening for NGSI and Provisioning requests.
          */
-        port: 4041,
+        port: 4041
     },
     /**
      * Defines the configuration for the Device Registry, where all the information about devices and configuration
@@ -145,7 +145,7 @@ config.iota = {
      *             from the 'mongodb' configuration property.
      */
     deviceRegistry: {
-        type: 'mongodb',
+        type: 'mongodb'
     },
     /**
      * Mongo DB configuration section. This section will only be used if the deviceRegistry property has the type
@@ -165,7 +165,7 @@ config.iota = {
         /**
          * Name of the Mongo database that will be created to store IoT Agent data.
          */
-        db: 'iotagentjson',
+        db: 'iotagentjson'
     },
     /**
      * Types array for static configuration of services. Check documentation in the IoT Agent Library for Node.js for
@@ -199,7 +199,7 @@ config.iota = {
      * Default resource of the IoT Agent. This value must be different for every IoT Agent connecting to the IoT
      * Manager.
      */
-    defaultResource: '/iot/json',
+    defaultResource: '/iot/json'
 };
 
 /**

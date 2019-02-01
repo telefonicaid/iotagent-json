@@ -51,17 +51,17 @@ var iotaJson = require('../../../'),
                     attributes: [
                         {
                             name: 'status',
-                            type: 'Boolean',
-                        },
+                            type: 'Boolean'
+                        }
                     ],
-                    static_attributes: [],
-                },
-            ],
+                    static_attributes: []
+                }
+            ]
         },
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens',
-        },
+            'fiware-servicepath': '/gardens'
+        }
     },
     contextBrokerMock,
     contextBrokerUnprovMock,
@@ -72,11 +72,13 @@ describe('MQTT: Measure reception ', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice1.json'),
+            json: utils.readExampleFile(
+                './test/unit/ngsiv2/deviceProvisioning/provisionDevice1.json'
+            ),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         nock.cleanAll();
@@ -85,7 +87,7 @@ describe('MQTT: Measure reception ', function() {
             'mqtt://' + config.mqtt.host,
             {
                 keepalive: 0,
-                connectTimeout: 60 * 60 * 1000,
+                connectTimeout: 60 * 60 * 1000
             }
         );
 
@@ -119,7 +121,9 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'
+                    )
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -130,10 +134,12 @@ describe('MQTT: Measure reception ', function() {
                 temperature: '87',
                 luminosity: 10,
                 pollution: 43.4,
-                configuration: { firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' } },
+                configuration: {
+                    firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                },
                 tags: ['iot', 'device'],
                 enabled: true,
-                alive: null,
+                alive: null
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -161,7 +167,9 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'
+                    )
                 )
                 .query({ type: 'TheLightType' })
                 .reply(204);
@@ -173,17 +181,20 @@ describe('MQTT: Measure reception ', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                temperature: '87',
+                temperature: '87'
             };
 
-            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
-                error
-            ) {
-                setTimeout(function() {
-                    contextBrokerUnprovMock.done();
-                    done();
-                }, 100);
-            });
+            mqttClient.publish(
+                '/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs',
+                JSON.stringify(values),
+                null,
+                function(error) {
+                    setTimeout(function() {
+                        contextBrokerUnprovMock.done();
+                        done();
+                    }, 100);
+                }
+            );
         });
     });
 
@@ -202,7 +213,7 @@ describe('MQTT: Measure reception ', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = {
                 humidity: '32',
-                weight: '87',
+                weight: '87'
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
@@ -221,7 +232,9 @@ describe('MQTT: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure.json')
+                    utils.readExampleFile(
+                        './test/unit/ngsiv2/contextRequests/timestampMeasure.json'
+                    )
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -230,7 +243,7 @@ describe('MQTT: Measure reception ', function() {
             var values = {
                 humidity: '32',
                 temperature: '87',
-                TimeInstant: '20071103T131805',
+                TimeInstant: '20071103T131805'
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {

@@ -37,20 +37,20 @@ var fs = require('fs'),
         host: 'localhost',
         port: 1026,
         service: 'tester',
-        subservice: '/test',
+        subservice: '/test'
     },
     configIot = {
         host: 'localhost',
         port: 4041,
         name: 'default',
         service: 'tester',
-        subservice: '/test',
+        subservice: '/test'
     },
     config = {
         host: defaultConfig.mqtt.host,
         port: defaultConfig.mqtt.port,
         apikey: defaultConfig.device.apikey,
-        deviceId: defaultConfig.device.id,
+        deviceId: defaultConfig.device.id
     },
     separator = '\n\n\t',
     token;
@@ -138,36 +138,38 @@ function exitClient() {
 var commands = {
     config: {
         parameters: ['host', 'port', 'apiKey', 'deviceId'],
-        description: '\tConfigure the client to emulate the selected device, connecting to the given host.',
-        handler: setConfig,
+        description:
+            '\tConfigure the client to emulate the selected device, connecting to the given host.',
+        handler: setConfig
     },
     showConfig: {
         parameters: [],
-        description: '\tConfigure the client to emulate the selected device, connecting to the given host.',
-        handler: getConfig,
+        description:
+            '\tConfigure the client to emulate the selected device, connecting to the given host.',
+        handler: getConfig
     },
     connect: {
         parameters: [],
         description: '\tConnect to the MQTT broker.',
-        handler: connect,
+        handler: connect
     },
     singleMeasure: {
         parameters: ['attribute', 'value'],
         description: '\tSend the given value for the selected attribute to the MQTT broker.',
-        handler: checkConnection(singleMeasure),
+        handler: checkConnection(singleMeasure)
     },
     multipleMeasure: {
         parameters: ['attributes'],
         description:
             '\tSend a collection of attributes to the MQTT broker, using JSON format. The "attributes"\n' +
             '\tstring should have the following syntax: name=value[;name=value]*',
-        handler: checkConnection(multipleMeasure),
+        handler: checkConnection(multipleMeasure)
     },
     exit: {
         parameters: [],
         description: '\tExit the client',
-        handler: exitClient,
-    },
+        handler: exitClient
+    }
 };
 
 commands = _.extend(commands, commandLine.commands);

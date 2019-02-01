@@ -62,8 +62,8 @@ describe('AMQP Transport binding: commands', function() {
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand5.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         config.logLevel = 'INFO';
@@ -74,7 +74,12 @@ describe('AMQP Transport binding: commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .reply(
+                200,
+                utils.readExampleFile(
+                    './test/contextAvailabilityResponses/registerIoTAgent1Success.json'
+                )
+            );
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -89,7 +94,7 @@ describe('AMQP Transport binding: commands', function() {
             [
                 apply(iotagentMqtt.start, config),
                 apply(request, provisionOptions),
-                apply(startConnection, config.amqp.exchange),
+                apply(startConnection, config.amqp.exchange)
             ],
             done
         );
@@ -112,16 +117,22 @@ describe('AMQP Transport binding: commands', function() {
             json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
             headers: {
                 'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens',
-            },
+                'fiware-servicepath': '/gardens'
+            }
         };
 
         beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus1.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus1.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus1Success.json')
+                );
         });
 
         it('should return a 200 OK without errors', function(done) {
@@ -150,7 +161,11 @@ describe('AMQP Transport binding: commands', function() {
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
 
             channel.assertQueue('client-queue', { exclusive: false }, function(err, q) {
-                channel.bindQueue(q.queue, config.amqp.exchange, '.' + config.defaultKey + '.MQTT_2.cmd');
+                channel.bindQueue(
+                    q.queue,
+                    config.amqp.exchange,
+                    '.' + config.defaultKey + '.MQTT_2.cmd'
+                );
 
                 channel.consume(
                     q.queue,
@@ -176,13 +191,23 @@ describe('AMQP Transport binding: commands', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus2.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus2Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus2.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus2Success.json')
+                );
         });
 
         it('should send an update request to the Context Broker', function(done) {
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.cmdexe', new Buffer('{"PING":"1234567890"}'));
+            channel.publish(
+                config.amqp.exchange,
+                '.1234.MQTT_2.cmdexe',
+                new Buffer('{"PING":"1234567890"}')
+            );
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -198,8 +223,8 @@ describe('AMQP Transport binding: commands', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand6.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             },
             configurationOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/services',
@@ -207,8 +232,8 @@ describe('AMQP Transport binding: commands', function() {
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionGroup1.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             },
             commandOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
@@ -216,8 +241,8 @@ describe('AMQP Transport binding: commands', function() {
                 json: utils.readExampleFile('./test/contextRequests/updateCommand3.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
         beforeEach(function(done) {
@@ -227,19 +252,33 @@ describe('AMQP Transport binding: commands', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/NGSI9/registerContext')
-                .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile(
+                        './test/contextAvailabilityResponses/registerIoTAgent1Success.json'
+                    )
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus1Success.json')
+                );
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus3.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+                .post(
+                    '/v1/updateContext',
+                    utils.readExampleFile('./test/contextRequests/updateStatus3.json')
+                )
+                .reply(
+                    200,
+                    utils.readExampleFile('./test/contextResponses/updateStatus1Success.json')
+                );
 
             request(configurationOptions, function(error, response, body) {
                 request(provisionOptionsAlt, function(error, response, body) {

@@ -40,8 +40,8 @@ describe('Data Bidirectionality: HTTP', function() {
         json: utils.readExampleFile('./test/subscriptions/bidirectionalNotification.json'),
         headers: {
             'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens',
-        },
+            'fiware-servicepath': '/gardens'
+        }
     };
 
     afterEach(function(done) {
@@ -57,11 +57,13 @@ describe('Data Bidirectionality: HTTP', function() {
             var provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectional.json'),
+                json: utils.readExampleFile(
+                    './test/deviceProvisioning/provisionCommandBidirectional.json'
+                ),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
             nock.cleanAll();
@@ -71,11 +73,15 @@ describe('Data Bidirectionality: HTTP', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v1/subscribeContext',
-                    utils.readExampleFile('./test//subscriptions/bidirectionalSubscriptionRequest.json')
+                    utils.readExampleFile(
+                        './test//subscriptions/bidirectionalSubscriptionRequest.json'
+                    )
                 )
                 .reply(
                     200,
-                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                    utils.readExampleFile(
+                        './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'
+                    )
                 );
 
             contextBrokerMock
@@ -85,7 +91,12 @@ describe('Data Bidirectionality: HTTP', function() {
                     '/v1/updateContext',
                     utils.readExampleFile('./test/contextRequests/createBidirectionalDevice.json')
                 )
-                .reply(200, utils.readExampleFile('./test/contextResponses/createBidirectionalDeviceSuccess.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile(
+                        './test/contextResponses/createBidirectionalDeviceSuccess.json'
+                    )
+                );
 
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
@@ -96,7 +107,9 @@ describe('Data Bidirectionality: HTTP', function() {
                 )
                 .reply(
                     200,
-                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                    utils.readExampleFile(
+                        './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'
+                    )
                 );
 
             iotagentJson.start(config, function(error) {
@@ -116,7 +129,10 @@ describe('Data Bidirectionality: HTTP', function() {
 
         it('should leave the data in the polling queue', function(done) {
             request(notificationOptions, function(error, response, body) {
-                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
+                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(
+                    error,
+                    list
+                ) {
                     should.not.exist(error);
 
                     list.commands.length.should.equal(3);
@@ -127,7 +143,10 @@ describe('Data Bidirectionality: HTTP', function() {
 
         it('should send all the data from the notification in command syntax', function(done) {
             request(notificationOptions, function(error, response, body) {
-                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
+                iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(
+                    error,
+                    list
+                ) {
                     var latitudeFound = false,
                         longitudeFound = false;
 
@@ -163,11 +182,13 @@ describe('Data Bidirectionality: HTTP', function() {
             var provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectionalWithUrl.json'),
+                json: utils.readExampleFile(
+                    './test/deviceProvisioning/provisionCommandBidirectionalWithUrl.json'
+                ),
                 headers: {
                     'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens',
-                },
+                    'fiware-servicepath': '/gardens'
+                }
             };
 
             nock.cleanAll();
@@ -177,11 +198,15 @@ describe('Data Bidirectionality: HTTP', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v1/subscribeContext',
-                    utils.readExampleFile('./test//subscriptions/bidirectionalSubscriptionRequest.json')
+                    utils.readExampleFile(
+                        './test//subscriptions/bidirectionalSubscriptionRequest.json'
+                    )
                 )
                 .reply(
                     200,
-                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                    utils.readExampleFile(
+                        './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'
+                    )
                 );
 
             contextBrokerMock
@@ -191,7 +216,12 @@ describe('Data Bidirectionality: HTTP', function() {
                     '/v1/updateContext',
                     utils.readExampleFile('./test/contextRequests/createBidirectionalDevice.json')
                 )
-                .reply(200, utils.readExampleFile('./test/contextResponses/createBidirectionalDeviceSuccess.json'));
+                .reply(
+                    200,
+                    utils.readExampleFile(
+                        './test/contextResponses/createBidirectionalDeviceSuccess.json'
+                    )
+                );
 
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
@@ -202,7 +232,9 @@ describe('Data Bidirectionality: HTTP', function() {
                 )
                 .reply(
                     200,
-                    utils.readExampleFile('./test/subscriptionResponses/bidirectionalSubscriptionSuccess.json')
+                    utils.readExampleFile(
+                        './test/subscriptionResponses/bidirectionalSubscriptionSuccess.json'
+                    )
                 );
 
             mockedClientServer = nock('http://localhost:9876')
