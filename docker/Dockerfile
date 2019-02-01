@@ -56,6 +56,9 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 
 WORKDIR /opt/iotajson
 
+COPY config.js /
+COPY entrypoint.sh /
+
 RUN \
 	# Ensure that Git is installed prior to running npm install
 	apt-get update && \
@@ -71,5 +74,5 @@ RUN \
 USER node
 ENV NODE_ENV=production
 
-ENTRYPOINT ["pm2-runtime", "bin/iotagent-json"]
+ENTRYPOINT ["pm2-runtime", "bin/iotagent-json", "/entrypoint.sh"]
 CMD ["-- ", "config.js"]
