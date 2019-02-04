@@ -14,7 +14,23 @@ ENV DOWNLOAD=${DOWNLOAD}
 
 MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 
-#
+# IMPORTANT: For a Production Environment Use Docker Secrets to define
+#  these values and add _FILE to the name of the variable.
+
+# ENV IOTA_CB_HOST "orion"
+# ENV IOTA_CB_PORT  "1026"
+# ENV IOTA_MONGO_HOST "mongo-db"
+# ENV IOTA_MONGO_PORT  "27017"
+# ENV IOTA_AUTH_ENABLED false
+# ENV IOTA_AUTH_HOST "localhost"
+# ENV IOTA_AUTH_PORT "5000"
+# ENV IOTA_AUTH_USER "iotagent"
+# ENV IOTA_AUTH_PASSWORD "iotagent"
+# ENV IOTA_NORTH_PORT "4041"
+# ENV IOTA_REGISTRY_TYPE "mongodb"
+# ENV IOTA_LOG_LEVEL "debug"
+# ENV IOTA_PROVIDER_URL "http://iot-agent:4041"
+
 # The following RUN command retrieves the source code from GitHub.
 # 
 # To obtain the latest stable release run this Docker file with the parameters
@@ -28,6 +44,7 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # replace the whole RUN statement by the following COPY statement in your local source using :
 #
 # COPY . /opt/iotajson/
+# COPY ./entrypoint.sh/
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
@@ -56,9 +73,6 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 
 WORKDIR /opt/iotajson
 
-COPY config.js /
-COPY entrypoint.sh /
-
 RUN \
 	# Ensure that Git is installed prior to running npm install
 	apt-get update && \
@@ -74,5 +88,5 @@ RUN \
 USER node
 ENV NODE_ENV=production
 
-ENTRYPOINT ["pm2-runtime", "bin/iotagent-json", "/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 CMD ["-- ", "config.js"]
