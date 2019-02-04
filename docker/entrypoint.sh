@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# usage: file_env VAR [DEFAULT]
+#    ie: file_env 'XYZ_DB_PASSWORD' 'example'
+# (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
+#  "$XYZ_DB_PASSWORD" from a file, especially for Docker's secrets feature)
 file_env() {
     local var="$1"
     local fileVar="${var}_FILE"
@@ -18,44 +22,23 @@ file_env() {
     unset "$fileVar"
 }
 
-if [[ ${IOTA_MONGO_PORT} =~ ^http://(.*):(.*)+$ ]] ; then
-    export IOTA_MONGO_PORT=${BASH_REMATCH[2]}
-    export IOTA_MONGO_HOST=${BASH_REMATCH[1]}
-    
+file_env 'IOTA_CB_HOST'
+file_env 'IOTA_CB_PORT'
+file_env 'IOTA_MONGO_HOST'
+file_env 'IOTA_MONGO_PORT'
+file_env 'IOTA_AUTH_USER'
+file_env 'IOTA_AUTH_PASSWORD'
+
+if [[ $IOTA_AUTH_USER ==  "iotagent" ]] || [[ $IOTA_AUTH_PASSWORD == "iotagent'" ]]; then
+        echo "***********************************************"
+        echo "WARNING: It is recommended to change IOTA Auth credentials not to use default values"
+        echo "These keys should be set using Docker Secrets"
+        echo "***********************************************"
 fi
 
-if [[ ${IOTA_CB_PORT} =~ ^http://(.*):(.*)+$ ]] ; then
-    export IOTA_CB_PORT=${BASH_REMATCH[2]}
-    export IOTA_CB_HOST=${BASH_REMATCH[1]}
-fi
-
-export HOST_IP=`awk 'NR==1{print $1}' /etc/hosts`
-
-echo "HOST IP: $HOST_IP"
-echo "MONGODB HOST: $IOTA_MONGO_HOST"
-echo "MONGODB PORT: $IOTA_MONGO_PORT"
-echo "ORION CB HOST: $IOTA_CB_HOST"
-echo "ORION CB PORT: $IOTA_CB_PORT"
-
-
-sed -i /lib/configService.js \
-        -e "s|IOTA_CB_HOST|${IOTA_CB_HOST}|g" \
-        -e "s|IOTA_CB_PORT|${IOTA_CB_PORT}|g" \
-        -e "s|IOTA_MONGO_HOST|${IOTA_MONGO_HOST}|g" \
-    -e "s|IOTA_MONGO_PORT|${IOTA_MONGO_PORT}|g" \
-    -e "s|IOTA_AUTH_HOST|${IOTA_AUTH_HOST}|g" \
-    -e "s|IOTA_AUTH_PORT|${IOTA_AUTH_PORT}|g" \
-    -e "s|IOTA_AUTH_USER|${IOTA_AUTH_USER}|g" \
-    -e "s|IOTA_AUTH_PASSWORD|${IOTA_AUTH_PASSWORD}|g" \
-    -e "s|IOTA_AUTH_PERMANENT_TOKEN|${IOTA_AUTH_PERMANENT_TOKEN}|g" \
-    -e "s|IOTA_PROVIDER_URL|${IOTA_PROVIDER_URL}|g" \
-    -e "s|IOTA_IOTAM_HOST|${IOTA_IOTAM_HOST}|g"
-
-
+#cat /bin/iotagent-json
 
 exec /sbin/init
-
-
 
 
 #/bin/bash
