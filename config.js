@@ -135,11 +135,14 @@ config.iota = {
         port: 4041
     },
     authentication: {
-        enabled: true,
+        enabled: false,
         type: 'keystone',
         header: 'X-Auth-Token',
         host: 'localhost',
         port: '5000',
+     /**
+      * Usename and password must be overriden by setting them using difficult pattern for security issues.
+      */
         user: 'iotagent',
         password: 'iotagent'
     },
