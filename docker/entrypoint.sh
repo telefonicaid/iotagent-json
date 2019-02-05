@@ -22,21 +22,18 @@ file_env() {
     unset "$fileVar"
 }
 
-file_env 'IOTA_CB_HOST'
-file_env 'IOTA_CB_PORT'
-file_env 'IOTA_MONGO_HOST'
-file_env 'IOTA_MONGO_PORT'
 file_env 'IOTA_AUTH_USER'
 file_env 'IOTA_AUTH_PASSWORD'
 
-if [[ $IOTA_AUTH_USER ==  "iotagent" ]] || [[ $IOTA_AUTH_PASSWORD == "iotagent'" ]]; then
+if [[ $IOTA_AUTH_USER ==  config.getconfig().iota.authentication.user ]] || [[ $IOTA_AUTH_PASSWORD == config.getconfig().iota.authentication.password ]]; then
         echo "***********************************************"
-        echo "WARNING: It is recommended to change IOTA Auth credentials not to use default values"
+        echo "WARNING: It is recommended to set IOTA Auth credentials(using difficult pattern) keeping security in mind and not to use default values"
         echo "These keys should be set using Docker Secrets"
         echo "***********************************************"
 fi
 
-#cat /bin/iotagent-json
+node pm2-runtime
+node /bin/iotagent-json
 
 exec /sbin/init
 
