@@ -27,8 +27,6 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # ENV IOTA_AUTH_USER "iotagent"
 # ENV IOTA_AUTH_PASSWORD "iotagent"
 # ENV IOTA_NORTH_PORT "4041"
-# ENV IOTA_REGISTRY_TYPE "mongodb"
-# ENV IOTA_LOG_LEVEL "debug"
 # ENV IOTA_PROVIDER_URL "http://iot-agent:4041"
 
 # The following RUN command retrieves the source code from GitHub.
@@ -44,7 +42,7 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # replace the whole RUN statement by the following COPY statement in your local source using :
 #
 # COPY . /opt/iotajson/
-# COPY ./entrypoint.sh/
+# COPY ./docker/entrypoint.sh/
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
