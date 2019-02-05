@@ -17,17 +17,8 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # IMPORTANT: For a Production Environment Use Docker Secrets to define
 #  these values and add _FILE to the name of the variable.
 
-# ENV IOTA_CB_HOST "orion"
-# ENV IOTA_CB_PORT  "1026"
-# ENV IOTA_MONGO_HOST "mongo-db"
-# ENV IOTA_MONGO_PORT  "27017"
-# ENV IOTA_AUTH_ENABLED false
-# ENV IOTA_AUTH_HOST "localhost"
-# ENV IOTA_AUTH_PORT "5000"
 # ENV IOTA_AUTH_USER "iotagent"
 # ENV IOTA_AUTH_PASSWORD "iotagent"
-# ENV IOTA_NORTH_PORT "4041"
-# ENV IOTA_PROVIDER_URL "http://iot-agent:4041"
 
 # The following RUN command retrieves the source code from GitHub.
 # 
