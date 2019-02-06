@@ -140,11 +140,8 @@ config.iota = {
         header: 'X-Auth-Token',
         host: 'localhost',
         port: '5000',
-     /**
-      * Usename and password must be overriden by setting them using difficult pattern for security issues.
-      */
-        user: 'iotagent',
-        password: 'iotagent'
+        user: 'IOTA_AUTH_USER',
+        password: 'IOTA_AUTH_PASSWORD'
     },
     /**
      * Defines the configuration for the Device Registry, where all the information about devices and configuration
