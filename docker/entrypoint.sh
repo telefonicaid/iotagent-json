@@ -25,17 +25,19 @@ file_env() {
 file_env 'IOTA_AUTH_USER'
 file_env 'IOTA_AUTH_PASSWORD'
 
-if [[ $IOTA_AUTH_USER ==  config.getconfig().iota.authentication.user ]] || [[ $IOTA_AUTH_PASSWORD == config.getconfig().iota.authentication.password ]]; then
-        echo "***********************************************"
-        echo "WARNING: It is recommended to set IOTA Auth credentials(using difficult pattern) keeping security in mind and not to use default values"
-        echo "These keys should be set using Docker Secrets"
-        echo "***********************************************"
-fi
+# Reading username and password at runtime
+read -p "Username : " IOTA_AUTH_USER
+read -p "Password : " IOTA_AUTH_PASSWORD
+echo "***********************************************"
+echo "WARNING: It is recommended to set IOTA Auth credentials(using difficult pattern) keeping security in mind and not to use default values"
+echo "These keys should be set using Docker Secrets"
+echo "***********************************************"
 
-node pm2-runtime
-node /bin/iotagent-json
+#Setting values to ENV vars IOTA_AUTH_PASSWORD & IOTA_AUTH_USER
+export IOTA_AUTH_PASSWORD=$IOTA_AUTH_PASSWORD
+export IOTA_AUTH_USER=$IOTA_AUTH_USER
 
-exec /sbin/init
-
+npm install -g pm2
+pm2 start /bin/iotagent-json
 
 #/bin/bash
