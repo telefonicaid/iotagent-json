@@ -36,6 +36,11 @@ else
         echo "WARNING: It is recommended to set IOTA Auth credentials when using authentication"
         echo "These keys should be set using Docker Secrets"
         echo "***********************************************"
+    else
+        echo "***********************************************"
+        echo "WARNING: It is recommended to use difficult passwords keeping security in mind and not use the default ones"
+        echo "These keys should be set using Docker Secrets"
+        echo "***********************************************"
     fi
 fi
 
