@@ -24,22 +24,20 @@ file_env() {
 
 file_env 'IOTA_AUTH_USER'
 file_env 'IOTA_AUTH_PASSWORD'
-file_env 'IOTA_AUTH_ENABLED'
 
-if [[ $IOTA_AUTH_ENABLED ==  "false" ]]; then
+if [[  -z "$IOTA_AUTH_ENABLED" ]]; then
  echo "***********************************************"
  echo "WARNING: It is recommended to enable authentication for secure connection"
  echo "***********************************************"
 else
-    if [[ $IOTA_AUTH_USER ==  "" ]] || [[ $IOTA_AUTH_PASSWORD == "" ]]; then
+    if [[ -z "$IOTA_AUTH_PASSWORD" ]]; then
         echo "***********************************************"
-        echo "WARNING: It is recommended to set IOTA Auth credentials when using authentication"
-        echo "These keys should be set using Docker Secrets"
+        echo "WARNING: Default IoT Agent Auth credentials have not been overridden"
+        echo "The connection to the Context broker fails"
         echo "***********************************************"
     else
         echo "***********************************************"
-        echo "WARNING: It is recommended to use difficult passwords keeping security in mind and not use the default ones"
-        echo "These keys should be set using Docker Secrets"
+        echo "INFO: IoT Agent Auth credentials have been overridden"
         echo "***********************************************"
     fi
 fi
