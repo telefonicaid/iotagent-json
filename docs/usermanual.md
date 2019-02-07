@@ -441,6 +441,16 @@ Removes `node_modules` and `coverage` folders, and  `package-lock.json` file so 
 npm run clean
 ```
 
+### Prettify Code
+
+Runs the [prettier](https://prettier.io) code formatter to ensure consistent code style (whitespacing, parameter
+placement and breakup of long lines etc.) within the codebase.
+
+```bash
+# Use git-bash on Windows
+npm run prettier
+```
+
 ## New transport development
 
 ### Overview
