@@ -24,15 +24,19 @@ file_env() {
 
 file_env 'IOTA_AUTH_USER'
 file_env 'IOTA_AUTH_PASSWORD'
+file_env 'IOTA_AUTH_ENABLED'
 
-export IOTA_AUTH_PASSWORD=$IOTA_AUTH_PASSWORD
-export IOTA_AUTH_USER=$IOTA_AUTH_USER
-
-if [[ $IOTA_AUTH_USER ==  "" ]] || [[ $IOTA_AUTH_PASSWORD == "" ]]; then
+if [[ $IOTA_AUTH_ENABLED ==  "false" ]]; then
+ echo "***********************************************"
+ echo "WARNING: It is recommended to enable authentication for secure connection"
+ echo "***********************************************"
+else
+    if [[ $IOTA_AUTH_USER ==  "" ]] || [[ $IOTA_AUTH_PASSWORD == "" ]]; then
         echo "***********************************************"
-        echo "WARNING: It is recommended to set IOTA Auth credentials(using difficult pattern) keeping security in mind and not to use default values"
+        echo "WARNING: It is recommended to set IOTA Auth credentials when using authentication"
         echo "These keys should be set using Docker Secrets"
         echo "***********************************************"
+    fi
 fi
 
 pm2 start /bin/iotagent-json
