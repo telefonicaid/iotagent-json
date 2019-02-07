@@ -30,7 +30,7 @@ if [[  -z "$IOTA_AUTH_ENABLED" ]]; then
  echo "WARNING: It is recommended to enable authentication for secure connection"
  echo "***********************************************"
 else
-    if [[ -z "$IOTA_AUTH_PASSWORD" ]]; then
+    if  [[ -z "$IOTA_AUTH_USER" ]] || [ -z "$IOTA_AUTH_PASSWORD" ]]; then
         echo "***********************************************"
         echo "WARNING: Default IoT Agent Auth credentials have not been overridden"
         echo "The connection to the Context broker fails"
