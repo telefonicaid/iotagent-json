@@ -57,8 +57,8 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	apt-get clean && \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove
-
-
+	
+	
 WORKDIR /opt/iotajson
 
 RUN \
@@ -71,7 +71,8 @@ RUN \
 	# Remove Git and clean apt cache
 	apt-get clean && \
 	apt-get remove -y git && \
-	apt-get -y autoremove
+	apt-get -y autoremove && \ 
+	chmod +x docker/entrypoint.sh
 
 USER node
 ENV NODE_ENV=production
