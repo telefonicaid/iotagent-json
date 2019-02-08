@@ -33,7 +33,6 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # replace the whole RUN statement by the following COPY statement in your local source using :
 #
 # COPY . /opt/iotajson/
-# COPY . /docker/entrypoint.sh/
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
