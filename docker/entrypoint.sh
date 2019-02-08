@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
@@ -42,4 +42,4 @@ else
     fi
 fi
 
-pm2 start /bin/iotagent-json
+pm2-runtime start /bin/iotagent-json
