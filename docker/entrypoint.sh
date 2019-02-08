@@ -42,6 +42,4 @@ else
     fi
 fi
 
-pm2 start /bin/iotagent-json
-
 /bin/bash
