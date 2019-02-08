@@ -33,7 +33,7 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 # replace the whole RUN statement by the following COPY statement in your local source using :
 #
 # COPY . /opt/iotajson/
-# COPY ./docker/entrypoint.sh/
+# COPY . /docker/entrypoint.sh/
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
@@ -77,5 +77,5 @@ RUN \
 USER node
 ENV NODE_ENV=production
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["docker/entrypoint.sh"]
 CMD ["-- ", "config.js"]
