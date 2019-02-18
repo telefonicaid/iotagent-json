@@ -1,47 +1,38 @@
-# Contributors ordered by number of commits
+Authors
+=======
+Major contributing authors according to `git shortlog -sn` include:
 
-Daniel Moran <dmj@tid.es>
+-Daniel Moran
+-Alvaro Vega
+-Fermín Galán Márquez
+-Daniel Calvo
+-xval
+-Jason Fox
+-a620381
+-Jagatjot Singh
+-Germán Toro del Valle
+-Alvaro Vega Garcia
+-Rafael Gonzalez
+-Tomas Aliaga
+-Álvaro Arranz
+-Fermin Galan Marquez
+-Víctor García Guillén
+-anabelengp
+-Marcos Reyes
+-Cesar Jorge
+-develenv
+-frbattid
+-Ana Belén García
+-Cesar Jorge Martinez
+-Francisco Romero Bueno
+-Maurus Frey
+-Víctor García
+-Drasko DRASKOVIC
+-Jose M. Cantera
+-Morton Fox
+-Pawel Jedruch
 
-GitHub <noreply@github.com>
+For a complete list of contributors, see
+https://github.com/telefonicaid/iotagent-json/graphs/contributors
 
-Alvaro Vega <alvaro.vegagarcia@telefonica.com>
-
-Daniel Calvo <daniel.calvo@atos.net>
-
-xval <xavier.valcanto@telefonica.com>
-
-a620381 <daniel.calvo@atos.net>
-
-Jason Fox <jason.fox@fiware.org>
-
-Germán Toro del Valle <gtorodelvalle@gmail.com>
-
-Alvaro Vega Garcia <avega@tid.es>
-
-Daniel Moran <dmoranj@gmail.com>
-
-Alvaro Vega <avega@tid.es>
-
-Rafael Gonzalez <rfg@tid.es>
-
-Tomas Aliaga <tomas.aliaga@gmail.com>
-
-Álvaro Arranz <aarranz@ficodes.com>
-
-Fermin Galan Marquez <fermin.galanmarquez@telefonica.com>
-
-Víctor García Guillén <vgarcia@tcpsi.es>
-
-anabelengp <anabelengp@users.noreply.github.com>
-
-Cesar Jorge <cjmartinez@aubay.es>
-
-develenv <jenkins@softwaresano.com>
-
-Ana Belén García <anabelengp@users.noreply.github.com>
-
-Marcos Reyes <mru@tid.es>
-
-Maurus Frey <maurus.frey@innetag.ch>
-
-frbattid <francisco.romerobueno@telefonica.com>
+We would like to thank everyone who contributed to QuantumLeap, also to those who helped discuss and mature the core ideas.
