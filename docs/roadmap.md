@@ -32,7 +32,8 @@ The following list of features are planned to be addressed in the medium term, t
 - Support to FIWARE complex data models.
 - Deployment instructions for high availability scenarios.
 - Incremental introduccion of ECMAScript6 syntax (previous analysis of which sub-set of interesting aspect we want to take)
-
+- Implementation of lazy attributes.
+- Removal support for NGSIv1 (which currently is deprecated)
 
 ### Long term
 
