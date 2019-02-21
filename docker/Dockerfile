@@ -71,5 +71,8 @@ RUN \
 USER node
 ENV NODE_ENV=production
 
+# Expose Ports - Default to 4041 for NORTH PORT 4041, 7896 for HTTP PORT
+EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
+
 ENTRYPOINT ["pm2-runtime", "bin/iotagent-json"]
 CMD ["-- ", "config.js"]
