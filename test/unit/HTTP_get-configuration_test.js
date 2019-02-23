@@ -55,12 +55,7 @@ describe('HTTP: Get configuration from the devices', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(
-                200,
-                utils.readExampleFile(
-                    './test/contextAvailabilityResponses/registerIoTAgent1Success.json'
-                )
-            );
+            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -107,14 +102,8 @@ describe('HTTP: Get configuration from the devices', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/queryContext',
-                    utils.readExampleFile('./test/contextRequests/getConfiguration.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json')
-                );
+                .post('/v1/queryContext', utils.readExampleFile('./test/contextRequests/getConfiguration.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
 
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command/configuration', function(result) {
@@ -172,14 +161,8 @@ describe('HTTP: Get configuration from the devices', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/subscribeContext',
-                    utils.readExampleFile('./test/subscriptions/subscriptionRequest.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/subscriptions/subscriptionResponse.json')
-                );
+                .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
+                .reply(200, utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
 
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command/configuration', function(result) {

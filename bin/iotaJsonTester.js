@@ -138,14 +138,12 @@ function exitClient() {
 var commands = {
     config: {
         parameters: ['host', 'port', 'apiKey', 'deviceId'],
-        description:
-            '\tConfigure the client to emulate the selected device, connecting to the given host.',
+        description: '\tConfigure the client to emulate the selected device, connecting to the given host.',
         handler: setConfig
     },
     showConfig: {
         parameters: [],
-        description:
-            '\tConfigure the client to emulate the selected device, connecting to the given host.',
+        description: '\tConfigure the client to emulate the selected device, connecting to the given host.',
         handler: getConfig
     },
     connect: {

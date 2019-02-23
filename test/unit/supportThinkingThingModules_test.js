@@ -59,10 +59,7 @@ describe('Support for Thinking Things Modules', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(
-                200,
-                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-            );
+            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -82,14 +79,8 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/TTModuleP1.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleP1.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {
@@ -111,14 +102,8 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/TTModuleP1Single.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleP1Single.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = '214,7,d22,b00,-64,';
@@ -137,14 +122,8 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/TTModuleC1.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleC1.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {
@@ -166,14 +145,8 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/TTModuleC1Single.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleC1Single.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = '00D600070d220b00';
@@ -192,10 +165,7 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/TTModuleB.json')
-                )
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleB.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleBSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
@@ -218,10 +188,7 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/TTModuleBLong.json')
-                )
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/TTModuleBLong.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleBSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {

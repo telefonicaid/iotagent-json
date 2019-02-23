@@ -108,9 +108,7 @@ describe('AMQP Transport binding: measures', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -152,9 +150,7 @@ describe('AMQP Transport binding: measures', function() {
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post(
                     '/v2/entities/SensorMachine:JSON_UNPROVISIONED/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/unprovisionedMeasure.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedMeasure.json')
                 )
                 .query({ type: 'SensorMachine' })
                 .reply(204);
@@ -165,11 +161,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
-            channel.publish(
-                config.amqp.exchange,
-                '.80K09H324HV8732.JSON_UNPROVISIONED.attrs.a',
-                new Buffer('23')
-            );
+            channel.publish(config.amqp.exchange, '.80K09H324HV8732.JSON_UNPROVISIONED.attrs.a', new Buffer('23'));
 
             setTimeout(function() {
                 contextBrokerUnprovMock.done();
@@ -185,23 +177,14 @@ describe('AMQP Transport binding: measures', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
-                );
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should send a single update context request with all the attributes', function(done) {
-            channel.publish(
-                config.amqp.exchange,
-                '.1234.MQTT_2.attrs',
-                new Buffer(JSON.stringify({ a: '23' }))
-            );
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer(JSON.stringify({ a: '23' })));
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -217,22 +200,13 @@ describe('AMQP Transport binding: measures', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
                 )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
-                );
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should silently ignore the error (without crashing)', function(done) {
-            channel.publish(
-                config.amqp.exchange,
-                '.1234.MQTT_2.attrs',
-                new Buffer('notAULPayload ')
-            );
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer('notAULPayload '));
 
             setTimeout(function() {
                 done();

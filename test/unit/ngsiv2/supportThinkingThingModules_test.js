@@ -113,9 +113,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/TTModuleP1Single.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1Single.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -166,9 +164,7 @@ describe('Support for Thinking Things Modules', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/TTModuleC1Single.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1Single.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);

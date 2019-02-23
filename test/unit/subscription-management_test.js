@@ -79,10 +79,7 @@ describe('Subscription management', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(
-                200,
-                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-            );
+            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         iotagentMqtt.start(config, function() {
             iotAgentLib.clearAll(done);
@@ -100,26 +97,14 @@ describe('Subscription management', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/multipleMeasures.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasures.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/alternativeUpdate.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/alternativeUpdate.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
         });
 
         it('should cease sending measures to the CB', function(done) {
@@ -146,26 +131,14 @@ describe('Subscription management', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/multipleMeasures.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasures.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/alternativeUpdate.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/alternativeUpdate.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
         });
 
         afterEach(function(done) {

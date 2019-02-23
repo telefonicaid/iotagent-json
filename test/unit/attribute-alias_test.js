@@ -59,10 +59,7 @@ describe('Attribute alias', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(
-                200,
-                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-            );
+            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         iotagentMqtt.start(config, function() {
             request(provisionOptions, function(error, response, body) {
@@ -83,14 +80,8 @@ describe('Attribute alias', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/timestampAliasMeasure.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timestampAliasMeasure.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
             var values = {

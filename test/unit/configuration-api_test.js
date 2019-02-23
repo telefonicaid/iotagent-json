@@ -102,10 +102,7 @@ describe('Configuration API support', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(
-                200,
-                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-            );
+            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         iotagentMqtt.start(config, done);
     });
@@ -145,22 +142,14 @@ describe('Configuration API support', function() {
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/singleMeasure.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasure.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should use the API Key of that configuration in device topics', function(done) {
             request(configurationOptions, function(error, response, body) {
                 request(provisionOptions, function(error, response, body) {
-                    mqttClient.publish('/728289/MQTT_2/attrs/temperature', '87', null, function(
-                        error
-                    ) {
+                    mqttClient.publish('/728289/MQTT_2/attrs/temperature', '87', null, function(error) {
                         setTimeout(function() {
                             contextBrokerUnprovMock.done();
                             done();

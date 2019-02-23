@@ -71,9 +71,7 @@ describe('HTTP: Measure reception ', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile(
-                './test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'
-            ),
+            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
@@ -136,9 +134,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
@@ -179,9 +175,7 @@ describe('HTTP: Measure reception ', function() {
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile(
-                    './test/deviceProvisioning/provisionDeviceTimeinstant.json'
-                ),
+                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
                     'fiware-servicepath': '/gardens'
@@ -204,9 +198,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
@@ -255,9 +247,7 @@ describe('HTTP: Measure reception ', function() {
             provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
-                json: utils.readExampleFile(
-                    './test/deviceProvisioning/provisionDeviceTimeinstant.json'
-                ),
+                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
                 headers: {
                     'fiware-service': 'smartGondor',
                     'fiware-servicepath': '/gardens'
@@ -280,9 +270,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
@@ -343,9 +331,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
                 )
                 .query({ type: 'TheLightType' })
                 .reply(204);

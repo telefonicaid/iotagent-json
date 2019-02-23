@@ -64,12 +64,7 @@ describe('MQTT: Commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(
-                200,
-                utils.readExampleFile(
-                    './test/contextAvailabilityResponses/registerIoTAgent1Success.json'
-                )
-            );
+            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -107,14 +102,8 @@ describe('MQTT: Commands', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/updateStatus1.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/updateStatus1Success.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus1.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
         });
 
         it('should return a 200 OK without errors', function(done) {
@@ -160,20 +149,12 @@ describe('MQTT: Commands', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/updateStatus2.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/updateStatus2Success.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/updateStatus2.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus2Success.json'));
         });
 
         it('should send an update request to the Context Broker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/cmdexe', '{ "PING": "1234567890" }', null, function(
-                error
-            ) {
+            mqttClient.publish('/1234/MQTT_2/cmdexe', '{ "PING": "1234567890" }', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();

@@ -40,9 +40,7 @@ describe('Attribute alias', function() {
         var provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile(
-                './test/unit/ngsiv2/deviceProvisioning/provisionDevice2.json'
-            ),
+            json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice2.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
@@ -89,9 +87,7 @@ describe('Attribute alias', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile(
-                        './test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json'
-                    )
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);

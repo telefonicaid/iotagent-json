@@ -75,10 +75,7 @@ describe('AMQP Transport binding: measures', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(
-                200,
-                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-            );
+            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         async.series(
             [
@@ -104,14 +101,8 @@ describe('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
@@ -140,22 +131,13 @@ describe('AMQP Transport binding: measures', function() {
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v1/updateContext')
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-                );
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
             contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/unprovisionedMeasure.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/unprovisionedSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedMeasure.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/unprovisionedSuccess.json'));
 
             request(groupCreation, function(error, response, body) {
                 done();
@@ -163,11 +145,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
-            channel.publish(
-                config.amqp.exchange,
-                '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a',
-                new Buffer('23')
-            );
+            channel.publish(config.amqp.exchange, '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a', new Buffer('23'));
 
             setTimeout(function() {
                 contextBrokerUnprovMock.done();
@@ -181,22 +159,12 @@ describe('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should send a single update context request with all the attributes', function(done) {
-            channel.publish(
-                config.amqp.exchange,
-                '.1234.MQTT_2.attrs',
-                new Buffer(JSON.stringify({ a: '23' }))
-            );
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer(JSON.stringify({ a: '23' })));
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -210,22 +178,12 @@ describe('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/singleMeasureAMQP.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
 
         it('should silently ignore the error (without crashing)', function(done) {
-            channel.publish(
-                config.amqp.exchange,
-                '.1234.MQTT_2.attrs',
-                new Buffer('notAULPayload ')
-            );
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer('notAULPayload '));
 
             setTimeout(function() {
                 done();
@@ -238,14 +196,8 @@ describe('AMQP Transport binding: measures', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/updateContext',
-                    utils.readExampleFile('./test/contextRequests/multipleMeasure.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-                );
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/multipleMeasure.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
         });
 
         it('should send one update context per measure group to the Contet Broker', function(done) {

@@ -61,10 +61,7 @@ describe('MQTT: Get configuration from the devices', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
-            .reply(
-                200,
-                utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json')
-            );
+            .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
         oldConfigurationFlag = config.configRetrieval;
         config.configRetrieval = true;
@@ -85,8 +82,7 @@ describe('MQTT: Get configuration from the devices', function() {
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
     describe(
-        'When a configuration request is received in the topic ' +
-            '"/{{apikey}}/{{deviceid}}/configuration/commands"',
+        'When a configuration request is received in the topic ' + '"/{{apikey}}/{{deviceid}}/configuration/commands"',
         function() {
             var values = {
                     type: 'configuration',
@@ -98,16 +94,8 @@ describe('MQTT: Get configuration from the devices', function() {
                 contextBrokerMock
                     .matchHeader('fiware-service', 'smartGondor')
                     .matchHeader('fiware-servicepath', '/gardens')
-                    .post(
-                        '/v1/queryContext',
-                        utils.readExampleFile('./test/contextRequests/getConfiguration.json')
-                    )
-                    .reply(
-                        200,
-                        utils.readExampleFile(
-                            './test/contextResponses/getConfigurationSuccess.json'
-                        )
-                    );
+                    .post('/v1/queryContext', utils.readExampleFile('./test/contextRequests/getConfiguration.json'))
+                    .reply(200, utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
 
                 mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
@@ -121,17 +109,14 @@ describe('MQTT: Get configuration from the devices', function() {
             });
 
             it('should ask the Context Broker for the request attributes', function(done) {
-                mqttClient.publish(
-                    '/1234/MQTT_2/configuration/commands',
-                    JSON.stringify(values),
-                    null,
-                    function(error) {
-                        setTimeout(function() {
-                            contextBrokerMock.done();
-                            done();
-                        }, 100);
-                    }
-                );
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                    error
+                ) {
+                    setTimeout(function() {
+                        contextBrokerMock.done();
+                        done();
+                    }, 100);
+                });
             });
 
             it('should return the requested attributes to the client in /1234/MQTT_2/configuration/values', function(done) {
@@ -145,17 +130,14 @@ describe('MQTT: Get configuration from the devices', function() {
                         result.warningLevel === '80';
                 });
 
-                mqttClient.publish(
-                    '/1234/MQTT_2/configuration/commands',
-                    JSON.stringify(values),
-                    null,
-                    function(error) {
-                        setTimeout(function() {
-                            configurationReceived.should.equal(true);
-                            done();
-                        }, 100);
-                    }
-                );
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                    error
+                ) {
+                    setTimeout(function() {
+                        configurationReceived.should.equal(true);
+                        done();
+                    }, 100);
+                });
             });
 
             it('should add the system timestamp in compressed format to the request', function(done) {
@@ -165,17 +147,14 @@ describe('MQTT: Get configuration from the devices', function() {
                     configurationReceived = result.dt && result.dt.should.match(/^\d{8}T\d{6}Z$/);
                 });
 
-                mqttClient.publish(
-                    '/1234/MQTT_2/configuration/commands',
-                    JSON.stringify(values),
-                    null,
-                    function(error) {
-                        setTimeout(function() {
-                            should.exist(configurationReceived);
-                            done();
-                        }, 100);
-                    }
-                );
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                    error
+                ) {
+                    setTimeout(function() {
+                        should.exist(configurationReceived);
+                        done();
+                    }, 100);
+                });
             });
         }
     );
@@ -191,14 +170,8 @@ describe('MQTT: Get configuration from the devices', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v1/subscribeContext',
-                    utils.readExampleFile('./test/subscriptions/subscriptionRequest.json')
-                )
-                .reply(
-                    200,
-                    utils.readExampleFile('./test/subscriptions/subscriptionResponse.json')
-                );
+                .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
+                .reply(200, utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
 
             mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
@@ -212,17 +185,12 @@ describe('MQTT: Get configuration from the devices', function() {
         });
 
         it('should create a subscription in the ContextBroker', function(done) {
-            mqttClient.publish(
-                '/1234/MQTT_2/configuration/commands',
-                JSON.stringify(values),
-                null,
-                function(error) {
-                    setTimeout(function() {
-                        contextBrokerMock.done();
-                        done();
-                    }, 100);
-                }
-            );
+            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
         });
         it('should update the values in the MQTT topic when a notification is received', function(done) {
             var optionsNotify = {
@@ -238,25 +206,19 @@ describe('MQTT: Get configuration from the devices', function() {
             mqttClient.on('message', function(topic, data) {
                 var result = JSON.parse(data);
 
-                configurationReceived =
-                    result.sleepTime === '200' && result.warningLevel === 'ERROR';
+                configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
             });
 
-            mqttClient.publish(
-                '/1234/MQTT_2/configuration/commands',
-                JSON.stringify(values),
-                null,
-                function(error) {
-                    setTimeout(function() {
-                        request(optionsNotify, function(error, response, body) {
-                            setTimeout(function() {
-                                configurationReceived.should.equal(true);
-                                done();
-                            }, 100);
-                        });
-                    }, 100);
-                }
-            );
+            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    request(optionsNotify, function(error, response, body) {
+                        setTimeout(function() {
+                            configurationReceived.should.equal(true);
+                            done();
+                        }, 100);
+                    });
+                }, 100);
+            });
         });
     });
 });

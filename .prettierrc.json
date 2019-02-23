@@ -3,7 +3,7 @@
   "bracketSpacing": true,
   "singleQuote": true,
   "parser": "flow",
-  "printWidth": 100,
+  "printWidth": 120,
   "trailingComma": "none",
   "tabWidth": 4
 }
