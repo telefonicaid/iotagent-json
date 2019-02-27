@@ -81,21 +81,21 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
-                mqtt.connect
-                    .calledOnceWithExactly({
-                        ca: null,
-                        cert: null,
-                        connectTimeout: 3600000,
-                        host: '127.0.0.1',
-                        keepalive: 0,
-                        key: null,
-                        password: 'passmqtt',
-                        port: '1883',
-                        protocol: 'mqtt',
-                        rejectUnauthorized: true,
-                        username: 'usermqtt'
-                    })
-                    .should.equal(true);
+                //prettier-ignore
+                mqtt.connect.calledOnceWithExactly({
+                    ca: null,
+                    cert: null,
+                    connectTimeout: 3600000,
+                    host: '127.0.0.1',
+                    keepalive: 0,
+                    key: null,
+                    password: 'passmqtt',
+                    port: '1883',
+                    protocol: 'mqtt',
+                    rejectUnauthorized: true,
+                    username: 'usermqtt'
+                })
+                .should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.host.should.equal('127.0.0.1');
@@ -120,21 +120,21 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
-                mqtt.connect
-                    .calledOnceWithExactly({
-                        ca: null,
-                        cert: null,
-                        connectTimeout: 3600000,
-                        host: '127.0.0.1',
-                        keepalive: 0,
-                        key: null,
-                        password: null,
-                        port: '8883',
-                        protocol: 'mqtts',
-                        rejectUnauthorized: false,
-                        username: null
-                    })
-                    .should.equal(true);
+                //prettier-ignore
+                mqtt.connect.calledOnceWithExactly({
+                    ca: null,
+                    cert: null,
+                    connectTimeout: 3600000,
+                    host: '127.0.0.1',
+                    keepalive: 0,
+                    key: null,
+                    password: null,
+                    port: '8883',
+                    protocol: 'mqtts',
+                    rejectUnauthorized: false,
+                    username: null
+                })
+                .should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.protocol.should.equal('mqtts');
@@ -169,21 +169,21 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
-                mqtt.connect
-                    .calledOnceWithExactly({
-                        ca: 'cacontent',
-                        cert: 'certcontent',
-                        connectTimeout: 3600000,
-                        host: '127.0.0.1',
-                        keepalive: 0,
-                        key: 'keycontent',
-                        password: null,
-                        port: '8883',
-                        protocol: 'mqtts',
-                        rejectUnauthorized: true,
-                        username: null
-                    })
-                    .should.equal(true);
+                //prettier-ignore
+                mqtt.connect.calledOnceWithExactly({
+                    ca: 'cacontent',
+                    cert: 'certcontent',
+                    connectTimeout: 3600000,
+                    host: '127.0.0.1',
+                    keepalive: 0,
+                    key: 'keycontent',
+                    password: null,
+                    port: '8883',
+                    protocol: 'mqtts',
+                    rejectUnauthorized: true,
+                    username: null
+                })
+                .should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.protocol.should.equal('mqtts');
