@@ -62,4 +62,4 @@ else
     fi
 fi
 
-pm2-runtime start /bin/iotagent-json
+pm2-runtime opt/iotajson/bin/iotagent-json
