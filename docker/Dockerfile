@@ -1,4 +1,4 @@
-ARG NODE_VERSION=8.12.0-slim
+ARG NODE_VERSION=8.15.0-slim
 FROM node:${NODE_VERSION}
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
@@ -58,7 +58,6 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove
 	
-	
 WORKDIR /opt/iotajson
 
 RUN \
@@ -76,6 +75,9 @@ RUN \
 
 USER node
 ENV NODE_ENV=production
+
+# Expose Ports - Default to 4041 for NORTH PORT 4041, 7896 for HTTP PORT
+EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
 
 ENTRYPOINT ["docker/entrypoint.sh"]
 CMD ["-- ", "config.js"]
