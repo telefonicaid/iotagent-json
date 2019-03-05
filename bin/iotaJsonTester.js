@@ -86,7 +86,7 @@ function checkConnection(fn) {
         } else {
             console.log('Please, check your configuration and connect before using MQTT commands.');
         }
-    }
+    };
 }
 
 function singleMeasure(commands) {
@@ -96,9 +96,7 @@ function singleMeasure(commands) {
 }
 
 function parseMultipleAttributes(attributeString) {
-    var result,
-        attributes,
-        attribute;
+    var result, attributes, attribute;
 
     if (!attributeString) {
         result = null;
@@ -125,7 +123,10 @@ function multipleMeasure(commands) {
 function connect(commands) {
     console.log('\nConnecting to MQTT Broker...');
 
-    mqttClient = mqtt.connect('mqtt://' + config.host, defaultConfig.mqtt.options);
+    mqttClient = mqtt.connect(
+        'mqtt://' + config.host,
+        defaultConfig.mqtt.options
+    );
 
     clUtils.prompt();
 }
@@ -135,33 +136,34 @@ function exitClient() {
 }
 
 var commands = {
-    'config': {
+    config: {
         parameters: ['host', 'port', 'apiKey', 'deviceId'],
         description: '\tConfigure the client to emulate the selected device, connecting to the given host.',
         handler: setConfig
     },
-    'showConfig': {
+    showConfig: {
         parameters: [],
         description: '\tConfigure the client to emulate the selected device, connecting to the given host.',
         handler: getConfig
     },
-    'connect': {
+    connect: {
         parameters: [],
         description: '\tConnect to the MQTT broker.',
         handler: connect
     },
-    'singleMeasure': {
+    singleMeasure: {
         parameters: ['attribute', 'value'],
         description: '\tSend the given value for the selected attribute to the MQTT broker.',
         handler: checkConnection(singleMeasure)
     },
-    'multipleMeasure': {
+    multipleMeasure: {
         parameters: ['attributes'],
-        description: '\tSend a collection of attributes to the MQTT broker, using JSON format. The "attributes"\n' +
+        description:
+            '\tSend a collection of attributes to the MQTT broker, using JSON format. The "attributes"\n' +
             '\tstring should have the following syntax: name=value[;name=value]*',
         handler: checkConnection(multipleMeasure)
     },
-    'exit': {
+    exit: {
         parameters: [],
         description: '\tExit the client',
         handler: exitClient

@@ -34,6 +34,6 @@ config.mqtt = {
 config.device = {
     id: 'myDeviceId',
     apikey: '1234'
-}
+};
 
 module.exports = config;

@@ -94,10 +94,7 @@ describe('HTTP: Measure reception ', function() {
     afterEach(function(done) {
         nock.cleanAll();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a POST measure arrives for the HTTP binding', function() {
@@ -165,7 +162,7 @@ describe('HTTP: Measure reception ', function() {
                     'fiware-service': 'smartGondor',
                     'fiware-servicepath': '/gardens'
                 }
-        };
+            };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -344,5 +341,3 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 });
-
-

@@ -49,10 +49,13 @@ describe('Support for Thinking Things Modules', function() {
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000
+            }
+        );
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -73,11 +76,7 @@ describe('Support for Thinking Things Modules', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-        async.series([
-            iotAgentLib.clearAll,
-            iotaJson.stop
-        ], done);
-
+        async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
     describe('When a new measure with Thinking Thing module P1 arrives to a multiattribute topic', function() {
@@ -85,9 +84,11 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -110,9 +111,11 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1Single.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleP1Single.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -132,9 +135,11 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -157,9 +162,11 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1Single.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleC1Single.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -179,9 +186,11 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleB.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleB.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -204,9 +213,11 @@ describe('Support for Thinking Things Modules', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleBLong.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/TTModuleBLong.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -223,5 +234,4 @@ describe('Support for Thinking Things Modules', function() {
             });
         });
     });
-
 });

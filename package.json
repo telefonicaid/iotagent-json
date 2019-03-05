@@ -1,5 +1,6 @@
 {
   "name": "iotagent-json",
+  "license": "AGPL-3.0-only",
   "description": "IoT Agent for the JSON protocol",
   "version": "1.9.0-next",
   "homepage": "https://github.com/telefonicaid/iotagent-json",
@@ -23,17 +24,21 @@
     "test": "mocha --recursive 'test/**/*.js' --reporter spec --timeout 3000 --ui bdd --exit",
     "test:watch": "npm run test -- -w ./lib",
     "lint": "jshint lib/ --config .jshintrc && jshint test/ --config test/.jshintrc",
+    "prettier": "prettier --config .prettierrc.json --write '**/**/**/*.js' '**/**/*.js' '**/*.js' '*.js'",
     "test:coverage": "istanbul cover _mocha -- --recursive 'test/**/*.js' --reporter spec --exit",
     "test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "watch": "watch 'npm test && npm run lint' ./lib ./test"
   },
   "devDependencies": {
     "coveralls": "~3.0.2",
+    "husky": "~1.1.0",
+    "lint-staged": "~7.3.0",
     "nock": "10.0.1",
     "mocha": "5.2.0",
     "should": "13.2.3",
     "sinon": "~6.1.0",
     "istanbul": "~0.4.5",
+    "prettier": "~1.14.2",
     "proxyquire": "2.1.0",
     "moment": "~2.22.2",
     "watch": "~1.0.2",
@@ -51,5 +56,16 @@
     "mqtt": "2.18.8",
     "request": "2.88.0",
     "underscore": "1.9.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --config .prettierrc.json --write",
+      "git add"
+    ]
   }
 }

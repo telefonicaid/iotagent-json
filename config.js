@@ -37,8 +37,8 @@ config.mqtt = {
     /**
      * Activating thinkingThingsPlugin flag. When it is set to true the constraint devices sends an HTTP POST request
      * to the server with a Content-Type, containing a field name and a payload. The payload can be divided in modules,
-     * each one of them responsible for a single measure. Modules are separated by the '#' character, and all of them 
-     * consists of a series of parameters separated by commas. 
+     * each one of them responsible for a single measure. Modules are separated by the '#' character, and all of them
+     * consists of a series of parameters separated by commas.
      */
     thinkingThingsPlugin: true,
     /**
@@ -46,7 +46,7 @@ config.mqtt = {
      */
     qos: 0,
     /**
-     * Retain flag. (default is true.) Normally if a publisher publishes a message to a topic, and no one is 
+     * Retain flag. (default is true.) Normally if a publisher publishes a message to a topic, and no one is
      * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
      * The publisher can tell the broker to keep the last message on that topic by setting the retained message flag to true  .
      */
@@ -84,7 +84,7 @@ config.amqp = {
     /**
      * durable queue flag (default is false).
      */
-    options: {durable: true}
+    options: { durable: true }
 };
 
 /**
@@ -94,7 +94,7 @@ config.http = {
     /**
      * South Port where the Ultralight transport binding for HTTP will be listening for device requests.
      */
-    port: 7896,
+    port: 7896
     /**
      * HTTP Timeout for the http command endpoint (in miliseconds).
      */
@@ -116,22 +116,22 @@ config.iota = {
      * the IoT Agent will send the device data.
      */
     contextBroker: {
-    /**
-     * Host where the Context Broker is located.
-     */
+        /**
+         * Host where the Context Broker is located.
+         */
         host: 'localhost',
-    /**
-     * Port where the Context Broker is listening.
-     */
+        /**
+         * Port where the Context Broker is listening.
+         */
         port: '1026'
     },
     /**
      * Configuration of the North Port of the IoT Agent.
      */
     server: {
-    /**
-     * Port where the IoT Agent will be listening for NGSI and Provisioning requests.
-     */
+        /**
+         * Port where the IoT Agent will be listening for NGSI and Provisioning requests.
+         */
         port: 4041
     },
     /**
@@ -152,10 +152,10 @@ config.iota = {
      * 'mongodb'.
      */
     mongodb: {
-     /**
-      * Host where MongoDB is located. If the MongoDB used is a replicaSet, this property will contain a
-      * comma-separated list of the instance names or IPs.
-      */
+        /**
+         * Host where MongoDB is located. If the MongoDB used is a replicaSet, this property will contain a
+         * comma-separated list of the instance names or IPs.
+         */
         host: 'localhost',
         /**
          * Port where MongoDB is listening. In the case of a replicaSet, all the instances are supposed to be listening

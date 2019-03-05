@@ -69,14 +69,16 @@ describe('Configuration API support', function() {
             }
         };
 
-
     beforeEach(function(done) {
         nock.cleanAll();
         originalResource = config.iota.defaultResource;
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000
+            }
+        );
 
         config.iota.iotManager = {
             host: '127.0.0.1',
@@ -90,12 +92,12 @@ describe('Configuration API support', function() {
 
         iotamMock = nock('http://127.0.0.1:8081')
             .post('/iot/protocols', {
-                    protocol: 'TT_MQTT-JSON',
-                    description: 'MQTT-JSON protocol for TT',
-                    iotagent: 'http://localhost:4041',
-                    resource: '/iotamqtt',
-                    services: []
-                })
+                protocol: 'TT_MQTT-JSON',
+                description: 'MQTT-JSON protocol for TT',
+                iotagent: 'http://localhost:4041',
+                resource: '/iotamqtt',
+                services: []
+            })
             .reply(200, {});
 
         // This mock does not check the payload since the aim of the test is not to verify
@@ -122,7 +124,8 @@ describe('Configuration API support', function() {
 
     describe('When a configuration is provisioned for a service', function() {
         beforeEach(function() {
-            iotamMock.post('/iot/protocols', {
+            iotamMock
+                .post('/iot/protocols', {
                     protocol: 'TT_MQTT-JSON',
                     description: 'MQTT-JSON protocol for TT',
                     iotagent: 'http://localhost:4041',
@@ -143,9 +146,11 @@ describe('Configuration API support', function() {
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
 
@@ -185,10 +190,7 @@ describe('Configuration API support', function() {
                 ]
             };
 
-            iotamMock
-                .post('/iot/protocols', configurationProvision)
-                .reply(200, {});
-
+            iotamMock.post('/iot/protocols', configurationProvision).reply(200, {});
         });
 
         it('should reject the configuration provisioning with a BAD FORMAT error', function(done) {

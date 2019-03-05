@@ -34,15 +34,15 @@ describe('Startup tests', function() {
         beforeEach(function() {
             sinon.stub(fs, 'readFileSync');
             sinon.stub(mqtt, 'connect').returns({
-                end: sinon.stub().callsFake(function (force, callback) {
+                end: sinon.stub().callsFake(function(force, callback) {
                     callback();
                 }),
-                on: sinon.stub().callsFake(function (type, listener) {
+                on: sinon.stub().callsFake(function(type, listener) {
                     if (type === 'connect') {
                         listener();
                     }
                 }),
-                subscribe: sinon.stub().callsFake(function (topics, _, callback) {
+                subscribe: sinon.stub().callsFake(function(topics, _, callback) {
                     callback(false);
                 }),
                 unsubscribe: sinon.spy()
@@ -81,6 +81,7 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
+                //prettier-ignore
                 mqtt.connect.calledOnceWithExactly({
                     ca: null,
                     cert: null,
@@ -93,7 +94,8 @@ describe('Startup tests', function() {
                     protocol: 'mqtt',
                     rejectUnauthorized: true,
                     username: 'usermqtt'
-                }).should.equal(true);
+                })
+                .should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.host.should.equal('127.0.0.1');
@@ -118,6 +120,7 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
+                //prettier-ignore
                 mqtt.connect.calledOnceWithExactly({
                     ca: null,
                     cert: null,
@@ -130,7 +133,8 @@ describe('Startup tests', function() {
                     protocol: 'mqtts',
                     rejectUnauthorized: false,
                     username: null
-                }).should.equal(true);
+                })
+                .should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.protocol.should.equal('mqtts');
@@ -151,8 +155,8 @@ describe('Startup tests', function() {
             process.env.IOTA_MQTT_CA = '/run/secrets/ca.pem';
             process.env.IOTA_MQTT_REJECT_UNAUTHORIZED = 'true';
 
-            fs.readFileSync.callsFake(function (filename) {
-                switch(filename) {
+            fs.readFileSync.callsFake(function(filename) {
+                switch (filename) {
                     case process.env.IOTA_MQTT_CERT:
                         return 'certcontent';
                     case process.env.IOTA_MQTT_KEY:
@@ -165,6 +169,7 @@ describe('Startup tests', function() {
             iotagentJSON.start(iotAgentConfig, function(error) {
                 should.not.exist(error);
 
+                //prettier-ignore
                 mqtt.connect.calledOnceWithExactly({
                     ca: 'cacontent',
                     cert: 'certcontent',
@@ -177,7 +182,8 @@ describe('Startup tests', function() {
                     protocol: 'mqtts',
                     rejectUnauthorized: true,
                     username: null
-                }).should.equal(true);
+                })
+                .should.equal(true);
 
                 var mqttConfig = config.getConfig().mqtt;
                 mqttConfig.protocol.should.equal('mqtts');

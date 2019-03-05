@@ -61,8 +61,7 @@ describe('HTTP Transport binding: polling commands', function() {
             .matchHeader('fiware-service', 'smartGondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/NGSI9/registerContext')
-            .reply(200,
-                utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartGondor')
@@ -176,7 +175,6 @@ describe('HTTP Transport binding: polling commands', function() {
             });
         });
     });
-
 
     describe('When a device asks for the pending commands without body', function() {
         var deviceRequest = {

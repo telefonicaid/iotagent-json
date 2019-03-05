@@ -49,10 +49,13 @@ describe('Attribute alias', function() {
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000
+            }
+        );
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -74,10 +77,7 @@ describe('Attribute alias', function() {
         nock.cleanAll();
         mqttClient.end();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotaJson.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
     describe('When a new multiple measure arrives with a timestamp in an attribute alias', function() {
@@ -85,9 +85,11 @@ describe('Attribute alias', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {

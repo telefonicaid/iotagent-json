@@ -81,10 +81,13 @@ describe('MQTT: Measure reception ', function() {
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000
+            }
+        );
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -106,10 +109,7 @@ describe('MQTT: Measure reception ', function() {
         nock.cleanAll();
         mqttClient.end();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotaJson.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
     describe('When a new multiple measure arrives to the MQTT Topic', function() {
@@ -117,9 +117,11 @@ describe('MQTT: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -128,7 +130,9 @@ describe('MQTT: Measure reception ', function() {
                 temperature: '87',
                 luminosity: 10,
                 pollution: 43.4,
-                configuration: {firmware: {version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
+                configuration: {
+                    firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                },
                 tags: ['iot', 'device'],
                 enabled: true,
                 alive: null
@@ -145,7 +149,6 @@ describe('MQTT: Measure reception ', function() {
 
     describe('When a new multiple measure arrives for an unprovisioned device', function() {
         beforeEach(function(done) {
-
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
@@ -158,9 +161,11 @@ describe('MQTT: Measure reception ', function() {
             contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'))
-                .query({type: 'TheLightType'})
+                .post(
+                    '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                )
+                .query({ type: 'TheLightType' })
                 .reply(204);
 
             request(groupCreation, function(error, response, body) {
@@ -173,13 +178,14 @@ describe('MQTT: Measure reception ', function() {
                 temperature: '87'
             };
 
-            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null,
-                function(error) {
-                    setTimeout(function() {
-                        contextBrokerUnprovMock.done();
-                        done();
-                    }, 100);
-                });
+            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
+                error
+            ) {
+                setTimeout(function() {
+                    contextBrokerUnprovMock.done();
+                    done();
+                }, 100);
+            });
         });
     });
 
@@ -188,9 +194,11 @@ describe('MQTT: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -213,9 +221,11 @@ describe('MQTT: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
@@ -239,9 +249,11 @@ describe('MQTT: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its values to the Context Broker', function(done) {

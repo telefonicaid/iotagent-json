@@ -39,7 +39,7 @@ config.amqp = {
     port: 5672,
     exchange: 'amq.topic',
     queue: 'iota_queue',
-    options: {durable: true}
+    options: { durable: true }
 };
 
 config.iota = {

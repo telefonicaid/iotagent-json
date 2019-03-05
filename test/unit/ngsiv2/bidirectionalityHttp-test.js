@@ -73,18 +73,15 @@ describe('Data Bidirectionality: HTTP', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/subscriptions', function(body) {
-
                     var expectedBody = utils.readExampleFile(
-                    './test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json');
+                        './test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json'
+                    );
                     // Note that expired field is not included in the json used by this mock as it is a dynamic
                     // field. The following code performs such calculation and adds the field to the subscription
                     // payload of the mock.
-                    if (!body.expires)
-                    {
+                    if (!body.expires) {
                         return false;
-                    }
-                    else if (moment(body.expires, 'YYYY-MM-DDTHH:mm:ss.SSSZ').isValid())
-                    {
+                    } else if (moment(body.expires, 'YYYY-MM-DDTHH:mm:ss.SSSZ').isValid()) {
                         expectedBody.expires = moment().add(config.deviceRegistrationDuration);
                         var expiresDiff = moment(expectedBody.expires).diff(body.expires, 'milliseconds');
                         if (expiresDiff < 500) {
@@ -95,20 +92,20 @@ describe('Data Bidirectionality: HTTP', function() {
                         }
 
                         return false;
-                    }
-                    else {
+                    } else {
                         return false;
                     }
                 })
-                .reply(201, null, {'Location': '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8'});
+                .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities?options=upsert', utils.readExampleFile(
-                    './test/unit/ngsiv2/contextRequests/createBidirectionalDevice.json'))
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/createBidirectionalDevice.json')
+                )
                 .reply(204);
-
 
             iotagentJson.start(config, function(error) {
                 request(provisionOptions, function(error, response, body) {
@@ -143,15 +140,19 @@ describe('Data Bidirectionality: HTTP', function() {
                         longitudeFound = false;
 
                     for (var i = 0; i < list.commands.length; i++) {
-                        if (list.commands[i].name === 'latitude' &&
+                        if (
+                            list.commands[i].name === 'latitude' &&
                             list.commands[i].type === 'string' &&
-                            list.commands[i].value === '-9.6') {
+                            list.commands[i].value === '-9.6'
+                        ) {
                             latitudeFound = true;
                         }
 
-                        if (list.commands[i].name === 'longitude' &&
+                        if (
+                            list.commands[i].name === 'longitude' &&
                             list.commands[i].type === 'string' &&
-                            list.commands[i].value === '12.4') {
+                            list.commands[i].value === '12.4'
+                        ) {
                             longitudeFound = true;
                         }
                     }
@@ -183,18 +184,15 @@ describe('Data Bidirectionality: HTTP', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/subscriptions', function(body) {
-
                     var expectedBody = utils.readExampleFile(
-                    './test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json');
+                        './test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json'
+                    );
                     // Note that expired field is not included in the json used by this mock as it is a dynamic
                     // field. The following code performs such calculation and adds the field to the subscription
                     // payload of the mock.
-                    if (!body.expires)
-                    {
+                    if (!body.expires) {
                         return false;
-                    }
-                    else if (moment(body.expires, 'YYYY-MM-DDTHH:mm:ss.SSSZ').isValid())
-                    {
+                    } else if (moment(body.expires, 'YYYY-MM-DDTHH:mm:ss.SSSZ').isValid()) {
                         expectedBody.expires = moment().add(config.deviceRegistrationDuration);
                         var expiresDiff = moment(expectedBody.expires).diff(body.expires, 'milliseconds');
                         if (expiresDiff < 500) {
@@ -205,18 +203,19 @@ describe('Data Bidirectionality: HTTP', function() {
                         }
 
                         return false;
-                    }
-                    else {
+                    } else {
                         return false;
                     }
                 })
-                .reply(201, null, {'Location': '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8'});
+                .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities?options=upsert', utils.readExampleFile(
-                    './test/unit/ngsiv2/contextRequests/createBidirectionalDevice.json'))
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/createBidirectionalDevice.json')
+                )
                 .reply(204);
 
             contextBrokerMock

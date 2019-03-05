@@ -99,10 +99,7 @@ describe('HTTP: Measure reception ', function() {
     afterEach(function(done) {
         nock.cleanAll();
 
-        async.series([
-            iotAgentLib.clearAll,
-            iotaJson.stop
-        ], done);
+        async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
     describe('When a POST measure arrives for the HTTP binding', function() {
@@ -114,7 +111,9 @@ describe('HTTP: Measure reception ', function() {
                 temperature: '87',
                 luminosity: 10,
                 pollution: 43.4,
-                configuration: {firmware: {version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94'}},
+                configuration: {
+                    firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                },
                 tags: ['iot', 'device'],
                 enabled: true,
                 alive: null
@@ -133,9 +132,11 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json'))
-                .query({type: 'AnMQTTDevice'})
+                .post(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should return a 200 OK with no error', function(done) {
@@ -152,7 +153,6 @@ describe('HTTP: Measure reception ', function() {
                 done();
             });
         });
-
     });
 
     describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
@@ -180,7 +180,7 @@ describe('HTTP: Measure reception ', function() {
                     'fiware-service': 'smartGondor',
                     'fiware-servicepath': '/gardens'
                 }
-        };
+            };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -196,9 +196,11 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'))
-                .query({type: 'sensor'})
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                )
+                .query({ type: 'sensor' })
                 .reply(204);
 
             iotaJson.stop(function() {
@@ -266,9 +268,11 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json'))
-                .query({type: 'sensor'})
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                )
+                .query({ type: 'sensor' })
                 .reply(204);
 
             iotaJson.stop(function() {
@@ -325,9 +329,11 @@ describe('HTTP: Measure reception ', function() {
             contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
-                 utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json'))
-                .query({type: 'TheLightType'})
+                .post(
+                    '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                )
+                .query({ type: 'TheLightType' })
                 .reply(204);
 
             request(groupCreation, function(error, response, body) {
@@ -342,8 +348,4 @@ describe('HTTP: Measure reception ', function() {
             });
         });
     });
-
-
 });
-
-

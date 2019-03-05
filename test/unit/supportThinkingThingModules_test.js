@@ -47,10 +47,13 @@ describe('Support for Thinking Things Modules', function() {
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
-            keepalive: 0,
-            connectTimeout: 60 * 60 * 1000
-        });
+        mqttClient = mqtt.connect(
+            'mqtt://' + config.mqtt.host,
+            {
+                keepalive: 0,
+                connectTimeout: 60 * 60 * 1000
+            }
+        );
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
@@ -68,11 +71,7 @@ describe('Support for Thinking Things Modules', function() {
     afterEach(function(done) {
         nock.cleanAll();
         mqttClient.end();
-        async.series([
-            iotAgentLib.clearAll,
-            iotagentMqtt.stop
-        ], done);
-
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a new measure with Thinking Thing module P1 arrives to a multiattribute topic', function() {
