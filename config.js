@@ -134,15 +134,44 @@ config.iota = {
      */
         port: 4041
     },
-    authentication: {
-        enabled: false,
-        type: 'keystone',
-        header: 'X-Auth-Token',
-        host: 'localhost',
-        port: '5000',
-        user: 'IOTA_AUTH_USER',
-        password: 'IOTA_AUTH_PASSWORD'
-    },
+   
+    /**
+     * Configuration for secured access to instances of the Context Broker secured with a PEP Proxy.
+     * For the authentication mechanism to work, the authentication attribute in the configuration has to be fully
+     * configured, and the authentication.enabled subattribute should have the value `true`.
+     *
+     * The Username and password should be considered as sensitive data and should not be stored in plaintext. 
+     * Either encrypt the config and decrypt when initializing the instance or use environment variables secured by
+     * docker secrets.
+     */
+    //authentication: {
+        //enabled: false,
+        /**
+        * Type of the Identity Manager which is used when authenticating the IoT Agent.
+        */
+        //type: 'keystone',
+        /**
+        * Name of the additional header passed to hold the identity of the IoT Agent
+        */
+        //header: 'X-Auth-Token',
+        /**
+        * Hostname of the Identity Manager.
+        */
+        //host: 'localhost',
+        /**
+        * Port of the Identity Manager.
+        */
+        //port: '5000',
+        /**
+        * Username for the IoT Agent - Note this should not be stored in plaintext.
+        */
+        //user: 'IOTA_AUTH_USER',
+        /**
+        * Password for the IoT Agent - Note this should not be stored in plaintext.
+        */
+        //password: 'IOTA_AUTH_PASSWORD'
+    //},
+   
     /**
      * Defines the configuration for the Device Registry, where all the information about devices and configuration
      * groups will be stored. There are currently just two types of registries allowed:
