@@ -14,7 +14,12 @@ ENV DOWNLOAD=${DOWNLOAD}
 
 MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 
-#
+# IMPORTANT: For a Production Environment Use Docker Secrets to define
+#  these values and add _FILE to the name of the variable.
+
+# ENV IOTA_AUTH_USER "iotagent"
+# ENV IOTA_AUTH_PASSWORD "iotagent"
+
 # The following RUN command retrieves the source code from GitHub.
 # 
 # To obtain the latest stable release run this Docker file with the parameters
@@ -52,8 +57,7 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	apt-get clean && \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove
-
-
+	
 WORKDIR /opt/iotajson
 
 RUN \
@@ -66,7 +70,8 @@ RUN \
 	# Remove Git and clean apt cache
 	apt-get clean && \
 	apt-get remove -y git && \
-	apt-get -y autoremove
+	apt-get -y autoremove && \ 
+	chmod +x docker/entrypoint.sh
 
 USER node
 ENV NODE_ENV=production
@@ -74,5 +79,5 @@ ENV NODE_ENV=production
 # Expose Ports - Default to 4041 for NORTH PORT 4041, 7896 for HTTP PORT
 EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
 
-ENTRYPOINT ["pm2-runtime", "bin/iotagent-json"]
+ENTRYPOINT ["docker/entrypoint.sh"]
 CMD ["-- ", "config.js"]

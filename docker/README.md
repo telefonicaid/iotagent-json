@@ -150,3 +150,17 @@ COPY . /opt/iotajson/
 ```
 
 Full instructions can be found within the `Dockerfile` itself.
+
+### Docker Secrets
+
+As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to some sensitive environment variables, causing the initialization script to load the values for those variables from files present in the container. In particular, this can be used to load passwords from Docker secrets stored in `/run/secrets/<secret_name>` files.
+For example:
+
+```console
+docker run --name iotagent -e IOTA_AUTH_PASSWORD_FILE=/run/secrets/password -d fiware/iotagent-json
+```
+
+Currently, this the `_FILE` suffix is supported for:
+
+* `IOTA_AUTH_USER`
+* `IOTA_AUTH_PASSWORD`
