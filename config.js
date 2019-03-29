@@ -175,7 +175,7 @@ config.iota = {
         */
         //clientId: 'IOTA_AUTH_CLIENT_ID',
         /**
-        * OAuth2 client ID secret - Note this should not be stored in plaintext.
+        * OAuth2 client secret - Note this should not be stored in plaintext.
         */
         //clientSecret: 'IOTA_AUTH_CLIENT_SECRET'    
     //},
