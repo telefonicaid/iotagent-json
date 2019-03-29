@@ -169,7 +169,15 @@ config.iota = {
         /**
         * Password for the IoT Agent - Note this should not be stored in plaintext.
         */
-        //password: 'IOTA_AUTH_PASSWORD'
+        //password: 'IOTA_AUTH_PASSWORD',
+        /**
+        * OAuth2 client ID - Note this should not be stored in plaintext.
+        */
+        //clientId: 'IOTA_AUTH_CLIENT_ID',
+        /**
+        * OAuth2 client ID secret - Note this should not be stored in plaintext.
+        */
+        //clientSecret: 'IOTA_AUTH_CLIENT_SECRET'    
     //},
    
     /**
