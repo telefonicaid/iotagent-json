@@ -1,0 +1,10 @@
+{
+  "PING_status": {
+    "type": "commandStatus",
+    "value": "DELIVERED"
+  },
+  "PING_info": {
+    "type": "commandResult",
+    "value": " "
+  }
+}
