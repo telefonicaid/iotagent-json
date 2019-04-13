@@ -3,6 +3,7 @@ FROM node:${NODE_VERSION}
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
 ARG DOWNLOAD=latest
+ARG SOURCE_BRANCH=master
 
 # Copying Build time arguments to environment variables so they are persisted at run time and can be 
 # inspected within a running container.
@@ -14,7 +15,12 @@ ENV DOWNLOAD=${DOWNLOAD}
 
 MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 
+# IMPORTANT: For a Production Environment Use Docker Secrets to define
+#  these values and add _FILE to the name of the variable.
 #
+# - IOTA_AUTH_USER, IOTA_AUTH_PASSWORD - when using Keystone Security 
+# - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
+
 # The following RUN command retrieves the source code from GitHub.
 # 
 # To obtain the latest stable release run this Docker file with the parameters
@@ -31,8 +37,8 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
-		RELEASE="master"; \
-		echo "INFO: Building Latest Development"; \
+		RELEASE="${SOURCE_BRANCH}"; \		
+		echo "INFO: Building Latest Development from ${SOURCE_BRANCH} branch."; \
 	elif [ "${DOWNLOAD}" = "stable" ]; \
 	then \
 		RELEASE=$(curl -s https://api.github.com/repos/"${GITHUB_ACCOUNT}"/"${GITHUB_REPOSITORY}"/releases/latest | grep 'tag_name' | cut -d\" -f4); \
@@ -41,19 +47,19 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	 	RELEASE="${DOWNLOAD}"; \
 	 	echo "INFO: Building Release: ${RELEASE}"; \
 	fi && \
+	RELEASE_CONCAT=$(echo "$SOURCE_BRANCH" | tr / -); \
 	# Ensure that unzip is installed, and download the sources
 	apt-get update && \
 	apt-get install -y  --no-install-recommends unzip && \
 	wget --no-check-certificate -O source.zip https://github.com/"${GITHUB_ACCOUNT}"/"${GITHUB_REPOSITORY}"/archive/"${RELEASE}".zip && \
 	unzip source.zip && \
 	rm source.zip && \
-	mv "${GITHUB_REPOSITORY}-${RELEASE}" /opt/iotajson && \
+	mv "${GITHUB_REPOSITORY}-${RELEASE_CONCAT}" /opt/iotajson && \
 	# Remove unzip and clean apt cache
 	apt-get clean && \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove
-
-
+	
 WORKDIR /opt/iotajson
 
 RUN \
@@ -66,7 +72,8 @@ RUN \
 	# Remove Git and clean apt cache
 	apt-get clean && \
 	apt-get remove -y git && \
-	apt-get -y autoremove
+	apt-get -y autoremove && \ 
+	chmod +x docker/entrypoint.sh
 
 USER node
 ENV NODE_ENV=production
@@ -74,5 +81,5 @@ ENV NODE_ENV=production
 # Expose Ports - Default to 4041 for NORTH PORT 4041, 7896 for HTTP PORT
 EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
 
-ENTRYPOINT ["pm2-runtime", "bin/iotagent-json"]
+ENTRYPOINT ["docker/entrypoint.sh"]
 CMD ["-- ", "config.js"]
