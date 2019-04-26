@@ -1,22 +1,22 @@
 # Installation & Administration Guide
 
-## Index
-
 * [Installation](#installation)
 * [Usage](#usage)
 * [Configuration](#configuration)
 
 ### Installation
-There are two ways of installing the JSON IoT Agent: using Git or RPMs.
+There are three ways of installing the JSON IoT Agent: using Git, RPMs or Docker image.
 
 #### Using GIT
 In order to install the TT Agent, just clone the project and install the dependencies:
-```
+
+```bash
 git clone https://github.com/telefonicaid/iotagent-json.git
 npm install
 ```
 In order to start the IoT Agent, from the root folder of the project, type:
-```
+
+```bash
 bin/iotagent-json
 ```
 
@@ -25,22 +25,41 @@ The project contains a script for generating an RPM that can be installed in Red
 The RPM depends on Node.js 0.10 version, so EPEL repositories are advisable.
 
 In order to create the RPM, execute the following scritp, inside the `/rpm` folder:
-```
+
+```bash
 create-rpm.sh -v <versionNumber> -r <releaseNumber>
 ```
 
 Once the RPM is generated, it can be installed using the followogin command:
-```
+
+```bash
 yum localinstall --nogpg <nameOfTheRPM>.rpm
 ```
 
 The IoTA will then be installed as a linux service, and can ve started with the `service` command as usual:
-```
+
+```bash
 service iotaJSON start
 ```
+#### Using Docker
+A docker container is available on docker hub. It will start the container with the default settings defined
+in `config.js`.
+
+```bash
+docker run -it --init fiware/iotagent-json
+```
+To use your own configuration you can mount a local configuration file:
+
+```bash
+docker run -it --init -v <path-to-configuration-file>:/opt/iotajson/new_config.js fiware/iotagent-json  -- new_config.js
+```
+As an alternative, it is also possible to pass configuration using environmental variables, as explained in [Configuration with environment variables](#configuration-with-environment-variables) subsection.
+
+
 ### Usage
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
-```
+
+```bash
 bin/iotagentMqtt.js
 ```
 This will start the JSON IoT Agent in the foreground. Use standard linux commands to start it in background.
@@ -75,6 +94,21 @@ These are the currently available MQTT configuration options:
 * **qos**: QoS level: at most once (0), at least once (1), exactly once (2). (default is 0).
 * **retain**: retain flag (default is false).
 
+#### AMQP Binding configuration
+
+The `config.amqp` section of the config file contains all the information needed to connect to the AMQP Broker from the
+IoT Agent. The following attributes are accepted:
+
+* **host**: Host where the AMQP Broker is located.
+* **port**: Port where the AMQP Broker is listening
+* **username**: user name that identifies the IOTA against the AMQP broker (optional).
+* **password**: password to be used if the username is provided (optional).
+* **exchange**: Exchange in the AMQP broker
+* **queue**: Queue in the AMQP broker
+* **durable**: durable queue flag (default is `false`).
+* **retries**: Number of AMQP connection error retries (default is 5).
+* **retryTime**: Time between AMQP connection retries (default is 5 seconds).
+
 #### Configuration with environment variables
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
@@ -89,7 +123,29 @@ The ones relating specific Ultralight 2.0 bindings are described in the followin
 | IOTA_MQTT_PASSWORD        | mqtt.password                       |
 | IOTA_MQTT_QOS             | mqtt.qos                            |
 | IOTA_MQTT_RETAIN          | mqtt.retain                         |
+| IOTA_AMQP_HOST            | amqp.host                           |
+| IOTA_AMQP_PORT            | amqp.port                           |
+| IOTA_AMQP_USERNAME        | amqp.username                       |
+| IOTA_AMQP_PASSWORD        | amqp.password                       |
+| IOTA_AMQP_EXCHANGE        | amqp.exchange                       |
+| IOTA_AMQP_QUEUE           | amqp.queue                          |
+| IOTA_AMQP_DURABLE         | amqp.durable                        |
+| IOTA_AMQP_RETRIES         | amqp.retries                        |
+| IOTA_AMQP_RETRY_TIME      | amqp.retryTime                      |
 | IOTA_HTTP_HOST            | http.host (still not in use)        |
 | IOTA_HTTP_PORT            | http.port (still not in use)        |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
+
+## <a name="packaging"/> Packaging
+The only package type allowed is RPM. In order to execute the packaging scripts, the RPM Build Tools must be available
+in the system.
+
+From the root folder of the project, create the RPM with the following commands:
+
+```bash
+cd rpm
+./create-rpm.sh -v <version-number> -r  <release-number>
+```
+Where `<version-number>` is the version (x.y.z) you want the package to have and `<release-number>` is an increasing
+number dependent in previous installations.

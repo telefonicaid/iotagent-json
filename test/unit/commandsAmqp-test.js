@@ -182,7 +182,7 @@ describe('AMQP Transport binding: commands', function() {
             setTimeout(function() {
                 contextBrokerMock.done();
                 done();
-            }, 200);
+            }, 1000);
         });
     });
 

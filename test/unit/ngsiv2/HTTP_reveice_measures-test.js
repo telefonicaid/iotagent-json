@@ -63,7 +63,8 @@ var iotaJson = require('../../../'),
             'fiware-servicepath': '/gardens'
         }
     },
-    contextBrokerMock;
+    contextBrokerMock,
+    contextBrokerUnprovMock;
 
 describe('HTTP: Measure reception ', function() {
     beforeEach(function(done) {
@@ -78,7 +79,7 @@ describe('HTTP: Measure reception ', function() {
         };
 
         nock.cleanAll();
-        
+
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
@@ -312,13 +313,13 @@ describe('HTTP: Measure reception ', function() {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         beforeEach(function(done) {
-            contextBrokerMock
+            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
-            contextBrokerMock
+            contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -332,7 +333,7 @@ describe('HTTP: Measure reception ', function() {
 
         it('should send its value to the Context Broker', function(done) {
             request(optionsMeasure, function(error, result, body) {
-                contextBrokerMock.done();
+                contextBrokerUnprovMock.done();
                 done();
             });
         });

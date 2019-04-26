@@ -1,9 +1,13 @@
 # iotagent-json
 
-[![License badge](https://img.shields.io/badge/license-AGPL-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
-[![Documentation badge](https://readthedocs.org/projects/fiware-iotagent-json/badge/?version=latest)](http://fiware-iotagent-json.readthedocs.org/en/latest/?badge=latest)
+[![FIWARE IoT Agents](https://nexus.lab.fiware.org/static/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
+[![License: APGL](https://img.shields.io/github/license/telefonicaid/iotagent-json.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![Docker badge](https://img.shields.io/docker/pulls/fiware/iotagent-json.svg)](https://hub.docker.com/r/fiware/iotagent-json/)
-[![Support badge]( https://img.shields.io/badge/support-sof-yellowgreen.svg)](http://stackoverflow.com/questions/tagged/fiware)
+[![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
+<br/>
+[![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](http://fiware-iotagent-json.readthedocs.org/en/latest/?badge=latest)
+![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
+
 
 
 ## Index
@@ -18,7 +22,7 @@
 
 ## Description
 This IoT Agent is designed to be a bridge between an MQTT/HTTP+JSON based protocol and the FIWARE NGSI standard used in FIWARE.
-This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its 
+This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found in its
 [Github page](https://github.com/telefonicaid/iotagent-node-lib).
 
 A quick way to get started is to read the [Step by step Manual](./docs/stepbystep.md).
@@ -47,8 +51,8 @@ An Overview of the API can be found in the [User & Programmers Manual](docs/user
 Apiary reference for the Configuration API can be found [here](http://docs.telefonicaiotiotagents.apiary.io/#).
 More information about IoTAgents and their APIs can be found in the IoTAgent Library [here](https://github.com/telefonicaid/iotagent-node-lib).
 
-## Command Line Client 
-The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be 
+## Command Line Client
+The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be
 executed with the following command:
 ```
 bin/iotaJsonTester.js
@@ -67,12 +71,17 @@ config file can be used to permanently tune the MQTT broker parameters, or the d
 
 ## Testing
 
-[Mocha](http://mochajs.org/) Test Runner + [Chai](http://chaijs.com/) Assertion Library + [Sinon](http://sinonjs.org/) Spies, stubs.
+[Mocha](http://visionmedia.github.io/mocha/) Test Runner + [Should.js](https://shouldjs.github.io/) Assertion Library.
 
-The test environment is preconfigured to run [BDD](http://chaijs.com/api/bdd/) testing style with
-`chai.expect` and `chai.should()` available globally while executing tests, as well as the [Sinon-Chai](http://chaijs.com/plugins/sinon-chai) plugin.
+The test environment is preconfigured to run BDD testing style.
 
 Module mocking during testing can be done with [proxyquire](https://github.com/thlorenz/proxyquire)
+
+To run tests, type
+
+```bash
+npm test
+```
 
 #### Requirements
 

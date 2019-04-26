@@ -64,6 +64,7 @@ var iotaJson = require('../../../'),
         }
     },
     contextBrokerMock,
+    contextBrokerUnprovMock,
     mqttClient;
 
 describe('MQTT: Measure reception ', function() {
@@ -143,17 +144,17 @@ describe('MQTT: Measure reception ', function() {
 
     describe('When a new multiple measure arrives for an unprovisioned device', function() {
         beforeEach(function(done) {
-            
+
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
-            contextBrokerMock
+            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
-            contextBrokerMock
+            contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -173,7 +174,7 @@ describe('MQTT: Measure reception ', function() {
             mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null,
                 function(error) {
                     setTimeout(function() {
-                        contextBrokerMock.done();
+                        contextBrokerUnprovMock.done();
                         done();
                     }, 100);
                 });

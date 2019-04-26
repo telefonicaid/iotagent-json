@@ -35,6 +35,7 @@ var iotaJson = require('../../../'),
     amqp = require('amqplib/callback_api'),
     apply = async.apply,
     contextBrokerMock,
+    contextBrokerUnprovMock,
     amqpConn,
     oldResource,
     channel;
@@ -129,17 +130,17 @@ describe('AMQP Transport binding: measures', function() {
         };
 
         beforeEach(function(done) {
-            
+
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
-            contextBrokerMock = nock('http://192.168.1.1:1026')
+            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
-            contextBrokerMock
+            contextBrokerUnprovMock
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v2/entities/SensorMachine:JSON_UNPROVISIONED/attrs',
@@ -155,7 +156,7 @@ describe('AMQP Transport binding: measures', function() {
             channel.publish(config.amqp.exchange, '.80K09H324HV8732.JSON_UNPROVISIONED.attrs.a', new Buffer('23'));
 
             setTimeout(function() {
-                contextBrokerMock.done();
+                contextBrokerUnprovMock.done();
                 done();
             }, 100);
         });

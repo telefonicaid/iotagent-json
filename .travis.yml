@@ -5,6 +5,8 @@ sudo: required
 node_js:
  - "4"
  - "6"
+ - "8"
+ - "10"
 
 branches:
   only:
@@ -21,4 +23,6 @@ install:
 before_install:
  - docker pull ansi/mosquitto
  - docker run -d -p 1883:1883 -l mosquitto ansi/mosquitto
- - npm install -g grunt-cli
+
+before_script:
+  - npm run lint
