@@ -42,6 +42,20 @@ jobs:
 
       after_script:
         - npm run test:coveralls
+        
+    - stage: test
+      name: "Unit Tests: Node 12"
+      node_js: 12
+
+      before_install:
+        - docker pull ansi/mosquitto
+        - docker run -d -p 1883:1883 -l mosquitto ansi/mosquitto
+
+      before_script:
+        - npm run lint
+
+      after_script:
+        - npm run test:coveralls
 
     - stage: test
       name: "Documentation Tests"
