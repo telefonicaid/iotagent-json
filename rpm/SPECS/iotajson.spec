@@ -169,6 +169,15 @@ fi
 %{_install_dir}
 
 %changelog
+* Wed May 22 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.10.0
+- Set Nodejs 6 version in packages.json (effectively removing Nodev4 as supported version)
+- Add: config.http.timeout (and associated enviroment variable IOTA_HTTP_TIMEOUT)(#152)
+- Add: config.mqtt.{cert,key,protocol,rejectUnauthorized} (and associated environment variables IOTA_MQTT_*)(#372)
+- Add: readding sinon as dev dependency (~6.1.0)
+- Upgrade NodeJS version from 8.12.0 to 8.16.0 in Dockerfile to improve security
+- Upgrade logops dependency from 1.0.8 to 2.1.0
+- Upgrade iotagent-node-lib dependency from 2.8.1 to 2.9.0
+
 * Wed Dec 19 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.9.0
 - Add: use timestamp configuration from group device
 - Add: use AMQP message handler, add reconnections and error handlers
