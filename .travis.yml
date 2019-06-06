@@ -16,20 +16,6 @@ install:
 jobs:
   include:
     - stage: test
-      name: "Unit Tests: Node 6"
-      node_js: 6
-
-      before_install:
-        - docker pull ansi/mosquitto
-        - docker run -d -p 1883:1883 -l mosquitto ansi/mosquitto
-
-      before_script:
-        - npm run lint
-
-      after_script:
-        - npm run test:coveralls
-
-    - stage: test
       name: "Unit Tests: Node 8"
       node_js: 8
 
@@ -46,6 +32,20 @@ jobs:
     - stage: test
       name: "Unit Tests: Node 10"
       node_js: 10
+
+      before_install:
+        - docker pull ansi/mosquitto
+        - docker run -d -p 1883:1883 -l mosquitto ansi/mosquitto
+
+      before_script:
+        - npm run lint
+
+      after_script:
+        - npm run test:coveralls
+        
+    - stage: test
+      name: "Unit Tests: Node 12"
+      node_js: 12
 
       before_install:
         - docker pull ansi/mosquitto
