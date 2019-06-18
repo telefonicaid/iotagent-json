@@ -32,36 +32,7 @@ var iotagentMqtt = require('../../'),
     async = require('async'),
     request = require('request'),
     utils = require('../utils'),
-    groupCreation = {
-        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-        method: 'POST',
-        json: {
-            services: [
-                {
-                    resource: '/iot/json',
-                    apikey: 'KL223HHV8732SFL1',
-                    entity_type: 'TheLightType',
-                    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                    cbHost: 'http://unexistentHost:1026',
-                    commands: [],
-                    lazy: [],
-                    attributes: [
-                        {
-                            name: 'status',
-                            type: 'Boolean'
-                        }
-                    ],
-                    static_attributes: []
-                }
-            ]
-        },
-        headers: {
-            'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
-    },
-    contextBrokerMock,
-    contextBrokerUnprovMock;
+    contextBrokerMock;
 
 describe('HTTP: Measure reception ', function() {
     beforeEach(function(done) {
