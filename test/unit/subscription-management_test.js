@@ -115,7 +115,9 @@ describe('Subscription management', function() {
         // 4) Subscription management
         //       When the iotagent stops
         //         should cease sending measures to the CB:
-        //     Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/home/travis/build/telefonicaid/iotagent-json/test/unit/subscription-management_test.js)
+        //     Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure
+        //     "done()" is called; if returning a Promise, ensure it resolves.
+        //     (/home/travis/build/telefonicaid/iotagent-json/test/unit/subscription-management_test.js)
 
 
         // it('should cease sending measures to the CB', function(done) {
