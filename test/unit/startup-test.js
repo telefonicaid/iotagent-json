@@ -21,13 +21,13 @@
  * please contact with::[contacto@tid.es]
  */
 'use strict';
-var fs = require('fs'),
-    iotagentJSON = require('../../'),
-    should = require('should'),
+var iotagentJSON = require('../../'),
     config = require('../../lib/configService'),
-    iotAgentConfig = require('../config-startup.js'),
-    mqtt = require('mqtt'),
-    sinon = require('sinon');
+    iotAgentConfig = require('../config-startup.js');
+    // should = require('should'),
+    // fs = require('fs'),
+    // mqtt = require('mqtt'),
+    // sinon = require('sinon');
 
 
 describe('Startup tests', function() {
@@ -51,11 +51,11 @@ describe('Startup tests', function() {
         });
 
         afterEach(function(done) {
-            iotagentUl.stop(done);
+            iotagentJSON.stop(done);
         });
 
         it('should load the environment variables in the internal configuration', function(done) {
-            iotagentUl.start(iotAgentConfig, function(error) {
+            iotagentJSON.start(iotAgentConfig, function(error) {
                 config.getConfig().mqtt.host.should.equal('127.0.0.1');
                 config.getConfig().mqtt.port.should.equal('1883');
                 config.getConfig().mqtt.username.should.equal('usermqtt');
@@ -73,17 +73,23 @@ describe('Startup tests', function() {
 //    1) Startup tests
 //      When the IoT Agent is started with environment variables
 //        should load the environment variables in the internal configuration:
-//    Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/home/travis/build/telefonicaid/iotagent-json/test/unit/startup-test.js)
+//    Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is
+//    called; if returning a Promise, ensure it resolves.
+//    (/home/travis/build/telefonicaid/iotagent-json/test/unit/startup-test.js)
 
 // 2) Startup tests
 //      When the IoT Agent is started with environment variables
 //        should support configuring mqtts through the use of environment variables:
-//    Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/home/travis/build/telefonicaid/iotagent-json/test/unit/startup-test.js)
+//    Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is
+//    called; if returning a Promise, ensure it resolves.
+// (/home/travis/build/telefonicaid/iotagent-json/test/unit/startup-test.js)
 
 // 3) Startup tests
 //      When the IoT Agent is started with environment variables
 //        should support configuring tls certificates through the use of environment variables:
-//    Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is called; if returning a Promise, ensure it resolves. (/home/travis/build/telefonicaid/iotagent-json/test/unit/startup-test.js)
+//    Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure "done()" is
+// called; if returning a Promise, ensure it resolves.
+// (/home/travis/build/telefonicaid/iotagent-json/test/unit/startup-test.js)
 
     // describe('When the IoT Agent is started with environment variables', function() {
     //     beforeEach(function() {
