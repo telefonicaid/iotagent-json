@@ -192,7 +192,7 @@ The ones relating specific JSON bindings are described in the following table.
 `IOTA_MQTT_CA`, `IOTA_MQTT_CERT`, `IOTA_MQTT_KEY` environment variables should provide the filename of the file whose
 contents will be used for the configuration attribute.
 
-## <a name="packaging"/> Packaging
+## Packaging
 
 The only package type allowed is RPM. In order to execute the packaging scripts, the RPM Build Tools must be available
 in the system.
