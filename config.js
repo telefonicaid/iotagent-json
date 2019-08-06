@@ -50,7 +50,19 @@ config.mqtt = {
      * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
      * The publisher can tell the broker to keep the last message on that topic by setting the retained message flag to true  .
      */
-    retain: false
+    retain: false,
+    /**
+     * Number of MQTT connection error retries (default is 5).
+     */
+    retries: 5,
+    /**
+     * Time between MQTT connection retries (default is 5 seconds).
+     */
+    retryTime: 5,
+    /**
+     * Time to keep connection open between client and MQTT broker (default is 0 seconds)
+     */
+    keepalive: 0
 };
 
 /**
