@@ -37,7 +37,7 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
-		RELEASE="${SOURCE_BRANCH}"; \		
+		RELEASE="${SOURCE_BRANCH}"; \
 		echo "INFO: Building Latest Development from ${SOURCE_BRANCH} branch."; \
 	elif [ "${DOWNLOAD}" = "stable" ]; \
 	then \
@@ -59,7 +59,7 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	apt-get clean && \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove
-	
+
 WORKDIR /opt/iotajson
 
 RUN \
@@ -72,7 +72,7 @@ RUN \
 	# Remove Git and clean apt cache
 	apt-get clean && \
 	apt-get remove -y git && \
-	apt-get -y autoremove && \ 
+	apt-get -y autoremove && \
 	chmod +x docker/entrypoint.sh
 
 USER node

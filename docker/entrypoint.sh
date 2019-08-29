@@ -64,4 +64,12 @@ else
     fi
 fi
 
-pm2-runtime bin/iotagent-json
+if [[  -z "$PM2_ENABLED" ]]; then
+    echo "INFO: IoT Agent running standalone"
+    node bin/iotagent-json
+else
+    echo "***********************************************"
+    echo "INFO: IoT Agent encapsulated by pm2-runtime see https://pm2.io/doc/en/runtime/integration/docker/"
+    echo "***********************************************"
+    pm2-runtime bin/iotagent-json
+fi

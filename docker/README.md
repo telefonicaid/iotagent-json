@@ -153,6 +153,19 @@ COPY . /opt/iotajson/
 
 Full instructions can be found within the `Dockerfile` itself.
 
+### Using PM2
+
+The IoT Agent within the Docker image can be run encapsulated within the [pm2](http://pm2.keymetrics.io/) Process
+Manager by adding the `PM2_ENABLED` environment variable.
+
+```console
+docker run --name iotagent -e PM2_ENABLED=true -d fiware/iotagent-json
+```
+
+Use of pm2 is **disabled** by default. It is unnecessary and counterproductive to add an additional process manager if
+your dockerized environment is already configured to restart Node.js processes whenever they exit (e.g. when using
+[Kubernetes](https://kubernetes.io/))
+
 ### Docker Secrets
 
 As an alternative to passing sensitive information via environment variables, `_FILE` may be appended to some sensitive
