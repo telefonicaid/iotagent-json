@@ -50,7 +50,7 @@ services:
             - "IOTA_CB_PORT=1026"
             - "IOTA_NORTH_PORT=4041"
             - "IOTA_REGISTRY_TYPE=mongodb"
-            - "IOTA_MONGO_HOST=mongo-db"
+            - "IOTA_MONGO_HOST=mongodb"
             - "IOTA_MONGO_PORT=27017"
             - "IOTA_MONGO_DB=iotagent-json"
             - "IOTA_HTTP_PORT=7896"
@@ -58,7 +58,7 @@ services:
 
     mongodb:
         image: mongo:3.6
-        hostname: mongo-db
+        hostname: mongodb
         container_name: db-mongo
         ports:
             - "27017:27017"
@@ -152,6 +152,19 @@ COPY . /opt/iotajson/
 ```
 
 Full instructions can be found within the `Dockerfile` itself.
+
+### Using PM2
+
+The IoT Agent within the Docker image can be run encapsulated within the [pm2](http://pm2.keymetrics.io/) Process
+Manager by adding the `PM2_ENABLED` environment variable.
+
+```console
+docker run --name iotagent -e PM2_ENABLED=true -d fiware/iotagent-json
+```
+
+Use of pm2 is **disabled** by default. It is unnecessary and counterproductive to add an additional process manager if
+your dockerized environment is already configured to restart Node.js processes whenever they exit (e.g. when using
+[Kubernetes](https://kubernetes.io/))
 
 ### Docker Secrets
 

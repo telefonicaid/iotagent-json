@@ -303,7 +303,7 @@ If we return now to the subscription window, we should be able to see the value 
 Along with all the information requested by the device, the IoTAgent will report the server time in the `dt` field of
 the response.
 
-## <a name="withconfiguration">Provisioning multiple devices with a Configuration</a>
+## Provisioning multiple devices with a Configuration
 
 In those cases where a group of devices with similar characteristics will be provisioned, a common configuration can be
 created for them. This configuration provision can be used to separate device messages between services, by establishing
