@@ -183,3 +183,43 @@ Currently, this the `_FILE` suffix is supported for:
 -   `IOTA_AUTH_PASSWORD`
 -   `IOTA_AUTH_CLIENT_ID`
 -   `IOTA_AUTH_CLIENT_SECRET`
+
+## Best Practices
+
+### Increase ULIMIT in Docker Production Deployments
+
+Default settings for ulimit on a Linux system assume that several users would share the system. These settings limit the
+number of resources used by each user. The default settings are generally very low for high performance servers and
+should be increased. By default, we recommend, that the IoTAgent - JSON server in high performance scenarios, the
+following changes to ulimits:
+
+```console
+ulimit -n 65535        # nofile: The maximum number of open file descriptors (most systems do not allow this
+                                 value to be set)
+ulimit -c unlimited    # core: The maximum size of core files created
+ulimit -l unlimited    # memlock: The maximum size that may be locked into memory
+```
+
+If you are just doing light testing and development, you can omit these settings, and everything will still work.
+
+To set the ulimits in your container, you will need to run IoTAgent - JSON Docker containers with the following
+additional --ulimit flags:
+
+```console
+docker run --ulimit nofile=65535:65535 --ulimit core=100000000:100000000 --ulimit memlock=100000000:100000000 \
+--name iotagent -d fiware/iotagent-json
+```
+
+Since “unlimited” is not supported as a value, it sets the core and memlock values to 100 GB. If your system has more
+than 100 GB RAM, you will want to increase this value to match the available RAM on the system.
+
+> Note: The --ulimit flags only work on Docker 1.6 or later.
+
+Nevertheless, you have to "request" more resources to Kubernetes (i.e. multiple cores), which might be more difficult
+for [Kubernetes](https://kubernetes.io/) to schedule than a few different containers requesting one core (or less...)
+each (which it can, in turn, schedule on multiple nodes, and not necessarily look for one node with enough available
+cores).
+
+If you want to get more details about the configuration of the system and node.js for high performance scenarios, please
+refer to the
+[Installation Guide](https://iotagent-node-lib.readthedocs.io/en/latest/installationguide/index.html#configuration).
