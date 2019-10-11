@@ -1,10 +1,15 @@
-dist: trusty
+dist: xewnial
 language: node_js
 sudo: required
 
 branches:
   only:
     - master
+
+addons:
+  apt:
+    packages:
+      - rabbitmq-server
 
 services:
   - rabbitmq
