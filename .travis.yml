@@ -1,15 +1,15 @@
-dist: xewnial
+dist: xenial
 language: node_js
 sudo: required
-
-branches:
-  only:
-    - master
 
 addons:
   apt:
     packages:
       - rabbitmq-server
+
+branches:
+  only:
+    - master
 
 services:
   - rabbitmq
