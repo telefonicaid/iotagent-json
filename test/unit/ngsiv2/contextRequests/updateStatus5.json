@@ -1,0 +1,10 @@
+{
+  "PING_status": {
+    "type": "commandStatus",
+    "value": "OK"
+  },
+  "PING_info": {
+    "type": "commandResult",
+    "value": "MADE_OK"
+  }
+}
