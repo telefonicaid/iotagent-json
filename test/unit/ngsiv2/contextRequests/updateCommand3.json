@@ -1,0 +1,13 @@
+{
+  "actionType": "update",
+  "entities": [
+    {
+      "id": "Fourth MQTT Device",
+      "type": "MQTTCommandDevice",
+      "PING": {
+          "type": "command",
+          "value": 22
+      }
+    }
+  ]
+}
