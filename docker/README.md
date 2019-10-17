@@ -221,4 +221,4 @@ each (which it can, in turn, schedule on multiple nodes, and not necessarily loo
 cores).
 
 If you want to get more details about the configuration of the system and node.js for high performance scenarios, please
-refer to the [Installation Guide](https://iotagent-node-lib.readthedocs.io/en/latest/installationguide/index.html).
+refer to the [Installation Guide](https://fiware-iotagent-json.readthedocs.io/en/latest/installationguide/index.html).
