@@ -99,8 +99,6 @@ There are also some global configuration options:
     using the bidirectionality plugin from the latest versions of the library or the JSON-specific configuration
     retrieval mechanism (described in the User Manual). Simultaneous use of both mechanisms is not allowed.
 -   **compressTimestamp**: this flag enables the timestamp compression mechanism, described in the User Manual.
--   **multiCore**: this (optional) flag enables the execution of the IoT Agent in multi-cores if it is `true` or in
-    single-thread if it is either `false` or not specified.
 
 #### MQTT configuration
 
