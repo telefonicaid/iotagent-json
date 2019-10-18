@@ -1,3 +1,4 @@
+Check callback before use it if MQTT connection error
 ADD PM2_ENABLED flag to Docker
 Upgrade NodeJS version from 8.16.0 to 8.16.1 in Dockerfile due to security issues
 
