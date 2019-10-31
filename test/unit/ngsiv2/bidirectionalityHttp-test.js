@@ -32,7 +32,6 @@ var iotagentJson = require('../../../'),
     should = require('should'),
     request = require('request'),
     utils = require('../../utils'),
-    moment = require('moment'),
     mockedClientServer,
     contextBrokerMock;
 
