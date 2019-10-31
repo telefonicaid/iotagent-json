@@ -61,7 +61,7 @@
     "body-parser": "1.18.3",
     "dateformat": "3.0.3",
     "express": "~4.16.4",
-    "iotagent-node-lib": "git://github.com/flopezag/iotagent-node-lib.git#feature/cluster-support",
+    "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "2.1.0",
     "mqtt": "2.18.8",
     "request": "2.88.0",
