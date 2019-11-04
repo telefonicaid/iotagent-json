@@ -1,8 +1,10 @@
-Use device apikey if exists in getEffectiveApiKey for command handling
-Update default expiration device registration (ngsiv1) from 1M to 20Y
-Fix: Avoid connections to AMQP and MQTT when these transports are not included in configuration. (#409)
-Check callback before use it if MQTT connection error
-ADD PM2_ENABLED flag to Docker
-Upgrade NodeJS version from 8.16.0 to 8.16.1 in Dockerfile due to security issues
+- Use device apikey if exists in getEffectiveApiKey for command handling
+- Update default expiration device registration (ngsiv1) from 1M to 20Y
+- Fix: Avoid connections to AMQP and MQTT when these transports are not included in configuration. (#409)
+- Check callback before use it if MQTT connection error
+- ADD PM2_ENABLED flag to Docker
+- Upgrade NodeJS version from 8.16.0 to 8.16.1 in Dockerfile due to security issues
+- NOTE: in the "upgrade iotagent-node-lib from X to Y" include a mention about NGSIv2 forwarding support and issue #250
+- NOTE: in the "upgrade iotagent-node-lib from X to Y" include a mention to configure multithreading using cluster
+   nodejs module (through multiCore config.js parameter or IOTA_MULTI_CORE environment variable)
 
-NOTE: in the "upgrade iotagent-node-lib from X to Y" include a mention about NGSIv2 forwarding support and issue #250
