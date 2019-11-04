@@ -248,7 +248,7 @@ config.iota = {
     /**
      * Default maximum expire date for device registrations.
      */
-    deviceRegistrationDuration: 'P1M',
+    deviceRegistrationDuration: 'P20Y',
     /**
      * Default type, for IoT Agent installations that won't require preregistration.
      */
