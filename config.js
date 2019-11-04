@@ -48,7 +48,8 @@ config.mqtt = {
     /**
      * Retain flag. (default is true.) Normally if a publisher publishes a message to a topic, and no one is
      * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
-     * The publisher can tell the broker to keep the last message on that topic by setting the retained message flag to true  .
+     * The publisher can tell the broker to keep the last message on that topic by setting the retained message
+     * flag to true.
      */
     retain: false,
     /**
@@ -146,52 +147,52 @@ config.iota = {
          */
         port: 4041
     },
-   
+
     /**
      * Configuration for secured access to instances of the Context Broker secured with a PEP Proxy.
      * For the authentication mechanism to work, the authentication attribute in the configuration has to be fully
      * configured, and the authentication.enabled subattribute should have the value `true`.
      *
-     * The Username and password should be considered as sensitive data and should not be stored in plaintext. 
+     * The Username and password should be considered as sensitive data and should not be stored in plaintext.
      * Either encrypt the config and decrypt when initializing the instance or use environment variables secured by
      * docker secrets.
      */
     //authentication: {
-        //enabled: false,
-        /**
-        * Type of the Identity Manager which is used when authenticating the IoT Agent.
-        */
-        //type: 'keystone',
-        /**
-        * Name of the additional header passed to hold the identity of the IoT Agent
-        */
-        //header: 'X-Auth-Token',
-        /**
-        * Hostname of the Identity Manager.
-        */
-        //host: 'localhost',
-        /**
-        * Port of the Identity Manager.
-        */
-        //port: '5000',
-        /**
-        * Username for the IoT Agent - Note this should not be stored in plaintext.
-        */
-        //user: 'IOTA_AUTH_USER',
-        /**
-        * Password for the IoT Agent - Note this should not be stored in plaintext.
-        */
-        //password: 'IOTA_AUTH_PASSWORD',
-        /**
-        * OAuth2 client ID - Note this should not be stored in plaintext.
-        */
-        //clientId: 'IOTA_AUTH_CLIENT_ID',
-        /**
-        * OAuth2 client secret - Note this should not be stored in plaintext.
-        */
-        //clientSecret: 'IOTA_AUTH_CLIENT_SECRET'    
+    //enabled: false,
+    /**
+     * Type of the Identity Manager which is used when authenticating the IoT Agent.
+     */
+    //type: 'keystone',
+    /**
+     * Name of the additional header passed to hold the identity of the IoT Agent
+     */
+    //header: 'X-Auth-Token',
+    /**
+     * Hostname of the Identity Manager.
+     */
+    //host: 'localhost',
+    /**
+     * Port of the Identity Manager.
+     */
+    //port: '5000',
+    /**
+     * Username for the IoT Agent - Note this should not be stored in plaintext.
+     */
+    //user: 'IOTA_AUTH_USER',
+    /**
+     * Password for the IoT Agent - Note this should not be stored in plaintext.
+     */
+    //password: 'IOTA_AUTH_PASSWORD',
+    /**
+     * OAuth2 client ID - Note this should not be stored in plaintext.
+     */
+    //clientId: 'IOTA_AUTH_CLIENT_ID',
+    /**
+     * OAuth2 client secret - Note this should not be stored in plaintext.
+     */
+    //clientSecret: 'IOTA_AUTH_CLIENT_SECRET'
     //},
-   
+
     /**
      * Defines the configuration for the Device Registry, where all the information about devices and configuration
      * groups will be stored. There are currently just two types of registries allowed:
@@ -241,8 +242,8 @@ config.iota = {
      */
     subservice: '/howto',
     /**
-     * URL Where the IoT Agent Will listen for incoming updateContext and queryContext requests (for commands and passive
-     * attributes). This URL will be sent in the Context Registration requests.
+     * URL Where the IoT Agent Will listen for incoming updateContext and queryContext requests (for commands and
+     * passive attributes). This URL will be sent in the Context Registration requests.
      */
     providerUrl: 'http://localhost:4041',
     /**
@@ -273,5 +274,10 @@ config.defaultKey = '1234';
  * Default transport protocol when no transport is provisioned through the Device Provisioning API.
  */
 config.defaultTransport = 'MQTT';
+/**
+ * flag indicating whether the node server will be executed in multi-core option (true) or it will be a
+ * single-thread one (false).
+ */
+//config.multiCore = false;
 
 module.exports = config;
