@@ -1,4 +1,4 @@
-- Use device apikey if exists in getEffectiveApiKey
+- Use device apikey if exists in getEffectiveApiKey for command handling
 - Update default expiration device registration (ngsiv1) from 1M to 20Y
 - Fix: Avoid connections to AMQP and MQTT when these transports are not included in configuration. (#409)
 - Check callback before use it if MQTT connection error
