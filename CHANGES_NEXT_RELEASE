@@ -1,0 +1,1 @@
+- Use device apikey if exists in getEffectiveApiKey for command handling
