@@ -53,7 +53,7 @@ if [[  -z "$IOTA_AUTH_ENABLED" ]]; then
  echo "WARNING: It is recommended to enable authentication for secure connection"
  echo "***********************************************"
 else
-    if  [[ -z "$IOTA_AUTH_USER" ]] || [ -z "$IOTA_AUTH_PASSWORD" ]]; then
+    if  [[ -z "$IOTA_AUTH_USER" ]] || [[ -z "$IOTA_AUTH_PASSWORD" ]]; then
         echo "***********************************************"
         echo "WARNING: Default IoT Agent Auth credentials have not been overridden"
         echo "***********************************************"
@@ -64,4 +64,12 @@ else
     fi
 fi
 
-pm2-runtime bin/iotagent-json
+if [[  -z "$PM2_ENABLED" ]]; then
+    echo "INFO: IoT Agent running standalone"
+    node bin/iotagent-json
+else
+    echo "***********************************************"
+    echo "INFO: IoT Agent encapsulated by pm2-runtime see https://pm2.io/doc/en/runtime/integration/docker/"
+    echo "***********************************************"
+    pm2-runtime bin/iotagent-json
+fi

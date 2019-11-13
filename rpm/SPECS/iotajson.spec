@@ -169,6 +169,28 @@ fi
 %{_install_dir}
 
 %changelog
+* Mon Nov 04 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.12.0
+- Add: PM2_ENABLED flag to Docker
+- Fix: update default expiration device registration (ngsiv1) from 1M to 20Y
+- Fix: avoid connections to AMQP and MQTT when these transports are not included in configuration (#409)
+- Fix: check callback before use it if MQTT connection error
+- Upgrade iotagent-node-lib dependency from 2.10.0 to 2.11.0 (inclusing NGSIv2 forwarding -issue #250-, and cluster nodejs functionality)
+- Upgrade NodeJS version from 8.16.0 to 8.16.1 in Dockerfile due to security issues
+
+* Tue Aug 13 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.11.0
+- Set Nodejs 8 as minimum version in packages.json (effectively removing Nodev6 from supported versions)
+- Add: Reconnect when MQTT closes connection (including mqtt retries and keepalive conf options)
+- Upgrade iotagent-node-lib dependency from 2.9.0 to 2.10.0
+
+* Wed May 22 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.10.0
+- Set Nodejs 6 version in packages.json (effectively removing Nodev4 as supported version)
+- Add: config.http.timeout (and associated enviroment variable IOTA_HTTP_TIMEOUT)(#152)
+- Add: config.mqtt.{cert,key,protocol,rejectUnauthorized} (and associated environment variables IOTA_MQTT_*)(#372)
+- Add: readding sinon as dev dependency (~6.1.0)
+- Upgrade NodeJS version from 8.12.0 to 8.16.0 in Dockerfile to improve security
+- Upgrade logops dependency from 1.0.8 to 2.1.0
+- Upgrade iotagent-node-lib dependency from 2.8.1 to 2.9.0
+
 * Wed Dec 19 2018 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.9.0
 - Add: use timestamp configuration from group device
 - Add: use AMQP message handler, add reconnections and error handlers

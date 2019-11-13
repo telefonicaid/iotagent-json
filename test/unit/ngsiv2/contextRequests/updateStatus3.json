@@ -1,0 +1,6 @@
+{
+  "PING_status": {
+    "type": "commandStatus",
+    "value": "PENDING"
+  }
+}

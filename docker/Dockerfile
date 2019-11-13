@@ -1,4 +1,4 @@
-ARG NODE_VERSION=8.15.0-slim
+ARG NODE_VERSION=8.16.1-slim
 FROM node:${NODE_VERSION}
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
@@ -17,9 +17,9 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 
 # IMPORTANT: For a Production Environment Use Docker Secrets to define
 #  these values and add _FILE to the name of the variable.
-
-# ENV IOTA_AUTH_USER "iotagent"
-# ENV IOTA_AUTH_PASSWORD "iotagent"
+#
+# - IOTA_AUTH_USER, IOTA_AUTH_PASSWORD - when using Keystone Security 
+# - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
 
 # The following RUN command retrieves the source code from GitHub.
 # 
@@ -37,7 +37,7 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 #
 RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
-		RELEASE="${SOURCE_BRANCH}"; \		
+		RELEASE="${SOURCE_BRANCH}"; \
 		echo "INFO: Building Latest Development from ${SOURCE_BRANCH} branch."; \
 	elif [ "${DOWNLOAD}" = "stable" ]; \
 	then \
@@ -59,7 +59,7 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	apt-get clean && \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove
-	
+
 WORKDIR /opt/iotajson
 
 RUN \
@@ -72,7 +72,7 @@ RUN \
 	# Remove Git and clean apt cache
 	apt-get clean && \
 	apt-get remove -y git && \
-	apt-get -y autoremove && \ 
+	apt-get -y autoremove && \
 	chmod +x docker/entrypoint.sh
 
 USER node

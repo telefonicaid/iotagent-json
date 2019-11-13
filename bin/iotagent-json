@@ -25,6 +25,7 @@
 'use strict';
 
 var iotAgent = require('../lib/iotagent-json'),
+    iotAgentLib = require('iotagent-node-lib'),
     info = require('../package.json'),
     context = {
         op: 'IOTAJSON.Executable'
@@ -42,11 +43,11 @@ function start() {
 
     config.iota.iotaVersion = info.version;
 
-    iotAgent.start(config, function (error) {
+    iotAgentLib.startServer(config, iotAgent, function (error) {
         if (error) {
-            logger.error(context, 'Error starting JSON IoT Agent: [%s] Exiting process', error);
+            logger.error(context, 'Error starting IoT Agent - JSON: [%s] Exiting process', error);
         } else {
-            logger.info(context, 'JSON IoT Agent started');
+            logger.info(context, 'IoT Agent JSON started');
         }
     });
 }

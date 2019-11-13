@@ -1,0 +1,15 @@
+{
+  "actionType": "update",
+  "entities": [
+    {
+      "id": "Second MQTT Device",
+      "type": "AnMQTTDevice",
+      "PING": {
+        "type": "command",
+        "value":{
+          "data": "22"
+        }
+      }
+    }
+  ]
+}
