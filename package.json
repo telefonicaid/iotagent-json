@@ -63,7 +63,7 @@
     "express": "~4.16.4",
     "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "2.1.0",
-    "mqtt": "2.18.8",
+    "mqtt": "3.0.0",
     "request": "2.88.0",
     "underscore": "1.9.1"
   },
