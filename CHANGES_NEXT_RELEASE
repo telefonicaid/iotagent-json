@@ -1,2 +1,3 @@
+- Use MQTT v5 shared subscriptions (upgrade mqtt dep from 2.18.8 to 3.0.0)
 - Use AMQP durable option in assertExchange
 - Use device apikey if exists in getEffectiveApiKey for command handling
