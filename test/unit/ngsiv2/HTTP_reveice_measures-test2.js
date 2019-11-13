@@ -102,7 +102,7 @@ describe('HTTP: Measure reception ', function() {
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-    describe('When a POST measure arrives for the HTTP binding', function() {
+    describe('When a POST multimeasure arrives for the HTTP binding', function() {
         var optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -178,7 +178,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
+    describe('When a POST multimeasure arrives with a TimeInstant attribute in the body', function() {
         var optionsMeasure = {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
@@ -232,6 +232,16 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'sensor' })
                 .reply(204);
 
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                )
+                .query({ type: 'sensor' })
+                .reply(204);
+
             iotaJson.stop(function() {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
@@ -256,7 +266,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant query parameter in the body', function() {
+    describe('When a POST multimeasure arrives with a TimeInstant query parameter in the body', function() {
         var optionsMeasure = {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
@@ -309,6 +319,16 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'sensor' })
                 .reply(204);
 
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                )
+                .query({ type: 'sensor' })
+                .reply(204);
+
             iotaJson.stop(function() {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
@@ -333,7 +353,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives for an unprovisioned device', function() {
+    describe('When a POST multimeasure arrives for an unprovisioned device', function() {
         var optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -364,6 +384,16 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
+                .reply(204);
+
+            contextBrokerUnprovMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice2.json')
+                )
+                .query({ type: 'TheLightType' })
                 .reply(204);
 
             contextBrokerUnprovMock

@@ -1,2 +1,3 @@
+- Add: Multimeasure support (#391)
 - Use AMQP durable option in assertExchange
 - Use device apikey if exists in getEffectiveApiKey for command handling

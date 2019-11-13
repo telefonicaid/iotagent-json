@@ -97,7 +97,7 @@ describe('HTTP: Measure reception ', function() {
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
-    describe('When a POST measure arrives for the HTTP binding', function() {
+    describe('When a POST multimeasure arrives for the HTTP binding', function() {
         var optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -148,7 +148,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
+    describe('When a POST multimeasure arrives with a TimeInstant attribute in the body', function() {
         var optionsMeasure = {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
@@ -196,6 +196,12 @@ describe('HTTP: Measure reception ', function() {
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantMeasures.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json'));
 
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantMeasures2.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json'));
+
             iotagentMqtt.stop(function() {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
@@ -220,7 +226,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant query parameter in the body', function() {
+    describe('When a POST multimeasure arrives with a TimeInstant query parameter in the body', function() {
         var optionsMeasure = {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
@@ -267,6 +273,12 @@ describe('HTTP: Measure reception ', function() {
                 .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantMeasures.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json'));
 
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/timeInstantMeasures3.json'))
+                .reply(200, utils.readExampleFile('./test/contextResponses/timeInstantMeasuresSuccess.json'));
+
             iotagentMqtt.stop(function() {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
@@ -291,7 +303,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives for an unprovisioned device', function() {
+    describe('When a POST multimeasure arrives for an unprovisioned device', function() {
         var optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -320,6 +332,12 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/updateContext')
+                .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
+
+            contextBrokerUnprovMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v1/updateContext', utils.readExampleFile('./test/contextRequests/unprovisionedDevice2.json'))
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
 
             contextBrokerUnprovMock
