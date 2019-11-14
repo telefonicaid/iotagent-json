@@ -138,7 +138,7 @@ describe('MQTT: Measure reception ', function() {
                 alive: null
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -178,14 +178,17 @@ describe('MQTT: Measure reception ', function() {
                 temperature: '87'
             };
 
-            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
-                error
-            ) {
-                setTimeout(function() {
-                    contextBrokerUnprovMock.done();
-                    done();
-                }, 100);
-            });
+            mqttClient.publish(
+                '/json/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs',
+                JSON.stringify(values),
+                null,
+                function(error) {
+                    setTimeout(function() {
+                        contextBrokerUnprovMock.done();
+                        done();
+                    }, 100);
+                }
+            );
         });
     });
 
@@ -207,7 +210,7 @@ describe('MQTT: Measure reception ', function() {
                 weight: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -235,7 +238,7 @@ describe('MQTT: Measure reception ', function() {
                 TimeInstant: '20071103T131805'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -257,7 +260,7 @@ describe('MQTT: Measure reception ', function() {
                 .reply(204);
         });
         it('should send its values to the Context Broker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -268,7 +271,7 @@ describe('MQTT: Measure reception ', function() {
 
     describe('When a malformed multiple measure arrives to the MQTT Topic', function() {
         it('should not crash', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attrs', '{"humidity": " }(}', null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', '{"humidity": " }(}', null, function(error) {
                 setTimeout(function() {
                     done();
                 }, 100);
