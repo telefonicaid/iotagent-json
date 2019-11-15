@@ -1,4 +1,4 @@
 - Allow use protocol ("/json") in mqtt topic (#374)
-- Use MQTT v5 shared subscriptions to avoid dupplicated messages per agent type (upgrade mqtt dep from 2.18.8 to 3.0.0)
+- Use MQTT v5 shared subscriptions to avoid dupplicated messages per agent type (upgrade mqtt dep from 2.18.8 to 3.0.0). Needs MQTT v5 broker like mosquitto 1.6+
 - Use AMQP durable option in assertExchange
 - Use device apikey if exists in getEffectiveApiKey for command handling
