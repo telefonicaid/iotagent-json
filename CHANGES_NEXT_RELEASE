@@ -1,1 +1,2 @@
 - Use device apikey if exists in getEffectiveApiKey for command handling
+- Upgrade NodeJS version from 8.16.1 to 10.17.0 in Dockerfile due to Node 8 End-of-Life 
