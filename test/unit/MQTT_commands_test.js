@@ -58,7 +58,7 @@ describe('MQTT: Commands', function() {
             }
         );
 
-        mqttClient.subscribe('/json/1234/MQTT_2/cmd', null);
+        mqttClient.subscribe('/1234/MQTT_2/cmd', null);
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartGondor')
@@ -81,7 +81,7 @@ describe('MQTT: Commands', function() {
 
     afterEach(function(done) {
         nock.cleanAll();
-        mqttClient.unsubscribe('/json/1234/MQTT_2/cmd', null);
+        mqttClient.unsubscribe('/1234/MQTT_2/cmd', null);
         mqttClient.end();
 
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
@@ -154,7 +154,7 @@ describe('MQTT: Commands', function() {
         });
 
         it('should send an update request to the Context Broker', function(done) {
-            mqttClient.publish('/json/1234/MQTT_2/cmdexe', '{ "PING": "1234567890" }', null, function(error) {
+            mqttClient.publish('/1234/MQTT_2/cmdexe', '{ "PING": "1234567890" }', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();

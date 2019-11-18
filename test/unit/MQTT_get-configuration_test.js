@@ -97,19 +97,19 @@ describe('MQTT: Get configuration from the devices', function() {
                     .post('/v1/queryContext', utils.readExampleFile('./test/contextRequests/getConfiguration.json'))
                     .reply(200, utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
 
-                mqttClient.subscribe('/json/1234/MQTT_2/configuration/values', null);
+                mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
                 configurationReceived = false;
             });
 
             afterEach(function(done) {
-                mqttClient.unsubscribe('/json/1234/MQTT_2/configuration/values', null);
+                mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
 
                 done();
             });
 
             it('should ask the Context Broker for the request attributes', function(done) {
-                mqttClient.publish('/json/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
                     error
                 ) {
                     setTimeout(function() {
@@ -130,7 +130,7 @@ describe('MQTT: Get configuration from the devices', function() {
                         result.warningLevel === '80';
                 });
 
-                mqttClient.publish('/json/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
                     error
                 ) {
                     setTimeout(function() {
@@ -147,7 +147,7 @@ describe('MQTT: Get configuration from the devices', function() {
                     configurationReceived = result.dt && result.dt.should.match(/^\d{8}T\d{6}Z$/);
                 });
 
-                mqttClient.publish('/json/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
                     error
                 ) {
                     setTimeout(function() {
@@ -173,21 +173,19 @@ describe('MQTT: Get configuration from the devices', function() {
                 .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
                 .reply(200, utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
 
-            mqttClient.subscribe('/json/1234/MQTT_2/configuration/values', null);
+            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
             configurationReceived = false;
         });
 
         afterEach(function(done) {
-            mqttClient.unsubscribe('/json/1234/MQTT_2/configuration/values', null);
+            mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
 
             done();
         });
 
         it('should create a subscription in the ContextBroker', function(done) {
-            mqttClient.publish('/json/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
-                error
-            ) {
+            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -211,9 +209,7 @@ describe('MQTT: Get configuration from the devices', function() {
                 configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
             });
 
-            mqttClient.publish('/json/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
-                error
-            ) {
+            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     request(optionsNotify, function(error, response, body) {
                         setTimeout(function() {

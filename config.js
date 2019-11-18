@@ -63,11 +63,7 @@ config.mqtt = {
     /**
      * Time to keep connection open between client and MQTT broker (default is 0 seconds)
      */
-    keepalive: 0,
-    /**
-     * Publish commands using protocol in topic or not for legacy (Default publish with protocol in topic)
-     */
-    commandLegacy: true
+    keepalive: 0
 };
 
 /**
