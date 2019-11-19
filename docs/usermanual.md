@@ -156,8 +156,8 @@ of a service, and the DeviceID is an ID that uniquely identifies the device in a
 with the IoTA Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID
 must be provisioned in advance in the IoT Agent before information is sent.
 All topis used published by the agent (to send a comamnd or to send configuration information) to a device are not prefixed
-by the protocol, in this case '/json', just include apikey and deviceid (e.g: `/json/FF957A98/cmd` and 
-`/json/FF957A98/configuration/values` ).
+by the protocol, in this case '/json', just include apikey and deviceid (e.g: `/FF957A98/cmd` and 
+`/FF957A98/configuration/values` ).
 
 #### Measure reporting
 
@@ -317,7 +317,7 @@ to the Context Broker regarding an entity called `sen1` of type `sensor`:
 ```
 
 If the API key associated to de device is `ABCDEF`, and the device ID related to `sen1` entity is `id_sen1`, this will
-generate a message in the `/json/ABCDEF/id_sen1/cmd` topic with the following payload:
+generate a message in the `/ABCDEF/id_sen1/cmd` topic with the following payload:
 
 ```json
 { "ping": { "data": "22" } }
