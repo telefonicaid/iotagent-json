@@ -129,7 +129,6 @@ Every device should listen in the following path, so it can receive configuratio
 ```text
 <device_endpoint>/configuration/values
 ```
-
 Whenever the device requests any information from the IoTA, the information will be posted in this path. The information
 is sent in the same format used in multiple measure reporting: a plain JSON with an attribute per value requested. An
 additional parameter called `dt` is added with the system current time.
@@ -149,12 +148,16 @@ E.g.:
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
 destinations and types of the messages (the different possible interactions are described in the following sections).
 
-All the topics used in the protocol are prefixed with the APIKey of the device group and the Device ID of the device
-involved in the interaction; i.e.: there is a different set of topics for each service (e.g:
-`/FF957A98/MyDeviceId/attrs`). The API Key is a secret identifier shared among all the devices of a service, and the
-DeviceID is an ID that uniquely identifies the device in a service. API Keys can be configured with the IoTA
-Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID must be
-provisioned in advance in the IoT Agent before information is sent.
+All the topics subscribed by the agent (to send measures, to configuration command retrieval or to get result 
+of a command) are prefixed with the agent procotol, /json in this case, followed by APIKey of the device group and the 
+Device ID of the device involved in the interaction; i.e.: there is a different set of topics for each service 
+(e.g: `/json/FF957A98/MyDeviceId/attrs`). The API Key is a secret identifier shared among all the devices
+of a service, and the DeviceID is an ID that uniquely identifies the device in a service. API Keys can be configured
+with the IoTA Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID
+must be provisioned in advance in the IoT Agent before information is sent.
+All topis published by the agent (to send a comamnd or to send configuration information) to a device are not prefixed
+by the protocol, in this case '/json', just include apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and 
+`/FF957A98/MyDeviceId/configuration/values` ).
 
 #### Measure reporting
 
@@ -164,7 +167,7 @@ There are two ways of reporting measures:
     the following structure:
 
 ```text
-/{{api-key}}/{{device-id}}/attrs
+/json/{{api-key}}/{{device-id}}/attrs
 ```
 
 The message in this case must contain a valid JSON object of a single level; for each key-value pair, the key represents
@@ -175,14 +178,14 @@ For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID
 attribute IDs `h` and `t`, then all measures (humidity and temperature) are reported this way:
 
 ```bash
-$ mosquitto_pub -t /ABCDEF/id_sen1/attrs -m '{"h": 70, "t": 15}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+$ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs -m '{"h": 70, "t": 15}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 ```
 
 -   **Single measures**: In order to send single measures, a device can publish the direct value to an MQTT topic with
     the following structure:
 
 ```text
-/{{api-key}}/{{device-id}}/attrs/<attributeName>
+/json/{{api-key}}/{{device-id}}/attrs/<attributeName>
 ```
 
 Indicating in the topic the name of the attribute to be modified.
@@ -195,7 +198,7 @@ For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID
 attribute IDs `h` and `t`, then humidity measures are reported this way:
 
 ```bash
-$ mosquitto_pub -t /ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+$ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 ```
 
 #### Configuration retrieval
@@ -210,7 +213,7 @@ This mechanism and the bidirectionality plugin cannot be simultaneously activate
 ##### Configuration command topic
 
 ```text
-/{{apikey}}/{{deviceid}}/configuration/commands
+/json/{{apikey}}/{{deviceid}}/configuration/commands
 ```
 
 The IoT Agent listens in this topic for requests coming from the device. The messages must contain a JSON document with
@@ -282,7 +285,7 @@ Once the device has executed the command, the device can report the result infor
 following topic:
 
 ```text
-/<APIKey>/<DeviceId>/cmdexe
+/json/<APIKey>/<DeviceId>/cmdexe
 ```
 
 This message must contain one attribute per command to be updated; the value of that attribute is considered the result
@@ -329,7 +332,7 @@ $ mosquitto_sub -v -t /# -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P 
 At this point, Context Broker will have updated the value of `ping_status` to `PENDING` for `sen1` entity. Neither
 `ping_info` nor `ping` are updated.
 
-Once the device has executed the command, it can publish its results in the `/ABCDEF/id_sen1/cmdexe` topic with a
+Once the device has executed the command, it can publish its results in the `/json/ABCDEF/id_sen1/cmdexe` topic with a
 payload with the following format:
 
 ```json
@@ -339,7 +342,7 @@ payload with the following format:
 If using [Mosquitto](https://mosquitto.org/), such command result is sent by running the `mosquitto_pub` script:
 
 ```bash
-$ mosquitto_pub -t /ABCDEF/id_sen1/cmdexe -m '{"ping": "1234567890"}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+$ mosquitto_pub -t /json/ABCDEF/id_sen1/cmdexe -m '{"ping": "1234567890"}' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 ```
 
 In the end, Context Broker will have updated the values of `ping_info` and `ping_status` to `1234567890` and `OK`,
