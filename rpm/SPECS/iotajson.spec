@@ -169,6 +169,12 @@ fi
 %{_install_dir}
 
 %changelog
+* Wed Nov 20 2019 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.13.0
+- Allow use protocol ("/json") in mqtt topics subscribed by the agent (#374)
+- Use MQTT v5 shared subscriptions to avoid dupplicated messages per agent type (upgrade mqtt dep from 2.18.8 to 3.0.0). Needs MQTT v5 broker like mosquitto 1.6+
+- Use AMQP durable option in assertExchange
+- Use device apikey if exists in getEffectiveApiKey for command handling
+
 * Mon Nov 04 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.12.0
 - Add: PM2_ENABLED flag to Docker
 - Fix: update default expiration device registration (ngsiv1) from 1M to 20Y
