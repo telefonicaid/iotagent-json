@@ -20,22 +20,23 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-'use strict';
 
-var iotagentMqtt = require('../../'),
-    mqtt = require('mqtt'),
-    async = require('async'),
-    iotAgentLib = require('iotagent-node-lib'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    request = require('request'),
-    utils = require('../utils'),
-    contextBrokerMock,
-    mqttClient;
+/* eslint-disable no-unused-vars */
+
+const iotagentMqtt = require('../../');
+const mqtt = require('mqtt');
+const async = require('async');
+const iotAgentLib = require('iotagent-node-lib');
+const config = require('../config-test.js');
+const nock = require('nock');
+const request = require('request');
+const utils = require('../utils');
+let contextBrokerMock;
+let mqttClient;
 
 describe('Support for Thinking Things Modules', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
@@ -83,7 +84,7 @@ describe('Support for Thinking Things Modules', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 P1: '214,7,d22,b00,-64,'
             };
@@ -106,7 +107,7 @@ describe('Support for Thinking Things Modules', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = '214,7,d22,b00,-64,';
+            const values = '214,7,d22,b00,-64,';
 
             mqttClient.publish('/json/1234/MQTT_2/attrs/P1', values, null, function(error) {
                 setTimeout(function() {
@@ -126,7 +127,7 @@ describe('Support for Thinking Things Modules', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1Success.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 C1: '00D600070d220b00'
             };
@@ -149,7 +150,7 @@ describe('Support for Thinking Things Modules', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleP1SingleSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = '00D600070d220b00';
+            const values = '00D600070d220b00';
 
             mqttClient.publish('/json/1234/MQTT_2/attrs/C1', values, null, function(error) {
                 setTimeout(function() {
@@ -169,7 +170,7 @@ describe('Support for Thinking Things Modules', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleBSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 B: '4.70,1,1,1,1,0'
             };
@@ -192,7 +193,7 @@ describe('Support for Thinking Things Modules', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/TTModuleBSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 B: '4.70,1,1,1,1,0,9,18'
             };

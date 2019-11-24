@@ -22,7 +22,10 @@
  *
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
-var config = {};
+
+/* eslint-disable no-unused-vars */
+
+const config = {};
 
 config.mqtt = {
     host: 'localhost',

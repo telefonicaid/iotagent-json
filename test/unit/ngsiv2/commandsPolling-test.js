@@ -23,20 +23,20 @@
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
 
-'use strict';
+/* eslint-disable no-unused-vars */
 
-var iotagentUl = require('../../../'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    should = require('should'),
-    request = require('request'),
-    utils = require('../../utils'),
-    mockedClientServer,
-    contextBrokerMock;
+const iotagentUl = require('../../../');
+const config = require('./config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const should = require('should');
+const request = require('request');
+const utils = require('../../utils');
+let mockedClientServer;
+let contextBrokerMock;
 
 describe('HTTP Transport binding: polling commands', function() {
-    var commandOptions = {
+    const commandOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
         method: 'POST',
         json: utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand1.json'),
@@ -47,7 +47,7 @@ describe('HTTP Transport binding: polling commands', function() {
     };
 
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand4.json'),
@@ -118,7 +118,7 @@ describe('HTTP Transport binding: polling commands', function() {
     });
 
     describe('When a device asks for the pending commands', function() {
-        var deviceRequest = {
+        const deviceRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
@@ -185,7 +185,7 @@ describe('HTTP Transport binding: polling commands', function() {
     });
 
     describe('When a device asks for the pending commands without body', function() {
-        var deviceRequest = {
+        const deviceRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
@@ -198,7 +198,7 @@ describe('HTTP Transport binding: polling commands', function() {
             }
         };
 
-        var deviceRequestWithoutPayload = {
+        const deviceRequestWithoutPayload = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'GET',
             json: true,
@@ -267,7 +267,7 @@ describe('HTTP Transport binding: polling commands', function() {
     });
 
     describe('When a device sends the result for a pending command', function() {
-        var commandResponse = {
+        const commandResponse = {
             uri: 'http://localhost:' + config.http.port + '/iot/json/commands',
             method: 'POST',
             json: {

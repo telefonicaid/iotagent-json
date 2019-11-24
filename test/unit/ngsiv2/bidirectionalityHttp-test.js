@@ -23,20 +23,20 @@
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
 
-'use strict';
+/* eslint-disable no-unused-vars */
 
-var iotagentJson = require('../../../'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    should = require('should'),
-    request = require('request'),
-    utils = require('../../utils'),
-    mockedClientServer,
-    contextBrokerMock;
+const iotagentJson = require('../../../');
+const config = require('./config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const should = require('should');
+const request = require('request');
+const utils = require('../../utils');
+let mockedClientServer;
+let contextBrokerMock;
 
 describe('Data Bidirectionality: HTTP', function() {
-    var notificationOptions = {
+    const notificationOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/notify',
         method: 'POST',
         json: utils.readExampleFile('./test/unit/ngsiv2/subscriptions/bidirectionalNotification.json'),
@@ -56,7 +56,7 @@ describe('Data Bidirectionality: HTTP', function() {
 
     describe('When a bidirectional attribute is set and a new value arrives to a device without endpoint', function() {
         beforeEach(function(done) {
-            var provisionOptions = {
+            const provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectional.json'),
@@ -115,10 +115,10 @@ describe('Data Bidirectionality: HTTP', function() {
         it('should send all the data from the notification in command syntax', function(done) {
             request(notificationOptions, function(error, response, body) {
                 iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
-                    var latitudeFound = false,
-                        longitudeFound = false;
+                    let latitudeFound = false;
+                    let longitudeFound = false;
 
-                    for (var i = 0; i < list.commands.length; i++) {
+                    for (let i = 0; i < list.commands.length; i++) {
                         if (
                             list.commands[i].name === 'latitude' &&
                             list.commands[i].type === 'string' &&
@@ -147,7 +147,7 @@ describe('Data Bidirectionality: HTTP', function() {
 
     describe('When a bidirectional attribute is set and a new value arrives to a device with endpoint', function() {
         beforeEach(function(done) {
-            var provisionOptions = {
+            const provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectionalWithUrl.json'),

@@ -22,18 +22,18 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-'use strict';
 
-var iotAgent = require('../lib/iotagent-json'),
-    iotAgentLib = require('iotagent-node-lib'),
-    info = require('../package.json'),
-    context = {
-        op: 'IOTAJSON.Executable'
-    },
-    logger = require('logops');
+
+const iotAgent = require('../lib/iotagent-json');
+const iotAgentLib = require('iotagent-node-lib');
+const info = require('../package.json');
+const context = {
+    op: 'IOTAJSON.Executable'
+};
+const logger = require('logops');
 
 function start() {
-    var config;
+    let config;
 
     if (process.argv.length === 3) {
         config = require('../' + process.argv[2]);
