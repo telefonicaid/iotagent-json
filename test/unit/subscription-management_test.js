@@ -52,7 +52,7 @@ describe('Subscription management', function() {
                 temperature: temperature
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 process.nextTick(callback);
             });
         };
@@ -107,7 +107,6 @@ describe('Subscription management', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
         });
 
-
         //
         // FIXME: the following tests is causing errors in travis
         //
@@ -118,7 +117,6 @@ describe('Subscription management', function() {
         //     Error: Timeout of 3000ms exceeded. For async tests and hooks, ensure
         //     "done()" is called; if returning a Promise, ensure it resolves.
         //     (/home/travis/build/telefonicaid/iotagent-json/test/unit/subscription-management_test.js)
-
 
         // it('should cease sending measures to the CB', function(done) {
         //     async.series(
