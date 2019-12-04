@@ -25,7 +25,7 @@
 var fs = require('fs');
 
 function readExampleFile(name, raw) {
-    let text = null;
+    var text = null;
     try {
         text = fs.readFileSync(name, 'UTF8');
     } catch (e) {
