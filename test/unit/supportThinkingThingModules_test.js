@@ -88,7 +88,7 @@ describe('Support for Thinking Things Modules', function() {
                 P1: '214,7,d22,b00,-64,'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -108,7 +108,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = '214,7,d22,b00,-64,';
 
-            mqttClient.publish('/1234/MQTT_2/attrs/P1', values, null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs/P1', values, null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -131,7 +131,7 @@ describe('Support for Thinking Things Modules', function() {
                 C1: '00D600070d220b00'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -151,7 +151,7 @@ describe('Support for Thinking Things Modules', function() {
         it('should send its value to the Context Broker', function(done) {
             var values = '00D600070d220b00';
 
-            mqttClient.publish('/1234/MQTT_2/attrs/C1', values, null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs/C1', values, null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -174,7 +174,7 @@ describe('Support for Thinking Things Modules', function() {
                 B: '4.70,1,1,1,1,0'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -197,7 +197,7 @@ describe('Support for Thinking Things Modules', function() {
                 B: '4.70,1,1,1,1,0,9,18'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
