@@ -129,6 +129,7 @@ Every device should listen in the following path, so it can receive configuratio
 ```text
 <device_endpoint>/configuration/values
 ```
+
 Whenever the device requests any information from the IoTA, the information will be posted in this path. The information
 is sent in the same format used in multiple measure reporting: a plain JSON with an attribute per value requested. An
 additional parameter called `dt` is added with the system current time.
@@ -148,16 +149,15 @@ E.g.:
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
 destinations and types of the messages (the different possible interactions are described in the following sections).
 
-All the topics subscribed by the agent (to send measures, to configuration command retrieval or to get result 
-of a command) are prefixed with the agent procotol, /json in this case, followed by APIKey of the device group and the 
-Device ID of the device involved in the interaction; i.e.: there is a different set of topics for each service 
-(e.g: `/json/FF957A98/MyDeviceId/attrs`). The API Key is a secret identifier shared among all the devices
-of a service, and the DeviceID is an ID that uniquely identifies the device in a service. API Keys can be configured
-with the IoTA Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID
-must be provisioned in advance in the IoT Agent before information is sent.
-All topis published by the agent (to send a comamnd or to send configuration information) to a device are not prefixed
-by the protocol, in this case '/json', just include apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and 
-`/FF957A98/MyDeviceId/configuration/values` ).
+All the topics subscribed by the agent (to send measures, to configuration command retrieval or to get result of a
+command) are prefixed with the agent procotol, /json in this case, followed by APIKey of the device group and the Device
+ID of the device involved in the interaction; i.e.: there is a different set of topics for each service (e.g:
+`/json/FF957A98/MyDeviceId/attrs`). The API Key is a secret identifier shared among all the devices of a service, and
+the DeviceID is an ID that uniquely identifies the device in a service. API Keys can be configured with the IoTA
+Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID must be
+provisioned in advance in the IoT Agent before information is sent. All topis published by the agent (to send a comamnd
+or to send configuration information) to a device are not prefixed by the protocol, in this case '/json', just include
+apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and `/FF957A98/MyDeviceId/configuration/values` ).
 
 #### Measure reporting
 
@@ -444,9 +444,9 @@ npm test
 
 ### Coding guidelines
 
-jshint
+eslint
 
-Uses provided .jshintrc flag file. To check source code style, type
+Uses provided `.eslintrc.json` flag files. To check source code style, type
 
 ```bash
 npm run lint
@@ -511,7 +511,8 @@ npm run clean
 ### Prettify Code
 
 Runs the [prettier](https://prettier.io) code formatter to ensure consistent code style (whitespacing, parameter
-placement and breakup of long lines etc.) within the codebase.
+placement and breakup of long lines etc.) within the codebase. Uses the and `prettierrc.json` flag file. The codebase
+also offers an `.editorconfig` to maintain consistent coding styles across multiple IDEs.
 
 ```bash
 # Use git-bash on Windows
