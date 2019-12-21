@@ -444,7 +444,7 @@ npm test
 
 ### Coding guidelines
 
-eslint
+ESLint
 
 Uses the provided `.eslintrc.json` flag file. To check source code style, type
 
