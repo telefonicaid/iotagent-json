@@ -29,7 +29,7 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 ```
 
 -   JSON arrays which elements are objects with a single level (not arrays or other objects). This corresponds
-    to *multimeasures* or *group of measures*. Each group in the JSON array is processed indepently, i.e. a different NGSI
+    to *multimeasures* or *group of measures*. Each group in the JSON array is processed independently, i.e. a different NGSI
     request will be generated for each group of measures. Eg:
     
 ```json
