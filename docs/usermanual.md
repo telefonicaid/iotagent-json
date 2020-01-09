@@ -18,13 +18,43 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 
 -   valid JSON objects serialized as unescaped strings.
 -   JSON objects with a single level, i.e.: all the first level attributes of the JSON object are Strings or Numbers
-    (not arrays or other objects).
+    (not arrays or other objects). Eg:
+
+```json
+{
+    "h": "45%",
+    "t": "23",
+    "l": "1570"
+}
+```
+
+-   JSON arrays which elements are objects with a single level (not arrays or other objects). This corresponds to
+    _multimeasures_ or _group of measures_. Each group in the JSON array is processed independently, i.e. a different
+    NGSI request will be generated for each group of measures. Eg:
+
+```json
+[
+    {
+        "h": "45%",
+        "t": "23",
+        "l": "1570"
+    },
+    {
+        "h": "47%",
+        "t": "21",
+        "l": "1321"
+    }
+]
+```
 
 **IMPORTANT NOTE**: current version of the agent only supports active attributes, i.e. those attributes actively
 reported by the device to the agent. Passive or lazy attributes, i.e. those attributes whose value is only given upon
 explicit request from the agent, are not implemented. Please check the issue
 [#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details and updates regarding its
 implementation.
+
+**IMPORTANT NOTE**: at the present moment, multimeasures only work for HTTP. Support for other transports is still
+pending (see issue [#391](https://github.com/telefonicaid/iotagent-json/issues/391)).
 
 ### HTTP binding
 

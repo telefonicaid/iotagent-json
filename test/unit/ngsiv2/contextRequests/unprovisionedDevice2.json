@@ -1,0 +1,10 @@
+{
+  "humidity":{
+    "type": "string",
+    "value": "33"    
+  },
+  "temperature":{
+    "type": "string",
+    "value": "89"    
+  }
+}
