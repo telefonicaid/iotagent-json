@@ -64,14 +64,13 @@ directly put into Http messages.
 #### Measure reporting
 
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute in
-the NGSI entity. The value of all the attributes will be copied as a String (as all simple attribute values in NGSIv1
-are strings). E.g.:
+the NGSI entity. E.g.:
 
 ```json
 {
     "h": "45%",
     "t": "23",
-    "l": "1570"
+    "l": {"a":2,"b":"up","c":["1","3"]}
 }
 ```
 
