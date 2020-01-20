@@ -244,4 +244,5 @@ docker exec  <mongo-db-container-name> mongo --eval '
 	db.groups.createIndex({"_id.type": 1});' > /dev/null
 ```
 
-The name of the database is can be altered using the `IOTA
+The name of the database can be altered using the `IOTA_MONGO_DB` environment variable. Alter the `conn.getDB()` 
+statement above if an alternative database is being used.
