@@ -235,14 +235,13 @@ For example:
 docker exec  <mongo-db-container-name> mongo --eval '
 	conn = new Mongo();
 	db = conn.getDB("iotagentjson");
-    db.createCollection("devices");
+	db.createCollection("devices");
 	db.devices.createIndex({"_id.service": 1, "_id.id": 1, "_id.type": 1});
 	db.devices.createIndex({"_id.type": 1}); 
 	db.devices.createIndex({"_id.id": 1});
-    db.createCollection("groups");
+	db.createCollection("groups");
 	db.groups.createIndex({"_id.resource": 1, "_id.apikey": 1, "_id.service": 1});
 	db.groups.createIndex({"_id.type": 1});' > /dev/null
 ```
 
-The name of the database is can be altered using the `IOTA_MONGO_DB` environment variable. Alter the `conn.getDB()` 
-statement above if an alternative database is being used.
+The name of the database is can be altered using the `IOTA
