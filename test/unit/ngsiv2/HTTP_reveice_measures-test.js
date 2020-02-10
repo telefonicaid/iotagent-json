@@ -155,7 +155,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
+    describe('When a POST measure arrives with a TimeInstant attribute in the body for a device with explicitAttrs:false', function() {
         var optionsMeasure = {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
@@ -199,7 +199,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures3.json')
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
@@ -301,7 +301,7 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant query parameter in the body', function() {
+    describe('When a POST measure arrives with a TimeInstant query parameter in the body for a device with explicitAttrs:false', function() {
         var optionsMeasure = {
                 url: 'http://localhost:' + config.http.port + '/iot/json',
                 method: 'POST',
@@ -345,7 +345,7 @@ describe('HTTP: Measure reception ', function() {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures3.json')
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
