@@ -22,23 +22,23 @@
  */
 'use strict';
 var config = require('../../lib/configService'),
-    iotAgentConfig = require('../config-startup.js');
-// should = require('should'),
-// fs = require('fs'),
-// mqtt = require('mqtt'),
-// sinon = require('sinon');
+    iotAgentConfig = require('../config-startup.js'),
+    fs = require('fs'),
+    // mqtt = require('mqtt'),
+    sinon = require('sinon');
 
 describe('Startup tests', function() {
     describe('When the MQTT transport is started with environment variables', function() {
         beforeEach(function() {
+            sinon.stub(fs, 'statSync');
             process.env.IOTA_MQTT_HOST = '127.0.0.1';
             process.env.IOTA_MQTT_PORT = '1883';
             process.env.IOTA_MQTT_USERNAME = 'usermqtt';
             process.env.IOTA_MQTT_PASSWORD = 'passmqtt';
             process.env.IOTA_MQTT_PROTOCOL = 'xxx';
-            //process.env.IOTA_MQTT_CA = '/mqtt/xxx/ca';
-            //process.env.IOTA_MQTT_CERT = '/mqtt/xxx/cert.pem';
-            //process.env.IOTA_MQTT_KEY = '/mqtt/xxx/key.pem';
+            process.env.IOTA_MQTT_CA = '/mqtt/xxx/ca';
+            process.env.IOTA_MQTT_CERT = '/mqtt/xxx/cert.pem';
+            process.env.IOTA_MQTT_KEY = '/mqtt/xxx/key.pem';
             process.env.IOTA_MQTT_REJECT_UNAUTHORIZED = 'true';
             process.env.IOTA_MQTT_QOS = '0';
             process.env.IOTA_MQTT_RETAIN = 'false';
@@ -48,6 +48,7 @@ describe('Startup tests', function() {
         });
 
         afterEach(function() {
+            fs.statSync.restore();
             delete process.env.IOTA_MQTT_PROTOCOL;
             delete process.env.IOTA_MQTT_HOST;
             delete process.env.IOTA_MQTT_PORT;
@@ -70,9 +71,9 @@ describe('Startup tests', function() {
             config.getConfig().mqtt.port.should.equal('1883');
             config.getConfig().mqtt.username.should.equal('usermqtt');
             config.getConfig().mqtt.password.should.equal('passmqtt');
-            //config.getConfig().mqtt.ca.should.equal('/mqtt/xxx/ca');
-            //config.getConfig().mqtt.cert.should.equal( '/mqtt/xxx/cert.pem');
-            //config.getConfig().mqtt.key.should.equal('/mqtt/xxx/key.pem');
+            config.getConfig().mqtt.ca.should.equal('/mqtt/xxx/ca');
+            config.getConfig().mqtt.cert.should.equal('/mqtt/xxx/cert.pem');
+            config.getConfig().mqtt.key.should.equal('/mqtt/xxx/key.pem');
             config.getConfig().mqtt.rejectUnauthorized.should.equal(true);
             config.getConfig().mqtt.qos.should.equal('0');
             config.getConfig().mqtt.retain.should.equal(false);
@@ -125,14 +126,16 @@ describe('Startup tests', function() {
 
     describe('When the HTTP transport is started with environment variables', function() {
         beforeEach(function() {
+            sinon.stub(fs, 'statSync');
             process.env.IOTA_HTTP_HOST = 'localhost';
             process.env.IOTA_HTTP_PORT = '2222';
             process.env.IOTA_HTTP_TIMEOUT = '5';
-            //process.env.IOTA_HTTP_KEY = '/http/bbb/key.pem';
-            //process.env.IOTA_HTTP_CERT = '/http/bbb/cert.pem';
+            process.env.IOTA_HTTP_KEY = '/http/bbb/key.pem';
+            process.env.IOTA_HTTP_CERT = '/http/bbb/cert.pem';
         });
 
         afterEach(function() {
+            fs.statSync.restore();
             delete process.env.IOTA_HTTP_HOST;
             delete process.env.IOTA_HTTP_PORT;
             delete process.env.IOTA_HTTP_TIMEOUT;
@@ -145,8 +148,8 @@ describe('Startup tests', function() {
             config.getConfig().http.host.should.equal('localhost');
             config.getConfig().http.port.should.equal('2222');
             config.getConfig().http.timeout.should.equal('5');
-            //config.getConfig().http.key.should.equal('/http/bbb/key.pem');
-            //config.getConfig().http.cert.should.equal('/http/bbb/cert.pem');
+            config.getConfig().http.key.should.equal('/http/bbb/key.pem');
+            config.getConfig().http.cert.should.equal('/http/bbb/cert.pem');
             done();
         });
     });
