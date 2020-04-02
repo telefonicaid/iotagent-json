@@ -51,7 +51,6 @@
     "textlint-rule-terminology": "~1.1.30",
     "textlint-rule-write-good": "~1.6.2",
     "should": "13.2.3",
-    "sinon": "~6.1.0",
     "watch": "~1.0.2"
   },
   "keywords": [],
@@ -65,6 +64,7 @@
     "logops": "2.1.0",
     "mqtt": "3.0.0",
     "request": "2.88.0",
+    "sinon": "~6.1.0",    
     "underscore": "1.9.1"
   },
   "husky": {
