@@ -113,9 +113,12 @@ These are the currently available MQTT configuration options:
 -   **cert**: cert chains in PEM format to use for authenticating into the MQTT broker (optional). Only used when using
     `mqtts`, `tls` or `wss` as connnection protocol.
 -   **key**: optional private keys in PEM format to use on the client-side for connecting with the MQTT broker
-    (optional). Only used when using `mqtts`, `tls` or `wss` as connection protocol.
--   **rejectUnauthorized**: whether to reject any connection which is not authorized with the list of supplied CAs. This
-    option only has an effect when using `mqtts`, `tls` or `wss` protocols (default is `true`).
+    (optional). Only used when using `mqtts`, `tls` or `wss` as connection protocol. The included CA list will be used
+    to determine if server is authorized.
+-   **rejectUnauthorized** whether to reject any connection which is not authorized with the list of supplied CAs. This
+    option only has an effect when using `mqtts`, `tls` or `wss` protocols (default is `true`). Set to `false` if using
+    a self-signed certificate but beware that you are exposing yourself to man in the middle attacks, so it is a
+    configuration that is not recommended for production environments.
 -   **username**: username that identifies the IOTA against the MQTT broker (optional).
 -   **password**: password to be used if the username is provided (optional).
 -   **qos**: QoS level: at most once (0), at least once (1), exactly once (2). (default is 0).
@@ -123,7 +126,8 @@ These are the currently available MQTT configuration options:
 -   **retries**: Number of MQTT connection error retries (default is 5).
 -   **retryTime**: Time between MQTT connection retries (default is 5 seconds).
 -   **keepalive**: Time to keep connection open between client and MQTT broker (default is 0 seconds). If you experience
-    disconnnection problems using 0 (as the one described in [this case](https://github.com/telefonicaid/iotagent-json/issues/455)) a value greater than 0 is recommended. 
+    disconnnection problems using 0 (as the one described in
+    [this case](https://github.com/telefonicaid/iotagent-json/issues/455)) a value greater than 0 is recommended.
 
 TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the
 [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
@@ -150,6 +154,8 @@ transport protocol binding. The following options are accepted:
 
 -   **port**: South Port where the HTTP listener will be listening for information from the devices.
 -   **timeout**: HTTP Timeout for the HTTP endpoint (in miliseconds).
+-   **key**: Path to your private key for HTTPS binding
+-   **cert**: Path to your certificate for HTTPS binding
 
 #### Configuration with environment variables
 
@@ -187,6 +193,8 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_HTTP_HOST                | http.host               |
 | IOTA_HTTP_PORT                | http.port               |
 | IOTA_HTTP_TIMEOUT             | http.timeout            |
+| IOTA_HTTP_KEY                 | http.key                |
+| IOTA_HTTP_CERT                | http.cert               |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 
