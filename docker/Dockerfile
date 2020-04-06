@@ -1,4 +1,4 @@
-ARG NODE_VERSION=10.17.0-slim
+ARG NODE_VERSION=10.19.0-slim
 FROM node:${NODE_VERSION}
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
@@ -35,7 +35,11 @@ MAINTAINER FIWARE IoTAgent Team. Telefónica I+D
 #
 # COPY . /opt/iotajson/
 #
-RUN if [ "${DOWNLOAD}" = "latest" ] ; \
+RUN apt-get update && \
+	# Ensure that unzip, wget and curl are installed
+	apt-get install -y --no-install-recommends unzip ca-certificates curl wget && \
+	# Now download the sources from GitHub
+	if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
 		RELEASE="${SOURCE_BRANCH}"; \
 		echo "INFO: Building Latest Development from ${SOURCE_BRANCH} branch."; \
@@ -58,7 +62,8 @@ RUN if [ "${DOWNLOAD}" = "latest" ] ; \
 	# Remove unzip and clean apt cache
 	apt-get clean && \
 	apt-get remove -y unzip && \
-	apt-get -y autoremove
+	apt-get -y autoremove && \
+	rm -rf /var/lib/apt/lists/* 
 
 WORKDIR /opt/iotajson
 
