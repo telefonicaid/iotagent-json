@@ -104,7 +104,7 @@ There are also some global configuration options:
 
 These are the currently available MQTT configuration options:
 
--   **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`).
+-   **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`). The default is `mqtt`
 -   **host**: host of the MQTT broker.
 -   **port**: port where the MQTT broker is listening.
 -   **defaultKey**: default API Key to use when a device is provisioned without a configuration.
