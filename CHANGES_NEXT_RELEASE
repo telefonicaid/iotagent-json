@@ -1,5 +1,0 @@
-- Fix: move to warn error log about device not found
-- Add: multimeasure support for HTTP transport (#391, partially)
-- Add: check response obj before use it handling http commands
-- Add Southbound HTTPS support (#472)
-- Upgrade NodeJS version from 8.16.1 to 10.19.0 in Dockerfile due to Node 8 End-of-Life 
