@@ -169,6 +169,14 @@ fi
 %{_install_dir}
 
 %changelog
+* Tue Apr 07 2020 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.14.0
+- Add: multimeasure support for HTTP transport (#391, partially)
+- Add: check response obj before use it handling http commands
+- Add: southbound HTTPS support (#472)
+- Fix: move to warn error log about device not found
+- Upgrade iotagent-node-lib dependency from 2.11.0 to 2.12.0
+- Upgrade NodeJS version from 8.16.1 to 10.19.0 in Dockerfile due to Node 8 End-of-Life
+
 * Wed Nov 20 2019 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.13.0
 - Allow use protocol ("/json") in mqtt topics subscribed by the agent (#374)
 - Use MQTT v5 shared subscriptions to avoid dupplicated messages per agent type (upgrade mqtt dep from 2.18.8 to 3.0.0). Needs MQTT v5 broker like mosquitto 1.6+
