@@ -47,6 +47,13 @@ file_env 'IOTA_AUTH_USER'
 file_env 'IOTA_AUTH_PASSWORD'
 file_env 'IOTA_AUTH_CLIENT_ID'
 file_env 'IOTA_AUTH_CLIENT_SECRET'
+file_env 'IOTA_MONGO_USER'
+file_env 'IOTA_MONGO_PASSWORD'
+file_env 'IOTA_MQTT_KEY'
+file_env 'IOTA_MQTT_USERNAME'
+file_env 'IOTA_MQTT_PASSWORD'
+file_env 'IOTA_AMQP_USERNAME'
+file_env 'IOTA_AMQP_PASSWORD'
 
 if [[  -z "$IOTA_AUTH_ENABLED" ]]; then
  echo "***********************************************"

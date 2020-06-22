@@ -41,6 +41,42 @@ config.mqtt = {
      * consists of a series of parameters separated by commas.
      */
     thinkingThingsPlugin: true,
+
+    /**
+     * protocol to use for connecting with the MQTT broker
+     * (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`)
+     */
+    //protocol = 'mqtt'
+
+    /**
+     * User name for the IoTAgent in the MQTT broker, if authentication is activated.
+     */
+    //username: ''
+
+    /**
+     * Password for the IoTAgent in the MQTT broker, if authentication is activated.
+     */
+    //password: ''
+
+    /**
+     * Set to `false` if using a self-signed certificate.
+     * Beware that you are exposing yourself to man in the middle attacks
+     */
+    //rejectUnauthorized: true
+
+    /**
+     * Path to your certification authority for MQTT binding over SSL
+     */
+    //ca = <path_to_ca>
+    /**
+     * Path to your private key for MQTT binding over SSL
+     */
+    // key: <path_to_private_key>
+    /**
+     * Path to your certificate for MQTT binding over SSL
+     */
+    // cert: <path_to_cert>
+
     /**
      * QoS Level: at most once (0), at least once (1), exactly once (2). (default is 2).
      */
@@ -112,6 +148,14 @@ config.http = {
      * HTTP Timeout for the http command endpoint (in miliseconds).
      */
     //timeout: 1000
+    /**
+     * Path to your private key for HTTPS binding
+     */
+    // key: <path_to_private_key>
+    /**
+     * Path to your certificate for HTTPS binding
+     */
+    // cert: <path_to_cert>
 };
 
 config.iota = {
