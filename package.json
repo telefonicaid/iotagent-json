@@ -60,7 +60,7 @@
     "body-parser": "1.18.3",
     "dateformat": "3.0.3",
     "express": "~4.16.4",
-    "iotagent-node-lib": "git://github.com/Madhu-NEC/iotagent-node-lib.git#selectively_ignore_some_measure",
+    "iotagent-node-lib": "git://github.com/DeepshikhaNEC/iotagent-node-lib/#issue/372",
     "logops": "2.1.0",
     "mqtt": "3.0.0",
     "request": "2.88.0",
