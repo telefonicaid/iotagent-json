@@ -4,3 +4,5 @@ Update codebase to use ES6
 -  Replace var with let/const
 -  Fix or disable eslint errors
 Set Nodejs 10 as minimum version in packages.json (effectively removing Nodev8 from supported versions)
+Fix the writing of same correlator and transaction id in logs (issue #426). 
+
