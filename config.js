@@ -302,7 +302,11 @@ config.iota = {
      * Default resource of the IoT Agent. This value must be different for every IoT Agent connecting to the IoT
      * Manager.
      */
-    defaultResource: '/iot/json'
+    defaultResource: '/iot/json',
+    /**
+     * flag indicating whether the incoming measures to the IoTAgent should be processed as per the "attributes" field.
+     */
+    explicitAttrs: false 
 };
 
 /**
