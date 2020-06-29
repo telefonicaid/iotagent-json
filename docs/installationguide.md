@@ -104,7 +104,8 @@ There are also some global configuration options:
 
 These are the currently available MQTT configuration options:
 
--   **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`). The default is `mqtt`
+-   **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`). The
+    default is `mqtt`
 -   **host**: host of the MQTT broker.
 -   **port**: port where the MQTT broker is listening.
 -   **defaultKey**: default API Key to use when a device is provisioned without a configuration.
@@ -128,6 +129,9 @@ These are the currently available MQTT configuration options:
 -   **keepalive**: Time to keep connection open between client and MQTT broker (default is 0 seconds). If you experience
     disconnnection problems using 0 (as the one described in
     [this case](https://github.com/telefonicaid/iotagent-json/issues/455)) a value greater than 0 is recommended.
+-   **avoidLeadingSlash** this flag sets whether the agent publishes commands to topics starting with slash (default in
+    order versions) or without the slash. See
+    [discussion](https://github.com/telefonicaid/iotagent-node-lib/issues/866).
 
 TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the
 [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
@@ -181,6 +185,7 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_MQTT_RETRIES             | mqtt.retries            |
 | IOTA_MQTT_RETRY_TIME          | mqtt.retryTime          |
 | IOTA_MQTT_KEEPALIVE           | mqtt.keepalive          |
+| IOTA_MQTT_AVOID_LEADING_SLASH | mqtt.avoidLeadingSlash  |
 | IOTA_AMQP_HOST                | amqp.host               |
 | IOTA_AMQP_PORT                | amqp.port               |
 | IOTA_AMQP_USERNAME            | amqp.username           |
