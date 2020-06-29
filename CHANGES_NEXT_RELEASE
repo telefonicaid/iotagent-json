@@ -1,3 +1,5 @@
 Set Nodejs 10 as minimum version in packages.json (effectively removing Nodev8 from supported versions)
 Fix the writing of same correlator and transaction id in logs (issue #426). 
 
+
+Add: config.mqtt.avoidLeadingSlash flag (IOTA_MQTT_AVOID_LEADING_SLASH) to avoid leading slash in MQTT
