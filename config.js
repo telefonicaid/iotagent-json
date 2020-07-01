@@ -99,7 +99,12 @@ config.mqtt = {
     /**
      * Time to keep connection open between client and MQTT broker (default is 0 seconds)
      */
-    keepalive: 0
+    keepalive: 0,
+
+    /**
+     * Whether to use slashes at the beginning of topic when sending or not
+     */
+    avoidLeadingSlash: false
 };
 
 /**
