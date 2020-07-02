@@ -153,12 +153,13 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant attribute in the body', function() {
+    describe('When a POST measure arrives with a TimeInstant attribute in the body for a device with explicitAttrs:false', function() {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
                 humidity: '111222',
+                pressure: '20',
                 TimeInstant: '20200222T222222'
             },
             headers: {
@@ -174,6 +175,79 @@ describe('HTTP: Measure reception ', function() {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function(done) {
+            nock.cleanAll();
+            // This mock does not check the payload since the aim of the test is not to verify
+            // device provisioning functionality. Appropriate verification is done in tests under
+            // provisioning folder of iotagent-node-lib
+            contextBrokerMock = nock('http://192.168.1.1:1026')
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v2/entities?options=upsert')
+                .reply(204);
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures3.json')
+                )
+                .query({ type: 'sensor' })
+                .reply(204);
+
+            iotaJson.stop(function() {
+                config.iota.timestamp = true;
+                config.compressTimestamp = false;
+                iotaJson.start(config, function() {
+                    request(provisionOptions, function(error, response, body) {
+                        done();
+                    });
+                });
+            });
+        });
+
+        afterEach(function() {
+            config.iota.timestamp = false;
+            config.compressTimestamp = true;
+        });
+
+        it('should send its value to the Context Broker', function(done) {
+            request(optionsMeasure, function(error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST measure arrives with a TimeInstant attribute in the body for a device with explicitAttrs:true', function() {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '111222',
+                pressure: '20',
+                TimeInstant: '20200222T222222'
+            },
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant2.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
@@ -225,12 +299,13 @@ describe('HTTP: Measure reception ', function() {
         });
     });
 
-    describe('When a POST measure arrives with a TimeInstant query parameter in the body', function() {
+    describe('When a POST measure arrives with a TimeInstant query parameter in the body for a device with explicitAttrs:false', function() {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                humidity: '111222'
+                humidity: '111222',
+                pressure: '20'
             },
             headers: {
                 'fiware-service': 'smartGondor',
@@ -246,6 +321,79 @@ describe('HTTP: Measure reception ', function() {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function(done) {
+            nock.cleanAll();
+            // This mock does not check the payload since the aim of the test is not to verify
+            // device provisioning functionality. Appropriate verification is done in tests under
+            // provisioning folder of iotagent-node-lib
+            contextBrokerMock = nock('http://192.168.1.1:1026')
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post('/v2/entities?options=upsert')
+                .reply(204);
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities/e0130101/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures3.json')
+                )
+                .query({ type: 'sensor' })
+                .reply(204);
+
+            iotaJson.stop(function() {
+                config.iota.timestamp = true;
+                config.compressTimestamp = false;
+                iotaJson.start(config, function() {
+                    request(provisionOptions, function(error, response, body) {
+                        done();
+                    });
+                });
+            });
+        });
+
+        afterEach(function() {
+            config.iota.timestamp = false;
+            config.compressTimestamp = true;
+        });
+
+        it('should send its value to the Context Broker', function(done) {
+            request(optionsMeasure, function(error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST measure arrives with a TimeInstant query parameter in the body for a device with explicitAttrs:true', function() {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '111222',
+                pressure: '20'
+            },
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234',
+                t: '20200222T222222'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant2.json'),
             headers: {
                 'fiware-service': 'smartGondor',
                 'fiware-servicepath': '/gardens'
