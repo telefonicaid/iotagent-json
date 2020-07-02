@@ -20,22 +20,23 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-'use strict';
 
-var iotagentMqtt = require('../../'),
-    mqtt = require('mqtt'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    contextBrokerMock,
-    mqttClient;
+/* eslint-disable no-unused-vars */
+
+const iotagentMqtt = require('../../');
+const mqtt = require('mqtt');
+const config = require('../config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+let contextBrokerMock;
+let mqttClient;
 
 describe('Attribute alias', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice2.json'),
@@ -84,7 +85,7 @@ describe('Attribute alias', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87',
                 tt: '20071103T131805'

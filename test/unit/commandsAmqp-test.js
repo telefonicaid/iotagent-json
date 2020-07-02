@@ -21,22 +21,22 @@
  * please contact with::[iot_support@tid.es]
  */
 
-'use strict';
+/* eslint-disable no-unused-vars */
 
-var iotagentMqtt = require('../../'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    should = require('should'),
-    iotAgentLib = require('iotagent-node-lib'),
-    amqp = require('amqplib/callback_api'),
-    apply = async.apply,
-    contextBrokerMock,
-    oldTransport,
-    amqpConn,
-    channel;
+const iotagentMqtt = require('../../');
+const config = require('../config-test.js');
+const nock = require('nock');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+const should = require('should');
+const iotAgentLib = require('iotagent-node-lib');
+const amqp = require('amqplib/callback_api');
+const apply = async.apply;
+let contextBrokerMock;
+let oldTransport;
+let amqpConn;
+let channel;
 
 function startConnection(exchange, callback) {
     amqp.connect(
@@ -56,7 +56,7 @@ function startConnection(exchange, callback) {
 
 describe('AMQP Transport binding: commands', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand5.json'),
@@ -106,7 +106,7 @@ describe('AMQP Transport binding: commands', function() {
     });
 
     describe('When a command arrive to the Agent for a device with the AMQP protocol', function() {
-        var commandOptions = {
+        const commandOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
             method: 'POST',
             json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
@@ -144,8 +144,8 @@ describe('AMQP Transport binding: commands', function() {
             });
         });
         it('should publish the command information in the AMQP topic', function(done) {
-            var commandMsg = '{"PING":{"data":"22"}}',
-                payload;
+            const commandMsg = '{"PING":{"data":"22"}}';
+            let payload;
 
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
 
@@ -192,33 +192,33 @@ describe('AMQP Transport binding: commands', function() {
     });
 
     describe('When a command update arrives with a single text value', function() {
-        var provisionOptionsAlt = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand6.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            },
-            configurationOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-                method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionGroup1.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            },
-            commandOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
-                method: 'POST',
-                json: utils.readExampleFile('./test/contextRequests/updateCommand3.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            };
+        const provisionOptionsAlt = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand6.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+        const configurationOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionGroup1.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+        const commandOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
+            method: 'POST',
+            json: utils.readExampleFile('./test/contextRequests/updateCommand3.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -249,8 +249,8 @@ describe('AMQP Transport binding: commands', function() {
         });
 
         it('should publish the command information in the AMQP topic', function(done) {
-            var commandMsg = '{"PING":"22"}',
-                payload;
+            const commandMsg = '{"PING":"22"}';
+            let payload;
 
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
 

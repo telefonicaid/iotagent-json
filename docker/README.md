@@ -233,10 +233,10 @@ refer to the [Installation Guide](https://fiware-iotagent-json.readthedocs.io/en
 ### Set-up appropriate Database Indexes
 
 If using Mongo-DB as a data persistence mechanism (i.e. if `IOTA_REGISTRY_TYPE=mongodb`) the device and service group
-details are retrieved from a database. The default name of the IoT Agent database is `iotagentjson`. Database access can be
-optimized by creating appropriate indices.
+details are retrieved from a database. The default name of the IoT Agent database is `iotagentjson`. Database access can
+be optimized by creating appropriate indices.
 
-For example: 
+For example:
 
 ```console
 docker exec  <mongo-db-container-name> mongo --eval '
@@ -244,12 +244,12 @@ docker exec  <mongo-db-container-name> mongo --eval '
 	db = conn.getDB("iotagentjson");
 	db.createCollection("devices");
 	db.devices.createIndex({"_id.service": 1, "_id.id": 1, "_id.type": 1});
-	db.devices.createIndex({"_id.type": 1}); 
+	db.devices.createIndex({"_id.type": 1});
 	db.devices.createIndex({"_id.id": 1});
 	db.createCollection("groups");
 	db.groups.createIndex({"_id.resource": 1, "_id.apikey": 1, "_id.service": 1});
 	db.groups.createIndex({"_id.type": 1});' > /dev/null
 ```
 
-The name of the database can be altered using the `IOTA_MONGO_DB` environment variable. Alter the `conn.getDB()` 
+The name of the database can be altered using the `IOTA_MONGO_DB` environment variable. Alter the `conn.getDB()`
 statement above if an alternative database is being used.

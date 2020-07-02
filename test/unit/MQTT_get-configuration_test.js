@@ -20,24 +20,25 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-'use strict';
 
-var iotagentMqtt = require('../../'),
-    mqtt = require('mqtt'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    should = require('should'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    contextBrokerMock,
-    oldConfigurationFlag,
-    mqttClient;
+/* eslint-disable no-unused-vars */
+
+const iotagentMqtt = require('../../');
+const mqtt = require('mqtt');
+const config = require('../config-test.js');
+const nock = require('nock');
+const should = require('should');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+let contextBrokerMock;
+let oldConfigurationFlag;
+let mqttClient;
 
 describe('MQTT: Get configuration from the devices', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
@@ -82,13 +83,14 @@ describe('MQTT: Get configuration from the devices', function() {
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
     describe(
+        /* eslint-disable no-useless-concat */
         'When a configuration request is received in the topic ' + '"/{{apikey}}/{{deviceid}}/configuration/commands"',
         function() {
-            var values = {
-                    type: 'configuration',
-                    fields: ['sleepTime', 'warningLevel']
-                },
-                configurationReceived;
+            const values = {
+                type: 'configuration',
+                fields: ['sleepTime', 'warningLevel']
+            };
+            let configurationReceived;
 
             beforeEach(function() {
                 contextBrokerMock
@@ -121,7 +123,7 @@ describe('MQTT: Get configuration from the devices', function() {
 
             it('should return the requested attributes to the client in /1234/MQTT_2/configuration/values', function(done) {
                 mqttClient.on('message', function(topic, data) {
-                    var result = JSON.parse(data);
+                    const result = JSON.parse(data);
 
                     configurationReceived =
                         result.sleepTime &&
@@ -142,7 +144,7 @@ describe('MQTT: Get configuration from the devices', function() {
 
             it('should add the system timestamp in compressed format to the request', function(done) {
                 mqttClient.on('message', function(topic, data) {
-                    var result = JSON.parse(data);
+                    const result = JSON.parse(data);
 
                     configurationReceived = result.dt && result.dt.should.match(/^\d{8}T\d{6}Z$/);
                 });
@@ -160,11 +162,11 @@ describe('MQTT: Get configuration from the devices', function() {
     );
 
     describe('When a subscription request is received in the IoT Agent', function() {
-        var values = {
-                type: 'subscription',
-                fields: ['sleepTime', 'warningLevel']
-            },
-            configurationReceived;
+        const values = {
+            type: 'subscription',
+            fields: ['sleepTime', 'warningLevel']
+        };
+        let configurationReceived;
 
         beforeEach(function() {
             contextBrokerMock
@@ -193,7 +195,7 @@ describe('MQTT: Get configuration from the devices', function() {
             });
         });
         it('should update the values in the MQTT topic when a notification is received', function(done) {
-            var optionsNotify = {
+            const optionsNotify = {
                 url: 'http://localhost:' + config.iota.server.port + '/notify',
                 method: 'POST',
                 json: utils.readExampleFile('./test/subscriptions/notification.json'),
@@ -204,7 +206,7 @@ describe('MQTT: Get configuration from the devices', function() {
             };
 
             mqttClient.on('message', function(topic, data) {
-                var result = JSON.parse(data);
+                const result = JSON.parse(data);
 
                 configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
             });

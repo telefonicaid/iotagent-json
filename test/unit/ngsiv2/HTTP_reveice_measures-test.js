@@ -23,52 +23,50 @@
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
 
-/* jshint camelcase: false */
+/* eslint-disable no-unused-vars */
 
-'use strict';
-
-var iotaJson = require('../../../'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    should = require('should'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../../utils'),
-    groupCreation = {
-        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-        method: 'POST',
-        json: {
-            services: [
-                {
-                    resource: '/iot/json',
-                    apikey: 'KL223HHV8732SFL1',
-                    entity_type: 'TheLightType',
-                    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                    cbHost: 'http://unexistentHost:1026',
-                    commands: [],
-                    lazy: [],
-                    attributes: [
-                        {
-                            name: 'status',
-                            type: 'Boolean'
-                        }
-                    ],
-                    static_attributes: []
-                }
-            ]
-        },
-        headers: {
-            'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+const iotaJson = require('../../../');
+const config = require('./config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const should = require('should');
+const async = require('async');
+const request = require('request');
+const utils = require('../../utils');
+const groupCreation = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL1',
+                entity_type: 'TheLightType',
+                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                cbHost: 'http://unexistentHost:1026',
+                commands: [],
+                lazy: [],
+                attributes: [
+                    {
+                        name: 'status',
+                        type: 'Boolean'
+                    }
+                ],
+                static_attributes: []
+            }
+        ]
     },
-    contextBrokerMock,
-    contextBrokerUnprovMock;
+    headers: {
+        'fiware-service': 'smartGondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+let contextBrokerMock;
+let contextBrokerUnprovMock;
 
 describe('HTTP: Measure reception ', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
@@ -103,7 +101,7 @@ describe('HTTP: Measure reception ', function() {
     });
 
     describe('When a POST measure arrives for the HTTP binding', function() {
-        var optionsMeasure = {
+        const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
@@ -156,32 +154,32 @@ describe('HTTP: Measure reception ', function() {
     });
 
     describe('When a POST measure arrives with a TimeInstant attribute in the body for a device with explicitAttrs:false', function() {
-        var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/json',
-                method: 'POST',
-                json: {
-                    humidity: '111222',
-                    pressure: '20',
-                    TimeInstant: '20200222T222222'
-                },
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'dev0130101',
-                    k: '1234'
-                }
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '111222',
+                pressure: '20',
+                TimeInstant: '20200222T222222'
             },
-            provisionOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            };
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -229,32 +227,32 @@ describe('HTTP: Measure reception ', function() {
     });
 
     describe('When a POST measure arrives with a TimeInstant attribute in the body for a device with explicitAttrs:true', function() {
-        var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/json',
-                method: 'POST',
-                json: {
-                    humidity: '111222',
-                    pressure: '20',
-                    TimeInstant: '20200222T222222'
-                },
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'dev0130101',
-                    k: '1234'
-                }
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '111222',
+                pressure: '20',
+                TimeInstant: '20200222T222222'
             },
-            provisionOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant2.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            };
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant2.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -302,32 +300,32 @@ describe('HTTP: Measure reception ', function() {
     });
 
     describe('When a POST measure arrives with a TimeInstant query parameter in the body for a device with explicitAttrs:false', function() {
-        var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/json',
-                method: 'POST',
-                json: {
-                    humidity: '111222',
-                    pressure: '20'
-                },
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'dev0130101',
-                    k: '1234',
-                    t: '20200222T222222'
-                }
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '111222',
+                pressure: '20'
             },
-            provisionOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            };
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234',
+                t: '20200222T222222'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -375,32 +373,32 @@ describe('HTTP: Measure reception ', function() {
     });
 
     describe('When a POST measure arrives with a TimeInstant query parameter in the body for a device with explicitAttrs:true', function() {
-        var optionsMeasure = {
-                url: 'http://localhost:' + config.http.port + '/iot/json',
-                method: 'POST',
-                json: {
-                    humidity: '111222',
-                    pressure: '20'
-                },
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'dev0130101',
-                    k: '1234',
-                    t: '20200222T222222'
-                }
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '111222',
+                pressure: '20'
             },
-            provisionOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'POST',
-                json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant2.json'),
-                headers: {
-                    'fiware-service': 'smartGondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            };
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234',
+                t: '20200222T222222'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant2.json'),
+            headers: {
+                'fiware-service': 'smartGondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
 
         beforeEach(function(done) {
             nock.cleanAll();
@@ -448,7 +446,7 @@ describe('HTTP: Measure reception ', function() {
     });
 
     describe('When a POST measure arrives for an unprovisioned device', function() {
-        var optionsMeasure = {
+        const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {

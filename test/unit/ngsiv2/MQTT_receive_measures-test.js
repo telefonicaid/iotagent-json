@@ -23,53 +23,51 @@
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
 
-/* jshint camelcase: false */
+/* eslint-disable no-unused-vars */
 
-'use strict';
-
-var iotaJson = require('../../../'),
-    mqtt = require('mqtt'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../../utils'),
-    groupCreation = {
-        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-        method: 'POST',
-        json: {
-            services: [
-                {
-                    resource: '/iot/json',
-                    apikey: 'KL223HHV8732SFL1',
-                    entity_type: 'TheLightType',
-                    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                    cbHost: 'http://unexistentHost:1026',
-                    commands: [],
-                    lazy: [],
-                    attributes: [
-                        {
-                            name: 'status',
-                            type: 'Boolean'
-                        }
-                    ],
-                    static_attributes: []
-                }
-            ]
-        },
-        headers: {
-            'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+const iotaJson = require('../../../');
+const mqtt = require('mqtt');
+const config = require('./config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../../utils');
+const groupCreation = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL1',
+                entity_type: 'TheLightType',
+                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                cbHost: 'http://unexistentHost:1026',
+                commands: [],
+                lazy: [],
+                attributes: [
+                    {
+                        name: 'status',
+                        type: 'Boolean'
+                    }
+                ],
+                static_attributes: []
+            }
+        ]
     },
-    contextBrokerMock,
-    contextBrokerUnprovMock,
-    mqttClient;
+    headers: {
+        'fiware-service': 'smartGondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+let contextBrokerMock;
+let contextBrokerUnprovMock;
+let mqttClient;
 
 describe('MQTT: Measure reception ', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice1.json'),
@@ -125,7 +123,7 @@ describe('MQTT: Measure reception ', function() {
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87',
                 luminosity: 10,
@@ -173,7 +171,7 @@ describe('MQTT: Measure reception ', function() {
             });
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87'
             };
@@ -202,7 +200,7 @@ describe('MQTT: Measure reception ', function() {
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 weight: '87'
             };
@@ -229,7 +227,7 @@ describe('MQTT: Measure reception ', function() {
                 .reply(204);
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87',
                 TimeInstant: '20071103T131805'

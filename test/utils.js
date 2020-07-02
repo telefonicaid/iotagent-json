@@ -20,12 +20,11 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-'use strict';
 
-var fs = require('fs');
+const fs = require('fs');
 
 function readExampleFile(name, raw) {
-    var text = null;
+    let text = null;
     try {
         text = fs.readFileSync(name, 'UTF8');
     } catch (e) {

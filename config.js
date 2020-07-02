@@ -311,7 +311,7 @@ config.iota = {
     /**
      * flag indicating whether the incoming measures to the IoTAgent should be processed as per the "attributes" field.
      */
-    explicitAttrs: false 
+    explicitAttrs: false
 };
 
 /**
