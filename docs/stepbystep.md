@@ -190,6 +190,7 @@ curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -
             "device_id": "sensor01",
             "entity_name": "LivingRoomSensor",
             "entity_type": "multiSensor",
+            "transport": "MQTT",
             "attributes": [
                   { "object_id": "t", "name": "Temperature", "type": "celsius" },
                   { "object_id": "l", "name": "Luminosity", "type": "lumens" }
@@ -277,6 +278,12 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
 "value" : "300"
 }' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attributes/sleepTime'
 ```
+
+In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be provisioned using "MQTT" as transport key. By default it will be considerd "HTTP" as transport.
+
+The parameter will be given as follows:
+
+"transport": "MQTT" 
 
 When the IoTAgent is asked for configuration values, it will ask the Context Broker for those values. Once it has
 collected them, it will send them to the device in the topic with suffix '/configuration/values'. To check this
