@@ -279,7 +279,7 @@ curl -X POST -H "Content-Type: application/json" -H "Accept: application/json" -
 }' 'http://localhost:1026/v1/contextEntities/LivingRoomSensor/attributes/sleepTime'
 ```
 
-In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be provisioned using "MQTT" as transport key. By default it will be considerd "HTTP" as transport.
+In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be provisioned using 'MQTT' as transport key. By default it will be considered 'HTTP' as transport.
 
 The parameter will be given as follows:
 
