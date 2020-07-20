@@ -283,7 +283,7 @@ In case of MQTT to retrieve configuration parameters from the Context Broker, it
 
 The parameter will be given as follows:
 
-"transport": "MQTT" 
+```"transport": "MQTT"```
 
 When the IoTAgent is asked for configuration values, it will ask the Context Broker for those values. Once it has
 collected them, it will send them to the device in the topic with suffix '/configuration/values'. To check this
