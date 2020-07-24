@@ -190,7 +190,6 @@ curl -X POST -H "Fiware-Service: myHome" -H "Fiware-ServicePath: /environment" -
             "device_id": "sensor01",
             "entity_name": "LivingRoomSensor",
             "entity_type": "multiSensor",
-            "transport": "MQTT",
             "attributes": [
                   { "object_id": "t", "name": "Temperature", "type": "celsius" },
                   { "object_id": "l", "name": "Luminosity", "type": "lumens" }
