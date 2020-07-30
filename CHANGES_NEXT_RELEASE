@@ -1,4 +1,4 @@
-Update dev package dependencies
+Overall update of dev package dependencies
 Update codebase to use ES6
 -  Remove JSHint and jshint overrides
 -  Add esLint using standard tamia presets
