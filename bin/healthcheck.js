@@ -24,7 +24,7 @@
  */
 
 const http = require('http');
-const port = process.env.IOTA_NORTH_PORT || '4061';
+const port = process.env.IOTA_NORTH_PORT || '4041';
 const path = process.env.HEALTHCHECK_PATH || '/iot/about';
 const httpCode = process.env.HEALTHCHECK_CODE || 200;
 
