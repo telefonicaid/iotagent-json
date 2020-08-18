@@ -59,3 +59,11 @@ jobs:
       script:
         - npm run lint:md
         - npm run lint:text
+
+    - stage: test
+      name: "Dockerfile Tests"
+      language: bash
+      install:
+        - docker pull hadolint/hadolint
+      script:
+        - docker run --rm -i hadolint/hadolint < ./docker/Dockerfile

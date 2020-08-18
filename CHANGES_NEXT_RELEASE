@@ -1,3 +1,4 @@
+Update Docker security practices (Add HEALTHCHECK, Use Anonymous User, Use two-stage build)
 Update codebase to use ES6
 -  Remove JSHint and jshint overrides
 -  Add esLint using standard tamia presets
