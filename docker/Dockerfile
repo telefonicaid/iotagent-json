@@ -54,7 +54,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # the repository and replace the whole RUN statement below by the following COPY statement 
 # in your local source using :
 #
-# COPY . /opt/iotagent/json/
+# COPY . /opt/iotagent-json/
 #
 
 # hadolint ignore=DL3008
@@ -77,14 +77,14 @@ RUN \
 	curl -s -L https://github.com/"${GITHUB_ACCOUNT}"/"${GITHUB_REPOSITORY}"/archive/"${RELEASE}".zip > source.zip && \
 	unzip source.zip -x "*/test/**" "*/rpm/**" "*/ghpages/**" "*/docs/**" "*/.*" && \
 	rm source.zip && \
-	mv "${GITHUB_REPOSITORY}-${RELEASE_CONCAT}" /opt/iotagent/json && \
+	mv "${GITHUB_REPOSITORY}-${RELEASE_CONCAT}" /opt/iotagent-json && \
 	# Remove unzip and clean apt cache
 	apt-get clean && \
 	apt-get remove -y unzip && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/* 
 
-WORKDIR /opt/iotagent/json
+WORKDIR /opt/iotagent-json
 
 # hadolint ignore=DL3008
 RUN \
@@ -101,7 +101,7 @@ USER node
 ENV NODE_ENV=development
 # Expose 4041 for NORTH PORT, 7896 for HTTP PORT
 EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
-CMD ["node", "/opt/iotagent/json/bin/iotagent-json", "-- ", "config.js"]
+CMD ["node", "/opt/iotagent-json/bin/iotagent-json", "-- ", "config.js"]
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
    CMD npm run healthcheck
 
@@ -116,14 +116,14 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
 ########################################################################################
 FROM node:${NODE_VERSION} AS pm2-install
 
-COPY --from=builder /opt/iotagent/json /opt/iotagent/json
+COPY --from=builder /opt/iotagent-json /opt/iotagent-json
 RUN npm install pm2@4.4.0 -g --no-package-lock --no-optional
 
 USER node
 ENV NODE_ENV=development
 # Expose 4041 for NORTH PORT, 7896 for HTTP PORT
 EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
-CMD ["pm2-runtime", "/opt/iotagent/json/bin/iotagent-json", "-- ", "config.js"]
+CMD ["pm2-runtime", "/opt/iotagent-json/bin/iotagent-json", "-- ", "config.js"]
 
 ########################################################################################
 #
@@ -162,9 +162,9 @@ LABEL "org.opencontainers.image.description"="An Internet of Things Agent for th
 LABEL "org.opencontainers.image.source"="https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}"
 LABEL "org.nodejs.version"="${NODE_VERSION}"
 
-COPY --from=builder /opt/iotagent/json /opt/iotagent/json
+COPY --from=builder /opt/iotagent-json /opt/iotagent-json
 COPY --from=anon-user /etc/passwd /etc/shadow /etc/group /etc/
-WORKDIR /opt/iotagent/json
+WORKDIR /opt/iotagent-json
 
 USER nobody
 ENV NODE_ENV=production
