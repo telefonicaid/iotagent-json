@@ -498,7 +498,7 @@ config.mqtt = {
     port: 1883,
     defaultKey: "1234",
     username: "iota",
-    password: "iota"
+    password: "iota",
 };
 ```
 
