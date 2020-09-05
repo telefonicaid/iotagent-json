@@ -70,7 +70,7 @@ the NGSI entity. E.g.:
 {
     "h": "45%",
     "t": "23",
-    "l": {"a":2,"b":"up","c":["1","3"]}
+    "l": { "a": 2, "b": "up", "c": ["1", "3"] }
 }
 ```
 
@@ -237,11 +237,12 @@ stored in the Context Broker). Two topics are created in order to support this f
 commands and a topic to receive configuration information. This mechanism can be enabled or disabled using a
 configuration flag, `configRetrieval`.
 
-In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be provisioned using "MQTT" as transport key. By default it will be considered "HTTP" as transport.
+In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be
+provisioned using "MQTT" as transport key. By default it will be considered "HTTP" as transport.
 
 The parameter will be given as follows:
 
-```"transport": "MQTT"```
+`"transport": "MQTT"`
 
 This mechanism and the bidirectionality plugin cannot be simultaneously activated.
 

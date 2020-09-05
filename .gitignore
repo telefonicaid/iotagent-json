@@ -2,6 +2,7 @@
 /.idea/
 /doc/
 /coverage/
+/.nyc_output/
 /site
 /report/
 /.c9revisions/
