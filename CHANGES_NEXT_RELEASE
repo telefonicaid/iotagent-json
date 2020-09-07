@@ -1,3 +1,4 @@
+Fix: Do not intercept error about DEVICE_NOT_FOUND in findOrCreate device (iotagent-node-lib#889)
 Fix some log levels and details at bindings
 Overall update of dev package dependencies
 Error processing zero measures (#486)
