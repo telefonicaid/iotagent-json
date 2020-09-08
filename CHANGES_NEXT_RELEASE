@@ -1,3 +1,4 @@
+Fix srv, subsrv, transaction and correlator id in logs of http binding
 Fix some log levels and details at bindings
 Overall update of dev package dependencies
 Error processing zero measures (#486)
