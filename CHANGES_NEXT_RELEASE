@@ -1,4 +1,7 @@
 Update Docker security practices (Add HEALTHCHECK, Use Anonymous User, Use two-stage build)
+Fix: Do not intercept error about DEVICE_NOT_FOUND in findOrCreate device (iotagent-node-lib#889)
+Fix srv, subsrv, transaction and correlator id in logs of http binding
+Fix some log levels and details at bindings
 Overall update of dev package dependencies
 Error processing zero measures (#486)
 Update codebase to use ES6
