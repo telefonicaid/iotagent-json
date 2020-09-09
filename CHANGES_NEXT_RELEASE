@@ -1,3 +1,4 @@
+Fix: Force finish transaction after process a device measure
 Fix: Do not intercept error about DEVICE_NOT_FOUND in findOrCreate device (iotagent-node-lib#889)
 Fix srv, subsrv, transaction and correlator id in logs of http binding
 Fix some log levels and details at bindings
