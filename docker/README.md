@@ -139,7 +139,7 @@ To download code from your own fork of the GitHub repository add the `GITHUB_ACC
 docker build -t iot-agent . \
     --build-arg GITHUB_ACCOUNT=<your account> \
     --build-arg GITHUB_REPOSITORY=<your repo> \
-    --build-arg SOURCE_BRANCH=<your branch>
+    --build-arg SOURCE_BRANCH=<your branch> \
     --target=distroless|pm2|slim
 ```
 
