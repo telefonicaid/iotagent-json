@@ -21,6 +21,7 @@
   },
   "scripts": {
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf coverage",
+    "healthcheck": "node ./bin/healthcheck",
     "lint": "eslint lib/ bin/ test/ --cache --fix",
     "lint:md": "remark -f 'README.md' docs",
     "lint:text": "textlint 'README.md' 'docs/*.md' 'docs/**/*.md'",
