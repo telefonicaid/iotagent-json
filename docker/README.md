@@ -164,7 +164,7 @@ docker run --name iotagent -d fiware/iotagent-json:<tag>-pm2
 ```
 
 The IoT Agent within the Docker image can be run from a distroless container
-Manager by using the associated `distroless` Image.
+by using the associated `distroless` Image.
 
 ```console
 docker run --name iotagent -d fiware/iotagent-json:<tag>-distroless
