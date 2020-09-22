@@ -160,14 +160,14 @@ The IoT Agent within the Docker image can be run encapsulated within the [pm2](h
 Manager by using the associated `pm2` Image.
 
 ```console
-docker run --name iotagent -d fiware/iotagent-json-pm2
+docker run --name iotagent -d fiware/iotagent-json:<tag>-pm2
 ```
 
 The IoT Agent within the Docker image can be run from a distroless container
-Manager by using the associated `distroless` Image.
+by using the associated `distroless` Image.
 
 ```console
-docker run --name iotagent -d fiware/iotagent-json-distroless
+docker run --name iotagent -d fiware/iotagent-json:<tag>-distroless
 ```
 
 
