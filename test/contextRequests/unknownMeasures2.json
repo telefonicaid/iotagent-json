@@ -1,0 +1,23 @@
+{
+    "contextElements": [
+      {
+        "type": "AnMQTTDevice",
+        "isPattern": "false",
+        "id": "Second MQTT Device",
+        "attributes": [
+          {
+            "name": "humidity",
+            "type": "degrees",
+            "value": "33"
+          },
+          {
+            "name": "weight",
+            "type": "string",
+            "value": "89"
+          }
+        ]
+      }
+    ],
+    "updateAction": "UPDATE"
+  }
+  
