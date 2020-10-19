@@ -167,6 +167,14 @@ Some of the more common variables can be configured using environment variables.
 in the `config.iota` set are described in the
 [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 
+The ones relating global configuration described in the following table.
+
+| Environment variable   | Configuration attribute |
+| :--------------------- | :---------------------- |
+| IOTA_CONFIG_RETRIEVAL  | configRetrieval         |
+| IOTA_DEFAULT_KEY       | defaultKey              |
+| IOTA_DEFAULT_TRANSPORT | defaultTransport        |
+
 The ones relating specific JSON bindings are described in the following table.
 
 | Environment variable          | Configuration attribute |
