@@ -1,3 +1,4 @@
+Add: log in info level command and configuration MQTT
 FIX: check ngsi version in configuration handler (#500)
 Add missed global config env vars (IOTA_CONFIG_RETRIEVAL, IOTA_DEFAULT_KEY, IOTA_DEFAULT_TRANSPORT)
 Update Docker security practices (Add HEALTHCHECK, Use Anonymous User, Use two-stage build)
