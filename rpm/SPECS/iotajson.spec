@@ -169,6 +169,52 @@ fi
 %{_install_dir}
 
 %changelog
+
+* Mon Sep 14 2020 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.15.0
+- Add: config.mqtt.avoidLeadingSlash flag (IOTA_MQTT_AVOID_LEADING_SLASH) to avoid leading slash in MQTT
+- Add: explicitAttrs flag (in configuration and also group/device provisioning) to progress only the measures corresponding to attributes declared in attributes array (#416)
+- Fix: force finish transaction after process a device measure
+- Fix: do not intercept error about DEVICE_NOT_FOUND in findOrCreate device (iotagent-node-lib#889)
+- Fix: srv, subsrv, transaction and correlator id in logs of http binding
+- Fix: some log levels and details at bindings
+- Fix: writing of same correlator and transaction id in logs (#426).
+- Fix: error processing zero measures (#486)
+- Update codebase to use ES6
+  -  Remove JSHint and jshint overrides
+  -  Add esLint using standard tamia presets
+  -  Replace var with let/const
+  -  Fix or disable eslint errors
+- Upgrade iotagent-node-lib dependency from 2.12.0 to 2.13.0
+- Overall update of dev package dependencies
+- Set Nodejs 10 as minimum version in packages.json (effectively removing Nodev8 from supported versions)
+
+* Tue Apr 07 2020 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.14.0
+- Add: multimeasure support for HTTP transport (#391, partially)
+- Add: check response obj before use it handling http commands
+- Add: southbound HTTPS support (#472)
+- Fix: move to warn error log about device not found
+- Upgrade iotagent-node-lib dependency from 2.11.0 to 2.12.0
+- Upgrade NodeJS version from 8.16.1 to 10.19.0 in Dockerfile due to Node 8 End-of-Life
+
+* Wed Nov 20 2019 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.13.0
+- Allow use protocol ("/json") in mqtt topics subscribed by the agent (#374)
+- Use MQTT v5 shared subscriptions to avoid dupplicated messages per agent type (upgrade mqtt dep from 2.18.8 to 3.0.0). Needs MQTT v5 broker like mosquitto 1.6+
+- Use AMQP durable option in assertExchange
+- Use device apikey if exists in getEffectiveApiKey for command handling
+
+* Mon Nov 04 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.12.0
+- Add: PM2_ENABLED flag to Docker
+- Fix: update default expiration device registration (ngsiv1) from 1M to 20Y
+- Fix: avoid connections to AMQP and MQTT when these transports are not included in configuration (#409)
+- Fix: check callback before use it if MQTT connection error
+- Upgrade iotagent-node-lib dependency from 2.10.0 to 2.11.0 (inclusing NGSIv2 forwarding -issue #250-, and cluster nodejs functionality)
+- Upgrade NodeJS version from 8.16.0 to 8.16.1 in Dockerfile due to security issues
+
+* Tue Aug 13 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.11.0
+- Set Nodejs 8 as minimum version in packages.json (effectively removing Nodev6 from supported versions)
+- Add: Reconnect when MQTT closes connection (including mqtt retries and keepalive conf options)
+- Upgrade iotagent-node-lib dependency from 2.9.0 to 2.10.0
+
 * Wed May 22 2019 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.10.0
 - Set Nodejs 6 version in packages.json (effectively removing Nodev4 as supported version)
 - Add: config.http.timeout (and associated enviroment variable IOTA_HTTP_TIMEOUT)(#152)

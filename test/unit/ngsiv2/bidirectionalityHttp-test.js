@@ -23,21 +23,20 @@
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
 
-'use strict';
+/* eslint-disable no-unused-vars */
 
-var iotagentJson = require('../../../'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    should = require('should'),
-    request = require('request'),
-    utils = require('../../utils'),
-    moment = require('moment'),
-    mockedClientServer,
-    contextBrokerMock;
+const iotagentJson = require('../../../');
+const config = require('./config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const should = require('should');
+const request = require('request');
+const utils = require('../../utils');
+let mockedClientServer;
+let contextBrokerMock;
 
 describe('Data Bidirectionality: HTTP', function() {
-    var notificationOptions = {
+    const notificationOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/notify',
         method: 'POST',
         json: utils.readExampleFile('./test/unit/ngsiv2/subscriptions/bidirectionalNotification.json'),
@@ -57,7 +56,7 @@ describe('Data Bidirectionality: HTTP', function() {
 
     describe('When a bidirectional attribute is set and a new value arrives to a device without endpoint', function() {
         beforeEach(function(done) {
-            var provisionOptions = {
+            const provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectional.json'),
@@ -72,30 +71,10 @@ describe('Data Bidirectionality: HTTP', function() {
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/subscriptions', function(body) {
-                    var expectedBody = utils.readExampleFile(
-                        './test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json'
-                    );
-                    // Note that expired field is not included in the json used by this mock as it is a dynamic
-                    // field. The following code performs such calculation and adds the field to the subscription
-                    // payload of the mock.
-                    if (!body.expires) {
-                        return false;
-                    } else if (moment(body.expires, 'YYYY-MM-DDTHH:mm:ss.SSSZ').isValid()) {
-                        expectedBody.expires = moment().add(config.deviceRegistrationDuration);
-                        var expiresDiff = moment(expectedBody.expires).diff(body.expires, 'milliseconds');
-                        if (expiresDiff < 500) {
-                            delete expectedBody.expires;
-                            delete body.expires;
-
-                            return JSON.stringify(body) === JSON.stringify(expectedBody);
-                        }
-
-                        return false;
-                    } else {
-                        return false;
-                    }
-                })
+                .post(
+                    '/v2/subscriptions',
+                    utils.readExampleFile('./test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json')
+                )
                 .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
 
             contextBrokerMock
@@ -136,10 +115,10 @@ describe('Data Bidirectionality: HTTP', function() {
         it('should send all the data from the notification in command syntax', function(done) {
             request(notificationOptions, function(error, response, body) {
                 iotAgentLib.commandQueue('smartGondor', '/gardens', 'MQTT_2', function(error, list) {
-                    var latitudeFound = false,
-                        longitudeFound = false;
+                    let latitudeFound = false;
+                    let longitudeFound = false;
 
-                    for (var i = 0; i < list.commands.length; i++) {
+                    for (let i = 0; i < list.commands.length; i++) {
                         if (
                             list.commands[i].name === 'latitude' &&
                             list.commands[i].type === 'string' &&
@@ -168,7 +147,7 @@ describe('Data Bidirectionality: HTTP', function() {
 
     describe('When a bidirectional attribute is set and a new value arrives to a device with endpoint', function() {
         beforeEach(function(done) {
-            var provisionOptions = {
+            const provisionOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'POST',
                 json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandBidirectionalWithUrl.json'),
@@ -183,30 +162,10 @@ describe('Data Bidirectionality: HTTP', function() {
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartGondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/subscriptions', function(body) {
-                    var expectedBody = utils.readExampleFile(
-                        './test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json'
-                    );
-                    // Note that expired field is not included in the json used by this mock as it is a dynamic
-                    // field. The following code performs such calculation and adds the field to the subscription
-                    // payload of the mock.
-                    if (!body.expires) {
-                        return false;
-                    } else if (moment(body.expires, 'YYYY-MM-DDTHH:mm:ss.SSSZ').isValid()) {
-                        expectedBody.expires = moment().add(config.deviceRegistrationDuration);
-                        var expiresDiff = moment(expectedBody.expires).diff(body.expires, 'milliseconds');
-                        if (expiresDiff < 500) {
-                            delete expectedBody.expires;
-                            delete body.expires;
-
-                            return JSON.stringify(body) === JSON.stringify(expectedBody);
-                        }
-
-                        return false;
-                    } else {
-                        return false;
-                    }
-                })
+                .post(
+                    '/v2/subscriptions',
+                    utils.readExampleFile('./test/unit/ngsiv2/subscriptions/bidirectionalSubscriptionRequest.json')
+                )
                 .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
 
             contextBrokerMock

@@ -22,22 +22,23 @@
  *
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
-'use strict';
 
-var iotaJson = require('../../../'),
-    mqtt = require('mqtt'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    request = require('request'),
-    should = require('should'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    utils = require('../../utils'),
-    contextBrokerMock,
-    mqttClient;
+/* eslint-disable no-unused-vars */
+
+const iotaJson = require('../../../');
+const mqtt = require('mqtt');
+const config = require('./config-test.js');
+const nock = require('nock');
+const request = require('request');
+const should = require('should');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const utils = require('../../utils');
+let contextBrokerMock;
+let mqttClient;
 
 describe('Subscription management', function() {
-    var provisionOptions = {
+    const provisionOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
@@ -49,12 +50,12 @@ describe('Subscription management', function() {
 
     function sendMeasures(humidity, temperature) {
         return function(callback) {
-            var values = {
-                humidity: humidity,
-                temperature: temperature
+            const values = {
+                humidity,
+                temperature
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 process.nextTick(callback);
             });
         };

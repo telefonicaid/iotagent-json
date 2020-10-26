@@ -5,7 +5,7 @@
 [![Docker badge](https://img.shields.io/docker/pulls/fiware/iotagent-json.svg)](https://hub.docker.com/r/fiware/iotagent-json/)
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
 <br/>
-[![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](http://fiware-iotagent-json.readthedocs.org/en/latest/?badge=latest)
+[![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/?badge=latest)
 [![Build badge](https://img.shields.io/travis/telefonicaid/iotagent-json.svg)](https://travis-ci.org/telefonicaid/iotagent-json/)
 [![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
 ![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
@@ -23,8 +23,8 @@ library's GitHub repository.
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
-| :books: [Documentation](https://fiware-iotagent-json.rtfd.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/docs/roadmap.md) |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| :books: [Documentation](https://fiware-iotagent-json.readthedocs.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/docs/roadmap.md) |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 
 
 ## Contents
@@ -72,8 +72,8 @@ The following features are listed as [deprecated](docs/deprecated.md).
 ## API
 
 Apiary reference for the Configuration API can be found
-[here](http://docs.telefonicaiotiotagents.apiary.io/#reference/configuration-api) More information about IoT Agents and
-their APIs can be found in the IoT Agent Library [documentation](https://iotagent-node-lib.rtfd.io/).
+[here](https://telefonicaiotiotagents.docs.apiary.io/#reference/configuration-api) More information about IoT Agents and
+their APIs can be found in the IoT Agent Library [documentation](https://iotagent-node-lib.readthedocs.io/).
 
 The latest IoT Agent for JSON documentation is also available on
 [ReadtheDocs](https://fiware-iotagent-json.readthedocs.io/en/latest/)
@@ -117,7 +117,7 @@ npm test
 
 All the tests are designed to test end-to-end scenarios, and there are some requirements for its current execution:
 
--   Mosquitto v1.3.5 server running
+-   MQTT v5 broker (like mosquitto v1.6.7 server running)
 -   MongoDB v3.x server running
 
 ---

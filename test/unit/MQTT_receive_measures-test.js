@@ -21,53 +21,51 @@
  * please contact with::[contacto@tid.es]
  */
 
-/* jshint camelcase: false */
+/* eslint-disable no-unused-vars */
 
-'use strict';
-
-var iotagentMqtt = require('../../'),
-    mqtt = require('mqtt'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    groupCreation = {
-        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-        method: 'POST',
-        json: {
-            services: [
-                {
-                    resource: '/iot/json',
-                    apikey: 'KL223HHV8732SFL1',
-                    entity_type: 'TheLightType',
-                    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                    cbHost: 'http://unexistentHost:1026',
-                    commands: [],
-                    lazy: [],
-                    attributes: [
-                        {
-                            name: 'status',
-                            type: 'Boolean'
-                        }
-                    ],
-                    static_attributes: []
-                }
-            ]
-        },
-        headers: {
-            'fiware-service': 'smartGondor',
-            'fiware-servicepath': '/gardens'
-        }
+const iotagentMqtt = require('../../');
+const mqtt = require('mqtt');
+const config = require('../config-test.js');
+const nock = require('nock');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+const groupCreation = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL1',
+                entity_type: 'TheLightType',
+                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                cbHost: 'http://unexistentHost:1026',
+                commands: [],
+                lazy: [],
+                attributes: [
+                    {
+                        name: 'status',
+                        type: 'Boolean'
+                    }
+                ],
+                static_attributes: []
+            }
+        ]
     },
-    contextBrokerMock,
-    contextBrokerUnprovMock,
-    mqttClient;
+    headers: {
+        'fiware-service': 'smartGondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+let contextBrokerMock;
+let contextBrokerUnprovMock;
+let mqttClient;
 
 describe('MQTT: Measure reception ', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
@@ -116,12 +114,25 @@ describe('MQTT: Measure reception ', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its value to the Context Broker (without leading slash)', function(done) {
+            const values = {
+                humidity: '32',
+                temperature: '87'
+            };
+
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -149,12 +160,30 @@ describe('MQTT: Measure reception ', function() {
             });
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87'
             };
 
-            mqttClient.publish('/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
+            mqttClient.publish(
+                '/json/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs',
+                JSON.stringify(values),
+                null,
+                function(error) {
+                    setTimeout(function() {
+                        contextBrokerUnprovMock.done();
+                        done();
+                    }, 100);
+                }
+            );
+        });
+        it('should send its value to the Context Broker (without leading slash)', function(done) {
+            const values = {
+                humidity: '32',
+                temperature: '87'
+            };
+
+            mqttClient.publish('json/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
                 error
             ) {
                 setTimeout(function() {
@@ -174,12 +203,25 @@ describe('MQTT: Measure reception ', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/unknownMeasuresSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 weight: '87'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its value to the Context Broker (without leading slash)', function(done) {
+            const values = {
+                humidity: '32',
+                weight: '87'
+            };
+
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -197,13 +239,27 @@ describe('MQTT: Measure reception ', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/timestampMeasureSuccess.json'));
         });
         it('should send its value to the Context Broker', function(done) {
-            var values = {
+            const values = {
                 humidity: '32',
                 temperature: '87',
                 TimeInstant: '20071103T131805'
             };
 
-            mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its value to the Context Broker (without leading slash)', function(done) {
+            const values = {
+                humidity: '32',
+                temperature: '87',
+                TimeInstant: '20071103T131805'
+            };
+
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -221,7 +277,15 @@ describe('MQTT: Measure reception ', function() {
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
         });
         it('should send its values to the Context Broker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
+                setTimeout(function() {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its values to the Context Broker (without leading slash)', function(done) {
+            mqttClient.publish('json/1234/MQTT_2/attrs/temperature', '87', null, function(error) {
                 setTimeout(function() {
                     contextBrokerMock.done();
                     done();
@@ -232,7 +296,7 @@ describe('MQTT: Measure reception ', function() {
 
     describe('When a malformed multiple measure arrives to the MQTT Topic', function() {
         it('should not crash', function(done) {
-            mqttClient.publish('/1234/MQTT_2/attrs', '{"humidity": " }(}', null, function(error) {
+            mqttClient.publish('/json/MQTT_2/attrs', '{"humidity": " }(}', null, function(error) {
                 setTimeout(function() {
                     done();
                 }, 100);

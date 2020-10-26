@@ -23,38 +23,36 @@
  * please contact with::[contacto@tid.es]
  */
 
-'use strict';
+/* eslint-disable no-console */
 
-var fs = require('fs'),
-    defaultConfig = require('../client-config.js'),
-    commandLine = require('iotagent-node-lib').commandLine,
-    clUtils = commandLine.clUtils,
-    mqtt = require('mqtt'),
-    async = require('async'),
-    _ = require('underscore'),
-    mqttClient,
-    configCb = {
-        host: 'localhost',
-        port: 1026,
-        service: 'tester',
-        subservice: '/test'
-    },
-    configIot = {
-        host: 'localhost',
-        port: 4041,
-        name: 'default',
-        service: 'tester',
-        subservice: '/test'
-    },
-    config = {
-        host: defaultConfig.mqtt.host,
-        port: defaultConfig.mqtt.port,
-        apikey: defaultConfig.device.apikey,
-        deviceId: defaultConfig.device.id
-    },
-    separator = '\n\n\t',
-    token;
+const defaultConfig = require('../client-config.js');
+const commandLine = require('iotagent-node-lib').commandLine;
+const clUtils = commandLine.clUtils;
+const mqtt = require('mqtt');
 
+const _ = require('underscore');
+let mqttClient;
+const configCb = {
+    host: 'localhost',
+    port: 1026,
+    service: 'tester',
+    subservice: '/test'
+};
+const configIot = {
+    host: 'localhost',
+    port: 4041,
+    name: 'default',
+    service: 'tester',
+    subservice: '/test'
+};
+const config = {
+    host: defaultConfig.mqtt.host,
+    port: defaultConfig.mqtt.port,
+    apikey: defaultConfig.device.apikey,
+    deviceId: defaultConfig.device.id
+};
+
+/* eslint-disable no-unused-vars */
 function setConfig(commands) {
     config.host = commands[0];
     config.port = commands[1];
@@ -62,6 +60,7 @@ function setConfig(commands) {
     config.deviceId = commands[3];
 }
 
+/* eslint-disable no-unused-vars */
 function getConfig(commands) {
     console.log('\nCurrent configuration:\n\n');
     console.log(JSON.stringify(config, null, 4));
@@ -90,13 +89,15 @@ function checkConnection(fn) {
 }
 
 function singleMeasure(commands) {
-    var topic = '/' + config.apikey + '/' + config.deviceId + '/attributes/' + commands[0];
+    const topic = '/' + config.apikey + '/' + config.deviceId + '/attributes/' + commands[0];
 
     mqttClient.publish(topic, commands[1], null, mqttPublishHandler);
 }
 
 function parseMultipleAttributes(attributeString) {
-    var result, attributes, attribute;
+    let result;
+    let attributes;
+    let attribute;
 
     if (!attributeString) {
         result = null;
@@ -104,7 +105,7 @@ function parseMultipleAttributes(attributeString) {
         attributes = attributeString.split(';');
         result = {};
 
-        for (var i = 0; i < attributes.length; i++) {
+        for (let i = 0; i < attributes.length; i++) {
             attribute = attributes[i].split('=');
             result[attribute[0]] = attribute[1];
         }
@@ -114,8 +115,8 @@ function parseMultipleAttributes(attributeString) {
 }
 
 function multipleMeasure(commands) {
-    var values = parseMultipleAttributes(commands[0]),
-        topic = '/' + config.apikey + '/' + config.deviceId + '/attributes';
+    const values = parseMultipleAttributes(commands[0]);
+    const topic = '/' + config.apikey + '/' + config.deviceId + '/attributes';
 
     mqttClient.publish(topic, JSON.stringify(values), null, mqttPublishHandler);
 }
@@ -135,7 +136,7 @@ function exitClient() {
     process.exit(0);
 }
 
-var commands = {
+let commands = {
     config: {
         parameters: ['host', 'port', 'apiKey', 'deviceId'],
         description: '\tConfigure the client to emulate the selected device, connecting to the given host.',

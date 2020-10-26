@@ -13,7 +13,7 @@ only, and this section may be revised to provide newer information at any time.
 
 Disclaimer:
 
--   This section has been last updated in January 2019. Please take into account its content could be obsolete.
+-   This section has been last updated in March 2020. Please take into account its content could be obsolete.
 -   Note we develop this software in Agile way, so development plan is continuously under review. Thus, this roadmap has
     to be understood as rough plan of features to be done along time which is fully valid only at the time of writing
     it. This roadmap has not be understood as a commitment on features and/or dates.
@@ -25,20 +25,17 @@ Disclaimer:
 The following list of features are planned to be addressed in the short term, and incorporated in a next release of the
 product:
 
--   Docker image protects username and password using environment variables.
--   Removal of warnings and deprecation warnings.
--   Creation of tutorial (to be contributed by members of the Community beyond GE owners)
+-   Allow event dispatching in HA scenarios with MQTT via shared subscriptions
+-   Multi-measure support in IOTA-JSON for HTTP binding
 
 ### Medium term
 
 The following list of features are planned to be addressed in the medium term, typically within the subsequent
 release(s) generated in the next 9 months after the next planned release:
 
--   Support to FIWARE complex data models.
--   Deployment instructions for high availability scenarios.
 -   Incremental introduccion of ECMAScript6 syntax (previous analysis of which sub-set of interesting aspect we want to
     take)
--   Implementation of lazy attributes.
+-   Implementation of lazy attributes
 -   Removal support for NGSIv1 (which currently is deprecated)
 
 ### Long term
@@ -47,4 +44,5 @@ The following list of features are proposals regarding the longer-term evolution
 development of these features has not yet been scheduled for a release in the near future. Please feel free to contact
 us if you wish to get involved in the implementation or influence the roadmap:
 
--   Implementation of device (southbound) authentication and authorization.
+-   Analyze move transport implementations (HTTP, MQTT and AMQP) to iotagent-node-lib library (the agent could will only
+    implement the payload)
