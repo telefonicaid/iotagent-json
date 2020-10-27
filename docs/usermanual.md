@@ -85,7 +85,7 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-#### Commands
+#### Sending Commands
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
@@ -111,6 +111,26 @@ Some additional remarks regarding polling commands:
 -   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
     a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
     the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
+-   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
+
+```json
+{
+
+  "commands": [
+    {
+      "type": "command",
+      "name": "a_command_name_A",
+      "mqtt": { "qos": 2, "retain": true }
+    },
+    {
+      "type": "command",
+      "name": "a_command_name_B",
+      "mqtt": { "qos": 1, "retain": false }
+    }
+  ]
+
+}
+```
 
 #### Configuration retrieval
 
