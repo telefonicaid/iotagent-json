@@ -111,6 +111,26 @@ Some additional remarks regarding polling commands:
 -   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
     a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
     the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
+-   MQTT devices can configured (at provisioning and updating time) each command with different values of MQTT QoS and MQTT retain values, whih will be used only by a command. More over, in the same MQTT device different commands can be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
+
+```json
+{
+ ...
+  "commands": [
+    {
+      "type": "command",
+      "name": "a_command_name_A",
+      "mqtt": { "qos": 2, "retain": true }
+    },
+    {
+      "type": "command",
+      "name": "a_command_name_B",
+      "mqtt": { "qos": 1, "retain": false }
+    }
+  ]
+...
+}
+```
 
 #### Configuration retrieval
 
