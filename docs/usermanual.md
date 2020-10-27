@@ -85,7 +85,7 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-#### Commands
+#### Sending Commands
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
@@ -115,7 +115,7 @@ Some additional remarks regarding polling commands:
 
 ```json
 {
- ...
+
   "commands": [
     {
       "type": "command",
@@ -128,7 +128,7 @@ Some additional remarks regarding polling commands:
       "mqtt": { "qos": 1, "retain": false }
     }
   ]
-...
+
 }
 ```
 
