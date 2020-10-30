@@ -85,8 +85,8 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-
 =======
+
 #### Sending Commands
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
@@ -113,24 +113,24 @@ Some additional remarks regarding polling commands:
 -   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
     a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
     the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
--   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
+-   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and
+    MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can
+    be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
 
 ```json
 {
-
-  "commands": [
-    {
-      "type": "command",
-      "name": "a_command_name_A",
-      "mqtt": { "qos": 2, "retain": true }
-    },
-    {
-      "type": "command",
-      "name": "a_command_name_B",
-      "mqtt": { "qos": 1, "retain": false }
-    }
-  ]
-
+    "commands": [
+        {
+            "type": "command",
+            "name": "a_command_name_A",
+            "mqtt": { "qos": 2, "retain": true }
+        },
+        {
+            "type": "command",
+            "name": "a_command_name_B",
+            "mqtt": { "qos": 1, "retain": false }
+        }
+    ]
 }
 ```
 
@@ -204,15 +204,29 @@ command will be poll. When using the HTTP transport, the command handling have t
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
     device will reply with a 200OK response containing the result of the command in the JSON result format.
 
--   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the device to retrieve the pending commands upon connection. Whenever the device is ready, it itself retrieves the commands from the IoT agent. While sending a normal measure, the device sends query parameter 'getCmd' with value '1' in order to retrieve the commands from IoT Agent. The IoT Agent responds with a list of commands available for that device which are send in a JSON format. The attributes in the response body represents the commands and the values represents command values. The use of a JSON return object implies that only one value can be returned for each command (last value will be returned for each one). Implementation imposes another limitation in the available values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces. The command payload is described in the protocol section. Whenever the device has completed the execution of the command, it will send the response in the same way measurements are reported, but using the command result format as exposed in the Protocol section.
+-   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
+    time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the
+    device to retrieve the pending commands upon connection. Whenever the device is ready, it itself retrieves the
+    commands from the IoT agent. While sending a normal measure, the device sends query parameter 'getCmd' with value
+    '1' in order to retrieve the commands from IoT Agent. The IoT Agent responds with a list of commands available for
+    that device which are send in a JSON format. The attributes in the response body represents the commands and the
+    values represents command values. The use of a JSON return object implies that only one value can be returned for
+    each command (last value will be returned for each one). Implementation imposes another limitation in the available
+    values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
+    The command payload is described in the protocol section. Whenever the device has completed the execution of the
+    command, it will send the response in the same way measurements are reported, but using the command result format as
+    exposed in the Protocol section.
 
 Some additional remarks regarding polling commands:
 
--   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
-    a measure in order to get the accumulated commands.
-    
+-   Commands can be also retrieved without the need of sending a measure. In other words, the device is not forced to
+    send a measure in order to get the accumulated commands.
+
     Example to retrieve commands from IoT Agent-
-    * curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1&d=c|1' -i
+
+```text
+curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1' -i
+```
 
 ### MQTT binding
 
