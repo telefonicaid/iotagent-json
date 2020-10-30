@@ -85,8 +85,6 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-=======
-
 #### Sending Commands
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the

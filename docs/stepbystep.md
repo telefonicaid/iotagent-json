@@ -7,13 +7,13 @@
 
 ## Introduction
 
-This guide will show, step-by-step, how to deploy and configure an IoTAgent-JSON IoT Agent for its use to connect devices to
-an external NGSI Broker (aka Context Broker).
+This guide will show, step-by-step, how to deploy and configure an IoTAgent-JSON IoT Agent for its use to connect
+devices to an external NGSI Broker (aka Context Broker).
 
-The IoTAgent-JSON IoT Agent acts as a gateway for communicating devices using the MQTT protocol with NGSI brokers (or any
-other piece which uses the NGSI protocol). The communication is based on a series of unidirectional MQTT topics (i.e.:
-each topic is used to _publish_ device information or to _subscribe_ to entity updates, but not both). Every topic has
-the same prefix, of the form:
+The IoTAgent-JSON IoT Agent acts as a gateway for communicating devices using the MQTT protocol with NGSI brokers (or
+any other piece which uses the NGSI protocol). The communication is based on a series of unidirectional MQTT topics
+(i.e.: each topic is used to _publish_ device information or to _subscribe_ to entity updates, but not both). Every
+topic has the same prefix, of the form:
 
 ```text
 /<apiKey>/<deviceId>/topicSpecificPart
@@ -48,10 +48,10 @@ The selected MQTT Broker for this tutorial was Mosquitto, although it could be s
 broker. The Mosquitto command tools will also be used along this guide to test the installation and show the information
 interchanged between simulated devices and the Context Broker.
 
-The following list shows the prerequisite software and versions:
+The following list shows the recommended software and versions:
 
--   Orion Context Broker (v2.2.0)
--   Node.js (v8)
+-   Orion Context Broker (v2.5.0)
+-   Node.js (v10)
 -   Mosquitto (v1.4.7) (out-of-the-box setup)
 -   Curl (v7.19.7)
 -   Git (v1.7.1)
