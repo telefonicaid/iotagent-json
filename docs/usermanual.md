@@ -53,9 +53,6 @@ explicit request from the agent, are not implemented. Please check the issue
 [#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details and updates regarding its
 implementation.
 
-**IMPORTANT NOTE**: at the present moment, multimeasures only work for HTTP. Support for other transports is still
-pending (see issue [#391](https://github.com/telefonicaid/iotagent-json/issues/391)).
-
 ### HTTP binding
 
 HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
@@ -111,24 +108,24 @@ Some additional remarks regarding polling commands:
 -   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
     a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
     the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
--   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
+-   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and
+    MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can
+    be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
 
 ```json
 {
-
-  "commands": [
-    {
-      "type": "command",
-      "name": "a_command_name_A",
-      "mqtt": { "qos": 2, "retain": true }
-    },
-    {
-      "type": "command",
-      "name": "a_command_name_B",
-      "mqtt": { "qos": 1, "retain": false }
-    }
-  ]
-
+    "commands": [
+        {
+            "type": "command",
+            "name": "a_command_name_A",
+            "mqtt": { "qos": 2, "retain": true }
+        },
+        {
+            "type": "command",
+            "name": "a_command_name_B",
+            "mqtt": { "qos": 1, "retain": false }
+        }
+    ]
 }
 ```
 
