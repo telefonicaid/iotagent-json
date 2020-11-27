@@ -57,7 +57,7 @@ services:
             - "IOTA_PROVIDER_URL=http://iot-agent:4041"
 
     mongodb:
-        image: mongo:3.6
+        image: mongo:4.2
         hostname: mongodb
         container_name: db-mongo
         ports:
