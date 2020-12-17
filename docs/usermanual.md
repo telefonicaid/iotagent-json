@@ -190,6 +190,39 @@ E.g.:
 }
 ```
 
+#### Commands
+
+MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
+`endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
+command will be poll. When using the HTTP transport, the command handling have two flavours:
+
+-   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
+    device will reply with a 200OK response containing the result of the command in the JSON result format.
+
+-   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
+    time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the
+    device to retrieve the pending commands upon connection. Whenever the device is ready, it itself retrieves the
+    commands from the IoT agent. While sending a normal measure, the device sends query parameter 'getCmd' with value
+    '1' in order to retrieve the commands from IoT Agent. The IoT Agent responds with a list of commands available for
+    that device which are send in a JSON format. The attributes in the response body represents the commands and the
+    values represents command values. The use of a JSON return object implies that only one value can be returned for
+    each command (last value will be returned for each one). Implementation imposes another limitation in the available
+    values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
+    The command payload is described in the protocol section. Whenever the device has completed the execution of the
+    command, it will send the response in the same way measurements are reported, but using the command result format as
+    exposed in the Protocol section.
+
+Some additional remarks regarding polling commands:
+
+-   Commands can be also retrieved without the need of sending a measure. In other words, the device is not forced to
+    send a measure in order to get the accumulated commands.
+
+    Example to retrieve commands from IoT Agent-
+
+```text
+curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1' -i
+```
+
 ### MQTT binding
 
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different

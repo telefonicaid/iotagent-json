@@ -82,7 +82,7 @@ config.mqtt = {
      */
     qos: 0,
     /**
-     * Retain flag. (default is true.) Normally if a publisher publishes a message to a topic, and no one is
+     * Retain flag. (default is false.) Normally if a publisher publishes a message to a topic, and no one is
      * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
      * The publisher can tell the broker to keep the last message on that topic by setting the retained message
      * flag to true.

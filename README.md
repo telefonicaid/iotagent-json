@@ -6,7 +6,7 @@
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
 <br/>
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/?badge=latest)
-[![Build badge](https://img.shields.io/travis/telefonicaid/iotagent-json.svg)](https://travis-ci.org/telefonicaid/iotagent-json/)
+[![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
 ![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
 
