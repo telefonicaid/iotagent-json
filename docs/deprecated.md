@@ -12,8 +12,13 @@ particular:
 
 A list of deprecated features and the version in which they were deprecated follows:
 
--   Support to NGSIv1.
--   Support to Node.js v4 in iotagent-json 1.9.0. The use of Node.js v8 is highly recommended.
+-   Support to NGSI v1.
+-   Support to Node.js v4 in iotagent-json 1.9.0 (finally removed in 1.10.0)
+-   Support to Node.js v6 in iotagent-json 1.10.0 (finally removed in 1.11.0)
+-   Support to Node.js v8 in iotagent-json 1.14.0 (finally removed in 1.15.0)
+-   Support to Node.js v10 in iotagent-json 1.17.0.
+
+The use of Node.js v12 is highly recommended.
 
 ## Using old iotagent-json versions
 
@@ -33,8 +38,10 @@ in the case you want to use old versions:
 
 The following table provides information about the last iotagent-json version supporting currently removed features:
 
-| **Removed feature**   | **Last iotagent-json version supporting feature** | **That version release date** |
-| --------------------- | ------------------------------------------------- | ----------------------------- |
-| NGSIv1 API            | Not yet defined                                   | Not yet defined               |
-| Support to Node.js v6 | Not yet defined but it will be done by May 2019   | Not yet defined               |
-| Support to Node.js v4 | 1.9.0                                             | December 19th, 2018           |
+| **Removed feature**    | **Last iotagent-json version supporting feature**   | **That version release date** |
+| ---------------------- | --------------------------------------------------- | ----------------------------- |
+| NGSIv1 API             | Not yet defined                                     | Not yet defined               |
+| Support to Node.js v4  | 1.9.0                                               | December 19th, 2018                 |
+| Support to Node.js v6  | 1.10.0                                              | May 22nd, 2019                      |
+| Support to Node.js v8  | 1.14.0                                              | April 7th, 2020                    |
+| Support to Node.js v10 | Not defined but it will completed before May 2021   | Not yet defined               |
