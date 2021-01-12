@@ -97,9 +97,9 @@ config.mqtt = {
      */
     retryTime: 5,
     /**
-     * Time to keep connection open between client and MQTT broker (default is 0 seconds)
+     * Time to keep connection open between client and MQTT broker (default is 60 seconds)
      */
-    keepalive: 0,
+    keepalive: 60,
 
     /**
      * Whether to use slashes at the beginning of topic when sending or not
