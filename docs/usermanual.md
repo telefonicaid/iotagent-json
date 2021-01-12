@@ -53,9 +53,6 @@ explicit request from the agent, are not implemented. Please check the issue
 [#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details and updates regarding its
 implementation.
 
-**IMPORTANT NOTE**: at the present moment, multimeasures only work for HTTP. Support for other transports is still
-pending (see issue [#391](https://github.com/telefonicaid/iotagent-json/issues/391)).
-
 ### HTTP binding
 
 HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
