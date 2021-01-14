@@ -218,3 +218,41 @@ CMD ["node", "/opt/iotagent-json/bin/iotagent-json", "-- ", "config.js"]
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
    CMD ["npm", "run", "healthcheck"]
 
+
+########################################################################################
+#
+# This build stage creates a node-slim image for debugging.
+#
+# IMPORTANT: For production environments use Docker Secrets to protect values of the 
+# sensitive ENV variables defined below, by adding _FILE to the name of the relevant 
+# variable.
+#
+# - IOTA_AUTH_USER, IOTA_AUTH_PASSWORD - when using Keystone Security 
+# - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
+#
+########################################################################################
+FROM node:${NODE_VERSION}-slim AS slim
+ARG GITHUB_ACCOUNT
+ARG GITHUB_REPOSITORY
+ARG NODE_VERSION
+
+LABEL "maintainer"="FIWARE IoTAgent Team. Telefónica I+D"
+LABEL "org.opencontainers.image.authors"="iot_support@tid.es"
+LABEL "org.opencontainers.image.documentation"="https://fiware-iotagent-json.rtfd.io/"
+LABEL "org.opencontainers.image.vendor"="Telefónica Investigación y Desarrollo, S.A.U"
+LABEL "org.opencontainers.image.licenses"="AGPL-3.0-only"
+LABEL "org.opencontainers.image.title"="IoT Agent for the JSON protocol (debugging)"
+LABEL "org.opencontainers.image.description"="An Internet of Things Agent for the JSON protocol (with AMQP, HTTP and MQTT transports). This IoT Agent is designed to be a bridge between Ultralight and the NGSI interface of a context broker."
+LABEL "org.opencontainers.image.source"="https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}"
+LABEL "org.nodejs.version"="${NODE_VERSION}"
+
+COPY --from=builder /opt/iotagent-json /opt/iotagent-json
+WORKDIR /opt/iotagent-json
+
+USER node
+ENV NODE_ENV=development
+# Expose 4041 for NORTH PORT, 7896 for HTTP PORT
+EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
+CMD ["node", "--inspect-brk=0.0.0.0 ", "/opt/iotagent-json/bin/iotagent-json", "-- ", "config.js"]
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
+   CMD ["npm", "run", "healthcheck"]
