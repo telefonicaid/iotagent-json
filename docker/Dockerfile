@@ -231,7 +231,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=10s \
 # - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
 #
 ########################################################################################
-FROM node:${NODE_VERSION}-slim AS slim
+FROM node:${NODE_VERSION}-slim AS debug
 ARG GITHUB_ACCOUNT
 ARG GITHUB_REPOSITORY
 ARG NODE_VERSION
