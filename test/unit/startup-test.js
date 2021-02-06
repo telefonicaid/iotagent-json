@@ -27,9 +27,9 @@ const fs = require('fs');
 // mqtt = require('mqtt'),
 const sinon = require('sinon');
 
-describe('Startup tests', function() {
-    describe('When the MQTT transport is started with environment variables', function() {
-        beforeEach(function() {
+describe('Startup tests', function () {
+    describe('When the MQTT transport is started with environment variables', function () {
+        beforeEach(function () {
             sinon.stub(fs, 'statSync');
             process.env.IOTA_MQTT_HOST = '127.0.0.1';
             process.env.IOTA_MQTT_PORT = '1883';
@@ -47,7 +47,7 @@ describe('Startup tests', function() {
             process.env.IOTA_MQTT_KEEPALIVE = '0';
         });
 
-        afterEach(function() {
+        afterEach(function () {
             fs.statSync.restore();
             delete process.env.IOTA_MQTT_PROTOCOL;
             delete process.env.IOTA_MQTT_HOST;
@@ -65,7 +65,7 @@ describe('Startup tests', function() {
             delete process.env.IOTA_MQTT_KEEPALIVE;
         });
 
-        it('should load the MQTT environment variables in the internal configuration', function(done) {
+        it('should load the MQTT environment variables in the internal configuration', function (done) {
             config.setConfig(iotAgentConfig);
             config.getConfig().mqtt.host.should.equal('127.0.0.1');
             config.getConfig().mqtt.port.should.equal('1883');
@@ -84,10 +84,11 @@ describe('Startup tests', function() {
         });
     });
 
-    describe('When the AMQP transport is started with environment variables', function() {
-        beforeEach(function() {
+    describe('When the AMQP transport is started with environment variables', function () {
+        beforeEach(function () {
             process.env.IOTA_AMQP_HOST = 'localhost';
             process.env.IOTA_AMQP_PORT = '9090';
+            process.env.IOTA_AMQP_VHOST = 'custom_vhost';
             process.env.IOTA_AMQP_USERNAME = 'useramqp';
             process.env.IOTA_AMQP_PASSWORD = 'passamqp';
             process.env.IOTA_AMQP_EXCHANGE = 'xxx';
@@ -97,9 +98,10 @@ describe('Startup tests', function() {
             process.env.IOTA_AMQP_RETRY_TIME = '5';
         });
 
-        afterEach(function() {
+        afterEach(function () {
             delete process.env.IOTA_AMQP_HOST;
             delete process.env.IOTA_AMQP_PORT;
+            delete process.env.IOTA_AMQP_VHOST;
             delete process.env.IOTA_AMQP_USERNAME;
             delete process.env.IOTA_AMQP_PASSWORD;
             delete process.env.IOTA_AMQP_EXCHANGE;
@@ -109,10 +111,11 @@ describe('Startup tests', function() {
             delete process.env.IOTA_AMQP_RETRY_TIME;
         });
 
-        it('should load the AMQP environment variables in the internal configuration', function(done) {
+        it('should load the AMQP environment variables in the internal configuration', function (done) {
             config.setConfig(iotAgentConfig);
             config.getConfig().amqp.host.should.equal('localhost');
             config.getConfig().amqp.port.should.equal('9090');
+            config.getConfig().amqp.port.should.equal('custom_vhost');
             config.getConfig().amqp.username.should.equal('useramqp');
             config.getConfig().amqp.password.should.equal('passamqp');
             config.getConfig().amqp.exchange.should.equal('xxx');
@@ -124,8 +127,8 @@ describe('Startup tests', function() {
         });
     });
 
-    describe('When the HTTP transport is started with environment variables', function() {
-        beforeEach(function() {
+    describe('When the HTTP transport is started with environment variables', function () {
+        beforeEach(function () {
             sinon.stub(fs, 'statSync');
             process.env.IOTA_HTTP_HOST = 'localhost';
             process.env.IOTA_HTTP_PORT = '2222';
@@ -134,7 +137,7 @@ describe('Startup tests', function() {
             process.env.IOTA_HTTP_CERT = '/http/bbb/cert.pem';
         });
 
-        afterEach(function() {
+        afterEach(function () {
             fs.statSync.restore();
             delete process.env.IOTA_HTTP_HOST;
             delete process.env.IOTA_HTTP_PORT;
@@ -143,7 +146,7 @@ describe('Startup tests', function() {
             delete process.env.IOTA_HTTP_CERT;
         });
 
-        it('should load the HTTP environment variables in the internal configuration', function(done) {
+        it('should load the HTTP environment variables in the internal configuration', function (done) {
             config.setConfig(iotAgentConfig);
             config.getConfig().http.host.should.equal('localhost');
             config.getConfig().http.port.should.equal('2222');
