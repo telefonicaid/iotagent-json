@@ -115,7 +115,7 @@ describe('Startup tests', function () {
             config.setConfig(iotAgentConfig);
             config.getConfig().amqp.host.should.equal('localhost');
             config.getConfig().amqp.port.should.equal('9090');
-            config.getConfig().amqp.port.should.equal('custom_vhost');
+            config.getConfig().amqp.vhost.should.equal('custom_vhost');
             config.getConfig().amqp.username.should.equal('useramqp');
             config.getConfig().amqp.password.should.equal('passamqp');
             config.getConfig().amqp.exchange.should.equal('xxx');
