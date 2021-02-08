@@ -120,6 +120,10 @@ config.amqp = {
      */
     port: 5672,
     /**
+     * Virtual host in the AMQP Broker to which IoT Agent will connect (optional).
+     */
+    // vhost: "custom-virtual-host",
+    /**
      * user name that identifies the IOTA against the AMQP broker (optional).
      */
     // username: 'guest',

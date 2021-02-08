@@ -1,2 +1,3 @@
 Fix: Set 60 seconds for default mqtt keepalive option (#413)
 Add: Support of multimeasure for MQTT and AMQP transport (#462)
+Add: Virtual host configuration added to AMQP transport

@@ -146,6 +146,7 @@ IoT Agent. The following attributes are accepted:
 
 -   **host**: Host where the AMQP Broker is located.
 -   **port**: Port where the AMQP Broker is listening
+-   **vhost**: virtual host in the AMQP Broker to which IoT Agent will connect (optional).
 -   **username**: username that identifies the IOTA against the AMQP broker (optional).
 -   **password**: password to be used if the username is provided (optional).
 -   **exchange**: Exchange in the AMQP broker
