@@ -169,6 +169,10 @@ fi
 %{_install_dir}
 
 %changelog
+* Mon Nov 16 2020 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.17.0
+- Add: Support of multimeasure for MQTT and AMQP transport (#462)
+- Fix: Set 60 seconds for default mqtt keepalive option (#413)
+- Upgrade iotagent-node-lib dependency from 2.14.0 to 2.15.0
 
 * Mon Nov 16 2020 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.16.0
 - Add: use mqtt.qos and mqtt.retain values from command for command execution (#504)
