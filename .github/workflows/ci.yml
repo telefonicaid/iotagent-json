@@ -35,7 +35,7 @@ jobs:
           npm run lint:md
       - name: Run Textlint Markdown Linter
         run: npm run lint:text
-  
+
   lint-code:
     name: Lint JavaScript
     runs-on: ubuntu-latest
@@ -70,6 +70,7 @@ jobs:
     strategy:
       matrix:
         node-version:
+          # FIXME: node v10 has been deprecated, but we are going to keep its regression for a while
           - 10.x
           - 12.x
           - 14.x
@@ -101,7 +102,7 @@ jobs:
       rabbitmq:
         image: rabbitmq:3.8.9
         ports:
-        - 5672:5672 
+        - 5672:5672
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
