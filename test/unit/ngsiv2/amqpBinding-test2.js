@@ -125,7 +125,7 @@ describe('AMQP Transport binding: multiple measures', function () {
             channel.publish(
                 config.amqp.exchange,
                 '.1234.MQTT_2.attrs',
-                new Buffer(JSON.stringify([{ a: '23' }, { a: '25' }]))
+                Buffer.from(JSON.stringify([{ a: '23' }, { a: '25' }]))
             );
 
             setTimeout(function () {
@@ -162,7 +162,7 @@ describe('AMQP Transport binding: multiple measures', function () {
             channel.publish(
                 config.amqp.exchange,
                 '.1234.MQTT_2.attrs',
-                new Buffer(
+                Buffer.from(
                     JSON.stringify([
                         {
                             a: '23',
