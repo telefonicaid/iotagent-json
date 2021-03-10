@@ -9,6 +9,7 @@
 [![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
 ![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4695/badge)](https://bestpractices.coreinfrastructure.org/projects/4695)
 
 An Internet of Things Agent for a JSON based protocol (with [AMQP](https://www.amqp.org/),
 [HTTP](https://www.w3.org/Protocols/) and [MQTT](https://mqtt.org/) transports). This IoT Agent is designed to be a
