@@ -31,21 +31,20 @@ If you don't see your idea listed, and you think it fits into the goals of this 
 As explained in ([FIWARE Development Guidelines](https://forge.fiware.org/plugins/mediawiki/wiki/fiware/index.php/Developer_Guidelines)) 
 contributions are done using a pull request (PR). The detailed "protocol" used in such PR is described below:
 
-*   Direct commits to master branch (even single-line modifications) are not allowed. Every modification has to come as a PR
-*   In case the PR is implementing/fixing a numbered issue, the issue number has to be referenced in the body of the PR at creation time
-*   Anybody is welcome to provide comments to the PR (either direct comments or using the review feature offered by Github)
-*   Use *code line comments* instead of *general comments*, for traceability reasons (see comments lifecycle below)
-*   Comments lifecycle
-  *   Comment is created, initiating a *comment thread*
-  *   New comments can be added as responses to the original one, starting a discussion
-  *   After discussion, the comment thread ends in one of the following ways:
-      * `Fixed in <commit hash>` in case the discussion involves a fix in the PR branch (which commit hash is 
-        included as reference)
-      * `NTC`, if finally nothing needs to be done (NTC = Nothing To Change)
-*   PR can be merged when the following conditions are met:
-      * All comment threads are closed
-      * All the participants in the discussion have provided a `LGTM` general comment (LGTM = Looks good to me)
-*   Self-merging is not allowed (except in rare and justified circumstances)
+-   Direct commits to master branch (even single-line modifications) are not allowed. Every modification has to come as a PR
+-   In case the PR is implementing/fixing a numbered issue, the issue number has to be referenced in the body of the PR at creation time
+-   Anybody is welcome to provide comments to the PR (either direct comments or using the review feature offered by Github)
+-   Use *code line comments* instead of *general comments*, for traceability reasons (see comments lifecycle below)
+-   Comments lifecycle
+    -   Comment is created, initiating a *comment thread*
+    -   New comments can be added as responses to the original one, starting a discussion
+    -   After discussion, the comment thread ends in one of the following ways:
+        -   `Fixed in <commit hash>` in case the discussion involves a fix in the PR branch (which commit hash is included as reference)
+        -   `NTC`, if finally nothing needs to be done (NTC = Nothing To Change)
+-   PR can be merged when the following conditions are met:
+    -   All comment threads are closed
+    -   All the participants in the discussion have provided a `LGTM` general comment (LGTM = Looks good to me)
+-   Self-merging is not allowed (except in rare and justified circumstances)
 
 Some additional remarks to take into account when contributing with new PRs:
 
