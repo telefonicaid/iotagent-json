@@ -16,9 +16,9 @@ Before we get started, here are a few things we expect from you (and that you sh
 
 ## How to contribute
 
-If you'd like to contribute, start by searching through the [issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and
-[pull requests](https://github.com/telefonicaid/iotagent-node-lib/pulls) to see whether someone else has raised a similar idea or
-question.
+If you'd like to contribute, start by searching through the [issues](https://github.com/telefonicaid/iotagent-json/issues) and
+[pull requests](https://github.com/telefonicaid/iotagent-json/pulls) to see whether someone else has raised a similar idea or
+question. In adition, you can also check in the IoTAgent Node Lib framework repository for [issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and [pull requests](https://github.com/telefonicaid/iotagent-node-lib/pulls) across all the IoT-Agents
 
 If you don't see your idea listed, and you think it fits into the goals of this guide, do one of the following:
 
@@ -56,7 +56,8 @@ Some additional remarks to take into account when contributing with new PRs:
 ## Community
 
 Discussions about the Open Source Guides take place on this repository's
-[Issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and [Pull Requests](https://github.com/telefonicaid/iotagent-node-lib/pulls)
+[Issues](https://github.com/telefonicaid/iotagent-json/issues) and [Pull Requests](https://github.com/telefonicaid/iotagent-json/pulls)
+and also in the IoT Agent Node Lib repository ([Issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and [Pull Requests](https://github.com/telefonicaid/iotagent-node-lib/pulls))
 sections. Anybody is welcome to join these conversations.
 
 Wherever possible, do not take these conversations to private channels, including contacting the maintainers directly.
