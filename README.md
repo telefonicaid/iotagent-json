@@ -35,6 +35,7 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 -   [Usage](#usage)
 -   [API](#api)
 -   [Command-line Client](#command-line-client)
+-   [Contributing](#contributing)
 -   [Testing](#testing)
 -   [License](#license)
 
@@ -99,6 +100,13 @@ MQTT commands will show an error message reminding you to connect.
 
 The command-line Client gets its default values from a config file in the root of the project: `client-config.js`. This
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
+
+## Contributing
+
+If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has 
+raised a similar idea or question.
+
+Before contributing, please check out [contribution guidelines](docs/contribution.md)
 
 ## Testing
 
