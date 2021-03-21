@@ -119,6 +119,39 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 
 -   MQTT v5 broker (like mosquitto v1.6.7 server running)
 -   MongoDB v3.x server running
+-   AMQP 0-9-1 server with `foo/bar` vHost created (lile RabbitMQ v3 server running)
+    -   You can set up Mosquitto to run the test as follows:
+    1. Create a file with the following content. You can name it as `rabbit-config.json`: <br/><br/>
+    ```json
+    {
+        "vhosts": [
+            {
+                "name": "/"
+            },
+            {
+                "name": "foo/bar"
+            }
+        ],
+        "permissions": [
+            {
+                "user": "guest",
+                "vhost": "/",
+                "configure": ".*",
+                "write": ".*",
+                "read": ".*"
+            },
+            {
+                "user": "guest",
+                "vhost": "foo/bar",
+                "configure": ".*",
+                "write": ".*",
+                "read": ".*"
+            }
+        ]
+    }
+    ```
+    2. Run the container with
+       `docker run -d --hostname my-rabbit --name some-rabbit -p 5672:5672 -p 15672:15672 -v /foo/bar/iotagent-json/docs/rabbit-config.json:/etc/rabbitmq/definition.json -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-rabbitmq_management load_definitions '/etc/rabbitmq/definition.json'" rabbitmq:3`
 
 ---
 
