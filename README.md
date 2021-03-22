@@ -120,7 +120,7 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 -   MQTT v5 broker (like mosquitto v1.6.7 server running)
 -   MongoDB v3.x server running
 -   AMQP 0-9-1 server with `foo/bar` vHost created (lile RabbitMQ v3 server running)
-    -   You can set up Mosquitto to run the test as follows:
+    -   You can set up RabbitMQ to run the test as follows:
     1. Create a file with the following content. You can name it as `rabbit-config.json`: <br/><br/>
     ```json
     {
