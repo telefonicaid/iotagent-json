@@ -525,6 +525,10 @@ Module mocking during testing can be done with [proxyquire](https://github.com/t
 To run tests, type
 
 ```bash
+docker run -d -p 27017:27017 mongo:4.2
+docker run -d -p 5672:5672 rabbitmq:3.8.9
+docker run -d -p 1883:1883 eclipse-mosquitto:1.6.7
+
 npm test
 ```
 
