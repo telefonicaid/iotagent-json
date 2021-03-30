@@ -103,7 +103,7 @@ config file can be used to permanently tune the MQTT broker parameters, or the d
 
 ## Contributing
 
-If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has 
+If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has
 raised a similar idea or question.
 
 Before contributing, please check out [contribution guidelines](docs/contribution.md)
@@ -128,6 +128,9 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 
 -   MQTT v5 broker (like mosquitto v1.6.7 server running)
 -   MongoDB v3.x server running
+-   AMQP 0-9-1 server with `foo/bar` vHost created (like RabbitMQ v3 server running)
+    -   You can set up RabbitMQ to run the test as follows:
+        `docker run -d -p 5672:5672 -v $(pwd)/docs/rabbitmq-definitions.json:/etc/rabbitmq/definition.json -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-rabbitmq_management load_definitions '/etc/rabbitmq/definition.json'" rabbitmq:management`
 
 ---
 

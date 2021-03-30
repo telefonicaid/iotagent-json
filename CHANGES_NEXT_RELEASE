@@ -2,3 +2,4 @@
 - Upgrade NodeJS version from 10 to 12 in Dockerfile due to Node 10 End-of-Life
 - Set Nodejs 12 as minimum version in packages.json (effectively removing Nodev10 from supported versions)
 - Add list of environment variables which can be protected by Docker Secrets
+- Add: virtual host configuration added to AMQP transport (config.amqp.vhost and IOTA_AMQP_VHOST env var)

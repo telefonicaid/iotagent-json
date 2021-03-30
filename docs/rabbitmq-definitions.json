@@ -1,0 +1,26 @@
+{
+  "vhosts": [
+      {
+          "name": "/"
+      },
+      {
+          "name": "foo/bar"
+      }
+  ],
+  "permissions": [
+      {
+          "user": "guest",
+          "vhost": "/",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+      },
+      {
+          "user": "guest",
+          "vhost": "foo/bar",
+          "configure": ".*",
+          "write": ".*",
+          "read": ".*"
+      }
+  ]
+}

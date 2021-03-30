@@ -42,6 +42,15 @@ config.amqp = {
     options: { durable: true }
 };
 
+config.amqpVhost = {
+    host: 'localhost',
+    port: 5672,
+    vhost: 'foo/bar',
+    exchange: 'amq.topic',
+    queue: 'iota_queue',
+    options: { durable: true }
+};
+
 config.iota = {
     logLevel: 'FATAL',
     contextBroker: {

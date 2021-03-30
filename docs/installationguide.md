@@ -129,8 +129,8 @@ These are the currently available MQTT configuration options:
 -   **retain**: retain flag (default is false).
 -   **retries**: Number of MQTT connection error retries (default is 5).
 -   **retryTime**: Time between MQTT connection retries (default is 5 seconds).
--   **keepalive**: Time to keep connection open between client and MQTT broker (default is 60 seconds). If you experience
-    disconnnection problems using 0 (as the one described in
+-   **keepalive**: Time to keep connection open between client and MQTT broker (default is 60 seconds). If you
+    experience disconnnection problems using 0 (as the one described in
     [this case](https://github.com/telefonicaid/iotagent-json/issues/455)) a value greater than 0 is recommended.
 -   **avoidLeadingSlash** this flag sets whether the agent publishes commands to topics starting with slash (default in
     order versions) or without the slash. See
@@ -146,6 +146,7 @@ IoT Agent. The following attributes are accepted:
 
 -   **host**: Host where the AMQP Broker is located.
 -   **port**: Port where the AMQP Broker is listening
+-   **vhost**: virtual host in the AMQP Broker to which IoT Agent will connect (optional).
 -   **username**: username that identifies the IOTA against the AMQP broker (optional).
 -   **password**: password to be used if the username is provided (optional).
 -   **exchange**: Exchange in the AMQP broker
@@ -199,6 +200,7 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_MQTT_AVOID_LEADING_SLASH | mqtt.avoidLeadingSlash  |
 | IOTA_AMQP_HOST                | amqp.host               |
 | IOTA_AMQP_PORT                | amqp.port               |
+| IOTA_AMQP_VHOST               | amqp.vhost              |
 | IOTA_AMQP_USERNAME            | amqp.username           |
 | IOTA_AMQP_PASSWORD            | amqp.password           |
 | IOTA_AMQP_EXCHANGE            | amqp.exchange           |
