@@ -63,14 +63,6 @@ jobs:
         image: eclipse-mosquitto:1.6.7
         ports:
           - 1883:1883
-      rabbitmq:
-        image: rabbitmq:3.8.9-management
-        volumes:
-          - /home/runner/work/iotagent-json/iotagent-json/docs/rabbitmq-config.json:/etc/rabbitmq/definition.json
-        ports:
-          - 5672:5672
-        env:
-          RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: "-rabbitmq_management load_definitions '/etc/rabbitmq/definition.json'"
     strategy:
       matrix:
         node-version:
@@ -81,6 +73,12 @@ jobs:
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
+      - name: Start RabbitMQ
+        uses: Namoshek/rabbitmq-github-action@v1.1.0
+        with:
+          version: "3.8.9-management"
+          ports: "5672:5672"
+          definitions: ${{ github.workspace }}/docs/rabbitmq-definitions.json
       - name: "Install Node.js ${{ matrix.node-version }}"
         uses: actions/setup-node@v1
         with:
@@ -103,13 +101,15 @@ jobs:
         image: eclipse-mosquitto:1.6.7
         ports:
           - 1883:1883
-      rabbitmq:
-        image: rabbitmq:3.8.9
-        ports:
-          - 5672:5672
     steps:
       - name: Git checkout
         uses: actions/checkout@v2
+      - name: Start RabbitMQ
+        uses: Namoshek/rabbitmq-github-action@v1.1.0
+        with:
+          version: "3.8.9-management"
+          ports: "5672:5672"
+          definitions: ${{ github.workspace }}/docs/rabbitmq-definitions.json
       - name: "Test Coverage with Node.js 12.x"
         uses: actions/setup-node@v1
         with:

@@ -130,7 +130,7 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 -   MongoDB v3.x server running
 -   AMQP 0-9-1 server with `foo/bar` vHost created (like RabbitMQ v3 server running)
     -   You can set up RabbitMQ to run the test as follows:
-        `docker run -d -p 5672:5672 -v $(pwd)/docs/rabbitmq-config.json:/etc/rabbitmq/definition.json -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-rabbitmq_management load_definitions '/etc/rabbitmq/definition.json'" rabbitmq:management`
+        `docker run -d -p 5672:5672 -v $(pwd)/docs/rabbitmq-definitions.json:/etc/rabbitmq/definition.json -e RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS="-rabbitmq_management load_definitions '/etc/rabbitmq/definition.json'" rabbitmq:management`
 
 ---
 
