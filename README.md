@@ -6,9 +6,10 @@
 [![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
 <br/>
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/?badge=latest)
-[![Build badge](https://img.shields.io/travis/telefonicaid/iotagent-json.svg)](https://travis-ci.org/telefonicaid/iotagent-json/)
+[![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
 ![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4695/badge)](https://bestpractices.coreinfrastructure.org/projects/4695)
 
 An Internet of Things Agent for a JSON based protocol (with [AMQP](https://www.amqp.org/),
 [HTTP](https://www.w3.org/Protocols/) and [MQTT](https://mqtt.org/) transports). This IoT Agent is designed to be a
@@ -34,6 +35,7 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 -   [Usage](#usage)
 -   [API](#api)
 -   [Command-line Client](#command-line-client)
+-   [Contributing](#contributing)
 -   [Testing](#testing)
 -   [License](#license)
 
@@ -98,6 +100,13 @@ MQTT commands will show an error message reminding you to connect.
 
 The command-line Client gets its default values from a config file in the root of the project: `client-config.js`. This
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
+
+## Contributing
+
+If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has 
+raised a similar idea or question.
+
+Before contributing, please check out [contribution guidelines](docs/contribution.md)
 
 ## Testing
 

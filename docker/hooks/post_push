@@ -20,27 +20,8 @@
 # For those usages not covered by the GNU Affero General Public License please contact
 # with iot_support at tid dot es
 
-docker image build --build-arg SOURCE_BRANCH=$SOURCE_BRANCH \
-	--label "org.opencontainers.image.created"=$(date +%Y-%m-%d) \
-	--label "org.opencontainers.image.revision"=$SOURCE_COMMIT \
-	--label "org.opencontainers.image.version"=$DOCKER_TAG \
-	-t $IMAGE_NAME \
-	.
+docker image push $IMAGE_NAME-pm2 
 
-docker image build --build-arg SOURCE_BRANCH=$SOURCE_BRANCH \
-	--label "org.opencontainers.image.created"=$(date +%Y-%m-%d) \
-	--label "org.opencontainers.image.revision"=$SOURCE_COMMIT \
-	--label "org.opencontainers.image.version"=$DOCKER_TAG \
-	--target=pm2 \
-	-t $IMAGE_NAME-pm2 \
-	.
-
-docker image build --build-arg SOURCE_BRANCH=$SOURCE_BRANCH \
-	--label "org.opencontainers.image.created"=$(date +%Y-%m-%d) \
-	--label "org.opencontainers.image.revision"=$SOURCE_COMMIT \
-	--label "org.opencontainers.image.version"=$DOCKER_TAG \
-	--target=distroless \
-	-t $IMAGE_NAME-distroless \
-	.
+docker image push $IMAGE_NAME-distroless
 
 

@@ -98,6 +98,9 @@ There are also some global configuration options:
 -   **configRetrieval**: this flag indicates whether the incoming notifications to the IoTAgent should be processed
     using the bidirectionality plugin from the latest versions of the library or the JSON-specific configuration
     retrieval mechanism (described in the User Manual). Simultaneous use of both mechanisms is not allowed.
+-   **config.defaultKey**: default API Key, for devices lacking a provided Configuration.
+-   **config.defaultTransport**: code of the MQTT transport that will be used to resolve incoming commands and lazy
+    attributes in case a transport protocol could not be inferred for the device.
 -   **compressTimestamp**: this flag enables the timestamp compression mechanism, described in the User Manual.
 
 #### MQTT configuration
@@ -126,7 +129,7 @@ These are the currently available MQTT configuration options:
 -   **retain**: retain flag (default is false).
 -   **retries**: Number of MQTT connection error retries (default is 5).
 -   **retryTime**: Time between MQTT connection retries (default is 5 seconds).
--   **keepalive**: Time to keep connection open between client and MQTT broker (default is 0 seconds). If you experience
+-   **keepalive**: Time to keep connection open between client and MQTT broker (default is 60 seconds). If you experience
     disconnnection problems using 0 (as the one described in
     [this case](https://github.com/telefonicaid/iotagent-json/issues/455)) a value greater than 0 is recommended.
 -   **avoidLeadingSlash** this flag sets whether the agent publishes commands to topics starting with slash (default in
@@ -166,6 +169,14 @@ transport protocol binding. The following options are accepted:
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the
 [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+
+The ones relating global configuration described in the following table.
+
+| Environment variable   | Configuration attribute |
+| :--------------------- | :---------------------- |
+| IOTA_CONFIG_RETRIEVAL  | configRetrieval         |
+| IOTA_DEFAULT_KEY       | defaultKey              |
+| IOTA_DEFAULT_TRANSPORT | defaultTransport        |
 
 The ones relating specific JSON bindings are described in the following table.
 

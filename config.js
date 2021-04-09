@@ -82,7 +82,7 @@ config.mqtt = {
      */
     qos: 0,
     /**
-     * Retain flag. (default is true.) Normally if a publisher publishes a message to a topic, and no one is
+     * Retain flag. (default is false.) Normally if a publisher publishes a message to a topic, and no one is
      * subscribed to that topic (i.e retain flag is set to false) the message is simply discarded by the broker.
      * The publisher can tell the broker to keep the last message on that topic by setting the retained message
      * flag to true.
@@ -97,9 +97,9 @@ config.mqtt = {
      */
     retryTime: 5,
     /**
-     * Time to keep connection open between client and MQTT broker (default is 0 seconds)
+     * Time to keep connection open between client and MQTT broker (default is 60 seconds)
      */
-    keepalive: 0,
+    keepalive: 60,
 
     /**
      * Whether to use slashes at the beginning of topic when sending or not
