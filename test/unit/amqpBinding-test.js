@@ -106,7 +106,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs.a', new Buffer('23'));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs.a', Buffer.from('23'));
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -145,7 +145,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
-            channel.publish(config.amqp.exchange, '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a', new Buffer('23'));
+            channel.publish(config.amqp.exchange, '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a', Buffer.from('23'));
 
             setTimeout(function() {
                 contextBrokerUnprovMock.done();
@@ -164,7 +164,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a single update context request with all the attributes', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer(JSON.stringify({ a: '23' })));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', Buffer.from(JSON.stringify({ a: '23' })));
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -183,7 +183,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should silently ignore the error (without crashing)', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer('notAULPayload '));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', Buffer.from('notAULPayload '));
 
             setTimeout(function() {
                 done();
@@ -204,7 +204,7 @@ describe('AMQP Transport binding: measures', function() {
             channel.publish(
                 config.amqp.exchange,
                 '.1234.MQTT_2.attrs',
-                new Buffer(
+                Buffer.from(
                     JSON.stringify({
                         a: '23',
                         b: '98'

@@ -182,7 +182,7 @@ describe('AMQP Transport binding: commands', function() {
 
         it('should send an update request to the Context Broker', function(done) {
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.cmdexe', new Buffer('{"PING":"1234567890"}'));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.cmdexe', Buffer.from('{"PING":"1234567890"}'));
 
             setTimeout(function() {
                 contextBrokerMock.done();
