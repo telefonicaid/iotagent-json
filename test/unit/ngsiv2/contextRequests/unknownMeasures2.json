@@ -1,0 +1,11 @@
+{
+  "humidity":{
+    "type": "degrees",
+    "value": "33"   
+  },
+  "weight":{
+    "type": "string",
+    "value": "89"    
+  }
+}
+  

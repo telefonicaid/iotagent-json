@@ -1,0 +1,26 @@
+{
+  "humidity":{
+    "type": "degrees",
+    "value": "33",
+    "metadata": {
+      "TimeInstant":{
+        "type": "DateTime",
+        "value": "20071103T131805"
+      }
+    }
+  },
+  "temperature":{
+    "type": "celsius",
+    "value": "89",  
+    "metadata": {
+      "TimeInstant":{
+        "type": "DateTime",
+        "value": "20071103T131805"
+      }
+    }  
+  },
+  "TimeInstant":{
+    "type": "DateTime",
+    "value": "20071103T131805"
+  }
+}

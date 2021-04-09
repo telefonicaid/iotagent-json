@@ -1,0 +1,41 @@
+{
+    "contextElements": [
+      {
+        "type": "AnMQTTDevice",
+        "isPattern": "false",
+        "id": "Second MQTT Device",
+        "attributes": [
+          {
+            "name": "humidity",
+            "type": "degrees",
+            "value": "33",
+            "metadatas": [
+              {
+                "name": "TimeInstant",
+                "type": "ISO8601",
+                "value": "+002007-11-03T13:18:05"
+              }
+            ]
+          },
+          {
+            "name": "temperature",
+            "type": "celsius",
+            "value": "89",
+            "metadatas": [
+              {
+                "name": "TimeInstant",
+                "type": "ISO8601",
+                "value": "+002007-11-03T13:18:05"
+              }
+            ]
+          },
+          {
+            "name": "TimeInstant",
+            "type": "ISO8601",
+            "value": "+002007-11-03T13:18:05"
+          }
+        ]
+      }
+    ],
+    "updateAction": "UPDATE"
+  }
