@@ -21,22 +21,22 @@
  * please contact with::[iot_support@tid.es]
  */
 
-'use strict';
+/* eslint-disable no-unused-vars */
 
-var iotagentMqtt = require('../../'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    iotAgentLib = require('iotagent-node-lib'),
-    amqp = require('amqplib/callback_api'),
-    apply = async.apply,
-    contextBrokerMock,
-    contextBrokerUnprovMock,
-    amqpConn,
-    oldResource,
-    channel;
+const iotagentMqtt = require('../../');
+const config = require('../config-test.js');
+const nock = require('nock');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+const iotAgentLib = require('iotagent-node-lib');
+const amqp = require('amqplib/callback_api');
+const apply = async.apply;
+let contextBrokerMock;
+let contextBrokerUnprovMock;
+let amqpConn;
+let oldResource;
+let channel;
 
 function startConnection(exchange, callback) {
     amqp.connect(
@@ -56,7 +56,7 @@ function startConnection(exchange, callback) {
 
 describe('AMQP Transport binding: measures', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceAMQP1.json'),
@@ -106,7 +106,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs.a', new Buffer('23'));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs.a', Buffer.from('23'));
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -116,7 +116,7 @@ describe('AMQP Transport binding: measures', function() {
     });
 
     describe('When a new measure arrives for an unprovisioned Device', function() {
-        var groupCreation = {
+        const groupCreation = {
             url: 'http://localhost:4041/iot/services',
             method: 'POST',
             json: utils.readExampleFile('./test/groupProvisioning/provisionFullGroupAMQP.json'),
@@ -145,7 +145,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a new update context request to the Context Broker with just that attribute', function(done) {
-            channel.publish(config.amqp.exchange, '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a', new Buffer('23'));
+            channel.publish(config.amqp.exchange, '.80K09H324HV8732.MQTT_UNPROVISIONED.attrs.a', Buffer.from('23'));
 
             setTimeout(function() {
                 contextBrokerUnprovMock.done();
@@ -164,7 +164,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should send a single update context request with all the attributes', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer(JSON.stringify({ a: '23' })));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', Buffer.from(JSON.stringify({ a: '23' })));
 
             setTimeout(function() {
                 contextBrokerMock.done();
@@ -183,7 +183,7 @@ describe('AMQP Transport binding: measures', function() {
         });
 
         it('should silently ignore the error (without crashing)', function(done) {
-            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', new Buffer('notAULPayload '));
+            channel.publish(config.amqp.exchange, '.1234.MQTT_2.attrs', Buffer.from('notAULPayload '));
 
             setTimeout(function() {
                 done();
@@ -204,7 +204,7 @@ describe('AMQP Transport binding: measures', function() {
             channel.publish(
                 config.amqp.exchange,
                 '.1234.MQTT_2.attrs',
-                new Buffer(
+                Buffer.from(
                     JSON.stringify({
                         a: '23',
                         b: '98'

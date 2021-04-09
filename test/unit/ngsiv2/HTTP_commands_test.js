@@ -22,22 +22,23 @@
  *
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
-'use strict';
 
-var iotagentMqtt = require('../../../'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    should = require('should'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../../utils'),
-    mockedClientServer,
-    contextBrokerMock;
+/* eslint-disable no-unused-vars */
+
+const iotagentMqtt = require('../../../');
+const config = require('./config-test.js');
+const nock = require('nock');
+const should = require('should');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../../utils');
+let mockedClientServer;
+let contextBrokerMock;
 
 describe('HTTP: Commands', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
@@ -76,7 +77,7 @@ describe('HTTP: Commands', function() {
     });
 
     describe('When a command arrive to the Agent for a device with the HTTP protocol', function() {
-        var commandOptions = {
+        const commandOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
             method: 'POST',
             json: utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand1.json'),

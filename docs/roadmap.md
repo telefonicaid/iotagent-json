@@ -44,5 +44,5 @@ The following list of features are proposals regarding the longer-term evolution
 development of these features has not yet been scheduled for a release in the near future. Please feel free to contact
 us if you wish to get involved in the implementation or influence the roadmap:
 
--   Analyze move transport implementations (HTTP, MQTT and AMQP) to iotagent-node-lib library (the agent could will only implement the payload)
-
+-   Analyze move transport implementations (HTTP, MQTT and AMQP) to iotagent-node-lib library (the agent could will only
+    implement the payload)

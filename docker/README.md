@@ -57,7 +57,7 @@ services:
             - "IOTA_PROVIDER_URL=http://iot-agent:4041"
 
     mongodb:
-        image: mongo:3.6
+        image: mongo:4.2
         hostname: mongodb
         container_name: db-mongo
         ports:
@@ -139,7 +139,8 @@ To download code from your own fork of the GitHub repository add the `GITHUB_ACC
 docker build -t iot-agent . \
     --build-arg GITHUB_ACCOUNT=<your account> \
     --build-arg GITHUB_REPOSITORY=<your repo> \
-    --build-arg SOURCE_BRANCH=<your branch>
+    --build-arg SOURCE_BRANCH=<your branch> \
+    --target=distroless|pm2|slim
 ```
 
 ## Building from your own source files
@@ -153,18 +154,22 @@ COPY . /opt/iotajson/
 
 Full instructions can be found within the `Dockerfile` itself.
 
-### Using PM2
+### Using PM2 /Distroless
 
 The IoT Agent within the Docker image can be run encapsulated within the [pm2](http://pm2.keymetrics.io/) Process
-Manager by adding the `PM2_ENABLED` environment variable.
+Manager by using the associated `pm2` Image.
 
 ```console
-docker run --name iotagent -e PM2_ENABLED=true -d fiware/iotagent-json
+docker run --name iotagent -d fiware/iotagent-json:<tag>-pm2
 ```
 
-Use of pm2 is **disabled** by default. It is unnecessary and counterproductive to add an additional process manager if
-your dockerized environment is already configured to restart Node.js processes whenever they exit (e.g. when using
-[Kubernetes](https://kubernetes.io/))
+The IoT Agent within the Docker image can be run from a distroless container
+by using the associated `distroless` Image.
+
+```console
+docker run --name iotagent -d fiware/iotagent-json:<tag>-distroless
+```
+
 
 ### Docker Secrets
 
@@ -233,10 +238,10 @@ refer to the [Installation Guide](https://fiware-iotagent-json.readthedocs.io/en
 ### Set-up appropriate Database Indexes
 
 If using Mongo-DB as a data persistence mechanism (i.e. if `IOTA_REGISTRY_TYPE=mongodb`) the device and service group
-details are retrieved from a database. The default name of the IoT Agent database is `iotagentjson`. Database access can be
-optimized by creating appropriate indices.
+details are retrieved from a database. The default name of the IoT Agent database is `iotagentjson`. Database access can
+be optimized by creating appropriate indices.
 
-For example: 
+For example:
 
 ```console
 docker exec  <mongo-db-container-name> mongo --eval '
@@ -244,12 +249,12 @@ docker exec  <mongo-db-container-name> mongo --eval '
 	db = conn.getDB("iotagentjson");
 	db.createCollection("devices");
 	db.devices.createIndex({"_id.service": 1, "_id.id": 1, "_id.type": 1});
-	db.devices.createIndex({"_id.type": 1}); 
+	db.devices.createIndex({"_id.type": 1});
 	db.devices.createIndex({"_id.id": 1});
 	db.createCollection("groups");
 	db.groups.createIndex({"_id.resource": 1, "_id.apikey": 1, "_id.service": 1});
 	db.groups.createIndex({"_id.type": 1});' > /dev/null
 ```
 
-The name of the database can be altered using the `IOTA_MONGO_DB` environment variable. Alter the `conn.getDB()` 
+The name of the database can be altered using the `IOTA_MONGO_DB` environment variable. Alter the `conn.getDB()`
 statement above if an alternative database is being used.

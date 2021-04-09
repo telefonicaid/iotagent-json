@@ -21,25 +21,23 @@
  * please contact with::[contacto@tid.es]
  */
 
-/* jshint camelcase: false */
+/* eslint-disable no-unused-vars */
 
-'use strict';
-
-var iotagentMqtt = require('../../'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    should = require('should'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    mockedClientServer,
-    contextBrokerMock,
-    oldConfigurationFlag;
+const iotagentMqtt = require('../../');
+const config = require('../config-test.js');
+const nock = require('nock');
+const should = require('should');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+let mockedClientServer;
+let contextBrokerMock;
+let oldConfigurationFlag;
 
 describe('HTTP: Get configuration from the devices', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
@@ -81,7 +79,7 @@ describe('HTTP: Get configuration from the devices', function() {
     });
 
     describe('When a configuration request is received in the path /configuration/commands', function() {
-        var configurationRequest = {
+        const configurationRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json/configuration',
             method: 'POST',
             json: {
@@ -140,7 +138,7 @@ describe('HTTP: Get configuration from the devices', function() {
         });
     });
     describe('When a subscription request is received in the IoT Agent', function() {
-        var configurationRequest = {
+        const configurationRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json/configuration',
             method: 'POST',
             json: {
@@ -184,7 +182,7 @@ describe('HTTP: Get configuration from the devices', function() {
             });
         });
         it('should update the values in the MQTT topic when a notification is received', function(done) {
-            var optionsNotify = {
+            const optionsNotify = {
                 url: 'http://localhost:' + config.iota.server.port + '/notify',
                 method: 'POST',
                 json: utils.readExampleFile('./test/subscriptions/notification.json'),

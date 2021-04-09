@@ -169,6 +169,37 @@ fi
 %{_install_dir}
 
 %changelog
+* Thu Feb 18 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.17.0
+- Add: Support of multimeasure for MQTT and AMQP transport (#462)
+- Fix: Set 60 seconds for default mqtt keepalive option (#413)
+- Upgrade iotagent-node-lib dependency from 2.14.0 to 2.15.0
+
+* Mon Nov 16 2020 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.16.0
+- Add: use mqtt.qos and mqtt.retain values from command for command execution (#504)
+- Add: log in info level command and configuration MQTT
+- FIX: check ngsi version in configuration handler (#500)
+- Add missed global config env vars (IOTA_CONFIG_RETRIEVAL, IOTA_DEFAULT_KEY, IOTA_DEFAULT_TRANSPORT)
+- Upgrade iotagent-node-lib dependency from 2.13.0 to 2.14.0
+- Update Docker security practices (Add HEALTHCHECK, Use Anonymous User, Use two-stage build)
+
+* Mon Sep 14 2020 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.15.0
+- Add: config.mqtt.avoidLeadingSlash flag (IOTA_MQTT_AVOID_LEADING_SLASH) to avoid leading slash in MQTT
+- Add: explicitAttrs flag (in configuration and also group/device provisioning) to progress only the measures corresponding to attributes declared in attributes array (#416)
+- Fix: force finish transaction after process a device measure
+- Fix: do not intercept error about DEVICE_NOT_FOUND in findOrCreate device (iotagent-node-lib#889)
+- Fix: srv, subsrv, transaction and correlator id in logs of http binding
+- Fix: some log levels and details at bindings
+- Fix: writing of same correlator and transaction id in logs (#426).
+- Fix: error processing zero measures (#486)
+- Update codebase to use ES6
+  -  Remove JSHint and jshint overrides
+  -  Add esLint using standard tamia presets
+  -  Replace var with let/const
+  -  Fix or disable eslint errors
+- Upgrade iotagent-node-lib dependency from 2.12.0 to 2.13.0
+- Overall update of dev package dependencies
+- Set Nodejs 10 as minimum version in packages.json (effectively removing Nodev8 from supported versions)
+
 * Tue Apr 07 2020 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.14.0
 - Add: multimeasure support for HTTP transport (#391, partially)
 - Add: check response obj before use it handling http commands

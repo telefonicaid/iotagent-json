@@ -28,10 +28,10 @@ Along this document we will refer some times to "plain JSON objects" or "single-
 }
 ```
 
--   JSON arrays which elements are objects with a single level (not arrays or other objects). This corresponds
-    to *multimeasures* or *group of measures*. Each group in the JSON array is processed independently, i.e. a different NGSI
-    request will be generated for each group of measures. Eg:
-    
+-   JSON arrays which elements are objects with a single level (not arrays or other objects). This corresponds to
+    _multimeasures_ or _group of measures_. Each group in the JSON array is processed independently, i.e. a different
+    NGSI request will be generated for each group of measures. Eg:
+
 ```json
 [
     {
@@ -53,9 +53,6 @@ explicit request from the agent, are not implemented. Please check the issue
 [#89](https://github.com/telefonicaid/iotagent-json/issues/89) for more details and updates regarding its
 implementation.
 
-**IMPORTANT NOTE**: at the present moment, multimeasures only work for HTTP. Support for other transports is
-still pending (see issue [#391](https://github.com/telefonicaid/iotagent-json/issues/391)).
-
 ### HTTP binding
 
 HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
@@ -70,7 +67,7 @@ the NGSI entity. E.g.:
 {
     "h": "45%",
     "t": "23",
-    "l": {"a":2,"b":"up","c":["1","3"]}
+    "l": { "a": 2, "b": "up", "c": ["1", "3"] }
 }
 ```
 
@@ -85,7 +82,7 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-#### Commands
+#### Sending Commands
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
@@ -111,6 +108,26 @@ Some additional remarks regarding polling commands:
 -   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
     a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
     the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
+-   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and
+    MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can
+    be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
+
+```json
+{
+    "commands": [
+        {
+            "type": "command",
+            "name": "a_command_name_A",
+            "mqtt": { "qos": 2, "retain": true }
+        },
+        {
+            "type": "command",
+            "name": "a_command_name_B",
+            "mqtt": { "qos": 1, "retain": false }
+        }
+    ]
+}
+```
 
 #### Configuration retrieval
 
@@ -158,6 +175,7 @@ Every device should listen in the following path, so it can receive configuratio
 ```text
 <device_endpoint>/configuration/values
 ```
+
 Whenever the device requests any information from the IoTA, the information will be posted in this path. The information
 is sent in the same format used in multiple measure reporting: a plain JSON with an attribute per value requested. An
 additional parameter called `dt` is added with the system current time.
@@ -172,21 +190,53 @@ E.g.:
 }
 ```
 
+#### Commands
+
+MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
+`endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
+command will be poll. When using the HTTP transport, the command handling have two flavours:
+
+-   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
+    device will reply with a 200OK response containing the result of the command in the JSON result format.
+
+-   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
+    time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the
+    device to retrieve the pending commands upon connection. Whenever the device is ready, it itself retrieves the
+    commands from the IoT agent. While sending a normal measure, the device sends query parameter 'getCmd' with value
+    '1' in order to retrieve the commands from IoT Agent. The IoT Agent responds with a list of commands available for
+    that device which are send in a JSON format. The attributes in the response body represents the commands and the
+    values represents command values. The use of a JSON return object implies that only one value can be returned for
+    each command (last value will be returned for each one). Implementation imposes another limitation in the available
+    values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
+    The command payload is described in the protocol section. Whenever the device has completed the execution of the
+    command, it will send the response in the same way measurements are reported, but using the command result format as
+    exposed in the Protocol section.
+
+Some additional remarks regarding polling commands:
+
+-   Commands can be also retrieved without the need of sending a measure. In other words, the device is not forced to
+    send a measure in order to get the accumulated commands.
+
+    Example to retrieve commands from IoT Agent-
+
+```text
+curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1' -i
+```
+
 ### MQTT binding
 
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
 destinations and types of the messages (the different possible interactions are described in the following sections).
 
-All the topics subscribed by the agent (to send measures, to configuration command retrieval or to get result 
-of a command) are prefixed with the agent procotol, /json in this case, followed by APIKey of the device group and the 
-Device ID of the device involved in the interaction; i.e.: there is a different set of topics for each service 
-(e.g: `/json/FF957A98/MyDeviceId/attrs`). The API Key is a secret identifier shared among all the devices
-of a service, and the DeviceID is an ID that uniquely identifies the device in a service. API Keys can be configured
-with the IoTA Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID
-must be provisioned in advance in the IoT Agent before information is sent.
-All topis published by the agent (to send a comamnd or to send configuration information) to a device are not prefixed
-by the protocol, in this case '/json', just include apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and 
-`/FF957A98/MyDeviceId/configuration/values` ).
+All the topics subscribed by the agent (to send measures, to configuration command retrieval or to get result of a
+command) are prefixed with the agent procotol, /json in this case, followed by APIKey of the device group and the Device
+ID of the device involved in the interaction; i.e.: there is a different set of topics for each service (e.g:
+`/json/FF957A98/MyDeviceId/attrs`). The API Key is a secret identifier shared among all the devices of a service, and
+the DeviceID is an ID that uniquely identifies the device in a service. API Keys can be configured with the IoTA
+Configuration API or the public default API Key of the IoT Agent can be used in its stead. The Device ID must be
+provisioned in advance in the IoT Agent before information is sent. All topis published by the agent (to send a comamnd
+or to send configuration information) to a device are not prefixed by the protocol, in this case '/json', just include
+apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and `/FF957A98/MyDeviceId/configuration/values` ).
 
 #### Measure reporting
 
@@ -236,6 +286,13 @@ The protocol offers a mechanism for the devices to retrieve its configuration (o
 stored in the Context Broker). Two topics are created in order to support this feature: a topic for configuration
 commands and a topic to receive configuration information. This mechanism can be enabled or disabled using a
 configuration flag, `configRetrieval`.
+
+In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be
+provisioned using "MQTT" as transport key. By default it will be considered "HTTP" as transport.
+
+The parameter will be given as follows:
+
+`"transport": "MQTT"`
 
 This mechanism and the bidirectionality plugin cannot be simultaneously activated.
 
@@ -468,14 +525,18 @@ Module mocking during testing can be done with [proxyquire](https://github.com/t
 To run tests, type
 
 ```bash
+docker run -d -p 27017:27017 mongo:4.2
+docker run -d -p 5672:5672 rabbitmq:3.8.9
+docker run -d -p 1883:1883 eclipse-mosquitto:1.6.7
+
 npm test
 ```
 
 ### Coding guidelines
 
-jshint
+ESLint
 
-Uses provided .jshintrc flag file. To check source code style, type
+Uses the provided `.eslintrc.json` flag file. To check source code style, type
 
 ```bash
 npm run lint
@@ -540,7 +601,8 @@ npm run clean
 ### Prettify Code
 
 Runs the [prettier](https://prettier.io) code formatter to ensure consistent code style (whitespacing, parameter
-placement and breakup of long lines etc.) within the codebase.
+placement and breakup of long lines etc.) within the codebase. Uses the `prettierrc.json` flag file. The codebase also
+offers an `.editorconfig` to maintain consistent coding styles across multiple IDEs.
 
 ```bash
 # Use git-bash on Windows

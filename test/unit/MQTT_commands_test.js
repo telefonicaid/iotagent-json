@@ -20,23 +20,24 @@
  * For those usages not covered by the GNU Affero General Public License
  * please contact with::[contacto@tid.es]
  */
-'use strict';
 
-var iotagentMqtt = require('../../'),
-    mqtt = require('mqtt'),
-    config = require('../config-test.js'),
-    nock = require('nock'),
-    should = require('should'),
-    iotAgentLib = require('iotagent-node-lib'),
-    async = require('async'),
-    request = require('request'),
-    utils = require('../utils'),
-    contextBrokerMock,
-    mqttClient;
+/* eslint-disable no-unused-vars */
+
+const iotagentMqtt = require('../../');
+const mqtt = require('mqtt');
+const config = require('../config-test.js');
+const nock = require('nock');
+const should = require('should');
+const iotAgentLib = require('iotagent-node-lib');
+const async = require('async');
+const request = require('request');
+const utils = require('../utils');
+let contextBrokerMock;
+let mqttClient;
 
 describe('MQTT: Commands', function() {
     beforeEach(function(done) {
-        var provisionOptions = {
+        const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommand1.json'),
@@ -88,7 +89,7 @@ describe('MQTT: Commands', function() {
     });
 
     describe('When a command arrive to the Agent for a device with the MQTT_UL protocol', function() {
-        var commandOptions = {
+        const commandOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/v1/updateContext',
             method: 'POST',
             json: utils.readExampleFile('./test/contextRequests/updateCommand1.json'),
@@ -127,8 +128,8 @@ describe('MQTT: Commands', function() {
             });
         });
         it('should publish the command information in the MQTT topic', function(done) {
-            var commandMsg = '{"PING":{"data":"22"}}',
-                payload;
+            const commandMsg = '{"PING":{"data":"22"}}';
+            let payload;
 
             mqttClient.on('message', function(topic, data) {
                 payload = data.toString();

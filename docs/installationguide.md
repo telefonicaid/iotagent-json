@@ -98,13 +98,17 @@ There are also some global configuration options:
 -   **configRetrieval**: this flag indicates whether the incoming notifications to the IoTAgent should be processed
     using the bidirectionality plugin from the latest versions of the library or the JSON-specific configuration
     retrieval mechanism (described in the User Manual). Simultaneous use of both mechanisms is not allowed.
+-   **config.defaultKey**: default API Key, for devices lacking a provided Configuration.
+-   **config.defaultTransport**: code of the MQTT transport that will be used to resolve incoming commands and lazy
+    attributes in case a transport protocol could not be inferred for the device.
 -   **compressTimestamp**: this flag enables the timestamp compression mechanism, described in the User Manual.
 
 #### MQTT configuration
 
 These are the currently available MQTT configuration options:
 
--   **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`). The default is `mqtt`
+-   **protocol**: protocol to use for connecting with the MQTT broker (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`). The
+    default is `mqtt`
 -   **host**: host of the MQTT broker.
 -   **port**: port where the MQTT broker is listening.
 -   **defaultKey**: default API Key to use when a device is provisioned without a configuration.
@@ -125,9 +129,12 @@ These are the currently available MQTT configuration options:
 -   **retain**: retain flag (default is false).
 -   **retries**: Number of MQTT connection error retries (default is 5).
 -   **retryTime**: Time between MQTT connection retries (default is 5 seconds).
--   **keepalive**: Time to keep connection open between client and MQTT broker (default is 0 seconds). If you experience
+-   **keepalive**: Time to keep connection open between client and MQTT broker (default is 60 seconds). If you experience
     disconnnection problems using 0 (as the one described in
     [this case](https://github.com/telefonicaid/iotagent-json/issues/455)) a value greater than 0 is recommended.
+-   **avoidLeadingSlash** this flag sets whether the agent publishes commands to topics starting with slash (default in
+    order versions) or without the slash. See
+    [discussion](https://github.com/telefonicaid/iotagent-node-lib/issues/866).
 
 TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the
 [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
@@ -163,6 +170,14 @@ Some of the more common variables can be configured using environment variables.
 in the `config.iota` set are described in the
 [IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
 
+The ones relating global configuration described in the following table.
+
+| Environment variable   | Configuration attribute |
+| :--------------------- | :---------------------- |
+| IOTA_CONFIG_RETRIEVAL  | configRetrieval         |
+| IOTA_DEFAULT_KEY       | defaultKey              |
+| IOTA_DEFAULT_TRANSPORT | defaultTransport        |
+
 The ones relating specific JSON bindings are described in the following table.
 
 | Environment variable          | Configuration attribute |
@@ -181,6 +196,7 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_MQTT_RETRIES             | mqtt.retries            |
 | IOTA_MQTT_RETRY_TIME          | mqtt.retryTime          |
 | IOTA_MQTT_KEEPALIVE           | mqtt.keepalive          |
+| IOTA_MQTT_AVOID_LEADING_SLASH | mqtt.avoidLeadingSlash  |
 | IOTA_AMQP_HOST                | amqp.host               |
 | IOTA_AMQP_PORT                | amqp.port               |
 | IOTA_AMQP_USERNAME            | amqp.username           |

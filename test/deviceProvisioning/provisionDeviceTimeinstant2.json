@@ -1,0 +1,19 @@
+{
+  "devices": [
+    {
+      "attributes": [
+        {
+          "type": "percent",
+          "name": "humidity",
+          "object_id": "h"
+        }
+      ],
+      "entity_type": "sensor",
+      "protocol": "IoTA-JSON",
+      "entity_name": "e0130101",
+      "device_id": "dev0130101",
+      "explicitAttrs": true
+    }
+  ]
+}
+

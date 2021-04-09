@@ -22,52 +22,51 @@
  *
  * Modified by: Daniel Calvo - ATOS Research & Innovation
  */
-'use strict';
 
-/*jshint camelcase:false */
+/* eslint-disable no-unused-vars */
 
-var iotagentJson = require('../../../'),
-    iotAgentLib = require('iotagent-node-lib'),
-    mqtt = require('mqtt'),
-    config = require('./config-test.js'),
-    nock = require('nock'),
-    should = require('should'),
-    request = require('request'),
-    utils = require('../../utils'),
-    contextBrokerMock,
-    contextBrokerUnprovMock,
-    iotamMock,
-    mqttClient,
-    originalResource;
+const iotagentJson = require('../../../');
+const iotAgentLib = require('iotagent-node-lib');
+const mqtt = require('mqtt');
+const config = require('./config-test.js');
+const nock = require('nock');
+const should = require('should');
+const request = require('request');
+const utils = require('../../utils');
+let contextBrokerMock;
+let contextBrokerUnprovMock;
+let iotamMock;
+let mqttClient;
+let originalResource;
 
 describe('Configuration API support', function() {
-    var provisionOptions = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-            method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
-            headers: {
-                'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
-        },
-        configurationOptions = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-            method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration1.json'),
-            headers: {
-                'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
-        },
-        configurationOptionsWithResource = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-            method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
-            headers: {
-                'fiware-service': 'smartGondor',
-                'fiware-servicepath': '/gardens'
-            }
-        };
+    const provisionOptions = {
+        url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+        method: 'POST',
+        json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
+        headers: {
+            'fiware-service': 'smartGondor',
+            'fiware-servicepath': '/gardens'
+        }
+    };
+    const configurationOptions = {
+        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+        method: 'POST',
+        json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration1.json'),
+        headers: {
+            'fiware-service': 'smartGondor',
+            'fiware-servicepath': '/gardens'
+        }
+    };
+    const configurationOptionsWithResource = {
+        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+        method: 'POST',
+        json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
+        headers: {
+            'fiware-service': 'smartGondor',
+            'fiware-servicepath': '/gardens'
+        }
+    };
 
     beforeEach(function(done) {
         nock.cleanAll();
@@ -170,9 +169,7 @@ describe('Configuration API support', function() {
 
     describe('When a configuration is provisioned with a Resource set', function() {
         beforeEach(function() {
-            /*jshint camelcase:false */
-
-            var configurationProvision = {
+            const configurationProvision = {
                 protocol: 'TT_MQTT-JSON',
                 description: 'MQTT-JSON protocol for TT',
                 iotagent: 'http://localhost:4041',
