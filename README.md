@@ -127,7 +127,7 @@ npm test
 All the tests are designed to test end-to-end scenarios, and there are some requirements for its current execution:
 
 -   MQTT v5 broker (like mosquitto v1.6.7 server running)
--   MongoDB v3.x server running
+-   MongoDB v4.x server running
 -   RabbitMQ
 
 To run requirements you can type:
