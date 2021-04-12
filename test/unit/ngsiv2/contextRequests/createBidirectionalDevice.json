@@ -3,6 +3,6 @@
   "type": "AnMQTTDevice",
   "location": {
     "type": "geo:json",
-    "value": "0,0"
+    "value": "0, 0"
   }
 }
