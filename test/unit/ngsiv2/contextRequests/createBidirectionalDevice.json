@@ -2,7 +2,7 @@
   "id": "Second MQTT Device",
   "type": "AnMQTTDevice",
   "location": {
-    "type": "geo:json",
+    "type": "geo:point",
     "value": "0, 0"
   }
 }
