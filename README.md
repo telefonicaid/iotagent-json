@@ -128,7 +128,14 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 
 -   MQTT v5 broker (like mosquitto v1.6.7 server running)
 -   MongoDB v3.x server running
+-   RabbitMQ
 
+To run requirements you can type:
+```
+   docker run -d -p 27017:27017 --hostname mongo --name mongo mongo:4.2
+   docker run -d -p 1883:1883 -l mosquitto eclipse-mosquitto:1.6.7
+   docker run -d -p 5672:5672 --hostname my-rabbit --name some-rabbit rabbitmq:3.8.9
+```
 ---
 
 ## License
