@@ -1,1 +1,0 @@
-- Fix: missing conten-type: aplication/json header in the request sent to device command endpoint (HTTP transport)
