@@ -169,7 +169,10 @@ fi
 %{_install_dir}
 
 %changelog
-* Tue Apr 6 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.17.1
+* Tue Apr 13 2021 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.17.2
+- Fix: missing conten-type: aplication/json header in the request sent to device command endpoint (HTTP transport)
+
+* Tue Apr 06 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.17.1
 - Upgrade iotagent-node-lib dependency from 2.15.0 to 2.15.1
 
 * Thu Feb 18 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.17.0
