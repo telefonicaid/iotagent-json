@@ -136,6 +136,12 @@ describe('AMQP Transport binding: commands', function() {
                 done();
             });
         });
+        it('should reply with the appropriate command information', function(done) {
+            request(commandOptions, function(error, response, body) {
+                should.exist(body);
+                done();
+            });
+        });
         it('should update the status in the Context Broker', function(done) {
             request(commandOptions, function(error, response, body) {
                 contextBrokerMock.done();
