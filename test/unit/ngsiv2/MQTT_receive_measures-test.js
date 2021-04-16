@@ -146,7 +146,15 @@ describe('MQTT: Measure reception ', function() {
         it('should send its value to the Context Broker (without leading slash)', function(done) {
             const values = {
                 humidity: '32',
-                temperature: '87'
+                temperature: '87',
+                luminosity: 10,
+                pollution: 43.4,
+                configuration: {
+                    firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                },
+                tags: ['iot', 'device'],
+                enabled: true,
+                alive: null
             };
 
             mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
