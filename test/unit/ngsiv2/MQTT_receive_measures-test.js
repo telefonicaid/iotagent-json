@@ -212,7 +212,7 @@ describe('MQTT: Measure reception ', function() {
                 temperature: '87'
             };
 
-            mqttClient.publish('json/KL223HHV8732SFL1/MQTT_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
+            mqttClient.publish('json/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function(
                 error
             ) {
                 setTimeout(function() {
