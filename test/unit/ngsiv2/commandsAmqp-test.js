@@ -132,6 +132,7 @@ describe('AMQP Transport binding: commands', function() {
         it('should return a 204 OK without errors', function(done) {
             request(commandOptions, function(error, response, body) {
                 should.not.exist(error);
+                should.not.exist(body);
                 response.statusCode.should.equal(204);
                 done();
             });

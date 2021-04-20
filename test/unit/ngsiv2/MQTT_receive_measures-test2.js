@@ -164,6 +164,41 @@ describe('MQTT: Measure reception ', function () {
                 }, 100);
             });
         });
+        it('should send its value to the Context Broker (without leading slash)', function (done) {
+            const values = [
+                {
+                    humidity: '32',
+                    temperature: '87',
+                    luminosity: 10,
+                    pollution: 43.4,
+                    configuration: {
+                        firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                    },
+                    tags: ['iot', 'device'],
+                    enabled: true,
+                    alive: null
+                },
+                {
+                    humidity: '33',
+                    temperature: '89',
+                    luminosity: 10,
+                    pollution: 43.4,
+                    configuration: {
+                        firmware: { version: '1.1.0', hash: 'cf23df2207d99a74fbe169e3eba035e633b65d94' }
+                    },
+                    tags: ['iot', 'device'],
+                    enabled: true,
+                    alive: null
+                }
+            ];
+
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
     });
 
     describe('When a new multiple measure arrives for an unprovisioned device', function () {
@@ -222,6 +257,27 @@ describe('MQTT: Measure reception ', function () {
                 }, 100);
             });
         });
+        it('should send its value to the Context Broker (without leading slash)', function (done) {
+            const values = [
+                {
+                    humidity: '32',
+                    temperature: '87'
+                },
+                {
+                    humidity: '33',
+                    temperature: '89'
+                }
+            ];
+
+            mqttClient.publish('json/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function (
+                error
+            ) {
+                setTimeout(function () {
+                    contextBrokerUnprovMock.done();
+                    done();
+                }, 100);
+            });
+        });
     });
 
     describe('When a new multiple measure arrives to the MQTT Topic with unknown attributes', function () {
@@ -259,6 +315,25 @@ describe('MQTT: Measure reception ', function () {
             ];
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its value to the Context Broker (without leading slash)', function (done) {
+            const values = [
+                {
+                    humidity: '32',
+                    weight: '87'
+                },
+                {
+                    humidity: '33',
+                    weight: '89'
+                }
+            ];
+
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
                 setTimeout(function () {
                     contextBrokerMock.done();
                     done();
@@ -304,6 +379,27 @@ describe('MQTT: Measure reception ', function () {
             ];
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its value to the Context Broker (without leading slash)', function (done) {
+            const values = [
+                {
+                    humidity: '32',
+                    temperature: '87',
+                    TimeInstant: '20071103T131805'
+                },
+                {
+                    humidity: '33',
+                    temperature: '89',
+                    TimeInstant: '20071103T131805'
+                }
+            ];
+
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
                 setTimeout(function () {
                     contextBrokerMock.done();
                     done();
