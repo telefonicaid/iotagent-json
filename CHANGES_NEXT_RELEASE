@@ -1,4 +1,4 @@
-- Add MQTT options `clean` and `clientId` (#414, #466, #497)
+- Add MQTT options `clean` and `clientId` (env vars IOTA_MQTT_CLEAN and IOTA_MQTT_CLIENT_ID) (#414, #466, #497)
 - Fix: missing content-type: application/json header in the request sent to device command endpoint (HTTP transport)
 - Fix: avoid raise mongo alarm when a measure is not maching a group configuration
 - Upgrade NodeJS version from 10 to 12 in Dockerfile due to Node 10 End-of-Life
