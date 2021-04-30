@@ -37,71 +37,68 @@ const utils = require('../../utils');
 let contextBrokerMock;
 let mqttClient;
 
-describe('Subscription management', function() {
+describe('Subscription management', function () {
     const provisionOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
 
     function sendMeasures(humidity, temperature) {
-        return function(callback) {
+        return function (callback) {
             const values = {
                 humidity,
                 temperature
             };
 
-            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
                 process.nextTick(callback);
             });
         };
     }
 
     function waitForMqttRelay(ms) {
-        return function(callback) {
+        return function (callback) {
             setTimeout(callback, ms);
         };
     }
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         nock.cleanAll();
 
-        mqttClient = mqtt.connect(
-            'mqtt://' + config.mqtt.host,
-            {
-                keepalive: 0,
-                connectTimeout: 60 * 60 * 1000
-            }
-        );
+        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
+            keepalive: 0,
+            connectTimeout: 60 * 60 * 1000
+        });
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026', { allowUnmocked: false })
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
 
-        iotaJson.start(config, function() {
+        iotaJson.start(config, function () {
             iotAgentLib.clearAll(done);
         });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         nock.cleanAll();
         mqttClient.end();
         iotAgentLib.clearAll(done);
     });
 
-    describe('When the iotagent stops', function() {
-        beforeEach(function() {
+    describe('When the iotagent stops', function () {
+        beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -110,7 +107,7 @@ describe('Subscription management', function() {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -119,7 +116,7 @@ describe('Subscription management', function() {
                 .reply(204);
         });
 
-        it('should cease sending measures to the CB', function(done) {
+        it('should cease sending measures to the CB', function (done) {
             async.series(
                 [
                     async.apply(request, provisionOptions),
@@ -129,7 +126,7 @@ describe('Subscription management', function() {
                     sendMeasures('53', '1'),
                     waitForMqttRelay(50)
                 ],
-                function(error, results) {
+                function (error, results) {
                     should.not.exist(error);
                     contextBrokerMock.isDone().should.equal(false);
                     done();
@@ -138,10 +135,10 @@ describe('Subscription management', function() {
         });
     });
 
-    describe('When the iotagent starts', function() {
-        beforeEach(function() {
+    describe('When the iotagent starts', function () {
+        beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -151,7 +148,7 @@ describe('Subscription management', function() {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -161,11 +158,11 @@ describe('Subscription management', function() {
                 .reply(204);
         });
 
-        afterEach(function(done) {
+        afterEach(function (done) {
             async.series([iotAgentLib.clearAll, iotaJson.stop], done);
         });
 
-        it('should resume sending measures for the provisioned devices', function(done) {
+        it('should resume sending measures for the provisioned devices', function (done) {
             async.series(
                 [
                     async.apply(request, provisionOptions),
@@ -177,7 +174,7 @@ describe('Subscription management', function() {
                     sendMeasures('53', '1'),
                     waitForMqttRelay(50)
                 ],
-                function(error, results) {
+                function (error, results) {
                     should.not.exist(error);
                     contextBrokerMock.isDone().should.equal(true);
                     done();
