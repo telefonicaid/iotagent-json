@@ -36,30 +36,27 @@ let contextBrokerMock;
 let oldConfigurationFlag;
 let mqttClient;
 
-describe('MQTT: Get configuration from the devices', function() {
-    beforeEach(function(done) {
+describe('MQTT: Get configuration from the devices', function () {
+    beforeEach(function (done) {
         const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect(
-            'mqtt://' + config.mqtt.host,
-            {
-                keepalive: 0,
-                connectTimeout: 60 * 60 * 1000
-            }
-        );
+        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
+            keepalive: 0,
+            connectTimeout: 60 * 60 * 1000
+        });
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v1/updateContext')
             .reply(200, utils.readExampleFile('./test/contextResponses/multipleMeasuresSuccess.json'));
@@ -67,14 +64,14 @@ describe('MQTT: Get configuration from the devices', function() {
         oldConfigurationFlag = config.configRetrieval;
         config.configRetrieval = true;
 
-        iotagentMqtt.start(config, function() {
-            request(provisionOptions, function(error, response, body) {
+        iotagentMqtt.start(config, function () {
+            request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         config.configRetrieval = oldConfigurationFlag;
 
         nock.cleanAll();
@@ -85,16 +82,16 @@ describe('MQTT: Get configuration from the devices', function() {
     describe(
         /* eslint-disable no-useless-concat */
         'When a configuration request is received in the topic ' + '"/{{apikey}}/{{deviceid}}/configuration/commands"',
-        function() {
+        function () {
             const values = {
                 type: 'configuration',
                 fields: ['sleepTime', 'warningLevel']
             };
             let configurationReceived;
 
-            beforeEach(function() {
+            beforeEach(function () {
                 contextBrokerMock
-                    .matchHeader('fiware-service', 'smartGondor')
+                    .matchHeader('fiware-service', 'smartgondor')
                     .matchHeader('fiware-servicepath', '/gardens')
                     .post('/v1/queryContext', utils.readExampleFile('./test/contextRequests/getConfiguration.json'))
                     .reply(200, utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
@@ -104,25 +101,25 @@ describe('MQTT: Get configuration from the devices', function() {
                 configurationReceived = false;
             });
 
-            afterEach(function(done) {
+            afterEach(function (done) {
                 mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
 
                 done();
             });
 
-            it('should ask the Context Broker for the request attributes', function(done) {
-                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+            it('should ask the Context Broker for the request attributes', function (done) {
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (
                     error
                 ) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         contextBrokerMock.done();
                         done();
                     }, 100);
                 });
             });
 
-            it('should return the requested attributes to the client in /1234/MQTT_2/configuration/values', function(done) {
-                mqttClient.on('message', function(topic, data) {
+            it('should return the requested attributes to the client in /1234/MQTT_2/configuration/values', function (done) {
+                mqttClient.on('message', function (topic, data) {
                     const result = JSON.parse(data);
 
                     configurationReceived =
@@ -132,27 +129,27 @@ describe('MQTT: Get configuration from the devices', function() {
                         result.warningLevel === '80';
                 });
 
-                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (
                     error
                 ) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         configurationReceived.should.equal(true);
                         done();
                     }, 100);
                 });
             });
 
-            it('should add the system timestamp in compressed format to the request', function(done) {
-                mqttClient.on('message', function(topic, data) {
+            it('should add the system timestamp in compressed format to the request', function (done) {
+                mqttClient.on('message', function (topic, data) {
                     const result = JSON.parse(data);
 
                     configurationReceived = result.dt && result.dt.should.match(/^\d{8}T\d{6}Z$/);
                 });
 
-                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(
+                mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (
                     error
                 ) {
-                    setTimeout(function() {
+                    setTimeout(function () {
                         should.exist(configurationReceived);
                         done();
                     }, 100);
@@ -161,16 +158,16 @@ describe('MQTT: Get configuration from the devices', function() {
         }
     );
 
-    describe('When a subscription request is received in the IoT Agent', function() {
+    describe('When a subscription request is received in the IoT Agent', function () {
         const values = {
             type: 'subscription',
             fields: ['sleepTime', 'warningLevel']
         };
         let configurationReceived;
 
-        beforeEach(function() {
+        beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
                 .reply(200, utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
@@ -180,41 +177,41 @@ describe('MQTT: Get configuration from the devices', function() {
             configurationReceived = false;
         });
 
-        afterEach(function(done) {
+        afterEach(function (done) {
             mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
 
             done();
         });
 
-        it('should create a subscription in the ContextBroker', function(done) {
-            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
-                setTimeout(function() {
+        it('should create a subscription in the ContextBroker', function (done) {
+            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
                     contextBrokerMock.done();
                     done();
                 }, 100);
             });
         });
-        it('should update the values in the MQTT topic when a notification is received', function(done) {
+        it('should update the values in the MQTT topic when a notification is received', function (done) {
             const optionsNotify = {
                 url: 'http://localhost:' + config.iota.server.port + '/notify',
                 method: 'POST',
                 json: utils.readExampleFile('./test/subscriptions/notification.json'),
                 headers: {
-                    'fiware-service': 'smartGondor',
+                    'fiware-service': 'smartgondor',
                     'fiware-servicepath': '/gardens'
                 }
             };
 
-            mqttClient.on('message', function(topic, data) {
+            mqttClient.on('message', function (topic, data) {
                 const result = JSON.parse(data);
 
                 configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
             });
 
-            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function(error) {
-                setTimeout(function() {
-                    request(optionsNotify, function(error, response, body) {
-                        setTimeout(function() {
+            mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    request(optionsNotify, function (error, response, body) {
+                        setTimeout(function () {
                             configurationReceived.should.equal(true);
                             done();
                         }, 100);

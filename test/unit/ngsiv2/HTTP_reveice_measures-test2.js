@@ -57,21 +57,21 @@ const groupCreation = {
         ]
     },
     headers: {
-        'fiware-service': 'smartGondor',
+        'fiware-service': 'smartgondor',
         'fiware-servicepath': '/gardens'
     }
 };
 let contextBrokerMock;
 let contextBrokerUnprovMock;
 
-describe('HTTP: Measure reception ', function() {
-    beforeEach(function(done) {
+describe('HTTP: Measure reception ', function () {
+    beforeEach(function (done) {
         const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
@@ -82,25 +82,25 @@ describe('HTTP: Measure reception ', function() {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
 
-        iotaJson.start(config, function() {
-            request(provisionOptions, function(error, response, body) {
+        iotaJson.start(config, function () {
+            request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         nock.cleanAll();
 
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-    describe('When a POST multimeasure arrives for the HTTP binding', function() {
+    describe('When a POST multimeasure arrives for the HTTP binding', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -131,7 +131,7 @@ describe('HTTP: Measure reception ', function() {
                 }
             ],
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
             qs: {
@@ -140,9 +140,9 @@ describe('HTTP: Measure reception ', function() {
             }
         };
 
-        beforeEach(function() {
+        beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -151,7 +151,7 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -160,23 +160,23 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
-        it('should return a 200 OK with no error', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
                 should.not.exist(error);
                 result.statusCode.should.equal(200);
                 done();
             });
         });
 
-        it('should send its value to the Context Broker', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
     });
 
-    describe('When a POST multimeasure arrives with a TimeInstant attribute in the body', function() {
+    describe('When a POST multimeasure arrives with a TimeInstant attribute in the body', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -191,7 +191,7 @@ describe('HTTP: Measure reception ', function() {
                 }
             ],
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
             qs: {
@@ -204,24 +204,24 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
 
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             nock.cleanAll();
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
             contextBrokerMock = nock('http://192.168.1.1:1026')
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
@@ -231,7 +231,7 @@ describe('HTTP: Measure reception ', function() {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
@@ -240,31 +240,31 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'sensor' })
                 .reply(204);
 
-            iotaJson.stop(function() {
+            iotaJson.stop(function () {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
-                iotaJson.start(config, function() {
-                    request(provisionOptions, function(error, response, body) {
+                iotaJson.start(config, function () {
+                    request(provisionOptions, function (error, response, body) {
                         done();
                     });
                 });
             });
         });
 
-        afterEach(function() {
+        afterEach(function () {
             config.iota.timestamp = false;
             config.compressTimestamp = true;
         });
 
-        it('should send its value to the Context Broker', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
     });
 
-    describe('When a POST multimeasure arrives with a TimeInstant query parameter in the body', function() {
+    describe('When a POST multimeasure arrives with a TimeInstant query parameter in the body', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -277,7 +277,7 @@ describe('HTTP: Measure reception ', function() {
                 }
             ],
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
             qs: {
@@ -291,24 +291,24 @@ describe('HTTP: Measure reception ', function() {
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
 
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             nock.cleanAll();
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
             contextBrokerMock = nock('http://192.168.1.1:1026')
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
@@ -318,7 +318,7 @@ describe('HTTP: Measure reception ', function() {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/e0130101/attrs',
@@ -327,31 +327,31 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'sensor' })
                 .reply(204);
 
-            iotaJson.stop(function() {
+            iotaJson.stop(function () {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
-                iotaJson.start(config, function() {
-                    request(provisionOptions, function(error, response, body) {
+                iotaJson.start(config, function () {
+                    request(provisionOptions, function (error, response, body) {
                         done();
                     });
                 });
             });
         });
 
-        afterEach(function() {
+        afterEach(function () {
             config.iota.timestamp = false;
             config.compressTimestamp = true;
         });
 
-        it('should send its value to the Context Broker', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
     });
 
-    describe('When a POST multimeasure arrives for an unprovisioned device', function() {
+    describe('When a POST multimeasure arrives for an unprovisioned device', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -366,7 +366,7 @@ describe('HTTP: Measure reception ', function() {
                 }
             ],
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
             qs: {
@@ -377,15 +377,15 @@ describe('HTTP: Measure reception ', function() {
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
             contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -395,7 +395,7 @@ describe('HTTP: Measure reception ', function() {
                 .reply(204);
 
             contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -404,24 +404,24 @@ describe('HTTP: Measure reception ', function() {
                 .query({ type: 'TheLightType' })
                 .reply(204);
 
-            request(groupCreation, function(error, response, body) {
+            request(groupCreation, function (error, response, body) {
                 done();
             });
         });
 
-        it('should send its value to the Context Broker', function(done) {
-            request(optionsMeasure, function(error, result, body) {
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerUnprovMock.done();
                 done();
             });
         });
 
-        it('should add a transport to the registered devices', function(done) {
+        it('should add a transport to the registered devices', function (done) {
             const getDeviceOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
                 method: 'GET',
                 headers: {
-                    'fiware-service': 'smartGondor',
+                    'fiware-service': 'smartgondor',
                     'fiware-servicepath': '/gardens'
                 },
                 qs: {
@@ -430,8 +430,8 @@ describe('HTTP: Measure reception ', function() {
                 }
             };
 
-            request(optionsMeasure, function(error, response, body) {
-                request(getDeviceOptions, function(error, response, body) {
+            request(optionsMeasure, function (error, response, body) {
+                request(getDeviceOptions, function (error, response, body) {
                     should.not.exist(error);
                     const parsedBody = JSON.parse(body);
 

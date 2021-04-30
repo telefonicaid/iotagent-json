@@ -45,7 +45,7 @@ describe('Configuration API support', function () {
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
@@ -54,7 +54,7 @@ describe('Configuration API support', function () {
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration1.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
@@ -63,7 +63,7 @@ describe('Configuration API support', function () {
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
@@ -100,7 +100,7 @@ describe('Configuration API support', function () {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://unexistentHost:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
@@ -132,7 +132,7 @@ describe('Configuration API support', function () {
                             token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
                             entity_type: 'Light',
                             resource: '',
-                            service: 'smartGondor',
+                            service: 'smartgondor',
                             service_path: '/gardens'
                         }
                     ]
@@ -140,7 +140,7 @@ describe('Configuration API support', function () {
                 .reply(200, {});
 
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -178,7 +178,7 @@ describe('Configuration API support', function () {
                         entity_type: 'Light',
                         cbHost: 'http://unexistentHost:1026',
                         resource: '/AnotherValue',
-                        service: 'smartGondor',
+                        service: 'smartgondor',
                         service_path: '/gardens'
                     }
                 ]
