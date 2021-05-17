@@ -57,7 +57,7 @@ const groupCreation = {
         ]
     },
     headers: {
-        'fiware-service': 'smartGondor',
+        'fiware-service': 'smartgondor',
         'fiware-servicepath': '/gardens'
     }
 };
@@ -72,7 +72,7 @@ describe('MQTT: Measure reception ', function () {
             method: 'POST',
             json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice1.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
@@ -88,7 +88,7 @@ describe('MQTT: Measure reception ', function () {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
@@ -110,7 +110,7 @@ describe('MQTT: Measure reception ', function () {
     describe('When a new multiple measure arrives to the MQTT Topic', function () {
         beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -120,7 +120,7 @@ describe('MQTT: Measure reception ', function () {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -207,13 +207,13 @@ describe('MQTT: Measure reception ', function () {
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
                 .reply(204);
 
             contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -223,7 +223,7 @@ describe('MQTT: Measure reception ', function () {
                 .reply(204);
 
             contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/TheLightType:JSON_UNPROVISIONED/attrs',
@@ -269,21 +269,24 @@ describe('MQTT: Measure reception ', function () {
                 }
             ];
 
-            mqttClient.publish('json/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function (
-                error
-            ) {
-                setTimeout(function () {
-                    contextBrokerUnprovMock.done();
-                    done();
-                }, 100);
-            });
+            mqttClient.publish(
+                'json/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs',
+                JSON.stringify(values),
+                null,
+                function (error) {
+                    setTimeout(function () {
+                        contextBrokerUnprovMock.done();
+                        done();
+                    }, 100);
+                }
+            );
         });
     });
 
     describe('When a new multiple measure arrives to the MQTT Topic with unknown attributes', function () {
         beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -293,7 +296,7 @@ describe('MQTT: Measure reception ', function () {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -345,7 +348,7 @@ describe('MQTT: Measure reception ', function () {
     describe('When a new multiple measure arrives with a timestamp to the MQTT Topic', function () {
         beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -355,7 +358,7 @@ describe('MQTT: Measure reception ', function () {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',

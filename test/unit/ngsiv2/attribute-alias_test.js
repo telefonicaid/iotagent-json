@@ -36,55 +36,52 @@ const utils = require('../../utils');
 let contextBrokerMock;
 let mqttClient;
 
-describe('Attribute alias', function() {
-    beforeEach(function(done) {
+describe('Attribute alias', function () {
+    beforeEach(function (done) {
         const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
             json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDevice2.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
 
         nock.cleanAll();
 
-        mqttClient = mqtt.connect(
-            'mqtt://' + config.mqtt.host,
-            {
-                keepalive: 0,
-                connectTimeout: 60 * 60 * 1000
-            }
-        );
+        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
+            keepalive: 0,
+            connectTimeout: 60 * 60 * 1000
+        });
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
 
-        iotaJson.start(config, function() {
-            request(provisionOptions, function(error, response, body) {
+        iotaJson.start(config, function () {
+            request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         nock.cleanAll();
         mqttClient.end();
 
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-    describe('When a new multiple measure arrives with a timestamp in an attribute alias', function() {
-        beforeEach(function() {
+    describe('When a new multiple measure arrives with a timestamp in an attribute alias', function () {
+        beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
@@ -93,15 +90,15 @@ describe('Attribute alias', function() {
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
-        it('should send its value to the Context Broker', function(done) {
+        it('should send its value to the Context Broker', function (done) {
             const values = {
                 humidity: '32',
                 temperature: '87',
                 tt: '20071103T131805'
             };
 
-            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function(error) {
-                setTimeout(function() {
+            mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
                     contextBrokerMock.done();
                     done();
                 }, 200);

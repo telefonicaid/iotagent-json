@@ -42,7 +42,7 @@ describe('HTTP: Get configuration from the devices', function() {
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
@@ -50,13 +50,13 @@ describe('HTTP: Get configuration from the devices', function() {
         nock.cleanAll();
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/registrations')
             .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
 
         contextBrokerMock
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
@@ -87,7 +87,7 @@ describe('HTTP: Get configuration from the devices', function() {
                 fields: ['sleepTime', 'warningLevel']
             },
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
             qs: {
@@ -98,7 +98,7 @@ describe('HTTP: Get configuration from the devices', function() {
 
         beforeEach(function() {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .get('/v2/entities/Second%20MQTT%20Device/attrs?attrs=sleepTime,warningLevel&type=AnMQTTDevice')
                 .reply(200, 
@@ -158,7 +158,7 @@ describe('HTTP: Get configuration from the devices', function() {
                 fields: ['sleepTime', 'warningLevel']
             },
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
             qs: {
@@ -169,7 +169,7 @@ describe('HTTP: Get configuration from the devices', function() {
 
         beforeEach(function() {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/subscriptions')
                 .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
@@ -200,7 +200,7 @@ describe('HTTP: Get configuration from the devices', function() {
                 method: 'POST',
                 json: utils.readExampleFile('./test/subscriptions/notification.json'),
                 headers: {
-                    'fiware-service': 'smartGondor',
+                    'fiware-service': 'smartgondor',
                     'fiware-servicepath': '/gardens'
                 }
             };
