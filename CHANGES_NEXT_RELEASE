@@ -1,3 +1,4 @@
+- Add: check autoprovision flag before register device
 - Fix: upgrade underscore dep from 1.9.1 to 1.12.1 due to vulnerability
 - (Only tests) Fix: ensure service of groups, device and commands is stored in mongo in lowercase (iota-node-lib#1023)
 - Add MQTT options `clean` and `clientId` (env vars IOTA_MQTT_CLEAN and IOTA_MQTT_CLIENT_ID) (#414, #466, #497)

@@ -45,7 +45,7 @@ config.amqp = {
 };
 
 config.iota = {
-    logLevel: 'FATAL',
+    logLevel: 'DEBUG',
     contextBroker: {
         host: '192.168.1.1',
         port: '1026',

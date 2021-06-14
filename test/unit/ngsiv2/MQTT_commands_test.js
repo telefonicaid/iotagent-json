@@ -102,7 +102,7 @@ describe('MQTT: Commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus1.json')
                 )
