@@ -5,7 +5,7 @@
  *
  * iotagent-ul is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
+ * published by the Free Software Foundation, either  3 of the License,
  * or (at your option) any later version.
  *
  * iotagent-ul is distributed in the hope that it will be useful,
@@ -78,7 +78,7 @@ describe('HTTP Transport binding: polling commands', function () {
         contextBrokerMock
             .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice')
+            .patch('/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice')
             .reply(204);
 
         iotagentUl.start(config, function (error) {
@@ -135,7 +135,7 @@ describe('HTTP Transport binding: polling commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/pollingMeasure.json')
                 )
@@ -144,7 +144,7 @@ describe('HTTP Transport binding: polling commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus4.json')
                 )
@@ -213,7 +213,7 @@ describe('HTTP Transport binding: polling commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/pollingMeasure.json')
                 )
@@ -222,7 +222,7 @@ describe('HTTP Transport binding: polling commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus4.json')
                 )
@@ -283,7 +283,7 @@ describe('HTTP Transport binding: polling commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus5.json')
                 )
