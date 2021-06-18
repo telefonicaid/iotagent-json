@@ -1,9 +1,0 @@
-- Add: check autoprovision flag before register device
-- Fix: upgrade underscore dep from 1.9.1 to 1.12.1 due to vulnerability
-- (Only tests) Fix: ensure service of groups, device and commands is stored in mongo in lowercase (iota-node-lib#1023)
-- Add MQTT options `clean` and `clientId` (env vars IOTA_MQTT_CLEAN and IOTA_MQTT_CLIENT_ID) (#414, #466, #497)
-- Fix: missing content-type: application/json header in the request sent to device command endpoint (HTTP transport)
-- Fix: avoid raise mongo alarm when a measure is not maching a group configuration
-- Upgrade NodeJS version from 10 to 12 in Dockerfile due to Node 10 End-of-Life
-- Set Nodejs 12 as minimum version in packages.json (effectively removing Nodev10 from supported versions)
-- Add list of environment variables which can be protected by Docker Secrets

@@ -169,6 +169,17 @@ fi
 %{_install_dir}
 
 %changelog
+* Fri Jun 18 2021 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.18.0
+- Add: MQTT options `clean` and `clientId` (env vars IOTA_MQTT_CLEAN and IOTA_MQTT_CLIENT_ID) (#414, #466, #497)
+- Add: list of environment variables which can be protected by Docker Secrets
+- Fix: check autoprovision flag before register device
+- Fix: missing content-type: application/json header in the request sent to device command endpoint (HTTP transport)
+- Fix: avoid raise mongo alarm when a measure is not maching a group configuration
+- Upgrade underscore dependency from 1.9.1 to 1.12.1 due to vulnerability
+- Upgrade iotagent-node-lib dependency from 2.15.0 to 2.16.0
+- Upgrade NodeJS version from 10 to 12 in Dockerfile due to Node 10 End-of-Life
+- Set Nodejs 12 as minimum version in packages.json (effectively removing Nodev10 from supported versions)
+
 * Thu Feb 18 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.17.0
 - Add: Support of multimeasure for MQTT and AMQP transport (#462)
 - Fix: Set 60 seconds for default mqtt keepalive option (#413)
