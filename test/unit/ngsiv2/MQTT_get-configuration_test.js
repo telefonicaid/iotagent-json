@@ -216,9 +216,7 @@ describe('MQTT: Get configuration from the devices', function () {
 
             mqttClient.on('message', function (topic, data) {
                 const result = JSON.parse(data);
-                configurationReceived = true;
-
-                //configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
+                configurationReceived = result.sleepTime === '200' && result.warningLevel === 'ERROR';
             });
 
             mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (error) {
