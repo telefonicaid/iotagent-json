@@ -47,20 +47,6 @@ with the Context Broker (check it by looking for other Context Broker communicat
 A configuration request was received from a device with a type that is not one of the available values: "configuartion"
 or "subscription". This is always an error on the client-side.
 
-### Thinking Things errors
-
-#### TTHINGS-001: Too few fields parsing Battery module: %s
-
-Parse error reading a battery payload. This is always an error on the client-side (redirect it to the documentation).
-
-#### TTHINGS-002: Too few fields parsing GSM module: %s
-
-Parse error reading a GSM payload. This is always an error on the client-side (redirect it to the documentation).
-
-#### TTHINGS-003: Too few fields parsing C1 module: %s
-
-Parse error reading a C1 payload. This is always an error on the client-side (redirect it to the documentation).
-
 ### Measure errors
 
 #### MEASURES-001: Bad payload received while processing timestamps
@@ -128,7 +114,6 @@ Every error has a code composed of a prefix and an ID, codified with the followi
 | Prefix   | Type of operation                                         |
 | :------- | :-------------------------------------------------------- |
 | GLOBAL   | Global errors                                             |
-| TTHINGS  | Thinking Things plugin errors                             |
 | CONFIG   | Errors related with the configuration retrieval mechanism |
 | MEASURES | Errors related with measure processing                    |
 | COMMANDS | Errors related with command processing                    |

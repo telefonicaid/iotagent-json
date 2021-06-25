@@ -34,13 +34,7 @@ config.mqtt = {
      * Port where the MQTT Broker is listening.
      */
     port: 1883,
-    /**
-     * Activating thinkingThingsPlugin flag. When it is set to true the constraint devices sends an HTTP POST request
-     * to the server with a Content-Type, containing a field name and a payload. The payload can be divided in modules,
-     * each one of them responsible for a single measure. Modules are separated by the '#' character, and all of them
-     * consists of a series of parameters separated by commas.
-     */
-    thinkingThingsPlugin: true,
+
 
     /**
      * protocol to use for connecting with the MQTT broker
