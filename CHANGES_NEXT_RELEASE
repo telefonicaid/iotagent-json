@@ -1,1 +1,2 @@
 Fix: processing configurations subscriptions in NGSIv2 (#563)
+Remove: removed obsolete Thinking Things plugin
