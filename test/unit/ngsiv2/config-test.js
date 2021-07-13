@@ -30,7 +30,6 @@ const config = {};
 config.mqtt = {
     host: 'localhost',
     port: 1883,
-    thinkingThingsPlugin: true
 };
 
 config.http = {
