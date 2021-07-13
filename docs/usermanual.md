@@ -5,7 +5,6 @@
     -   [MQTT binding](#mqtt-binding)
     -   [AMQP binding](#amqp-binding)
     -   [Value conversion](#value-conversion)
-    -   [Thinking Things plugin](#thinking-things-plugin)
 -   [Development documentation](#development-documentation)
 -   [New transport development](#new-transport-development)
 
@@ -480,20 +479,6 @@ extended representation (e.g.: +002007-11-03T13:18:05) for any interaction with 
 queries).
 
 This feature can be enabled and disabled by using the `compressTimestamp` configuration flag.
-
-### Thinking Things plugin
-
-This IoT Agent retains some features from the Thinking Things Protocol IoT Agent to ease the transition from one
-protocol to the other. This features are built-in a plugin, that can be activated using the `mqtt.thinkingThingsPlugin`
-flag. When the plugin is activated, the following rules apply to all the incoming MQTT-JSON requests:
-
--   If an attribute named P1 is found, its content will be parsed as a Phone Cell position, as described
-    [here](https://github.com/telefonicaid/iotagent-thinking-things#p1).
--   If an attribute named C1 is found, its content will be parsed as if they would be a P1 attribute, but with all its
-    fields codified in hexadecimal with a fixed 4 character length, without comma separation.
--   If an attribute named B is found, its content will be parsed as if they would be Battery information as described
-    [here](https://github.com/telefonicaid/iotagent-thinking-things#b). This implementation admits also an extended
-    version of this attribute, adding the "batteryType" and "percentage" fields to the entity.
 
 ## Development documentation
 

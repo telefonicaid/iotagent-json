@@ -25,7 +25,6 @@ const config = {};
 config.mqtt = {
     host: 'localhost',
     port: 1883,
-    thinkingThingsPlugin: true,
     username: 'guest',
     password: 'guest'
 };

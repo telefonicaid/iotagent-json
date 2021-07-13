@@ -1,2 +1,3 @@
-Fix: check access to active attribute of device before use it (#576)
 Fix: processing configurations subscriptions in NGSIv2 (#563)
+Fix: check access to active attribute of device before use it (#576)
+Remove: obsolete Thinking Things plugin
