@@ -39,13 +39,13 @@ let iotamMock;
 let mqttClient;
 let originalResource;
 
-describe('Configuration API support', function() {
+describe('Configuration API support', function () {
     const provisionOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionDevice1.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
@@ -54,7 +54,7 @@ describe('Configuration API support', function() {
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration1.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
@@ -63,21 +63,18 @@ describe('Configuration API support', function() {
         method: 'POST',
         json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
         headers: {
-            'fiware-service': 'smartGondor',
+            'fiware-service': 'smartgondor',
             'fiware-servicepath': '/gardens'
         }
     };
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         nock.cleanAll();
         originalResource = config.iota.defaultResource;
-        mqttClient = mqtt.connect(
-            'mqtt://' + config.mqtt.host,
-            {
-                keepalive: 0,
-                connectTimeout: 60 * 60 * 1000
-            }
-        );
+        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
+            keepalive: 0,
+            connectTimeout: 60 * 60 * 1000
+        });
 
         config.iota.iotManager = {
             host: '127.0.0.1',
@@ -102,8 +99,8 @@ describe('Configuration API support', function() {
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
-        contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+        contextBrokerMock = nock('http://unexistentHost:1026')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
@@ -111,7 +108,7 @@ describe('Configuration API support', function() {
         iotagentJson.start(config, done);
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         delete config.iota.iotManager;
         delete config.iota.defaultResource;
         config.iota.defaultResource = originalResource;
@@ -121,8 +118,8 @@ describe('Configuration API support', function() {
         iotagentJson.stop(done);
     });
 
-    describe('When a configuration is provisioned for a service', function() {
-        beforeEach(function() {
+    describe('When a configuration is provisioned for a service', function () {
+        beforeEach(function () {
             iotamMock
                 .post('/iot/protocols', {
                     protocol: 'TT_MQTT-JSON',
@@ -135,7 +132,7 @@ describe('Configuration API support', function() {
                             token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
                             entity_type: 'Light',
                             resource: '',
-                            service: 'smartGondor',
+                            service: 'smartgondor',
                             service_path: '/gardens'
                         }
                     ]
@@ -143,9 +140,9 @@ describe('Configuration API support', function() {
                 .reply(200, {});
 
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json')
                 )
@@ -153,11 +150,11 @@ describe('Configuration API support', function() {
                 .reply(204);
         });
 
-        it('should use the API Key of that configuration in device topics', function(done) {
-            request(configurationOptions, function(error, response, body) {
-                request(provisionOptions, function(error, response, body) {
-                    mqttClient.publish('/json/728289/MQTT_2/attrs/temperature', '87', null, function(error) {
-                        setTimeout(function() {
+        it('should use the API Key of that configuration in device topics', function (done) {
+            request(configurationOptions, function (error, response, body) {
+                request(provisionOptions, function (error, response, body) {
+                    mqttClient.publish('/json/728289/MQTT_2/attrs/temperature', '87', null, function (error) {
+                        setTimeout(function () {
                             contextBrokerUnprovMock.done();
                             done();
                         }, 100);
@@ -167,8 +164,8 @@ describe('Configuration API support', function() {
         });
     });
 
-    describe('When a configuration is provisioned with a Resource set', function() {
-        beforeEach(function() {
+    describe('When a configuration is provisioned with a Resource set', function () {
+        beforeEach(function () {
             const configurationProvision = {
                 protocol: 'TT_MQTT-JSON',
                 description: 'MQTT-JSON protocol for TT',
@@ -181,7 +178,7 @@ describe('Configuration API support', function() {
                         entity_type: 'Light',
                         cbHost: 'http://unexistentHost:1026',
                         resource: '/AnotherValue',
-                        service: 'smartGondor',
+                        service: 'smartgondor',
                         service_path: '/gardens'
                     }
                 ]
@@ -190,8 +187,8 @@ describe('Configuration API support', function() {
             iotamMock.post('/iot/protocols', configurationProvision).reply(200, {});
         });
 
-        it('should reject the configuration provisioning with a BAD FORMAT error', function(done) {
-            request(configurationOptionsWithResource, function(error, response, body) {
+        it('should reject the configuration provisioning with a BAD FORMAT error', function (done) {
+            request(configurationOptionsWithResource, function (error, response, body) {
                 should.not.exist(error);
 
                 response.statusCode.should.equal(400);

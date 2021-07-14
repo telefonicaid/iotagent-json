@@ -1,2 +1,3 @@
-- Upgrade NodeJS version from 10 to 12 in Dockerfile due to Node 10 End-of-Life
-- Set Nodejs 12 as minimum version in packages.json (effectively removing Nodev10 from supported versions)
+Fix: processing configurations subscriptions in NGSIv2 (#563)
+Fix: check access to active attribute of device before use it (#576)
+Remove: obsolete Thinking Things plugin (#573)

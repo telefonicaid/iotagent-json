@@ -60,7 +60,7 @@ describe('AMQP Transport binding: multiple measures', function () {
             method: 'POST',
             json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceAMQP1.json'),
             headers: {
-                'fiware-service': 'smartGondor',
+                'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             }
         };
@@ -74,7 +74,7 @@ describe('AMQP Transport binding: multiple measures', function () {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026')
-            .matchHeader('fiware-service', 'smartGondor')
+            .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/entities?options=upsert')
             .reply(204);
@@ -101,9 +101,9 @@ describe('AMQP Transport binding: multiple measures', function () {
     describe('When a multiple message having new multiple measure arrives to a Device routing key with one measure', function () {
         beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
                 )
@@ -111,9 +111,9 @@ describe('AMQP Transport binding: multiple measures', function () {
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP2.json')
                 )
@@ -138,9 +138,9 @@ describe('AMQP Transport binding: multiple measures', function () {
     describe('When multiple message with multiple measures arrive to a Device routing key', function () {
         beforeEach(function () {
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasure.json')
                 )
@@ -148,9 +148,9 @@ describe('AMQP Transport binding: multiple measures', function () {
                 .reply(204);
 
             contextBrokerMock
-                .matchHeader('fiware-service', 'smartGondor')
+                .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post(
+                .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasure2.json')
                 )

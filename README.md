@@ -9,6 +9,7 @@
 [![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
 ![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4695/badge)](https://bestpractices.coreinfrastructure.org/projects/4695)
 
 An Internet of Things Agent for a JSON based protocol (with [AMQP](https://www.amqp.org/),
 [HTTP](https://www.w3.org/Protocols/) and [MQTT](https://mqtt.org/) transports). This IoT Agent is designed to be a
@@ -34,6 +35,7 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 -   [Usage](#usage)
 -   [API](#api)
 -   [Command-line Client](#command-line-client)
+-   [Contributing](#contributing)
 -   [Testing](#testing)
 -   [License](#license)
 
@@ -99,6 +101,13 @@ MQTT commands will show an error message reminding you to connect.
 The command-line Client gets its default values from a config file in the root of the project: `client-config.js`. This
 config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
 
+## Contributing
+
+If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has 
+raised a similar idea or question.
+
+Before contributing, please check out [contribution guidelines](docs/contribution.md)
+
 ## Testing
 
 [Mocha](https://mochajs.org/) Test Runner + [Should.js](https://shouldjs.github.io/) Assertion Library.
@@ -118,8 +127,15 @@ npm test
 All the tests are designed to test end-to-end scenarios, and there are some requirements for its current execution:
 
 -   MQTT v5 broker (like mosquitto v1.6.7 server running)
--   MongoDB v3.x server running
+-   MongoDB v4.x server running
+-   RabbitMQ
 
+To run requirements you can type:
+```
+   docker run -d -p 27017:27017 --hostname mongo --name mongo mongo:4.2
+   docker run -d -p 1883:1883 -l mosquitto eclipse-mosquitto:1.6.7
+   docker run -d -p 5672:5672 --hostname my-rabbit --name some-rabbit rabbitmq:3.8.9
+```
 ---
 
 ## License
