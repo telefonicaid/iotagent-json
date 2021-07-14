@@ -157,5 +157,14 @@ describe('MQTT: Commands', function () {
                 }, 200);
             });
         });
+        
+        it('should send an update request to the Context Broker (without leading slash)', function (done) {
+            mqttClient.publish('json//1234/MQTT_2/cmdexe', '{ "PING": "1234567890" }', null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 200);
+            });
+        });
     });
 });
