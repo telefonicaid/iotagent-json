@@ -23,20 +23,20 @@
 
 /* eslint-disable no-unused-vars */
 
-const iotagentMqtt = require('../../');
-const config = require('../config-test.js');
+const iotagentMqtt = require('../../../');
+const config = require('./config-test.js');
 const nock = require('nock');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
 const request = require('request');
-const utils = require('../utils');
+const utils = require('../../utils');
 let mockedClientServer;
 let contextBrokerMock;
 let oldConfigurationFlag;
 
-describe('HTTP: Get configuration from the devices', function () {
-    beforeEach(function (done) {
+describe('HTTP: Get configuration from the devices', function() {
+    beforeEach(function(done) {
         const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
@@ -52,33 +52,33 @@ describe('HTTP: Get configuration from the devices', function () {
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/NGSI9/registerContext')
-            .reply(200, utils.readExampleFile('./test/contextAvailabilityResponses/registerIoTAgent1Success.json'));
+            .post('/v2/registrations')
+            .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
 
         contextBrokerMock
             .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v1/updateContext')
-            .reply(200, utils.readExampleFile('./test/contextResponses/updateStatus1Success.json'));
+            .post('/v2/entities?options=upsert')
+            .reply(204);
 
         oldConfigurationFlag = config.configRetrieval;
         config.configRetrieval = true;
 
-        iotagentMqtt.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
+        iotagentMqtt.start(config, function() {
+            request(provisionOptions, function(error, response, body) {
                 done();
             });
         });
     });
 
-    afterEach(function (done) {
+    afterEach(function(done) {
         nock.cleanAll();
         config.configRetrieval = oldConfigurationFlag;
 
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
-    describe('When a configuration request is received in the path /configuration/commands', function () {
+    describe('When a configuration request is received in the path /configuration/commands', function() {
         const configurationRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json/configuration',
             method: 'POST',
@@ -96,15 +96,27 @@ describe('HTTP: Get configuration from the devices', function () {
             }
         };
 
-        beforeEach(function () {
+        beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/queryContext', utils.readExampleFile('./test/contextRequests/getConfiguration.json'))
-                .reply(200, utils.readExampleFile('./test/contextResponses/getConfigurationSuccess.json'));
-
+                .get('/v2/entities/Second%20MQTT%20Device/attrs?attrs=sleepTime,warningLevel&type=AnMQTTDevice')
+                .reply(200, 
+                    {
+                      "id" : "Second%20MQTT%20Device",
+                      "type" : "AnMQTTDevice",
+                      "sleepTime": {
+                        "type": "Boolean",
+                        "value": "200"
+                      },
+                      "warningLevel": {
+                        "type": "Percentage",
+                        "value": "80"
+                      }
+                    }
+                );
             mockedClientServer = nock('http://localhost:9876')
-                .post('/command/configuration', function (result) {
+                .post('/command/configuration', function(result) {
                     return (
                         result.sleepTime &&
                         result.sleepTime === '200' &&
@@ -116,28 +128,28 @@ describe('HTTP: Get configuration from the devices', function () {
                 .reply(200, '');
         });
 
-        it('should reply with a 200 OK', function (done) {
-            request(configurationRequest, function (error, response, body) {
+        it('should reply with a 200 OK', function(done) {
+            request(configurationRequest, function(error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(200);
                 done();
             });
         });
 
-        it('should ask the Context Broker for the request attributes', function (done) {
-            request(configurationRequest, function (error, response, body) {
+        it('should ask the Context Broker for the request attributes', function(done) {
+            request(configurationRequest, function(error, response, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
-        it('should return the requested attributes to the client in the client endpoint', function (done) {
-            request(configurationRequest, function (error, response, body) {
+        it('should return the requested attributes to the client in the client endpoint', function(done) {
+            request(configurationRequest, function(error, response, body) {
                 mockedClientServer.done();
                 done();
             });
         });
     });
-    describe('When a subscription request is received in the IoT Agent', function () {
+    describe('When a subscription request is received in the IoT Agent', function() {
         const configurationRequest = {
             url: 'http://localhost:' + config.http.port + '/iot/json/configuration',
             method: 'POST',
@@ -155,15 +167,15 @@ describe('HTTP: Get configuration from the devices', function () {
             }
         };
 
-        beforeEach(function () {
+        beforeEach(function() {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v1/subscribeContext', utils.readExampleFile('./test/subscriptions/subscriptionRequest.json'))
-                .reply(200, utils.readExampleFile('./test/subscriptions/subscriptionResponse.json'));
+                .post('/v2/subscriptions')
+                .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
 
             mockedClientServer = nock('http://localhost:9876')
-                .post('/command/configuration', function (result) {
+                .post('/command/configuration', function(result) {
                     return (
                         result.sleepTime &&
                         result.sleepTime === '200' &&
@@ -175,13 +187,13 @@ describe('HTTP: Get configuration from the devices', function () {
                 .reply(200, '');
         });
 
-        it('should create a subscription in the ContextBroker', function (done) {
-            request(configurationRequest, function (error, response, body) {
+        it('should create a subscription in the ContextBroker', function(done) {
+            request(configurationRequest, function(error, response, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
-        it('should update the values in the MQTT topic when a notification is received', function (done) {
+        it('should update the values in the MQTT topic when a notification is received', function(done) {
             const optionsNotify = {
                 url: 'http://localhost:' + config.iota.server.port + '/notify',
                 method: 'POST',
@@ -192,10 +204,10 @@ describe('HTTP: Get configuration from the devices', function () {
                 }
             };
 
-            request(configurationRequest, function (error, response, body) {
-                setTimeout(function () {
-                    request(optionsNotify, function () {
-                        setTimeout(function () {
+            request(configurationRequest, function(error, response, body) {
+                setTimeout(function() {
+                    request(optionsNotify, function() {
+                        setTimeout(function() {
                             mockedClientServer.done();
                             done();
                         }, 100);
