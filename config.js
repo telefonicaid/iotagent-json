@@ -305,7 +305,11 @@ config.iota = {
     /**
      * flag indicating whether the incoming measures to the IoTAgent should be processed as per the "attributes" field.
      */
-    explicitAttrs: false
+    explicitAttrs: false,
+    
+    transformations : [   { transformation_Name : 'index', transformation_Body : '(val, char) => String(val).indexOf(char)'} , 
+                    { transformation_Name : 'trim', transformation_Body : '(val) => String(val).trim()'}
+                ]
 };
 
 /**
