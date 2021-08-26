@@ -309,6 +309,7 @@ config.iota = {
 
 /**
  * map {name: function} of extra transformations avaliable at JEXL plugin
+*  see https://github.com/telefonicaid/iotagent-node-lib/tree/master/doc/expressionLanguage.md#available-functions
  */
 
 config.jexlTransformations = {};
