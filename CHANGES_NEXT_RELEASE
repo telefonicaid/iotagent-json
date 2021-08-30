@@ -1,5 +1,0 @@
-Fix: content-type for get command in base of accept header (#582)
-Fix: processing configurations subscriptions in NGSIv2 (#563)
-Fix: check access to active attribute of device before use it (#576)
-Remove: obsolete Thinking Things plugin (#573)
-Add: custom JEXL transformations from config file (iotagent-node-lib#1056)
