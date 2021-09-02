@@ -35,7 +35,6 @@ config.mqtt = {
      */
     port: 1883,
 
-
     /**
      * protocol to use for connecting with the MQTT broker
      * (`mqtt`, `mqtts`, `tcp`, `tls`, `ws`, `wss`)
@@ -307,6 +306,13 @@ config.iota = {
      */
     explicitAttrs: false
 };
+
+/**
+ * map {name: function} of extra transformations avaliable at JEXL plugin
+*  see https://github.com/telefonicaid/iotagent-node-lib/tree/master/doc/expressionLanguage.md#available-functions
+ */
+
+config.jexlTransformations = {};
 
 /**
  * flag indicating whether the incoming notifications to the IoTAgent should be processed using the bidirectionality

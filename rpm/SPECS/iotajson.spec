@@ -169,6 +169,14 @@ fi
 %{_install_dir}
 
 %changelog
+* Mon Aug 30 2021 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.19.0
+- Add: custom JEXL transformations from config file (iotagent-node-lib#1056)
+- Fix: content-type for get command in base of accept header (#582)
+- Fix: processing configurations subscriptions in NGSIv2 (#563)
+- Fix: check access to active attribute of device before use it (#576)
+- Upgrade iotagent-node-lib dependency from 2.16.0 to 2.17.0
+- Remove: obsolete Thinking Things plugin (#573)
+
 * Fri Jun 18 2021 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.18.0
 - Add: MQTT options `clean` and `clientId` (env vars IOTA_MQTT_CLEAN and IOTA_MQTT_CLIENT_ID) (#414, #466, #497)
 - Add: list of environment variables which can be protected by Docker Secrets
