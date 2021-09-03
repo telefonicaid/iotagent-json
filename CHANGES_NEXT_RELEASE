@@ -1,1 +1,1 @@
-- Fix service and subservice to 'n/a' when apikey from measure is not found
+- Fix service and subservice to 'n/a' when apikey from measure is not found (needs iota-node-lib => 2.18)
