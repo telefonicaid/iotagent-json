@@ -130,7 +130,7 @@ const groupWithoutExplicitAttrs = {
 
 let contextBrokerMock;
 
-describe('HTTP: Measure reception ', function () {
+describe('explicitAttrs tests', function () {
     beforeEach(function (done) {
         nock.cleanAll();
         iotaJson.start(config, function () {
