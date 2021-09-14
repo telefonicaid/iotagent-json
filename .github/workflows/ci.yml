@@ -6,6 +6,8 @@ name: CI
   pull_request:
     branches:
       - master
+  repository_dispatch:
+    types: [lib-update]
 jobs:
   lint-dockerfile:
     name: Lint Dockerfile
