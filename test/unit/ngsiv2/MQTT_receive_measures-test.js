@@ -31,7 +31,6 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
@@ -94,7 +93,7 @@ describe('MQTT: Measure reception ', function () {
             .reply(204);
 
         iotaJson.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
+            utils.request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
@@ -184,7 +183,7 @@ describe('MQTT: Measure reception ', function () {
                 .query({ type: 'TheLightType' })
                 .reply(204);
 
-            request(groupCreation, function (error, response, body) {
+            utils.request(groupCreation, function (error, response, body) {
                 done();
             });
         });

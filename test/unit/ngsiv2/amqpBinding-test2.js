@@ -29,7 +29,6 @@ const iotaJson = require('../../../');
 const config = require('./config-test.js');
 const nock = require('nock');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
 const iotAgentLib = require('iotagent-node-lib');
 const amqp = require('amqplib/callback_api');
@@ -82,7 +81,7 @@ describe('AMQP Transport binding: multiple measures', function () {
         async.series(
             [
                 apply(iotaJson.start, config),
-                apply(request, provisionOptions),
+                apply(utils.request, provisionOptions),
                 apply(startConnection, config.amqp.exchange)
             ],
             done

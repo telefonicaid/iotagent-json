@@ -30,7 +30,6 @@ const nock = require('nock');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
 let contextBrokerMock;
 let oldConfigurationFlag;
@@ -65,7 +64,7 @@ describe('MQTT: Get configuration from the devices', function () {
         config.configRetrieval = true;
 
         iotagentMqtt.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
+            utils.request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
@@ -94,20 +93,18 @@ describe('MQTT: Get configuration from the devices', function () {
                     .matchHeader('fiware-service', 'smartgondor')
                     .matchHeader('fiware-servicepath', '/gardens')
                     .get('/v2/entities/Second%20MQTT%20Device/attrs?attrs=sleepTime,warningLevel&type=AnMQTTDevice')
-                    .reply(200, 
-                        {
-                          "id" : "Second%20MQTT%20Device",
-                          "type" : "AnMQTTDevice",
-                          "sleepTime": {
-                            "type": "Boolean",
-                            "value": "200"
-                          },
-                          "warningLevel": {
-                            "type": "Percentage",
-                            "value": "80"
-                          }
+                    .reply(200, {
+                        id: 'Second%20MQTT%20Device',
+                        type: 'AnMQTTDevice',
+                        sleepTime: {
+                            type: 'Boolean',
+                            value: '200'
+                        },
+                        warningLevel: {
+                            type: 'Percentage',
+                            value: '80'
                         }
-                    );
+                    });
                 mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
                 configurationReceived = false;
@@ -221,7 +218,7 @@ describe('MQTT: Get configuration from the devices', function () {
 
             mqttClient.publish('/1234/MQTT_2/configuration/commands', JSON.stringify(values), null, function (error) {
                 setTimeout(function () {
-                    request(optionsNotify, function (error, response, body) {
+                    utils.request(optionsNotify, function (error, response, body) {
                         setTimeout(function () {
                             configurationReceived.should.equal(true);
                             done();

@@ -31,7 +31,6 @@ const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const should = require('should');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
@@ -88,7 +87,7 @@ describe('HTTP: Measure reception ', function () {
             .reply(204);
 
         iotaJson.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
+            utils.request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
@@ -134,7 +133,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            qs: {
+            searchParams: {
                 i: 'MQTT_2',
                 k: '1234'
             }
@@ -161,7 +160,7 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
         });
         it('should return a 200 OK with no error', function (done) {
-            request(optionsMeasure, function (error, result, body) {
+            utils.request(optionsMeasure, function (error, result, body) {
                 should.not.exist(error);
                 result.statusCode.should.equal(200);
                 done();
@@ -169,7 +168,7 @@ describe('HTTP: Measure reception ', function () {
         });
 
         it('should send its value to the Context Broker', function (done) {
-            request(optionsMeasure, function (error, result, body) {
+            utils.request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -194,7 +193,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            qs: {
+            searchParams: {
                 i: 'dev0130101',
                 k: '1234'
             }
@@ -244,7 +243,7 @@ describe('HTTP: Measure reception ', function () {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
                 iotaJson.start(config, function () {
-                    request(provisionOptions, function (error, response, body) {
+                    utils.request(provisionOptions, function (error, response, body) {
                         done();
                     });
                 });
@@ -257,7 +256,7 @@ describe('HTTP: Measure reception ', function () {
         });
 
         it('should send its value to the Context Broker', function (done) {
-            request(optionsMeasure, function (error, result, body) {
+            utils.request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -280,7 +279,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            qs: {
+            searchParams: {
                 i: 'dev0130101',
                 k: '1234',
                 t: '20200222T222222'
@@ -331,7 +330,7 @@ describe('HTTP: Measure reception ', function () {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
                 iotaJson.start(config, function () {
-                    request(provisionOptions, function (error, response, body) {
+                    utils.request(provisionOptions, function (error, response, body) {
                         done();
                     });
                 });
@@ -344,7 +343,7 @@ describe('HTTP: Measure reception ', function () {
         });
 
         it('should send its value to the Context Broker', function (done) {
-            request(optionsMeasure, function (error, result, body) {
+            utils.request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -369,7 +368,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            qs: {
+            searchParams: {
                 i: 'JSON_UNPROVISIONED',
                 k: 'KL223HHV8732SFL1'
             }
@@ -404,13 +403,13 @@ describe('HTTP: Measure reception ', function () {
                 .query({ type: 'TheLightType' })
                 .reply(204);
 
-            request(groupCreation, function (error, response, body) {
+            utils.request(groupCreation, function (error, response, body) {
                 done();
             });
         });
 
         it('should send its value to the Context Broker', function (done) {
-            request(optionsMeasure, function (error, result, body) {
+            utils.request(optionsMeasure, function (error, result, body) {
                 contextBrokerUnprovMock.done();
                 done();
             });
@@ -424,14 +423,14 @@ describe('HTTP: Measure reception ', function () {
                     'fiware-service': 'smartgondor',
                     'fiware-servicepath': '/gardens'
                 },
-                qs: {
+                searchParams: {
                     i: 'JSON_UNPROVISIONED',
                     k: 'KL223HHV8732SFL1'
                 }
             };
 
-            request(optionsMeasure, function (error, response, body) {
-                request(getDeviceOptions, function (error, response, body) {
+            utils.request(optionsMeasure, function (error, response, body) {
+                utils.request(getDeviceOptions, function (error, response, body) {
                     should.not.exist(error);
                     const parsedBody = JSON.parse(body);
 

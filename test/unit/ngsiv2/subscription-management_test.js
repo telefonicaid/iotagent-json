@@ -29,7 +29,6 @@ const iotaJson = require('../../../');
 const mqtt = require('mqtt');
 const config = require('./config-test.js');
 const nock = require('nock');
-const request = require('request');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
@@ -119,7 +118,7 @@ describe('Subscription management', function () {
         it('should cease sending measures to the CB', function (done) {
             async.series(
                 [
-                    async.apply(request, provisionOptions),
+                    async.apply(utils.request, provisionOptions),
                     sendMeasures('32', '87'),
                     waitForMqttRelay(50),
                     iotaJson.stop,
@@ -165,7 +164,7 @@ describe('Subscription management', function () {
         it('should resume sending measures for the provisioned devices', function (done) {
             async.series(
                 [
-                    async.apply(request, provisionOptions),
+                    async.apply(utils.request, provisionOptions),
                     sendMeasures('32', '87'),
                     waitForMqttRelay(50),
                     iotaJson.stop,

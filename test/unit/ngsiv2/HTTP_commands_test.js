@@ -31,7 +31,6 @@ const nock = require('nock');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
 let mockedClientServer;
 let contextBrokerMock;
@@ -65,7 +64,7 @@ describe('HTTP: Commands', function () {
             .reply(204);
 
         iotagentMqtt.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
+            utils.request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
@@ -114,20 +113,20 @@ describe('HTTP: Commands', function () {
         });
 
         it('should return a 204 OK without errors', function (done) {
-            request(commandOptions, function (error, response, body) {
+            utils.request(commandOptions, function (error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(204);
                 done();
             });
         });
         it('should update the status in the Context Broker', function (done) {
-            request(commandOptions, function (error, response, body) {
+            utils.request(commandOptions, function (error, response, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
         it('should publish the command information in the MQTT topic', function (done) {
-            request(commandOptions, function (error, response, body) {
+            utils.request(commandOptions, function (error, response, body) {
                 setTimeout(function () {
                     mockedClientServer.done();
                     done();

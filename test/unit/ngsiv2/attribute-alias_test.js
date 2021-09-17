@@ -31,7 +31,6 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
 let contextBrokerMock;
 let mqttClient;
@@ -65,7 +64,7 @@ describe('Attribute alias', function () {
             .reply(204);
 
         iotaJson.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
+            utils.request(provisionOptions, function (error, response, body) {
                 done();
             });
         });

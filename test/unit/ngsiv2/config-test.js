@@ -29,7 +29,7 @@ const config = {};
 
 config.mqtt = {
     host: 'localhost',
-    port: 1883,
+    port: 1883
 };
 
 config.http = {

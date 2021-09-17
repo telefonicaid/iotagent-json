@@ -22,6 +22,7 @@
  */
 
 const fs = require('fs');
+const got = require('got');
 
 function readExampleFile(name, raw) {
     let text = null;
@@ -35,10 +36,34 @@ function readExampleFile(name, raw) {
 }
 
 function delay(ms) {
-    return function(callback) {
+    return function (callback) {
         setTimeout(callback, ms);
     };
 }
 
+function request(options, callback) {
+    const httpOptions = {
+        method: options.method,
+        searchParams: options.searchParams,
+        headers: options.headers,
+        throwHttpErrors: false,
+        retry: 0
+    };
+
+    if (options.method !== 'GET') {
+        httpOptions.json = options.json;
+        httpOptions.body = options.body;
+    }
+
+    got(options.url, httpOptions)
+        .then((response) => {
+            return callback(null, response, response.body);
+        })
+        .catch((error) => {
+            return callback(error, error, null);
+        });
+}
+
 exports.readExampleFile = readExampleFile;
 exports.delay = delay;
+exports.request = request;
