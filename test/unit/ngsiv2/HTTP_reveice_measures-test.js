@@ -31,6 +31,7 @@ const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const should = require('should');
 const async = require('async');
+
 const utils = require('../../utils');
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
@@ -119,7 +120,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234'
             }
@@ -165,7 +166,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'dev0130101',
                 k: '1234'
             }
@@ -238,7 +239,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'dev0130101',
                 k: '1234'
             }
@@ -310,7 +311,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'dev0130101',
                 k: '1234',
                 t: '20200222T222222'
@@ -383,7 +384,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'dev0130101',
                 k: '1234',
                 t: '20200222T222222'
@@ -456,7 +457,7 @@ describe('HTTP: Measure reception ', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'JSON_UNPROVISIONED',
                 k: 'KL223HHV8732SFL1'
             }
@@ -501,7 +502,7 @@ describe('HTTP: Measure reception ', function () {
                     'fiware-service': 'smartgondor',
                     'fiware-servicepath': '/gardens'
                 },
-                searchParams: {
+                qs: {
                     i: 'JSON_UNPROVISIONED',
                     k: 'KL223HHV8732SFL1'
                 }
@@ -510,11 +511,9 @@ describe('HTTP: Measure reception ', function () {
             utils.request(optionsMeasure, function (error, response, body) {
                 utils.request(getDeviceOptions, function (error, response, body) {
                     should.not.exist(error);
-                    const parsedBody = JSON.parse(body);
-
                     response.statusCode.should.equal(200);
-                    should.exist(parsedBody.devices[0].transport);
-                    parsedBody.devices[0].transport.should.equal('HTTP');
+                    should.exist(body.devices[0].transport);
+                    body.devices[0].transport.should.equal('HTTP');
                     done();
                 });
             });

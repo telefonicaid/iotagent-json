@@ -29,6 +29,7 @@ const iotaJson = require('../../../');
 const mqtt = require('mqtt');
 const config = require('./config-test.js');
 const nock = require('nock');
+
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');

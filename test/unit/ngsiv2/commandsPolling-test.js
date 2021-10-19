@@ -30,6 +30,7 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const should = require('should');
+
 const utils = require('../../utils');
 let mockedClientServer;
 let contextBrokerMock;
@@ -123,7 +124,7 @@ describe('HTTP Transport binding: polling commands', function () {
             json: {
                 a: 23
             },
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234',
                 getCmd: 1
@@ -153,8 +154,7 @@ describe('HTTP Transport binding: polling commands', function () {
         });
 
         it('should return a list of the pending commands', function (done) {
-            utils.request(deviceRequest, function (error, response) {
-                const body = JSON.parse(response.body);
+            utils.request(deviceRequest, function (error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(200);
                 should.exist(body.PING);
@@ -191,7 +191,7 @@ describe('HTTP Transport binding: polling commands', function () {
             json: {
                 a: 23
             },
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234',
                 getCmd: 1
@@ -202,7 +202,7 @@ describe('HTTP Transport binding: polling commands', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'GET',
             json: true,
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234',
                 getCmd: 1
@@ -232,8 +232,7 @@ describe('HTTP Transport binding: polling commands', function () {
         });
 
         it('should return a list of the pending commands', function (done) {
-            utils.request(deviceRequestWithoutPayload, function (error, response) {
-                const body = JSON.parse(response.body);
+            utils.request(deviceRequestWithoutPayload, function (error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(200);
                 should.exist(body.PING);
@@ -274,25 +273,23 @@ describe('HTTP Transport binding: polling commands', function () {
             json: {
                 PING: 'MADE_OK'
             },
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234'
             }
         };
 
         beforeEach(function (done) {
-            /*contextBrokerMock
+            contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus5.json')
                 )
-                .reply(204);*/
+                .reply(204);
 
-            utils.request(commandOptions, function (error, response, body) {
-                done();
-            });
+            utils.request(commandOptions, done);
         });
 
         it('should update the entity in the Context Broker with the OK status and the result', function (done) {

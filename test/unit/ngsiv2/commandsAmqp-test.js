@@ -29,6 +29,7 @@ const iotagentMqtt = require('../../../');
 const config = require('./config-test.js');
 const nock = require('nock');
 const async = require('async');
+
 const utils = require('../../utils');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
@@ -128,7 +129,7 @@ describe('AMQP Transport binding: commands', function () {
         it('should return a 204 OK without errors', function (done) {
             utils.request(commandOptions, function (error, response, body) {
                 should.not.exist(error);
-                response.body.should.equal('');
+                should.not.exist(body);
                 response.statusCode.should.equal(204);
                 done();
             });

@@ -62,10 +62,10 @@
     "body-parser": "1.18.3",
     "dateformat": "3.0.3",
     "express": "~4.16.4",
-    "iotagent-node-lib": "git://github.com/telefonicaid/iotagent-node-lib.git#master",
+    "iotagent-node-lib": "git://github.com/jason-fox/iotagent-node-lib.git#feature/request-shim",
     "logops": "2.1.0",
     "mqtt": "3.0.0",
-    "got": "^11.8.2",
+    "request": "2.88.0",
     "sinon": "~6.1.0",
     "underscore": "1.12.1"
   },

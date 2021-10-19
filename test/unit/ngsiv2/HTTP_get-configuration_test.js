@@ -29,6 +29,7 @@ const nock = require('nock');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
+
 const utils = require('../../utils');
 let mockedClientServer;
 let contextBrokerMock;
@@ -89,7 +90,7 @@ describe('HTTP: Get configuration from the devices', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234'
             }
@@ -158,7 +159,7 @@ describe('HTTP: Get configuration from the devices', function () {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
             },
-            searchParams: {
+            qs: {
                 i: 'MQTT_2',
                 k: '1234'
             }
