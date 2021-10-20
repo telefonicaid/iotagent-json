@@ -33,6 +33,7 @@ const should = require('should');
 const async = require('async');
 
 const utils = require('../../utils');
+const request = utils.request;
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
     method: 'POST',
@@ -177,13 +178,13 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsTrue, function (error, response, body) {
+            request(groupExplicitAttrsTrue, function (error, response, body) {
                 done();
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -252,15 +253,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsTrue, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupExplicitAttrsTrue, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store all attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -328,15 +329,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsTrue, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupExplicitAttrsTrue, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -403,15 +404,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsTrue, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupExplicitAttrsTrue, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -453,13 +454,13 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsFalse, function (error, response, body) {
+            request(groupExplicitAttrsFalse, function (error, response, body) {
                 done();
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -528,15 +529,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsFalse, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupExplicitAttrsFalse, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store all attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -604,15 +605,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsFalse, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupExplicitAttrsFalse, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -680,15 +681,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupExplicitAttrsFalse, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupExplicitAttrsFalse, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -730,13 +731,13 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupWithoutExplicitAttrs, function (error, response, body) {
+            request(groupWithoutExplicitAttrs, function (error, response, body) {
                 done();
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -805,15 +806,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupWithoutExplicitAttrs, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupWithoutExplicitAttrs, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store all attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -881,15 +882,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupWithoutExplicitAttrs, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupWithoutExplicitAttrs, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -957,15 +958,15 @@ describe('explicitAttrs tests', function () {
                 .query({ type: 'Sensor:Temperature' })
                 .reply(204);
 
-            utils.request(groupWithoutExplicitAttrs, function (error, response, body) {
-                utils.request(provisionDevice, function (error, response, body) {
+            request(groupWithoutExplicitAttrs, function (error, response, body) {
+                request(provisionDevice, function (error, response, body) {
                     done();
                 });
             });
         });
 
         it('should store only explicit attributes', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });

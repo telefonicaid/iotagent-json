@@ -30,6 +30,7 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const async = require('async');
 const utils = require('../../utils');
+const request = utils.request;
 const iotAgentLib = require('iotagent-node-lib');
 const amqp = require('amqplib/callback_api');
 const apply = async.apply;
@@ -151,7 +152,7 @@ describe('AMQP Transport binding: measures', function () {
                 .query({ type: 'SensorMachine' })
                 .reply(204);
 
-            utils.request(groupCreation, function (error, response, body) {
+            request(groupCreation, function (error, response, body) {
                 done();
             });
         });

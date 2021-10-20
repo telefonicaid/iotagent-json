@@ -30,6 +30,7 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const async = require('async');
 const utils = require('../../utils');
+const request = utils.request;
 const iotAgentLib = require('iotagent-node-lib');
 const amqp = require('amqplib/callback_api');
 const apply = async.apply;

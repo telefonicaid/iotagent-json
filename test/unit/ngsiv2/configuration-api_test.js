@@ -32,6 +32,7 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const should = require('should');
 const utils = require('../../utils');
+const request = utils.request;
 let contextBrokerMock;
 let contextBrokerUnprovMock;
 let iotamMock;
@@ -150,8 +151,8 @@ describe('Configuration API support', function () {
         });
 
         it('should use the API Key of that configuration in device topics', function (done) {
-            utils.request(configurationOptions, function (error, response, body) {
-                utils.request(provisionOptions, function (error, response, body) {
+            request(configurationOptions, function (error, response, body) {
+                request(provisionOptions, function (error, response, body) {
                     mqttClient.publish('/json/728289/MQTT_2/attrs/temperature', '87', null, function (error) {
                         setTimeout(function () {
                             contextBrokerUnprovMock.done();
@@ -187,7 +188,7 @@ describe('Configuration API support', function () {
         });
 
         it('should reject the configuration provisioning with a BAD FORMAT error', function (done) {
-            utils.request(configurationOptionsWithResource, function (error, response, body) {
+            request(configurationOptionsWithResource, function (error, response, body) {
                 should.not.exist(error);
 
                 response.statusCode.should.equal(400);

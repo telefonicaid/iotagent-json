@@ -31,6 +31,7 @@ const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
 
 const utils = require('../../utils');
+const request = utils.request;
 let mockedClientServer;
 let contextBrokerMock;
 let oldConfigurationFlag;
@@ -65,7 +66,7 @@ describe('HTTP: Get configuration from the devices', function () {
         config.configRetrieval = true;
 
         iotagentMqtt.start(config, function () {
-            utils.request(provisionOptions, function (error, response, body) {
+            request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
@@ -127,7 +128,7 @@ describe('HTTP: Get configuration from the devices', function () {
         });
 
         it('should reply with a 200 OK', function (done) {
-            utils.request(configurationRequest, function (error, response, body) {
+            request(configurationRequest, function (error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(200);
                 done();
@@ -135,13 +136,13 @@ describe('HTTP: Get configuration from the devices', function () {
         });
 
         it('should ask the Context Broker for the request attributes', function (done) {
-            utils.request(configurationRequest, function (error, response, body) {
+            request(configurationRequest, function (error, response, body) {
                 contextBrokerMock.done();
                 done();
             });
         });
         it('should return the requested attributes to the client in the client endpoint', function (done) {
-            utils.request(configurationRequest, function (error, response, body) {
+            request(configurationRequest, function (error, response, body) {
                 mockedClientServer.done();
                 done();
             });
@@ -186,7 +187,7 @@ describe('HTTP: Get configuration from the devices', function () {
         });
 
         it('should create a subscription in the ContextBroker', function (done) {
-            utils.request(configurationRequest, function (error, response, body) {
+            request(configurationRequest, function (error, response, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -202,9 +203,9 @@ describe('HTTP: Get configuration from the devices', function () {
                 }
             };
 
-            utils.request(configurationRequest, function (error, response, body) {
+            request(configurationRequest, function (error, response, body) {
                 setTimeout(function () {
-                    utils.request(optionsNotify, function () {
+                    request(optionsNotify, function () {
                         setTimeout(function () {
                             mockedClientServer.done();
                             done();

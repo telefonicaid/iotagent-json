@@ -34,6 +34,7 @@ const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
 const utils = require('../../utils');
+const request = utils.request;
 let contextBrokerMock;
 let mqttClient;
 
@@ -119,7 +120,7 @@ describe('Subscription management', function () {
         it('should cease sending measures to the CB', function (done) {
             async.series(
                 [
-                    async.apply(utils.request, provisionOptions),
+                    async.apply(request, provisionOptions),
                     sendMeasures('32', '87'),
                     waitForMqttRelay(50),
                     iotaJson.stop,
@@ -165,7 +166,7 @@ describe('Subscription management', function () {
         it('should resume sending measures for the provisioned devices', function (done) {
             async.series(
                 [
-                    async.apply(utils.request, provisionOptions),
+                    async.apply(request, provisionOptions),
                     sendMeasures('32', '87'),
                     waitForMqttRelay(50),
                     iotaJson.stop,

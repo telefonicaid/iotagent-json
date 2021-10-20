@@ -33,6 +33,7 @@ const should = require('should');
 const async = require('async');
 
 const utils = require('../../utils');
+const request = utils.request;
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
     method: 'POST',
@@ -88,7 +89,7 @@ describe('HTTP: Measure reception ', function () {
             .reply(204);
 
         iotaJson.start(config, function () {
-            utils.request(provisionOptions, function (error, response, body) {
+            request(provisionOptions, function (error, response, body) {
                 done();
             });
         });
@@ -161,7 +162,7 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
         });
         it('should return a 200 OK with no error', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 should.not.exist(error);
                 result.statusCode.should.equal(200);
                 done();
@@ -169,7 +170,7 @@ describe('HTTP: Measure reception ', function () {
         });
 
         it('should send its value to the Context Broker', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -244,7 +245,7 @@ describe('HTTP: Measure reception ', function () {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
                 iotaJson.start(config, function () {
-                    utils.request(provisionOptions, function (error, response, body) {
+                    request(provisionOptions, function (error, response, body) {
                         done();
                     });
                 });
@@ -257,7 +258,7 @@ describe('HTTP: Measure reception ', function () {
         });
 
         it('should send its value to the Context Broker', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -331,7 +332,7 @@ describe('HTTP: Measure reception ', function () {
                 config.iota.timestamp = true;
                 config.compressTimestamp = false;
                 iotaJson.start(config, function () {
-                    utils.request(provisionOptions, function (error, response, body) {
+                    request(provisionOptions, function (error, response, body) {
                         done();
                     });
                 });
@@ -344,7 +345,7 @@ describe('HTTP: Measure reception ', function () {
         });
 
         it('should send its value to the Context Broker', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
             });
@@ -404,13 +405,13 @@ describe('HTTP: Measure reception ', function () {
                 .query({ type: 'TheLightType' })
                 .reply(204);
 
-            utils.request(groupCreation, function (error, response, body) {
+            request(groupCreation, function (error, response, body) {
                 done();
             });
         });
 
         it('should send its value to the Context Broker', function (done) {
-            utils.request(optionsMeasure, function (error, result, body) {
+            request(optionsMeasure, function (error, result, body) {
                 contextBrokerUnprovMock.done();
                 done();
             });
@@ -430,8 +431,8 @@ describe('HTTP: Measure reception ', function () {
                 }
             };
 
-            utils.request(optionsMeasure, function (error, response, body) {
-                utils.request(getDeviceOptions, function (error, response, body) {
+            request(optionsMeasure, function (error, response, body) {
+                request(getDeviceOptions, function (error, response, body) {
                     should.not.exist(error);
                     response.statusCode.should.equal(200);
                     should.exist(body.devices[0].transport);
