@@ -82,7 +82,7 @@ describe('AMQP Transport binding: measures', function () {
         async.series(
             [
                 apply(iotaJson.start, config),
-                apply(utils.request, provisionOptions),
+                apply(request, provisionOptions),
                 apply(startConnection, config.amqp.exchange)
             ],
             done

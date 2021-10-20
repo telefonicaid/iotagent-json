@@ -88,7 +88,7 @@ describe('AMQP Transport binding: commands', function () {
         async.series(
             [
                 apply(iotagentMqtt.start, config),
-                apply(utils.request, provisionOptions),
+                apply(request, provisionOptions),
                 apply(startConnection, config.amqp.exchange)
             ],
             done
