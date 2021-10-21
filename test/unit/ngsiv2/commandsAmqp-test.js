@@ -235,7 +235,7 @@ describe('AMQP Transport binding: commands', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch(
+                .post(
                     '/v2/entities/Fourth%20MQTT%20Device/attrs?type=MQTTCommandDevice',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus3.json')
                 )
