@@ -65,7 +65,6 @@
     "iotagent-node-lib": "git://github.com/jason-fox/iotagent-node-lib.git#feature/request-shim",
     "logops": "2.1.0",
     "mqtt": "3.0.0",
-    "request": "2.88.0",
     "sinon": "~6.1.0",
     "underscore": "1.12.1"
   },
