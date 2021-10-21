@@ -131,6 +131,12 @@ describe('AMQP Transport binding: commands', function () {
             request(commandOptions, function (error, response, body) {
                 should.not.exist(error);
                 response.statusCode.should.equal(204);
+                // This is a request library specific body check,
+                // got returns an empty body as blank, not an undefined.
+                if (body === '') {
+                    body = undefined;
+                }
+                should.not.exist(body);
                 done();
             });
         });
