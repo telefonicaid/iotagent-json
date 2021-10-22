@@ -1,0 +1,19 @@
+{
+    "enabler": "FIWARE IoT Agent for a JSON-based Protocol",
+    "chapter": "iotagents",
+    "academy": "iot-agents/idas",
+    "readthedocs": "fiware-iotagent-json",
+    "helpdesk": "",
+    "coveralls": "",
+    "github": ["telefonicaid/iotagent-json"],
+    "dockerregistry": ["hub.docker.com"],
+    "docker": ["telefonicaiot/iotagent-json"],
+    "email": "iot_support@tid.es",
+    "status": "full",
+    "compose": "",
+    "exclude": [""],
+    "stackexchange": ["fiware+iot"],
+    "unit-test": "",
+    "smoke-test": "",
+    "dockerfile": "https://github.com/telefonicaid/iotagent-json/blob/master/docker/Dockerfile"
+}
