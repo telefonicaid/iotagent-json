@@ -1,3 +1,1 @@
-- Fix service and subservice to 'n/a' when apikey from measure is not found (needs iota-node-lib => 2.18) (#587)
-- Remove: NGSI-v1 specific behaviours (iotagent-lib#966)
 - Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
