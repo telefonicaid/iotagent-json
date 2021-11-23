@@ -143,6 +143,7 @@ describe('HTTP binding - Update command provisioned devices', function () {
 
                     const parsedBody = JSON.parse(body);
                     console.log(parsedBody);
+                    // FIXME: there is no way of obtain polling field fo a device, is just an internal field
                     //parsedBody.polling.equal(false);
                     done();
                 });
