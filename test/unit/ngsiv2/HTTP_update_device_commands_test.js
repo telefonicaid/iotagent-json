@@ -36,7 +36,7 @@ const utils = require('../../utils');
 let mockedClientServer;
 let contextBrokerMock;
 
-describe('HTTP binding - Update command provisioned devices', function () {
+describe('HTTP binding - Update command provisioned devices from polling to push', function () {
     const provisionOptions = {
         url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
         method: 'POST',
@@ -69,6 +69,23 @@ describe('HTTP binding - Update command provisioned devices', function () {
             request(provisionOptions, function (error, response, body) {
                 done();
             });
+        });
+    });
+
+    it('should have provisioned as polling', function (done) {
+        const options = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices/Light_HTTP_2',
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            method: 'GET'
+        };
+        request(options, function (error, response, body) {
+            /* jshint camelcase:false */
+            const parsedBody = JSON.parse(body);
+            parsedBody.polling.should.equal(true);
+            done();
         });
     });
 
@@ -127,7 +144,7 @@ describe('HTTP binding - Update command provisioned devices', function () {
             });
         });
 
-        it('should have updated the data when asking for the particular device', function (done) {
+        it('should have updated device as push', function (done) {
             request(optionsUpdate, function (error, response, body) {
                 const options = {
                     url: 'http://localhost:' + config.iota.server.port + '/iot/devices/Light_HTTP_2',
@@ -140,11 +157,8 @@ describe('HTTP binding - Update command provisioned devices', function () {
 
                 request(options, function (error, response, body) {
                     /* jshint camelcase:false */
-
                     const parsedBody = JSON.parse(body);
-                    console.log(parsedBody);
-                    // FIXME: there is no way of obtain polling field fo a device, is just an internal field
-                    //parsedBody.polling.equal(false);
+                    parsedBody.polling.should.equal(false);
                     done();
                 });
             });
