@@ -48,7 +48,7 @@ describe('HTTP binding - Update command provisioned devices from polling to push
     };
 
     beforeEach(function (done) {
-        config.logLevel = 'DEBUG';
+        config.logLevel = 'FATAL';
         nock.cleanAll();
         const nockBody = utils.readExampleFile(
             './test/unit/ngsiv2/contextAvailabilityRequests/registerProvisionedDevice.json'
