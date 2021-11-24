@@ -1,1 +1,1 @@
-- FIX: update polling when device is updated by adding en3dpoint (needs iota-node-lib >= 2.19) (#602)
+- FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
