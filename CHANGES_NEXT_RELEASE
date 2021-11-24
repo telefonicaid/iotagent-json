@@ -1,0 +1,1 @@
+- FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
