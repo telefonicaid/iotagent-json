@@ -1,0 +1,27 @@
+{
+  "devices": [
+    {
+      "device_id": "Light_HTTP_2",
+      "protocol": "GENERIC_PROTO",
+      "entity_name": "Second MQTT Device",
+      "timezone": "America/Santiago",
+      "entity_type": "AnMQTTDevice",
+      "commands": [
+        {
+          "name": "PING",
+          "type": "command"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "temperature",
+          "type": "celsius"
+        },
+        {
+          "name": "humidity",
+          "type": "degrees"
+        }
+      ]
+    }
+  ]
+}
