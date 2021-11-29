@@ -1,2 +1,2 @@
-- FIX: provide device type to findCOnfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
+- FIX: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
 - FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
