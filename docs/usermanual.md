@@ -499,6 +499,15 @@ npm run
 
 The following sections show the available options in detail.
 
+### Start
+
+Runs a local version of the IoT Agent
+
+```bash
+# Use git-bash on Windows
+npm start
+```
+
 ### Testing
 
 [Mocha](https://mochajs.org/) Test Runner + [Should.js](https://shouldjs.github.io/) Assertion Library.
