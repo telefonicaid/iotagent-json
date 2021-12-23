@@ -1,3 +1,4 @@
 - FIX: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
 - FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
+- FIX: Remove preprocess stripping of explicitAttrs (iotagent-node-lib#1151)
 - FIX: Add graceful shutdown listening to SIGINT (#606)

@@ -6,6 +6,11 @@
           "type": "percent",
           "name": "humidity",
           "object_id": "h"
+        },
+        {
+          "type": "DateTime",
+          "name": "TimeInstant",
+          "object_id": "t"
         }
       ],
       "entity_type": "sensor",
