@@ -30,8 +30,9 @@ const nock = require('nock');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const request = require('request');
+
 const utils = require('../../utils');
+const request = utils.request;
 let contextBrokerMock;
 let oldConfigurationFlag;
 let mqttClient;
@@ -94,20 +95,18 @@ describe('MQTT: Get configuration from the devices', function () {
                     .matchHeader('fiware-service', 'smartgondor')
                     .matchHeader('fiware-servicepath', '/gardens')
                     .get('/v2/entities/Second%20MQTT%20Device/attrs?attrs=sleepTime,warningLevel&type=AnMQTTDevice')
-                    .reply(200, 
-                        {
-                          "id" : "Second%20MQTT%20Device",
-                          "type" : "AnMQTTDevice",
-                          "sleepTime": {
-                            "type": "Boolean",
-                            "value": "200"
-                          },
-                          "warningLevel": {
-                            "type": "Percentage",
-                            "value": "80"
-                          }
+                    .reply(200, {
+                        id: 'Second%20MQTT%20Device',
+                        type: 'AnMQTTDevice',
+                        sleepTime: {
+                            type: 'Boolean',
+                            value: '200'
+                        },
+                        warningLevel: {
+                            type: 'Percentage',
+                            value: '80'
                         }
-                    );
+                    });
                 mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
 
                 configurationReceived = false;

@@ -29,11 +29,12 @@ const iotaJson = require('../../../');
 const mqtt = require('mqtt');
 const config = require('./config-test.js');
 const nock = require('nock');
-const request = require('request');
+
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
 const utils = require('../../utils');
+const request = utils.request;
 let contextBrokerMock;
 let mqttClient;
 

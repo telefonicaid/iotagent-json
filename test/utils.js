@@ -22,6 +22,7 @@
  */
 
 const fs = require('fs');
+const request = require('iotagent-node-lib').request;
 
 function readExampleFile(name, raw) {
     let text = null;
@@ -35,10 +36,11 @@ function readExampleFile(name, raw) {
 }
 
 function delay(ms) {
-    return function(callback) {
+    return function (callback) {
         setTimeout(callback, ms);
     };
 }
 
 exports.readExampleFile = readExampleFile;
 exports.delay = delay;
+exports.request = request;

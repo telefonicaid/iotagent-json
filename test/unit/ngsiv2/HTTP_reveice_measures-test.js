@@ -31,8 +31,9 @@ const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const should = require('should');
 const async = require('async');
-const request = require('request');
+
 const utils = require('../../utils');
+const request = utils.request;
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
     method: 'POST',
@@ -511,11 +512,9 @@ describe('HTTP: Measure reception ', function () {
             request(optionsMeasure, function (error, response, body) {
                 request(getDeviceOptions, function (error, response, body) {
                     should.not.exist(error);
-                    const parsedBody = JSON.parse(body);
-
                     response.statusCode.should.equal(200);
-                    should.exist(parsedBody.devices[0].transport);
-                    parsedBody.devices[0].transport.should.equal('HTTP');
+                    should.exist(body.devices[0].transport);
+                    body.devices[0].transport.should.equal('HTTP');
                     done();
                 });
             });

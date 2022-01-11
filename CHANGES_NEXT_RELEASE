@@ -1,3 +1,4 @@
+- Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
 - FIX: default mqtt keepalive value by conf (must be 60 instead of 0) (ul#527)
 - FIX: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
 - FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)

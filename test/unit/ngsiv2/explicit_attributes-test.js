@@ -31,8 +31,9 @@ const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const should = require('should');
 const async = require('async');
-const request = require('request');
+
 const utils = require('../../utils');
+const request = utils.request;
 const groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
     method: 'POST',

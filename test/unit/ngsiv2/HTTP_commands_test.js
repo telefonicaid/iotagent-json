@@ -31,8 +31,8 @@ const nock = require('nock');
 const should = require('should');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const request = require('request');
 const utils = require('../../utils');
+const request = utils.request;
 let mockedClientServer;
 let contextBrokerMock;
 
