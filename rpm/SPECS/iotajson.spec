@@ -169,6 +169,17 @@ fi
 %{_install_dir}
 
 %changelog
+* Thu Jan 13 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
+- Fix: pass parsedMessage (string not raw) to singleMeasure handler 
+- Add: allow handle binary messages
+- Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
+- FIX: default mqtt keepalive value by conf (must be 60 instead of 0) (ul#527)
+- FIX: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
+- FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
+- FIX: Remove preprocess stripping of explicitAttrs (iotagent-node-lib#1151)
+- FIX: Add graceful shutdown listening to SIGINT (#606)
+- Upgrade logops dep from 2.1.0 to 2.1.2 due to colors dependency corruption
+
 * Fri Nov 12 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.20.0
 - Fix service and subservice to 'n/a' when apikey from measure is not found (needs iota-node-lib => 2.18) (#587)
 - Remove: NGSI-v1 specific behaviours (iotagent-lib#966)
