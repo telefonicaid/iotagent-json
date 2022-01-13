@@ -174,7 +174,7 @@ describe('AMQP Transport binding: measures', function () {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP3.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
