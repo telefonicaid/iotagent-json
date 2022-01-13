@@ -1,6 +1,6 @@
 {
   "temperature":{
     "type": "celsius",
-    "value": "87"    
+    "value": 87
   }
 }
