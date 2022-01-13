@@ -1,4 +1,5 @@
-- Fix pass parsedMessage (string not raw) to singleMeasure handler 
+- Fix: pass parsedMessage (string not raw) to singleMeasure handler 
+- Add: allow handle binary messages
 - Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
 - FIX: default mqtt keepalive value by conf (must be 60 instead of 0) (ul#527)
 - FIX: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
