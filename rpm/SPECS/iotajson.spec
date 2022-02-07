@@ -170,14 +170,14 @@ fi
 
 %changelog
 * Mon Feb 7 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
+- Add: allow to handle binary messages
 - Fix: pass parsedMessage (string not raw) to singleMeasure handler 
-- Add: allow handle binary messages
+- Fix: default mqtt keepalive value by conf (must be 60 instead of 0) (iota-ul#527)
+- Fix: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
+- Fix: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
+- Fix: remove preprocess stripping of explicitAttrs (iotagent-node-lib#1151)
+- Fix: add graceful shutdown listening to SIGINT (#606)
 - Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
-- FIX: default mqtt keepalive value by conf (must be 60 instead of 0) (ul#527)
-- FIX: provide device type to findConfiguration to achieve a better group match in getEffectiveApiKey (iota-node-lib#1155)
-- FIX: update polling when device is updated by adding endpoint (needs iota-node-lib >= 2.19) (#602)
-- FIX: Remove preprocess stripping of explicitAttrs (iotagent-node-lib#1151)
-- FIX: Add graceful shutdown listening to SIGINT (#606)
 - Upgrade logops dep from 2.1.0 to 2.1.2 due to colors dependency corruption
 - Upgrade iotagent-node-lib dependency from 2.18.0 to 2.19.0
 
