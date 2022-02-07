@@ -169,7 +169,7 @@ fi
 %{_install_dir}
 
 %changelog
-* Mon Feb 7 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
+* Mon Feb 7 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
 - Fix: pass parsedMessage (string not raw) to singleMeasure handler 
 - Add: allow handle binary messages
 - Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
@@ -179,6 +179,7 @@ fi
 - FIX: Remove preprocess stripping of explicitAttrs (iotagent-node-lib#1151)
 - FIX: Add graceful shutdown listening to SIGINT (#606)
 - Upgrade logops dep from 2.1.0 to 2.1.2 due to colors dependency corruption
+- Upgrade iotagent-node-lib dependency from 2.18.0 to 2.19.0
 
 * Fri Nov 12 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.20.0
 - Fix service and subservice to 'n/a' when apikey from measure is not found (needs iota-node-lib => 2.18) (#587)
