@@ -169,7 +169,7 @@ fi
 %{_install_dir}
 
 %changelog
-* Thu Jan 13 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
+* Mon Feb 7 2021 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
 - Fix: pass parsedMessage (string not raw) to singleMeasure handler 
 - Add: allow handle binary messages
 - Fix: remove request obsolete library, using iotagent-node-lib.request instead (iotagent-node-lib#858)
