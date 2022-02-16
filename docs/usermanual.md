@@ -81,53 +81,6 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
 
-#### Sending Commands
-
-MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
-`endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
-command will be poll. When using the HTTP transport, the command handling have two flavours:
-
--   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
-    device will reply with a 200OK response containing the result of the command in the JSON result format.
-
--   **Polling commands**: in this case, the Agent does not send any messages to the device, being the later responsible
-    of retrieving them from the IoTAgent whenever the device is ready to get commands. In order to retrieve commands
-    from the IoT Agent, the device will send the query parameter 'getCmd' with value '1' as part of a normal measure. As
-    a result of this action, the IoTAgent, instead of returning an empty body (the typical response to a measurement
-    report), will return a list of all the commands available for the device, in JSON format: each attribute will
-    represent a command, and its value the command value. The use of a JSON return object implies that only one value
-    can be returned for each command (last value will be returned for each one). Implementation imposes another
-    limitation in the available values for the commands: a command value can't be an empty string, or a string composed
-    exclusively by whitespaces. Whenever the device has completed the execution of the command, it will send the
-    response in the same way measurements are reported, but using the **command result format** as exposed in the
-    [Protocol section](#protocol).
-
-Some additional remarks regarding polling commands:
-
--   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
-    a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
-    the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
--   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and
-    MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can
-    be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
-
-```json
-{
-    "commands": [
-        {
-            "type": "command",
-            "name": "a_command_name_A",
-            "mqtt": { "qos": 2, "retain": true }
-        },
-        {
-            "type": "command",
-            "name": "a_command_name_B",
-            "mqtt": { "qos": 1, "retain": false }
-        }
-    ]
-}
-```
-
 #### Configuration retrieval
 
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
@@ -196,7 +149,19 @@ MQTT devices commands are always push. For HTTP Devices commands to be push they
 command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
-    device will reply with a 200OK response containing the result of the command in the JSON result format.
+    device will reply with a 200OK response containing the result of the command in the JSON result format. Example
+    of the HTTP request sent by IOTA in the case of push command:
+
+```
+POST http://[DEVICE_IP]:[PORT]
+fiware-service: smart
+fiware-servicepath: /streetligths
+content-type: application/json
+
+{
+  "turn": "left"
+}
+```
 
 -   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
     time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the
@@ -209,18 +174,32 @@ command will be poll. When using the HTTP transport, the command handling have t
     values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
     The command payload is described in the protocol section. Whenever the device has completed the execution of the
     command, it will send the response in the same way measurements are reported, but using the command result format as
-    exposed in the Protocol section.
+    exposed in the [commands syntax section](#commands-syntax) (**FIXME**: this section has to be created, see how it's done in IOTA-UL).
 
 Some additional remarks regarding polling commands:
 
--   Commands can be also retrieved without the need of sending a measure. In other words, the device is not forced to
-    send a measure in order to get the accumulated commands.
+-   Commands can be also retrieved without needed of sending a mesaure. In other words, the device is not forced to send
+    a measure in order to get the accumulated commands. However, in this case note that `GET` method is used to carry
+    the `getCmd=1` query parameter (as they are no actual payload for measures, `POST` wouldn't make too much sense).
 
-    Example to retrieve commands from IoT Agent-
+    Example to retrieve commands from IoT Agent:
 
 ```text
 curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1' -i
 ```
+
+-   Example of the HTTP response sent by IOTA in the case of polling commands (and two commands, `turn` and `move` are stored for that device):
+
+```
+200 OK
+Content-type: application/json
+
+{
+  "turn": "left",
+  "move": 20
+}
+```
+
 
 ### MQTT binding
 
@@ -432,6 +411,30 @@ $ mosquitto_pub -t /json/ABCDEF/id_sen1/cmdexe -m '{"ping": "1234567890"}' -h <m
 
 In the end, Context Broker will have updated the values of `ping_info` and `ping_status` to `1234567890` and `OK`,
 respectively. `ping` attribute is never updated.
+
+Some additional remarks regarding MQTT commands:
+
+-   MQTT devices can configure (at provisioning and updating time) each command with different values of MQTT QoS and
+    MQTT retain values, which will be used only by a command. Moreover, in the same MQTT device different commands can
+    be configured to use different MQTT options related with QoS level and Retain message policy. I.E:
+
+```json
+{
+    "commands": [
+        {
+            "type": "command",
+            "name": "a_command_name_A",
+            "mqtt": { "qos": 2, "retain": true }
+        },
+        {
+            "type": "command",
+            "name": "a_command_name_B",
+            "mqtt": { "qos": 1, "retain": false }
+        }
+    ]
+}
+```
+
 
 #### Bidirectionality Syntax
 
