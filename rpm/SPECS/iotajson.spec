@@ -169,6 +169,9 @@ fi
 %{_install_dir}
 
 %changelog
+* Mon Feb 7 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.1
+- Upgrade iotagent-node-lib dependency from 2.19.0 to 2.20.0
+
 * Mon Feb 7 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
 - Add: allow to handle binary messages
 - Fix: pass parsedMessage (string not raw) to singleMeasure handler 
