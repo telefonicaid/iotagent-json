@@ -19,7 +19,7 @@
 # For those usages not covered by the GNU Affero General Public License
 # please contact with: [daniel.moranjimenez@telefonica.com]
 
-ARG NODE_VERSION=14
+ARG NODE_VERSION=14-slim
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
 ARG DOWNLOAD=latest
