@@ -59,6 +59,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3008
 RUN \
+	apt-get update && \
 	# Ensure that unzip is installed prior to downloading
 	apt-get install -y --no-install-recommends unzip && \
 	if [ "${DOWNLOAD}" = "latest" ] ; \
@@ -88,6 +89,7 @@ WORKDIR /opt/iotagent-json
 
 # hadolint ignore=DL3008
 RUN \
+	apt-get update && \
 	# Ensure that Git is installed prior to running npm install
 	apt-get install -y --no-install-recommends git && \
 	echo "INFO: npm install --production..." && \
