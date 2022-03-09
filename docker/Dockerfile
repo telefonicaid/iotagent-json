@@ -81,7 +81,7 @@ RUN \
 	mv "${GITHUB_REPOSITORY}-${RELEASE_CONCAT}" /opt/iotagent-json && \
 	# Remove unzip and clean apt cache
 	apt-get clean && \
-	apt-get remove -y unzip && \
+	apt-get remove -y unzip curl && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/* 
 
