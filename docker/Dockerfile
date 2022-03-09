@@ -61,7 +61,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN \
 	apt-get update && \
 	# Ensure that unzip is installed prior to downloading
-	apt-get install -y --no-install-recommends unzip && \
+	apt-get install -y --no-install-recommends unzip curl && \
 	if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
 		RELEASE="${SOURCE_BRANCH}"; \
