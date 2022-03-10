@@ -19,7 +19,7 @@
 # For those usages not covered by the GNU Affero General Public License
 # please contact with: [daniel.moranjimenez@telefonica.com]
 
-ARG NODE_VERSION=14-slim
+ARG NODE_VERSION=14
 ARG GITHUB_ACCOUNT=telefonicaid
 ARG GITHUB_REPOSITORY=iotagent-json
 ARG DOWNLOAD=latest
@@ -59,9 +59,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3008
 RUN \
-	apt-get update && \
 	# Ensure that unzip is installed prior to downloading
-	apt-get install -y --no-install-recommends unzip curl && \
+	apt-get install -y --no-install-recommends unzip && \
 	if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
 		RELEASE="${SOURCE_BRANCH}"; \
@@ -81,7 +80,7 @@ RUN \
 	mv "${GITHUB_REPOSITORY}-${RELEASE_CONCAT}" /opt/iotagent-json && \
 	# Remove unzip and clean apt cache
 	apt-get clean && \
-	apt-get remove -y unzip curl && \
+	apt-get remove -y unzip && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/* 
 
@@ -89,7 +88,6 @@ WORKDIR /opt/iotagent-json
 
 # hadolint ignore=DL3008
 RUN \
-	apt-get update && \
 	# Ensure that Git is installed prior to running npm install
 	apt-get install -y --no-install-recommends git && \
 	echo "INFO: npm install --production..." && \
