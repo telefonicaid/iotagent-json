@@ -1,3 +1,4 @@
+ Fix: replace git:// to https:// url for npm dependences
  Upgrade NodeJS version from 12 to 14 in Dockerfile
  Remove: obsolete iotaJsonTester binary 
  
