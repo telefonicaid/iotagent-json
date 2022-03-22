@@ -9,4 +9,4 @@ This IoT Agent uses the [FIWARE IoT Agent Node.js Library](https://github.com/te
 This is why most of the functionalities of this component depend on the new features of the library itself. 
 
 For this reason, the roadmap of this component would be defined by the IoT Agent Node Library Roadmap that you can check
-[here](https://github.com/telefonicaid/iotagent-node-lib/blob/master/docs/roadmap.md)
+[here](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/roadmap.md)
