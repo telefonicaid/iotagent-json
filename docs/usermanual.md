@@ -149,8 +149,8 @@ MQTT devices commands are always push. For HTTP Devices commands to be push they
 command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
-    device will reply with a 200OK response containing the result of the command in the JSON result format. Example
-    of the HTTP request sent by IOTA in the case of push command:
+    device will reply with a 200OK response containing the result of the command in the JSON result format. Example of
+    the HTTP request sent by IOTA in the case of push command:
 
 ```
 POST http://[DEVICE_IP]:[PORT]
@@ -174,7 +174,8 @@ content-type: application/json
     values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
     The command payload is described in the protocol section. Whenever the device has completed the execution of the
     command, it will send the response in the same way measurements are reported, but using the command result format as
-    exposed in the [commands syntax section](#commands-syntax) (**FIXME**: this section has to be created, see how it's done in IOTA-UL).
+    exposed in the [commands syntax section](#commands-syntax) (**FIXME**: this section has to be created, see how it's
+    done in IOTA-UL).
 
 Some additional remarks regarding polling commands:
 
@@ -188,7 +189,8 @@ Some additional remarks regarding polling commands:
 curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1' -i
 ```
 
--   Example of the HTTP response sent by IOTA in the case of polling commands (and two commands, `turn` and `move` are stored for that device):
+-   Example of the HTTP response sent by IOTA in the case of polling commands (and two commands, `turn` and `move` are
+    stored for that device):
 
 ```
 200 OK
@@ -199,7 +201,6 @@ Content-type: application/json
   "move": 20
 }
 ```
-
 
 ### MQTT binding
 
@@ -435,7 +436,6 @@ Some additional remarks regarding MQTT commands:
 }
 ```
 
-
 #### Bidirectionality Syntax
 
 The latest versions of the Provisioning API allow for the definition of reverse expressions to keep data shared between
@@ -443,6 +443,36 @@ the Context Broker and the device in sync (regardless of whether the data origin
 a transformation expression in the IoTAgent). In this cases, when a reverse expression is defined, whenever the
 bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
+
+#### Commands transformations
+
+It is possible to use expressions to transform commands, in the same way that other attributes could do it, that is
+adding `expression` to command definition. This way a command could be defined like:
+
+```json
+{
+    "name": "reset",
+    "type": "command",
+    "expression": "{ set: 0}"
+}
+```
+
+and when command will be executed the command value will be the result of apply value to defined expression. Followig
+the example case the command will be:
+
+```json
+{
+    "set": 0
+}
+```
+
+Additionally a command could define a `payloadType` in their definnition with the aim to transform payload command with
+the following meanings:
+
+-   **binaryfromstring**: Payload will transformed into a be Buffer after read it form a string.
+-   **binaryfromhexstring**: Payload will transformed into a be Buffer after read it form a string hex.
+-   **binaryfromjson**: Payload will transformed into a be Buffer after read it form a JSON string.
+-   **json**: This is the default case. Paylaod will be stringify form a JSON.
 
 #### AMQP binding
 
