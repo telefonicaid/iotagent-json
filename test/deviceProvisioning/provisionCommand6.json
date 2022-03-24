@@ -9,8 +9,7 @@
       "commands": [
         {
           "name": "PING",
-          "type": "command",
-          "payloadType": "binaryfromstring"
+          "type": "command"
         }
       ]
     }
