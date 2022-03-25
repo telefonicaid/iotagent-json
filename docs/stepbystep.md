@@ -139,45 +139,6 @@ Device Registry will be wiped out from memory when the IoTAgent restarts. This i
 environments and it will force you to provision again all your devices once you have restarted the agent. For persistent
 registries, check the documentation to see how to connect the IoTA to a MongoDB instance.
 
-### Using the command-line clients
-
-The IoT Agent comes with a command-line client that can be used for an initial testing of the installation. This client
-offers commands to simulate MQTT requests with measures, device and configuration provisioning requests and NGSI queries
-to the Context Broker, that can be used to test the results.
-
-In order to start the command-line client, just type:
-
-```bash
-bin/iotaJsonTester.js
-```
-
-You can type `help` for a brief description of the full list of commands.
-
-Mosquitto also comes along with two command-line utilities that can be used to test the MQTT south-bound of the IoTA.
-
-Mosquitto-sub can be used to subscribe to a certain topic, showing all the information sent to the topic in the console
-output. To subscribe to a topic, use:
-
-```bash
-mosquitto_sub -h <mosquittoIp> -t /<apiKey>/<devId>/attrs
-```
-
-Where <mosquittoIp> is the IP where your instance of the Mosquitto broker is listening and <apiKey> and <devId> depend
-on the device you are using. You can omit the `-h` parameter if working on localhost.
-
-Mosquitto-pub can be used to send information to a topic. This will be a typical execution example:
-
-```bash
-mosquitto_pub -h <mosquittoIp> -t /<apiKey>/<devId>/attrs -m '{"L":4,"T": "31.5","H":30}'
-```
-
-If you execute both commands in different windows, when you run the latter command, you should see the string
-`{"L":4,"T": "31.5","H":30}` appearing in the former.
-
-This tutorial will use mainly the mosquitto clients and curl commands, to give a detailed view of how the APIs - NGSI
-traffic north of the IoT Agent and MQTT (with a JSON payload) south of the IoT Agent. Whenever a command is needed, the
-exact command to be executed will be given.
-
 ### Provisioning the device
 
 In order to start using the IoTA, a new device must be provisioned. We will use curl commands to create it. Execute the
