@@ -1,3 +1,4 @@
+ Fix: bad mqtt measure is progressing as a multiple measure after be procesed as hex string (#642)
  Fix: search device and group for a command using entity type when provided to proper match (iota-node-lib#1211)
  Fix: replace git:// to https:// url for npm dependences
  Upgrade NodeJS version from 12 to 14 in Dockerfile
