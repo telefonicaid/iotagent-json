@@ -470,7 +470,7 @@ Additionally a command could define a `payloadType` in their definnition with th
 the following meanings:
 
 -   **binaryfromstring**: Payload will transformed into a be Buffer after read it form a string.
--   **binaryfromhexstring**: Payload will transformed into a be Buffer after read it form a string hex.
+-   **binaryfromhex**: Payload will transformed into a be Buffer after read it form a string hex.
 -   **binaryfromjson**: Payload will transformed into a be Buffer after read it form a JSON string.
 -   **json**: This is the default case. Paylaod will be stringify form a JSON.
 
