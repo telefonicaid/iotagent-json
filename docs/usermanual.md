@@ -149,19 +149,25 @@ MQTT devices commands are always push. For HTTP Devices commands to be push they
 command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
-    device will reply with a 200OK response containing the result of the command in the JSON result format. Example
-    of the HTTP request sent by IOTA in the case of push command:
+    device will reply with a 200OK response containing the result of the command in the JSON result format. 
+    Example of the HTTP request sent by IOTA in the case of push command:
 
-```
-POST http://[DEVICE_IP]:[PORT]
-fiware-service: smart
-fiware-servicepath: /streetligths
-content-type: application/json
+      ```
+         POST http://[DEVICE_IP]:[PORT]
+         fiware-service: smart
+         fiware-servicepath: /streetligths
+         content-type: application/json
 
-{
-  "turn": "left"
-}
-```
+         {
+            "turn": "left"
+         }
+     ```
+     And an example of the response sent by device to IOTA could be:
+     ```json
+        {
+            "turn": "turn to left was right"
+        }
+     ```
 
 -   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
     time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the
