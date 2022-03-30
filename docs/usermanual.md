@@ -465,7 +465,7 @@ adding `expression` to command definition. This way a command could be defined l
 }
 ```
 
-and when command will be executed the command value will be the result of apply value to defined expression. Followig
+and when command will be executed the command value will be the result of apply value to defined expression. Following
 the example case the command will be:
 
 ```json
@@ -477,10 +477,10 @@ the example case the command will be:
 Additionally a command could define a `payloadType` in their definnition with the aim to transform payload command with
 the following meanings:
 
--   **binaryfromstring**: Payload will transformed into a be Buffer after read it form a string.
--   **binaryfromhex**: Payload will transformed into a be Buffer after read it form a string hex.
--   **binaryfromjson**: Payload will transformed into a be Buffer after read it form a JSON string.
--   **json**: This is the default case. Payload will be stringify form a JSON.
+-   **binaryfromstring**: Payload will transformed into a be Buffer after read it from a string.
+-   **binaryfromhex**: Payload will transformed into a be Buffer after read it from a string hex.
+-   **binaryfromjson**: Payload will transformed into a be Buffer after read it from a JSON string.
+-   **json**: This is the default case. Payload will be stringify from a JSON.
 
 Moreover a command could define a `contentType` in their definnition with the aim to set `content-type` header for http
 transport in command. Default value will be `application/json` but other valids content-type could be: `text/plain`,
