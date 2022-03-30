@@ -480,7 +480,7 @@ the following meanings:
 -   **binaryfromstring**: Payload will transformed into a be Buffer after read it form a string.
 -   **binaryfromhex**: Payload will transformed into a be Buffer after read it form a string hex.
 -   **binaryfromjson**: Payload will transformed into a be Buffer after read it form a JSON string.
--   **json**: This is the default case. Paylaod will be stringify form a JSON.
+-   **json**: This is the default case. Payload will be stringify form a JSON.
 
 Moreover a command could define a `contentType` in their definnition with the aim to set `content-type` header for http
 transport in command. Default value will be `application/json` but other valids content-type could be: `text/plain`,
