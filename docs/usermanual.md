@@ -149,25 +149,27 @@ MQTT devices commands are always push. For HTTP Devices commands to be push they
 command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
-    device will reply with a 200OK response containing the result of the command in the JSON result format. 
-    Example of the HTTP request sent by IOTA in the case of push command:
+    device will reply with a 200OK response containing the result of the command in the JSON result format. Example of
+    the HTTP request sent by IOTA in the case of push command:
 
-      ```
-         POST http://[DEVICE_IP]:[PORT]
-         fiware-service: smart
-         fiware-servicepath: /streetligths
-         content-type: application/json
+    ```
+       POST http://[DEVICE_IP]:[PORT]
+       fiware-service: smart
+       fiware-servicepath: /streetligths
+       content-type: application/json
 
-         {
-            "turn": "left"
-         }
-     ```
-     And an example of the response sent by device to IOTA could be:
-     ```json
-        {
-            "turn": "turn to left was right"
-        }
-     ```
+       {
+          "turn": "left"
+       }
+    ```
+
+    And an example of the response sent by device to IOTA could be:
+
+    ```json
+    {
+        "turn": "turn to left was right"
+    }
+    ```
 
 -   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
     time waiting for commands. In this case, the IoTAgents must store the received commands, offering a way for the
@@ -180,7 +182,8 @@ command will be poll. When using the HTTP transport, the command handling have t
     values for the commands: a command value can't be an empty string, or a string composed exclusively by whitespaces.
     The command payload is described in the protocol section. Whenever the device has completed the execution of the
     command, it will send the response in the same way measurements are reported, but using the command result format as
-    exposed in the [commands syntax section](#commands-syntax) (**FIXME**: this section has to be created, see how it's done in IOTA-UL).
+    exposed in the [commands syntax section](#commands-syntax) (**FIXME**: this section has to be created, see how it's
+    done in IOTA-UL).
 
 Some additional remarks regarding polling commands:
 
@@ -194,7 +197,8 @@ Some additional remarks regarding polling commands:
 curl -X GET 'http://localhost:7896/iot/json?i=motion001&k=4jggokgpepnvsb2uv4s40d59ov&getCmd=1' -i
 ```
 
--   Example of the HTTP response sent by IOTA in the case of polling commands (and two commands, `turn` and `move` are stored for that device):
+-   Example of the HTTP response sent by IOTA in the case of polling commands (and two commands, `turn` and `move` are
+    stored for that device):
 
 ```
 200 OK
@@ -205,7 +209,6 @@ Content-type: application/json
   "move": 20
 }
 ```
-
 
 ### MQTT binding
 
@@ -441,7 +444,6 @@ Some additional remarks regarding MQTT commands:
 }
 ```
 
-
 #### Bidirectionality Syntax
 
 The latest versions of the Provisioning API allow for the definition of reverse expressions to keep data shared between
@@ -449,6 +451,40 @@ the Context Broker and the device in sync (regardless of whether the data origin
 a transformation expression in the IoTAgent). In this cases, when a reverse expression is defined, whenever the
 bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
 reverse expression attribute and the ID of the device (see Commands Syntax, just above).
+
+#### Commands transformations
+
+It is possible to use expressions to transform commands, in the same way that other attributes could do it, that is
+adding `expression` to command definition. This way a command could be defined like:
+
+```json
+{
+    "name": "reset",
+    "type": "command",
+    "expression": "{ set: 0}"
+}
+```
+
+and when command will be executed the command value will be the result of apply value to defined expression. Following
+the example case the command will be:
+
+```json
+{
+    "set": 0
+}
+```
+
+Additionally a command could define a `payloadType` in their definition with the aim to transform payload command with
+the following meanings:
+
+-   **binaryfromstring**: Payload will transformed into a be Buffer after read it from a string.
+-   **binaryfromhex**: Payload will transformed into a be Buffer after read it from a string hex.
+-   **binaryfromjson**: Payload will transformed into a be Buffer after read it from a JSON string.
+-   **json**: This is the default case. Payload will be stringify from a JSON.
+
+Moreover a command could define a `contentType` in their definnition with the aim to set `content-type` header for http
+transport in command. Default value will be `application/json` but other valids content-type could be: `text/plain`,
+`text/html`, etc
 
 #### AMQP binding
 
