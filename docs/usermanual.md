@@ -144,6 +144,13 @@ E.g.:
 
 #### Commands
 
+All the interations between IotAgent and ContextBroker related to comamnds are described in
+[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands)
+and
+[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-happy-path)
+and
+[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-error).
+
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
 command will be poll. When using the HTTP transport, the command handling have two flavours:
@@ -338,8 +345,12 @@ E.g.:
 
 #### Commands
 
-The IoT Agent implements IoTAgent commands, as specified in the
-[IoTAgent library](https://github.com/telefonicaid/iotagent-node-lib).
+All the interations between IotAgent and ContextBroker related to comamnds are described in
+[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands)
+and
+[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-happy-path)
+and
+[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-error).
 
 Commands using the MQTT transport protocol binding always work in PUSH mode: the server publishes a message in a topic
 where the device is subscribed: the _commands topic_. Once the device has finished with the command, it publishes it
@@ -362,7 +373,8 @@ following topic:
 ```
 
 This message must contain one attribute per command to be updated; the value of that attribute is considered the result
-of the command, and will be passed as it is to the corresponding `_result` attribute in the entity.
+of the command, and will be passed as it is to the corresponding `_info` attribute (of type `commandResult`) in the
+entity.
 
 For instance, if a user wants to send a command `ping` with parameters `data = 22`, he will send the following request
 to the Context Broker regarding an entity called `sen1` of type `sensor`:
