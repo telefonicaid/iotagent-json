@@ -1,3 +1,6 @@
+ Upgrade MQTT dep from 3.0.0 to 4.3.7
+ Fix: ensure command QoS for MQTT is an integer
+ Fix: ensure mqtt client_id is unique between reconnections to avoid reconnection loop (#650)
  Add: apply expression and payload transformations to commands (#634, #627)
  Fix: bad mqtt measure is progressing as a multiple measure after be procesed as hex string (#642)
  Fix: search device and group for a command using entity type when provided to proper match (iota-node-lib#1211)
