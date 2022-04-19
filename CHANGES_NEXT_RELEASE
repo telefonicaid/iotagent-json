@@ -1,3 +1,4 @@
+ 
  Upgrade MQTT dep from 3.0.0 to 4.3.7
  Fix: ensure command QoS for MQTT is an integer
  Fix: ensure mqtt client_id is unique between reconnections to avoid reconnection loop (#650)
