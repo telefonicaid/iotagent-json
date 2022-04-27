@@ -1,3 +1,4 @@
+ Upgrade moment dep from 2.27.0 to 2.29.2 due to security vulnerability (CVE-2022-24785)
  Upgrade async dep from 2.6.1 to 2.6.4 due to security vulnerability (CWE-1321)
  Upgrade MQTT dep from 3.0.0 to 4.3.7
  Fix: ensure command QoS for MQTT is an integer
