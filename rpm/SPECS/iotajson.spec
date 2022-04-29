@@ -177,11 +177,11 @@ fi
 - Fix: search device and group for a command using entity type when provided to proper match (iota-node-lib#1211)
 - Fix: replace git:// to https:// url for npm dependences
 - Remove: obsolete iotaJsonTester binary
-- Upgrade NodeJS version from 12 to 14 in Dockerfile
+- Upgrade iotagent-node-lib dependency from 2.19.0 to 2.21.0
 - Upgrade moment dep from 2.27.0 to 2.29.2 due to security vulnerability (CVE-2022-24785)
 - Upgrade async dep from 2.6.1 to 2.6.4 due to security vulnerability (CWE-1321)
 - Upgrade MQTT dep from 3.0.0 to 4.3.7
-
+- Upgrade NodeJS version from 12 to 14 in Dockerfile
 
 * Mon Feb 7 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.21.0
 - Add: allow to handle binary messages
