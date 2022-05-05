@@ -57,7 +57,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # COPY . /opt/iotagent-json/
 #
 
-# hadolint ignore=DL3008
+# hadolint ignore=DL3008,DL3005
 RUN \
 	# Install security updates
 	apt-get update -y && \
