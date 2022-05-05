@@ -57,8 +57,11 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # COPY . /opt/iotagent-json/
 #
 
-# hadolint ignore=DL3008
+# hadolint ignore=DL3008,DL3005
 RUN \
+	# Install security updates
+	apt-get update -y && \
+	apt-get upgrade -y && \
 	# Ensure that unzip is installed prior to downloading
 	apt-get install -y --no-install-recommends unzip && \
 	if [ "${DOWNLOAD}" = "latest" ] ; \
