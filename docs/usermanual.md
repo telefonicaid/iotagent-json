@@ -57,6 +57,9 @@ implementation.
 HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
 directly put into Http messages.
 
+There is possible to send other kinds of payloads like `plain/text` and `application/octet-stream` by using proper URL
+`/iot/text` and `/iot/raw` respectively.
+
 #### Measure reporting
 
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute in
@@ -79,7 +82,8 @@ following query parameters:
 
 -   **i (device ID)**: Device ID (unique for the API Key).
 -   **k (API Key)**: API Key for the service the device is registered on.
--   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+-   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional)
+-   **attr (attr)**: Attribute name of the measure. Will expect just one measure(optional).
 
 #### Configuration retrieval
 
@@ -234,18 +238,16 @@ apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and `/FF957A98/MyDeviceId/c
 
 > **Note** Measures and commands are sent over different MQTT topics:
 >
-> *   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
-> *   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
+> -   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
+> -   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
 >
->  The reasoning behind this is that when sending measures northbound from device to IoT Agent,
->  it is necessary to explicitly identify which IoT Agent is needed to parse the data. This
->  is done by prefixing the relevant MQTT topic with a protocol, otherwise there is no way to
->  define which agent is processing the measure. This mechanism allows smart systems to connect
->  different devices to different IoT Agents according to need.
+> The reasoning behind this is that when sending measures northbound from device to IoT Agent, it is necessary to
+> explicitly identify which IoT Agent is needed to parse the data. This is done by prefixing the relevant MQTT topic
+> with a protocol, otherwise there is no way to define which agent is processing the measure. This mechanism allows
+> smart systems to connect different devices to different IoT Agents according to need.
 >
->  For southbound commands, this distinction is unnecessary since the correct IoT Agent has already
->  registered itself for the command during the device provisioning step and the device will always
->  receive commands in an appropriate format.
+> For southbound commands, this distinction is unnecessary since the correct IoT Agent has already registered itself for
+> the command during the device provisioning step and the device will always receive commands in an appropriate format.
 
 #### Measure reporting
 
