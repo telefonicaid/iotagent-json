@@ -101,7 +101,7 @@ describe('HTTP: Measure reception ', function () {
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-    describe('When a POST measure arrives for the HTTP binding', function () {
+    describe('When a POST single measure arrives for the HTTP binding', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',

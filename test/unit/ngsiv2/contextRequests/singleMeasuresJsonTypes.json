@@ -1,6 +1,6 @@
 {
   "humidity":{
-    "type": "None",
-    "value": "32"   
+    "type": "degrees",
+    "value": ["32"]
   }
 }
