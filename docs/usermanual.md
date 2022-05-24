@@ -58,7 +58,8 @@ HTTP binding is based on directly interfacing the agent from a HTTP client in th
 directly put into Http messages.
 
 There is possible to send other kinds of payloads like `plain/text` and `application/octet-stream` by using proper URL
-`/iot/text` and `/iot/raw` respectively.
+`/iot/text` and `/iot/raw` respectively instead of default `/iot/json` which expecteds a payload of content-type
+`application/json`.
 
 #### Measure reporting
 
