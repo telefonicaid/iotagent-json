@@ -101,7 +101,7 @@ describe('HTTP: Measure reception ', function () {
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-    describe('When a POST single measure arrives for the HTTP binding', function () {
+    describe('When a POST single JSON measure arrives for the HTTP binding', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -124,6 +124,51 @@ describe('HTTP: Measure reception ', function () {
                 .patch(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresJsonTypes.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
+                .reply(204);
+        });
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                should.not.exist(error);
+                result.statusCode.should.equal(200);
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST single Text measure arrives for the HTTP binding', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/text',
+            method: 'POST',
+            json: false,
+            body: '32',
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens',
+                'content-type': 'text/plain'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234',
+                attr: 'humidity'
+            }
+        };
+
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .patch(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresTextTypes.json')
                 )
                 .query({ type: 'AnMQTTDevice' })
                 .reply(204);
