@@ -103,7 +103,7 @@ describe('HTTP: Measure reception ', function () {
 
     describe('When a POST single JSON measure arrives for the HTTP binding', function () {
         const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/json',
+            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/humidity',
             method: 'POST',
             json: '32',
             headers: {
@@ -112,8 +112,7 @@ describe('HTTP: Measure reception ', function () {
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234',
-                attr: 'humidity'
+                k: '1234'
             }
         };
 
@@ -146,7 +145,7 @@ describe('HTTP: Measure reception ', function () {
 
     describe('When a POST single Text measure arrives for the HTTP binding', function () {
         const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/text',
+            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/humidity',
             method: 'POST',
             json: false,
             body: '32',
@@ -157,8 +156,7 @@ describe('HTTP: Measure reception ', function () {
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234',
-                attr: 'humidity'
+                k: '1234'
             }
         };
 
@@ -191,7 +189,7 @@ describe('HTTP: Measure reception ', function () {
 
     describe('When a POST single Raw measure arrives for the HTTP binding', function () {
         const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/raw',
+            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/humidity',
             method: 'POST',
             json: false,
             body: '32',
@@ -202,8 +200,7 @@ describe('HTTP: Measure reception ', function () {
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234',
-                attr: 'humidity'
+                k: '1234'
             }
         };
 
