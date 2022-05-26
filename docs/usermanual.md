@@ -57,10 +57,6 @@ implementation.
 HTTP binding is based on directly interfacing the agent from a HTTP client in the device. Json payloads are, therefore,
 directly put into Http messages.
 
-There is possible to send other kinds of payloads like `plain/text` and `application/octet-stream` by using proper URL
-`/iot/text` and `/iot/raw` respectively instead of default `/iot/json` which expecteds a payload of content-type
-`application/json`.
-
 #### Measure reporting
 
 The payload consists of a simple plain JSON object, where each attribute of the object will be mapped to an attribute in
@@ -84,7 +80,14 @@ following query parameters:
 -   **i (device ID)**: Device ID (unique for the API Key).
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional)
--   **attr (attr)**: Attribute name of the measure. Will expect just one measure(optional).
+
+##### Single Measure reporting
+
+It is possible to send a single measure to IoT Platform using an HTTP POST request to the `/iot/json/attrs/:attValue`
+and the previously explained query parameters.
+
+In this case, sending a single measure, there is possible to send other kinds of payloads like `plain/text` and
+`application/octet-stream`, not just `application/json`
 
 #### Configuration retrieval
 
