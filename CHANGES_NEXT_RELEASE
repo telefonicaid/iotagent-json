@@ -1,3 +1,3 @@
-- Allow receive single HTTP measures with content-type text/plain application/octet-stream
+- Allow receive single HTTP measures posted to `/iot/json/attrs/:attrValue` with different content-types `application/json`, `text/plain` and `application/octet-stream`
 - Do not use json parse strict for incoming http measures, commands and configuration
 - Fix: Dockerfile to include initial packages upgrade
