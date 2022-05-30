@@ -1,1 +1,2 @@
 - Fix: Dockerfile to include initial packages upgrade
+- Fix: Set service and subservice in logs when processing measures
