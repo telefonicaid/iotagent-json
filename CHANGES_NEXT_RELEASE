@@ -1,5 +1,5 @@
-- Allow receive single HTTP attribute measures posted to `/iot/json/attrs/<attributeName>` with different content-types `application/json`, `text/plain` and `application/octet-stream`
+- Add: allow receive single HTTP attribute measures posted to `/iot/json/attrs/<attributeName>` with different content-types `application/json`, `text/plain` and `application/octet-stream`
 - Upgrade body-parser dep from 1.18.3 to 1.20.0
-- Upgrade express dep from 4.16.4 to 4.18.1
-- Do not use json parse strict for incoming http measures, commands and configuration
+- Upgrade express dep from ~4.16.4 to 4.18.1
+- Fix: do not use json parse strict for incoming http measures, commands and configuration
 - Fix: Dockerfile to include initial packages upgrade
