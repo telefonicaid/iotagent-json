@@ -81,10 +81,10 @@ following query parameters:
 -   **k (API Key)**: API Key for the service the device is registered on.
 -   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional)
 
-##### Single Measure reporting
+##### Single Attribute Measure reporting
 
-It is possible to send a single measure to IoT Platform using an HTTP POST request to the `/iot/json/attrs/:attValue`
-and the previously explained query parameters.
+It is possible to send a single measure to IoT Platform using an HTTP POST request to the
+`/iot/json/attrs/<attributeName>` and the previously explained query parameters.
 
 In this case, sending a single measure, there is possible to send other kinds of payloads like `plain/text` and
 `application/octet-stream`, not just `application/json`
