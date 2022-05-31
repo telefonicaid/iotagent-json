@@ -79,7 +79,15 @@ following query parameters:
 
 -   **i (device ID)**: Device ID (unique for the API Key).
 -   **k (API Key)**: API Key for the service the device is registered on.
--   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+-   **t (timestamp)**: Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional)
+
+##### Single Attribute Measure reporting
+
+It is possible to send a single measure to IoT Platform using an HTTP POST request to the
+`/iot/json/attrs/<attributeName>` and the previously explained query parameters.
+
+In this case, sending a single measure, there is possible to send other kinds of payloads like `plain/text` and
+`application/octet-stream`, not just `application/json`
 
 #### Configuration retrieval
 
@@ -234,18 +242,16 @@ apikey and deviceid (e.g: `/FF957A98/MyDeviceId/cmd` and `/FF957A98/MyDeviceId/c
 
 > **Note** Measures and commands are sent over different MQTT topics:
 >
-> *   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
-> *   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
+> -   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
+> -   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
 >
->  The reasoning behind this is that when sending measures northbound from device to IoT Agent,
->  it is necessary to explicitly identify which IoT Agent is needed to parse the data. This
->  is done by prefixing the relevant MQTT topic with a protocol, otherwise there is no way to
->  define which agent is processing the measure. This mechanism allows smart systems to connect
->  different devices to different IoT Agents according to need.
+> The reasoning behind this is that when sending measures northbound from device to IoT Agent, it is necessary to
+> explicitly identify which IoT Agent is needed to parse the data. This is done by prefixing the relevant MQTT topic
+> with a protocol, otherwise there is no way to define which agent is processing the measure. This mechanism allows
+> smart systems to connect different devices to different IoT Agents according to need.
 >
->  For southbound commands, this distinction is unnecessary since the correct IoT Agent has already
->  registered itself for the command during the device provisioning step and the device will always
->  receive commands in an appropriate format.
+> For southbound commands, this distinction is unnecessary since the correct IoT Agent has already registered itself for
+> the command during the device provisioning step and the device will always receive commands in an appropriate format.
 
 #### Measure reporting
 
