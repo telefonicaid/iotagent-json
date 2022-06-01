@@ -1,0 +1,12 @@
+{
+  "humidity":{
+    "type": "degrees",
+     "value": { 
+         "type": "Buffer",
+         "data": [
+             51,
+             50
+         ]
+     }
+  }
+}
