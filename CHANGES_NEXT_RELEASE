@@ -4,3 +4,4 @@
 - Fix: do not use json parse strict for incoming http measures, commands and configuration
 - Fix: Dockerfile to include initial packages upgrade
 - Fix: Set service and subservice in logs when processing measures
+- Hardening: remove useless code in HTTP transport functions
