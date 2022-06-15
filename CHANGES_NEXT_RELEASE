@@ -5,3 +5,4 @@
 - Fix: Dockerfile to include initial packages upgrade
 - Fix: Set service and subservice in logs when processing measures
 - Hardening: remove useless code in HTTP transport functions
+- Upgrade NodeJS version from 14-slim to 16-slim in Dockerfile
