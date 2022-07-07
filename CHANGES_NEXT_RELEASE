@@ -1,3 +1,4 @@
+- Fix: default transport used by commands and config when no defined at device level (#673)
 - Add: allow receive single HTTP attribute measures posted to `/iot/json/attrs/<attributeName>` with different content-types `application/json`, `text/plain` and `application/octet-stream` (#661)
 - Upgrade body-parser dep from 1.18.3 to 1.20.0
 - Upgrade express dep from ~4.16.4 to 4.18.1
