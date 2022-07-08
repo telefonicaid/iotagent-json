@@ -10,7 +10,8 @@
       "commands": [
         {
           "name": "PING",
-          "type": "command"
+          "type": "command",
+          "expression": "id+type"
         }
       ]
     }
