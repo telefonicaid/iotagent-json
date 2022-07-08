@@ -108,7 +108,7 @@ describe('HTTP: Commands', function () {
 
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command', function (body) {
-                    return body || body === 'MQTT_2AnMQTTDevice';
+                    return body.PING || body.PING.data || body.PING.data === 22;
                 })
                 .reply(200, '{"PING":{"data":"22"}}');
         });
