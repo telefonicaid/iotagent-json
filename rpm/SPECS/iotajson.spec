@@ -169,6 +169,19 @@ fi
 %{_install_dir}
 
 %changelog
+* Fri Jul 15 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.23.0
+- Add: allow apply expression to device http endpoint (for push commands) (#670)
+- Add: include device ID, Type, Service and SubService in context to expression push command
+- Add: allow receive single HTTP attribute measures posted to `/iot/json/attrs/<attributeName>` with different content-types `application/json`, `text/plain` and `application/octet-stream` (#661)
+- Fix: default transport used by commands and config when no defined at device level (#673)
+- Fix: do not use json parse strict for incoming http measures, commands and configuration
+- Fix: Dockerfile to include initial packages upgrade
+- Fix: Set service and subservice in logs when processing measures
+- Hardening: remove useless code in HTTP transport functions
+- Upgrade NodeJS version from 14-slim to 16-slim in Dockerfile
+- Upgrade body-parser dep from 1.18.3 to 1.20.0
+- Upgrade express dep from ~4.16.4 to 4.18.1
+
 * Fri Apr 29 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.22.0
 - Add: apply expression and payload transformations to commands (#634, #627)
 - Fix: ensure command QoS for MQTT is an integer
