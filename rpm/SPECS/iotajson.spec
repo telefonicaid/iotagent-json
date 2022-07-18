@@ -169,7 +169,7 @@ fi
 %{_install_dir}
 
 %changelog
-* Fri Jul 15 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.23.0
+* Mon Jul 18 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.23.0
 - Add: allow apply expression to device http endpoint (for push commands) (#670)
 - Add: include device ID, Type, Service and SubService in context to expression push command
 - Add: allow receive single HTTP attribute measures posted to `/iot/json/attrs/<attributeName>` with different content-types `application/json`, `text/plain` and `application/octet-stream` (#661)
