@@ -178,9 +178,10 @@ fi
 - Fix: Dockerfile to include initial packages upgrade
 - Fix: Set service and subservice in logs when processing measures
 - Hardening: remove useless code in HTTP transport functions
-- Upgrade NodeJS version from 14-slim to 16-slim in Dockerfile
 - Upgrade body-parser dep from 1.18.3 to 1.20.0
 - Upgrade express dep from ~4.16.4 to 4.18.1
+- Upgrade iotagent-node-lib dependency from 2.21.0 to 2.22.0
+- Upgrade NodeJS version from 14-slim to 16-slim in Dockerfile
 
 * Fri Apr 29 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.22.0
 - Add: apply expression and payload transformations to commands (#634, #627)
