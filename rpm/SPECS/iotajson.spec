@@ -169,6 +169,9 @@ fi
 %{_install_dir}
 
 %changelog
+* Thu Jul 21 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.24.0
+- Upgrade iotagent-node-lib dependency from 2.22.0 to 2.23.0
+
 * Mon Jul 18 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.23.0
 - Add: allow apply expression to device http endpoint (for push commands) (#670)
 - Add: include device ID, Type, Service and SubService in context to expression push command
