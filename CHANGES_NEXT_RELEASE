@@ -1,1 +1,2 @@
+- Save group apikey in device when autoprovision device (iota-node-lib#1245)
 - Fix: mqtt error handling was calling callback in loop (#679)
