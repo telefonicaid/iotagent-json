@@ -202,7 +202,7 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_MQTT_AVOID_LEADING_SLASH | mqtt.avoidLeadingSlash  |
 | IOTA_MQTT_CLEAN               | mqtt.clean              |
 | IOTA_MQTT_CLIENT_ID           | mqtt.clientId           |
-| IOTA_MQTT_DISABLED            |                         |
+| IOTA_MQTT_DISABLED            | mqtt.disabled           |
 | IOTA_AMQP_HOST                | amqp.host               |
 | IOTA_AMQP_PORT                | amqp.port               |
 | IOTA_AMQP_USERNAME            | amqp.username           |
@@ -212,7 +212,7 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_AMQP_DURABLE             | amqp.durable            |
 | IOTA_AMQP_RETRIES             | amqp.retries            |
 | IOTA_AMQP_RETRY_TIME          | amqp.retryTime          |
-| IOTA_AMQP_DISABLED            |                         |
+| IOTA_AMQP_DISABLED            | amqp.disabled           |
 | IOTA_HTTP_HOST                | http.host               |
 | IOTA_HTTP_PORT                | http.port               |
 | IOTA_HTTP_TIMEOUT             | http.timeout            |
