@@ -82,7 +82,7 @@ describe('Startup tests', function () {
             config.getConfig().mqtt.retries.should.equal('2');
             config.getConfig().mqtt.retryTime.should.equal('5');
             config.getConfig().mqtt.keepalive.should.equal('0');
-            config.getConfig().mqtt.disabled.equal(true);
+            config.getConfig().mqtt.disabled.should.equal(true);
             done();
         });
     });
@@ -125,7 +125,7 @@ describe('Startup tests', function () {
             config.getConfig().amqp.options.durable.should.equal(true);
             config.getConfig().amqp.retries.should.equal('0');
             config.getConfig().amqp.retryTime.should.equal('5');
-            config.getConfig().amqp.disabled.equal(true);
+            config.getConfig().amqp.disabled.should.equal(true);
             done();
         });
     });
