@@ -1,1 +1,0 @@
-- Fix: mqtt error handling was calling callback in loop (#679)
