@@ -58,7 +58,7 @@
   },
   "keywords": [],
   "dependencies": {
-    "amqplib": "~0.5.1",
+    "amqplib": "~0.10.3",
     "async": "2.6.4",
     "body-parser": "1.20.0",
     "dateformat": "3.0.3",
