@@ -169,6 +169,10 @@ fi
 %{_install_dir}
 
 %changelog
+* Fri Sep 02 2022 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.25.0
+- Fix: mqtt error handling was calling callback in loop (#679)
+- Upgrade iotagent-node-lib dependency from 2.23.0 to 2.24.0
+
 * Thu Jul 21 2022 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 1.24.0
 - Upgrade iotagent-node-lib dependency from 2.22.0 to 2.23.0
 
