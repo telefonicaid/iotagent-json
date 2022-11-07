@@ -97,7 +97,12 @@ config.mqtt = {
     /**
      * Whether to use slashes at the beginning of topic when sending or not
      */
-    avoidLeadingSlash: false
+    avoidLeadingSlash: false,
+
+    /**
+     * Flag to disable the MQTT transport. (default is false).
+     */
+    disabled: false
 };
 
 /**
@@ -131,7 +136,12 @@ config.amqp = {
     /**
      * durable queue flag (default is false).
      */
-    options: { durable: true }
+    options: { durable: true },
+
+    /**
+     * Flag to disable the AMQP transport. (default is false).
+     */
+    disabled: false
 };
 
 /**
