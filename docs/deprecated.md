@@ -17,8 +17,9 @@ A list of deprecated features and the version in which they were deprecated foll
 -   Support to Node.js v6 in iotagent-json 1.10.0 (finally removed in 1.11.0)
 -   Support to Node.js v8 in iotagent-json 1.14.0 (finally removed in 1.15.0)
 -   Support to Node.js v10 in iotagent-json 1.17.0. (finally removed in 1.18.0)
+-   Support to NGSI-LD v1.3 in iotagent-json 1.26.0
 
-The use of Node.js v12 is highly recommended.
+The use of Node.js v14 is highly recommended.
 
 ## Using old iotagent-json versions
 
