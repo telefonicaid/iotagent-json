@@ -44,7 +44,7 @@ const groupCreation = {
                 apikey: 'KL223HHV8732SFL1',
                 entity_type: 'TheLightType',
                 trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                cbHost: 'http://unexistentHost:1026',
+                cbHost: 'http://192.168.1.1:1026',
                 commands: [],
                 lazy: [],
                 attributes: [
@@ -169,7 +169,7 @@ describe('MQTT: Measure reception ', function () {
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
-            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')
