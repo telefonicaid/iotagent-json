@@ -169,6 +169,13 @@ fi
 %{_install_dir}
 
 %changelog
+* Tue Jan 24 2023 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.26.0
+- Add: IOTA_MQTT_DISABLED (mqtt.disabled) and IOTA_AMQP_DISABLED (amqp.disabled) flags to disable MQTT and AMQP (#685)
+- Fix: save group apikey in device when autoprovision device (iota-node-lib#1245)
+- Upgrade iotagent-node-lib dependency from 2.24.0 to 2.25.0
+- Hardening: use pluginUtils from iota-node-lib
+- Set Nodejs 14 as minimum version in packages.json (effectively removing Nodev12 from supported versions)
+
 * Fri Sep 02 2022 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.25.0
 - Fix: mqtt error handling was calling callback in loop (#679)
 - Upgrade iotagent-node-lib dependency from 2.23.0 to 2.24.0
