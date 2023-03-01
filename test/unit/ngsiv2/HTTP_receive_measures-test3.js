@@ -145,9 +145,58 @@ describe('HTTP: Measure reception ', function () {
 
     describe('When a POST single JSON measure with NGSIv2 format arrives for the HTTP binding', function () {
         const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/humidity',
+            url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
-            json: '32',
+            json: {
+                actionType: 'APPEND',
+                entities: [
+                    {
+                        id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                        type: 'Streetlight',
+                        name: {
+                            type: 'Text',
+                            value: 'MyLightPoint-test1'
+                        },
+                        description: {
+                            type: 'Text',
+                            value: 'testdescription'
+                        },
+                        status: {
+                            type: 'Text',
+                            value: 'connected'
+                        },
+                        dateServiceStarted: {
+                            type: 'DateTime',
+                            value: '2020-06-04T09: 55: 02'
+                        },
+                        locationComment: {
+                            type: 'Text',
+                            value: 'Test1'
+                        },
+                        location: {
+                            type: 'geo:json',
+                            value: {
+                                coordinates: [-87.88429, 41.99499],
+                                type: 'Point'
+                            }
+                        },
+                        address: {
+                            type: 'Text',
+                            value: {
+                                streetAddress: 'MyStreet'
+                            }
+                        },
+                        isRemotelyManaged: {
+                            type: 'Integer',
+                            value: 1
+                        },
+                        installationDate: {
+                            type: 'DateTime',
+                            value: '2022-04-17T02: 30: 04'
+                        }
+                    }
+                ]
+            },
             headers: {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
