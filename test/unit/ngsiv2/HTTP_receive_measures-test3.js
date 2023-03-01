@@ -145,7 +145,7 @@ describe('HTTP: Measure reception ', function () {
 
     describe('When a POST single JSON measure with NGSIv2 format arrives for the HTTP binding', function () {
         const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/json',
+            url: 'http://localhost:' + config.http.port + '/iot/json/',
             method: 'POST',
             json: {
                 actionType: 'APPEND',

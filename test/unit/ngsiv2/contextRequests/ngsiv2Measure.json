@@ -1,6 +1,6 @@
 {
     "actionType": {
-        "value:": "APPEND",
+        "value": "APPEND",
         "type": "string"
     },
     "entities": {
@@ -31,7 +31,10 @@
                 "location": {
                     "type": "geo:json",
                     "value": {
-                        "coordinates": [ -87.88429, 41.99499 ],
+                        "coordinates": [
+                            -87.88429,
+                            41.99499
+                        ],
                         "type": "Point"
                     }
                 },
