@@ -143,6 +143,48 @@ describe('HTTP: Measure reception ', function () {
         });
     });
 
+    describe('When a POST single JSON measure with NGSIv2 format arrives for the HTTP binding', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/humidity',
+            method: 'POST',
+            json: '32',
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .patch(
+                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2Measure.json')
+                )
+                .query({ type: 'AnMQTTDevice' })
+                .reply(204);
+        });
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                should.not.exist(error);
+                result.statusCode.should.equal(200);
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
     describe('When a POST single Text measure arrives for the HTTP binding', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json/attrs/humidity',
