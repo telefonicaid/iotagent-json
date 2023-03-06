@@ -204,8 +204,6 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
 
             iotaJson.stop(function () {
-                config.iota.timestamp = true;
-                config.compressTimestamp = false;
                 iotaJson.start(config, function () {
                     request(provisionOptions, function (error, response, body) {
                         done();
@@ -214,10 +212,7 @@ describe('HTTP: Measure reception ', function () {
             });
         });
 
-        afterEach(function () {
-            config.iota.timestamp = false;
-            config.compressTimestamp = true;
-        });
+        afterEach(function () {});
 
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
@@ -277,8 +272,6 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
 
             iotaJson.stop(function () {
-                config.iota.timestamp = true;
-                config.compressTimestamp = false;
                 iotaJson.start(config, function () {
                     request(provisionOptions, function (error, response, body) {
                         done();
@@ -287,10 +280,7 @@ describe('HTTP: Measure reception ', function () {
             });
         });
 
-        afterEach(function () {
-            config.iota.timestamp = false;
-            config.compressTimestamp = true;
-        });
+        afterEach(function () {});
 
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
@@ -350,8 +340,6 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
 
             iotaJson.stop(function () {
-                config.iota.timestamp = true;
-                config.compressTimestamp = false;
                 iotaJson.start(config, function () {
                     request(provisionOptions, function (error, response, body) {
                         done();
@@ -360,10 +348,7 @@ describe('HTTP: Measure reception ', function () {
             });
         });
 
-        afterEach(function () {
-            config.iota.timestamp = false;
-            config.compressTimestamp = true;
-        });
+        afterEach(function () {});
 
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
@@ -423,8 +408,6 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
 
             iotaJson.stop(function () {
-                config.iota.timestamp = true;
-                config.compressTimestamp = false;
                 iotaJson.start(config, function () {
                     request(provisionOptions, function (error, response, body) {
                         done();
@@ -433,10 +416,7 @@ describe('HTTP: Measure reception ', function () {
             });
         });
 
-        afterEach(function () {
-            config.iota.timestamp = false;
-            config.compressTimestamp = true;
-        });
+        afterEach(function () {});
 
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
