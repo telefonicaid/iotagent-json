@@ -172,6 +172,7 @@ fi
 * Thu Mar 30 2023 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 2.0.0
 - Removed plugins to align with ioagente-node-lib (v3.0) refactor
 - Align tests with iota-node-lib (v3.0) refactor
+- Upgrade iotagent-node-lib dependency from 2.25.0 to 3.0.0
 
 * Tue Jan 24 2023 Fermin Galan <fermin.galanmarquez@telefonica.com> 1.26.0
 - Add: IOTA_MQTT_DISABLED (mqtt.disabled) and IOTA_AMQP_DISABLED (amqp.disabled) flags to disable MQTT and AMQP (#685)
