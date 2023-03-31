@@ -33,7 +33,8 @@ config.mqtt = {
 };
 
 config.http = {
-    port: 7896
+    port: 7896,
+    host: 'localhost'
 };
 
 config.amqp = {
@@ -51,7 +52,8 @@ config.iota = {
         ngsiVersion: 'v2'
     },
     server: {
-        port: 4041
+        port: 4041,
+        host: 'localhost'
     },
     deviceRegistry: {
         type: 'memory'
