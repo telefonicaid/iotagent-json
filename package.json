@@ -17,7 +17,7 @@
   },
   "main": "lib/iotagent-json",
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "scripts": {
     "clean": "rm -rf package-lock.json && rm -rf node_modules && rm -rf coverage",
