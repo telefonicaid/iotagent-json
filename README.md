@@ -103,7 +103,7 @@ config file can be used to permanently tune the MQTT broker parameters, or the d
 
 ## Contributing
 
-If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has 
+If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has
 raised a similar idea or question.
 
 Before contributing, please check out [contribution guidelines](docs/contribution.md)
@@ -131,11 +131,13 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 -   RabbitMQ
 
 To run requirements you can type:
+
 ```
-   docker run -d -p 27017:27017 --hostname mongo --name mongo mongo:4.2
-   docker run -d -p 1883:1883 -l mosquitto eclipse-mosquitto:1.6.7
-   docker run -d -p 5672:5672 --hostname my-rabbit --name some-rabbit rabbitmq:3.8.9
+   docker run -d -p 27017:27017 --hostname mongo --name mongo mongo:4.4.19
+   docker run -d -p 1883:1883 -l mosquitto eclipse-mosquitto:1.6.15
+   docker run -d -p 5672:5672 --hostname my-rabbit --name some-rabbit rabbitmq:3.11.13
 ```
+
 ---
 
 ## License
