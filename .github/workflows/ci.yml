@@ -58,15 +58,15 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mongodb:
-        image: mongo:4.2
+        image: mongo:4.4
         ports:
           - 27017:27017
       mosquitto:
-        image: eclipse-mosquitto:1.6.7
+        image: eclipse-mosquitto:1.6.15
         ports:
           - 1883:1883
       rabbitmq:
-        image: rabbitmq:3.8.9
+        image: rabbitmq:3.11.13
         ports:
           - 5672:5672
     strategy:
@@ -93,15 +93,15 @@ jobs:
     needs: unit-test
     services:
       mongodb:
-        image: mongo:4.2
+        image: mongo:4.4
         ports:
           - 27017:27017
       mosquitto:
-        image: eclipse-mosquitto:1.6.7
+        image: eclipse-mosquitto:1.6.15
         ports:
           - 1883:1883
       rabbitmq:
-        image: rabbitmq:3.8.9
+        image: rabbitmq:3.11.13
         ports:
           - 5672:5672
     steps:
