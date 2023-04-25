@@ -173,6 +173,7 @@ fi
 - Fix: align test with fix about propagate TimeInstant to all metadata attributes when TimeInstant is provided as measure
 - Add support to run tests with node 18
 - Set Nodejs 16 as minimum version in packages.json (effectively removing Nodev14 from supported versions)
+- Upgrade iotagent-node-lib dependency from 3.0.0 to 3.1.0
 
 * Thu Mar 30 2023 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 2.0.0
 - Removed plugins to align with ioagente-node-lib (v3.0) refactor
