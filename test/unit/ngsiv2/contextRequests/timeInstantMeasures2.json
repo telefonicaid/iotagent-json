@@ -1,7 +1,13 @@
 {
   "humidity":{
     "type": "percent",
-    "value": "111333"
+      "value": "111333",
+      "metadata": {
+          "TimeInstant":{
+              "type": "DateTime",
+              "value": "+002020-02-22T22:22:22"
+          }
+      }
   },
   "TimeInstant":{
     "type": "DateTime",
