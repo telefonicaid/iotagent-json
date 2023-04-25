@@ -169,6 +169,12 @@ fi
 %{_install_dir}
 
 %changelog
+* Tue Apr 25 2023 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 2.1.0
+- Fix: align test with fix about propagate TimeInstant to all metadata attributes when TimeInstant is provided as measure
+- Add: support to run tests with node 18
+- Upgrade iotagent-node-lib dependency from 3.0.0 to 3.1.0
+- Set Nodejs 16 as minimum version in packages.json (effectively removing Nodev14 from supported versions)
+
 * Thu Mar 30 2023 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 2.0.0
 - Removed plugins to align with ioagente-node-lib (v3.0) refactor
 - Align tests with iota-node-lib (v3.0) refactor
