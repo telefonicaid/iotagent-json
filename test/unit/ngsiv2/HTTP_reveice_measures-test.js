@@ -266,7 +266,7 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .patch(
                     '/v2/entities/e0130101/attrs',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasuresB.json')
                 )
                 .query({ type: 'sensor' })
                 .reply(204);
