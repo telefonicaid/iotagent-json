@@ -122,16 +122,16 @@ describe('Data Bidirectionality: HTTP', function () {
                     for (let i = 0; i < list.commands.length; i++) {
                         if (
                             list.commands[i].name === 'latitude' &&
-                            list.commands[i].type === 'string' &&
-                            list.commands[i].value === '-9.6'
+                            list.commands[i].type === 'Number' &&
+                            list.commands[i].value === -9.6
                         ) {
                             latitudeFound = true;
                         }
 
                         if (
                             list.commands[i].name === 'longitude' &&
-                            list.commands[i].type === 'string' &&
-                            list.commands[i].value === '12.4'
+                            list.commands[i].type === 'Number' &&
+                            list.commands[i].value === 12.4
                         ) {
                             longitudeFound = true;
                         }
@@ -187,9 +187,9 @@ describe('Data Bidirectionality: HTTP', function () {
             mockedClientServer = nock('http://localhost:9876')
                 .post('/command', '{"location":"12.4, -9.6"}')
                 .reply(200, '')
-                .post('/command', '{"latitude":"-9.6"}')
+                .post('/command', '{"latitude":-9.6}')
                 .reply(200, '')
-                .post('/command', '{"longitude":"12.4"}')
+                .post('/command', '{"longitude":12.4}')
                 .reply(200, '');
 
             iotagentJson.start(config, function (error) {
