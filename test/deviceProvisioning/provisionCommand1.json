@@ -11,6 +11,23 @@
         {
           "name": "PING",
           "type": "command"
+        },
+        {
+          "name": "EXPRESSION_CMD",
+          "type": "command",
+          "expression" : "EXPRESSION_CMD | replacestr('Text','Expression')"
+        },
+        {
+          "name": "PAYLOAD_TYPE_1",
+          "type": "command",
+          "expression" : "PAYLOAD_TYPE_1",
+          "payloadType": "binaryfromhex"
+        },
+        {
+          "name": "PAYLOAD_TYPE_2",
+          "type": "command",
+          "expression" : "PAYLOAD_TYPE_2",
+          "payloadType": "text"
         }
       ]
     }
