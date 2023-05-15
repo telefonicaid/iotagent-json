@@ -261,14 +261,15 @@ describe('MQTT: Commands', function () {
                 payload = data.toString();
             });
 
-            (commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand5.json')),
-                request(commandOptions, function (error, response, body) {
-                    setTimeout(function () {
-                        should.exist(payload);
-                        payload.should.equal(commandMsg);
-                        done();
-                    }, 100);
-                });
+            commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand5.json');
+
+            request(commandOptions, function (error, response, body) {
+                setTimeout(function () {
+                    should.exist(payload);
+                    payload.should.equal(commandMsg);
+                    done();
+                }, 100);
+            });
         });
 
         it('text - should publish the transformed command information in the MQTT topic', function (done) {
@@ -279,14 +280,15 @@ describe('MQTT: Commands', function () {
                 payload = data.toString();
             });
 
-            (commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand6.json')),
-                request(commandOptions, function (error, response, body) {
-                    setTimeout(function () {
-                        should.exist(payload);
-                        payload.should.equal(commandMsg);
-                        done();
-                    }, 100);
-                });
+            commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand6.json');
+
+            request(commandOptions, function (error, response, body) {
+                setTimeout(function () {
+                    should.exist(payload);
+                    payload.should.equal(commandMsg);
+                    done();
+                }, 100);
+            });
         });
     });
 });

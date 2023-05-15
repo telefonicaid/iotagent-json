@@ -519,17 +519,17 @@ the following meanings:
 
 The following table shows the values the payload takes depending on the `payloadType`:
 
-| payloadType      | cmd value              | payload represented in hex                                  | payload represented in ASCII |
-| ---------------- | ---------------------- | ----------------------------------------------------------- | ---------------------------- |
-| binaryfromstring | '12345'                | 0x 31 32 33 34 35                                           | 12345                        |
-| binaryfromstring | '484F4C41'             | 34 38 34 46 34 43 34 31                                     | 484F4C41                     |
-| binaryfromstring | ['1', '23', '2', '50'] | 31 2c 32 33 2c 32 2c 35 30                                  | 1,23,2,50                    |
-| binaryfromhex    | '12345'                | 0x 12 34                                                    | ☐4                           |
-| binaryfromhex    | '484F4C41'             | 0x 48 4F 4C 41                                              | HOLA                         |
-| binaryfromhex    | ['1', '23', '2', '50'] | 0x 01 17 02 32                                              | ☐☐☐2                         |
-| binaryfromjson   | '12345'                | 0x 22 31 32 33 34 35 22                                     | "12345"                      |
-| binaryfromjson   | '484F4C41'             | 0x 22 34 38 34 46 34 43 34 31 22                            | "484F4C41"                   |
-| binaryfromjson   | ['1', '23', '2', '50'] | 0x 5b 22 31 22 2c 22 32 33 22 2c 22 32 22 2c 22 35 30 22 5d | ["1","23","2","50"]          |
+| payloadType      | cmd value                | payload represented in hex                                    | payload represented in ASCII |
+| ---------------- | ------------------------ | ------------------------------------------------------------- | ---------------------------- |
+| binaryfromstring | `'12345'`                | `0x 31 32 33 34 35`                                           | `12345`                      |
+| binaryfromstring | `'484F4C41'`             | `0x 34 38 34 46 34 43 34 31`                                  | `484F4C41`                   |
+| binaryfromstring | `['1', '23', '2', '50']` | `0x 31 2c 32 33 2c 32 2c 35 30`                               | `1,23,2,50`                  |
+| binaryfromhex    | `'12345'`                | `0x 12 34`                                                    | `☐4`                         |
+| binaryfromhex    | `'484F4C41'`             | `0x 48 4F 4C 41`                                              | `HOLA`                       |
+| binaryfromhex    | `['1', '23', '2', '50']` | `0x 01 17 02 32`                                              | `☐☐☐2`                       |
+| binaryfromjson   | `'12345'`                | `0x 22 31 32 33 34 35 22`                                     | `"12345"`                    |
+| binaryfromjson   | `'484F4C41'`             | `0x 22 34 38 34 46 34 43 34 31 22`                            | `"484F4C41"`                 |
+| binaryfromjson   | `['1', '23', '2', '50']` | `0x 5b 22 31 22 2c 22 32 33 22 2c 22 32 22 2c 22 35 30 22 5d` | `["1","23","2","50"]`        |
 
 _Note that `☐` represents a non-printable character_
 
