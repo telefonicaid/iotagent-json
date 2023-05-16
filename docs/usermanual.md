@@ -517,7 +517,7 @@ the following meanings:
     stringified (avoiding the doble quotes).
 -   **json**: This is the default case. Payload will be stringify from a JSON.
 
-The following table shows the values the payload takes depending on the `payloadType`:
+The following table shows some examples of values the payload takes depending on the `payloadType`:
 
 | payloadType      | cmd value                | payload represented in hex                                    | payload represented in ASCII |
 | ---------------- | ------------------------ | ------------------------------------------------------------- | ---------------------------- |
