@@ -1,1 +1,1 @@
-Add: Support new commands payloadType - plain text 
+- Add: support new commands payloadType "text" (for plain text) (#716)
