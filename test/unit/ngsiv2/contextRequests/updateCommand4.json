@@ -1,0 +1,13 @@
+{
+  "actionType": "update",
+  "entities": [
+    {
+      "id": "Second MQTT Device",
+      "type": "AnMQTTDevice",
+      "EXPRESSION_CMD": {
+        "type": "command",
+        "value": "command Text"
+      }
+    }
+  ]
+}

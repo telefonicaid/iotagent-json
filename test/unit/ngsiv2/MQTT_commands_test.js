@@ -88,7 +88,7 @@ describe('MQTT: Commands', function () {
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
-    describe('When a command arrive to the Agent for a device with the MQTT_UL protocol', function () {
+    describe('When a command arrive to the Agent for a device with the MQTT_JSON protocol', function () {
         const commandOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
             method: 'POST',
@@ -159,6 +159,135 @@ describe('MQTT: Commands', function () {
                     contextBrokerMock.done();
                     done();
                 }, 200);
+            });
+        });
+    });
+
+    describe('When a command with expression arrives to the Agent for a device with the MQTT_JSON protocol', function () {
+        const commandOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
+            method: 'POST',
+            json: utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand4.json'),
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .patch(
+                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus7.json')
+                )
+                .reply(204);
+        });
+
+        it('should return a 204 OK without errors', function (done) {
+            request(commandOptions, function (error, response, body) {
+                should.not.exist(error);
+                response.statusCode.should.equal(204);
+                done();
+            });
+        });
+        it('should update the status in the Context Broker', function (done) {
+            request(commandOptions, function (error, response, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+        it('should publish the transformed command information in the MQTT topic', function (done) {
+            const commandMsg = '"command Expression"';
+            let payload;
+
+            mqttClient.on('message', function (topic, data) {
+                payload = data.toString();
+            });
+
+            request(commandOptions, function (error, response, body) {
+                setTimeout(function () {
+                    should.exist(payload);
+                    payload.should.equal(commandMsg);
+                    done();
+                }, 100);
+            });
+        });
+    });
+
+    describe('When a command with payloadtype arrives to the Agent for a device with the MQTT_JSON protocol', function () {
+        const commandOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
+            method: 'POST',
+            json: utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand5.json'),
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .patch(
+                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus8.json')
+                )
+                .reply(204);
+        });
+
+        it('should return a 204 OK without errors', function (done) {
+            request(commandOptions, function (error, response, body) {
+                should.not.exist(error);
+                response.statusCode.should.equal(204);
+                done();
+            });
+        });
+
+        it('should update the status in the Context Broker', function (done) {
+            request(commandOptions, function (error, response, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+
+        it('binaryfromhex - should publish the transformed command information in the MQTT topic', function (done) {
+            const commandMsg = 'HOLA';
+            let payload;
+
+            mqttClient.on('message', function (topic, data) {
+                payload = data.toString();
+            });
+
+            commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand5.json');
+
+            request(commandOptions, function (error, response, body) {
+                setTimeout(function () {
+                    should.exist(payload);
+                    payload.should.equal(commandMsg);
+                    done();
+                }, 100);
+            });
+        });
+
+        it('text - should publish the transformed command information in the MQTT topic', function (done) {
+            const commandMsg = 'myText';
+            let payload;
+
+            mqttClient.on('message', function (topic, data) {
+                payload = data.toString();
+            });
+
+            commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand6.json');
+
+            request(commandOptions, function (error, response, body) {
+                setTimeout(function () {
+                    should.exist(payload);
+                    payload.should.equal(commandMsg);
+                    done();
+                }, 100);
             });
         });
     });

@@ -1,0 +1,13 @@
+{
+  "actionType": "update",
+  "entities": [
+    {
+      "id": "Second MQTT Device",
+      "type": "AnMQTTDevice",
+      "PAYLOAD_TYPE_1": {
+        "type": "command",
+        "value": "484F4C41"
+      }
+    }
+  ]
+}
