@@ -171,7 +171,7 @@ fi
 %changelog
 * Tue May 23 2023 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 2.2.0
 - Add: support new commands payloadType "text" (for plain text) (#716)
-- Upgrade iotagent-node-lib dependency from 3.0.0 to 3.1.0
+- Upgrade iotagent-node-lib dependency from 3.1.0 to 3.2.0
 
 * Tue Apr 25 2023 Alvaro Vega <alvaro.vegagarcia@telefonica.com> 2.1.0
 - Fix: align test with fix about propagate TimeInstant to all metadata attributes when TimeInstant is provided as measure
