@@ -513,7 +513,25 @@ the following meanings:
 -   **binaryfromstring**: Payload will transformed into a be Buffer after read it from a string.
 -   **binaryfromhex**: Payload will transformed into a be Buffer after read it from a string hex.
 -   **binaryfromjson**: Payload will transformed into a be Buffer after read it from a JSON string.
+-   **text**: Payload will be read from a string. This differs from the default case in that the payload will not be
+    stringified (avoiding the doble quotes).
 -   **json**: This is the default case. Payload will be stringify from a JSON.
+
+The following table shows some examples of values the payload takes depending on the `payloadType`:
+
+| payloadType      | cmd value                | payload represented in hex                                    | payload represented in ASCII |
+| ---------------- | ------------------------ | ------------------------------------------------------------- | ---------------------------- |
+| binaryfromstring | `'12345'`                | `0x 31 32 33 34 35`                                           | `12345`                      |
+| binaryfromstring | `'484F4C41'`             | `0x 34 38 34 46 34 43 34 31`                                  | `484F4C41`                   |
+| binaryfromstring | `['1', '23', '2', '50']` | `0x 31 2c 32 33 2c 32 2c 35 30`                               | `1,23,2,50`                  |
+| binaryfromhex    | `'12345'`                | `0x 12 34`                                                    | `☐4`                         |
+| binaryfromhex    | `'484F4C41'`             | `0x 48 4F 4C 41`                                              | `HOLA`                       |
+| binaryfromhex    | `['1', '23', '2', '50']` | `0x 01 17 02 32`                                              | `☐☐☐2`                       |
+| binaryfromjson   | `'12345'`                | `0x 22 31 32 33 34 35 22`                                     | `"12345"`                    |
+| binaryfromjson   | `'484F4C41'`             | `0x 22 34 38 34 46 34 43 34 31 22`                            | `"484F4C41"`                 |
+| binaryfromjson   | `['1', '23', '2', '50']` | `0x 5b 22 31 22 2c 22 32 33 22 2c 22 32 22 2c 22 35 30 22 5d` | `["1","23","2","50"]`        |
+
+_Note that `☐` represents a non-printable character_
 
 Moreover a command could define a `contentType` in their definnition with the aim to set `content-type` header for http
 transport in command. Default value will be `application/json` but other valids content-type could be: `text/plain`,

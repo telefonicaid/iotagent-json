@@ -1,0 +1,6 @@
+{
+  "PAYLOAD_TYPE_1_status": {
+    "type": "commandStatus",
+    "value": "PENDING"
+  }
+}

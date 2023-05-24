@@ -136,7 +136,7 @@ describe('AMQP Transport binding: measures', function () {
             // This mock does not check the payload since the aim of the test is not to verify
             // device provisioning functionality. Appropriate verification is done in tests under
             // provisioning folder of iotagent-node-lib
-            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'TestService')
                 .matchHeader('fiware-servicepath', '/testingPath')
                 .post('/v2/entities?options=upsert')

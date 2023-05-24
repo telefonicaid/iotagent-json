@@ -1,15 +1,10 @@
 {
-        "actionType": "update",
-        "entities": [{
-                "id": "Second MQTT Device",
-                "type": "AnMQTTDevice",
-                "PING_status": {
-                        "type": "commandStatus",
-                        "value": "OK"
-                },
-                "PING_info": {
-                        "type": "commandResult",
-                        "value": "1234567890"
-                }
-        }]
+    "PING_status": {
+        "type": "commandStatus",
+        "value": "OK"
+    },
+    "PING_info": {
+        "type": "commandResult",
+        "value": "1234567890"
+    }
 }

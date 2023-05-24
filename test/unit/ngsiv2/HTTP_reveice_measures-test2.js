@@ -44,7 +44,7 @@ const groupCreation = {
                 apikey: 'KL223HHV8732SFL1',
                 entity_type: 'TheLightType',
                 trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                cbHost: 'http://unexistentHost:1026',
+                cbHost: 'http://192.168.1.1:1026',
                 commands: [],
                 lazy: [],
                 attributes: [
@@ -242,8 +242,6 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
 
             iotaJson.stop(function () {
-                config.iota.timestamp = true;
-                config.compressTimestamp = false;
                 iotaJson.start(config, function () {
                     request(provisionOptions, function (error, response, body) {
                         done();
@@ -252,10 +250,7 @@ describe('HTTP: Measure reception ', function () {
             });
         });
 
-        afterEach(function () {
-            config.iota.timestamp = false;
-            config.compressTimestamp = true;
-        });
+        afterEach(function () {});
 
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
@@ -329,8 +324,6 @@ describe('HTTP: Measure reception ', function () {
                 .reply(204);
 
             iotaJson.stop(function () {
-                config.iota.timestamp = true;
-                config.compressTimestamp = false;
                 iotaJson.start(config, function () {
                     request(provisionOptions, function (error, response, body) {
                         done();
@@ -339,10 +332,7 @@ describe('HTTP: Measure reception ', function () {
             });
         });
 
-        afterEach(function () {
-            config.iota.timestamp = false;
-            config.compressTimestamp = true;
-        });
+        afterEach(function () {});
 
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
@@ -379,7 +369,7 @@ describe('HTTP: Measure reception ', function () {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         beforeEach(function (done) {
-            contextBrokerUnprovMock = nock('http://unexistentHost:1026')
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert')

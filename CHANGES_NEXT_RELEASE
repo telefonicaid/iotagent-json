@@ -1,1 +1,1 @@
-- Set Nodejs 14 as minimum version in packages.json (effectively removing Nodev12 from supported versions)
+- Remove: RPM stuff (no longer used)
