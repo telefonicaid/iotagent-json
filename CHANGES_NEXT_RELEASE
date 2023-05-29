@@ -1,1 +1,2 @@
 - Remove: RPM stuff (no longer used)
+- Fix: binary data representation when sending data through HTTP & MQTT #690
