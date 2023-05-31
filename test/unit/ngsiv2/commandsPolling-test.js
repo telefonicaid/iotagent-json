@@ -1,20 +1,20 @@
 /*
  * Copyright 2016 Telefonica Investigación y Desarrollo, S.A.U
  *
- * This file is part of iotagent-ul
+ * This file is part of iotagent-json
  *
- * iotagent-ul is free software: you can redistribute it and/or
+ * iotagent-json is free software: you can redistribute it and/or
  * modify it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either  3 of the License,
  * or (at your option) any later version.
  *
- * iotagent-ul is distributed in the hope that it will be useful,
+ * iotagent-json is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public
- * License along with iotagent-ul.
+ * License along with iotagent-json.
  * If not, seehttp://www.gnu.org/licenses/.
  *
  * For those usages not covered by the GNU Affero General Public License
@@ -25,7 +25,7 @@
 
 /* eslint-disable no-unused-vars */
 
-const iotagentUl = require('../../../');
+const iotagentjson = require('../../../');
 const config = require('./config-test.js');
 const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
@@ -82,7 +82,7 @@ describe('HTTP Transport binding: polling commands', function () {
             .patch('/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice')
             .reply(204);
 
-        iotagentUl.start(config, function (error) {
+        iotagentjson.start(config, function (error) {
             request(provisionOptions, function (error, response, body) {
                 done();
             });
@@ -93,7 +93,7 @@ describe('HTTP Transport binding: polling commands', function () {
         nock.cleanAll();
 
         iotAgentLib.clearAll(function () {
-            iotagentUl.stop(done);
+            iotagentjson.stop(done);
         });
     });
 

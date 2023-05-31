@@ -1,1 +1,2 @@
+- Fix: Renamed iotagent-ul to iotagent-json in commandsPolling-test(Fix for issue 726)
 - Remove: RPM stuff (no longer used)
