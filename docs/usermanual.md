@@ -86,7 +86,7 @@ following query parameters:
 It is possible to send a single measure to IoT Platform using an HTTP POST request to the
 `/iot/json/attrs/<attributeName>` and the previously explained query parameters.
 
-In this case, sending a single measure, there is possible to send other kinds of payloads like `plain/text` and
+In this case, sending a single measure, there is possible to send other kinds of payloads like `text/plain` and
 `application/octet-stream`, not just `application/json`
 
 #### Configuration retrieval
