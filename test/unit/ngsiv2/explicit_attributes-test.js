@@ -172,7 +172,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     temperature: { type: 'Number', value: '89' }
                 })
                 .query({ type: 'Sensor:Temperature' })
@@ -246,7 +246,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
@@ -323,7 +323,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     temperature: { type: 'Number', value: '89' }
                 })
                 .query({ type: 'Sensor:Temperature' })
@@ -398,7 +398,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     temperature: { type: 'Number', value: '89' }
                 })
                 .query({ type: 'Sensor:Temperature' })
@@ -447,7 +447,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
@@ -522,7 +522,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
@@ -599,7 +599,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     temperature: { type: 'Number', value: '89' }
                 })
                 .query({ type: 'Sensor:Temperature' })
@@ -674,7 +674,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
@@ -724,7 +724,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
@@ -799,7 +799,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
@@ -876,7 +876,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     temperature: { type: 'Number', value: '89' }
                 })
                 .query({ type: 'Sensor:Temperature' })
@@ -951,7 +951,7 @@ describe('explicitAttrs tests', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
+                .post('/v2/entities/Sensor:Temperature:JSON_UNPROVISIONED/attrs', {
                     h: { type: 'string', value: '33' },
                     temperature: { type: 'Number', value: '89' }
                 })
