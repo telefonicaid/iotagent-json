@@ -120,7 +120,7 @@ describe('HTTP: Measure reception ', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch(
+                .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresJsonTypes.json')
                 )
@@ -211,7 +211,7 @@ describe('HTTP: Measure reception ', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch(
+                .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2Measure.json')
                 )
@@ -255,7 +255,7 @@ describe('HTTP: Measure reception ', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch(
+                .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresTextTypes.json')
                 )
@@ -299,7 +299,7 @@ describe('HTTP: Measure reception ', function () {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .patch(
+                .post(
                     '/v2/entities/Second%20MQTT%20Device/attrs',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresRawTypes.json')
                 )

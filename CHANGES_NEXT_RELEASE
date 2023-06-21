@@ -1,2 +1,3 @@
+- Add: Update tests according new default value for appendMode
 - Fix: renamed iotagent-ul to iotagent-json in commandsPolling-test (#726)
 - Remove: RPM stuff (no longer used)
