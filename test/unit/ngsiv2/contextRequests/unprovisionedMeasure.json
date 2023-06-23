@@ -1,5 +1,6 @@
 {
-    "id":"SensorMachine:JSON_UNPROVISIONED","type":"SensorMachine"
+  "id":"SensorMachine:JSON_UNPROVISIONED",
+  "type":"SensorMachine",
   "a":{
     "type": "Integer",
     "value": 23

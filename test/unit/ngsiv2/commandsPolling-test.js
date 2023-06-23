@@ -284,7 +284,7 @@ describe('HTTP Transport binding: polling commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=true',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus5.json')
                 )
                 .reply(204);
