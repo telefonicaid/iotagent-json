@@ -1,4 +1,6 @@
 {
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",    
     "actionType": {
         "value": "APPEND",
         "type": "string"
