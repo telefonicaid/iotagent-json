@@ -1,4 +1,6 @@
 {
+    "id":"TheLightType:JSON_UNPROVISIONED",
+    "type":"TheLightType",    
   "humidity":{
     "type": "string",
     "value": "33"    
