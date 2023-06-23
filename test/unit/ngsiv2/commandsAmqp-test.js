@@ -121,7 +121,7 @@ describe('AMQP Transport binding: commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus1.json')
                 )
                 .reply(204);
@@ -180,7 +180,7 @@ describe('AMQP Transport binding: commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus2.json')
                 )
                 .reply(204);
@@ -245,7 +245,7 @@ describe('AMQP Transport binding: commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Fourth%20MQTT%20Device/attrs?type=MQTTCommandDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus3.json')
                 )
                 .reply(204);

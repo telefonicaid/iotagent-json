@@ -85,10 +85,9 @@ describe('Attribute alias', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampAliasMeasure.json')
                 )
-                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should send its value to the Context Broker', function (done) {

@@ -1,4 +1,6 @@
 {
+    "id":"e0130101",
+    "type":"sensor",
   "humidity":{
     "type": "percent",
       "value": "111222",

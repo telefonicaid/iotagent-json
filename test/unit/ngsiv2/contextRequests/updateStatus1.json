@@ -1,4 +1,6 @@
 {
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",
   "PING_status": {
     "type": "commandStatus",
     "value": "PENDING"
