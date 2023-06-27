@@ -1,4 +1,4 @@
-- Do not propage group config (timestamp, expresisonLanguage) to autoprovision device (#1391)
+- Fix: do not propagate group config (timestamp and explicitAttrs) to autoprovisioned devices (at database level) (iotagent-node-lib#1391)
 - Add: Update tests according new default value for appendMode
 - Fix: renamed iotagent-ul to iotagent-json in commandsPolling-test (#726)
 - Remove: RPM stuff (no longer used)
