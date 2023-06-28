@@ -143,10 +143,9 @@ describe('Configuration API support', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasure.json')
                 )
-                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
 

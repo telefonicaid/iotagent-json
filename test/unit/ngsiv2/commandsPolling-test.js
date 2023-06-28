@@ -79,7 +79,7 @@ describe('HTTP Transport binding: polling commands', function () {
         contextBrokerMock
             .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice')
+            .post('/v2/entities?options=upsert')
             .reply(204);
 
         iotagentjson.start(config, function (error) {
@@ -137,7 +137,7 @@ describe('HTTP Transport binding: polling commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/pollingMeasure.json')
                 )
                 .reply(204);
@@ -146,7 +146,7 @@ describe('HTTP Transport binding: polling commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus4.json')
                 )
                 .reply(204);
@@ -214,7 +214,7 @@ describe('HTTP Transport binding: polling commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/pollingMeasure.json')
                 )
                 .reply(204);
@@ -223,7 +223,7 @@ describe('HTTP Transport binding: polling commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus4.json')
                 )
                 .reply(204);
@@ -284,7 +284,7 @@ describe('HTTP Transport binding: polling commands', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs?type=AnMQTTDevice',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus5.json')
                 )
                 .reply(204);

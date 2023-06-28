@@ -1,4 +1,6 @@
 {
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",    
   "humidity":{
     "type": "degrees",
     "value": "33"   
@@ -8,32 +10,32 @@
     "value": "89"    
   },
   "luminosity": {
-  	"type": "Integer",
-  	"value": 10
+        "type": "Integer",
+        "value": 10
   },
   "pollution": {
-  	"type": "Float",
-  	"value": 43.4
+        "type": "Float",
+        "value": 43.4
   },
   "configuration": {
-  	"type": "Object",
-  	"value": {
-  		"firmware": {
-  			"version": "1.1.0",
-  			"hash": "cf23df2207d99a74fbe169e3eba035e633b65d94"
-  		}
-  	}
+        "type": "Object",
+        "value": {
+                "firmware": {
+                        "version": "1.1.0",
+                        "hash": "cf23df2207d99a74fbe169e3eba035e633b65d94"
+                }
+        }
   },
   "tags": {
-  	"type": "Array",
-  	"value": ["iot","device"]
+        "type": "Array",
+        "value": ["iot","device"]
   },
   "enabled": {
-  	"type": "Boolean",
-  	"value": true
+        "type": "Boolean",
+        "value": true
   },
   "alive": {
-  	"type": "Null",
-  	"value": null
+        "type": "Null",
+        "value": null
   }
 }

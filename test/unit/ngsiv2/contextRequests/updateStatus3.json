@@ -1,4 +1,6 @@
 {
+    "id":"Fourth MQTT Device",
+    "type":"MQTTCommandDevice",    
   "PING_status": {
     "type": "commandStatus",
     "value": "PENDING"

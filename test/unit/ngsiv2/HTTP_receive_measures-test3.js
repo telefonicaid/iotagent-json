@@ -121,10 +121,9 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresJsonTypes.json')
                 )
-                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should return a 200 OK with no error', function (done) {
@@ -212,10 +211,9 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2Measure.json')
                 )
-                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should return a 200 OK with no error', function (done) {
@@ -256,10 +254,9 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresTextTypes.json')
                 )
-                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should return a 200 OK with no error', function (done) {
@@ -300,10 +297,9 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities/Second%20MQTT%20Device/attrs',
+                    '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresRawTypes.json')
                 )
-                .query({ type: 'AnMQTTDevice' })
                 .reply(204);
         });
         it('should return a 200 OK with no error', function (done) {

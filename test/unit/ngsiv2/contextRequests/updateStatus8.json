@@ -1,4 +1,6 @@
 {
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",
   "PAYLOAD_TYPE_1_status": {
     "type": "commandStatus",
     "value": "PENDING"

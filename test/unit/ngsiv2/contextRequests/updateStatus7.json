@@ -1,4 +1,6 @@
-{
+{ 
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",
   "EXPRESSION_CMD_status": {
     "type": "commandStatus",
     "value": "PENDING"
