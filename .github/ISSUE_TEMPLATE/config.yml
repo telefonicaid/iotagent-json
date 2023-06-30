@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: IoT Agent documentation
-    url: https://iotagent-node-lib.readthedocs.io/en/latest/
+    url: https://fiware-iotagent-json.readthedocs.io/en/latest/
     about: check the documentation before asking help or reporting a bug.
   - name: Community Support
     url: https://stackoverflow.com/questions/ask?tags=iot-agent+fiware

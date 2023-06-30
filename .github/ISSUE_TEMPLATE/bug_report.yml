@@ -10,11 +10,11 @@ body:
   - type: input
     id: version
     attributes:
-      label: IoT Agent Node Libe version the issue has been seen with
+      label: IoT Agent JSON version the issue has been seen with
       description: |
         Do not submit bug reports about anything but the two most recently released *major* systemd versions upstream!
         If there have been multiple stable releases for that major version, please consider updating to a recent one before reporting an issue.
-        See https://github.com/telefonicaid/iotagent-node-lib/releases/ for the list of most recent releases.
+        See https://github.com/telefonicaid/iotagent-json-lib/releases/ for the list of most recent releases.
       placeholder: '2.2.0'
     validations:
       required: true
