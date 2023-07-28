@@ -3,12 +3,6 @@
     "type":"AnMQTTDevice",     
   "humidity":{
     "type": "degrees",
-     "value": { 
-         "type": "Buffer",
-         "data": [
-             51,
-             50
-         ]
-     }
+     "value": "3332"
   }
 }
