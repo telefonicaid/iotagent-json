@@ -66,11 +66,11 @@ describe('HTTP Transport binding: polling commands', function () {
             .post('/v2/registrations')
             .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
 
-        contextBrokerMock
-            .matchHeader('fiware-service', 'smartgondor')
-            .matchHeader('fiware-servicepath', '/gardens')
-            .post('/v2/entities?options=upsert')
-            .reply(204);
+        // contextBrokerMock
+        //     .matchHeader('fiware-service', 'smartgondor')
+        //     .matchHeader('fiware-servicepath', '/gardens')
+        //     .post('/v2/entities?options=upsert')
+        //     .reply(204);
 
         mockedClientServer = nock('http://localhost:9876')
             .post('/command', 'MQTT_2@PING|data=22')
