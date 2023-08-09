@@ -415,7 +415,7 @@ describe('MQTT: Measure reception ', function () {
                 .reply(204);
         });
         it('should send its value to the Context Broker', function (done) {
-            mqttClient.publish('/1234/MQTT_2/attrs/humidity', '0x4D', null, function (error) {
+            mqttClient.publish('/1234/MQTT_2/attrs/humidity', 'A$Ci1', null, function (error) {
                 setTimeout(function () {
                     contextBrokerMock.done();
                     done();
