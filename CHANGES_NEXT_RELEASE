@@ -1,3 +1,4 @@
+- Fix: update tests to not create initial entity when append mode is enabled
 - Fix: update tests according new default value for appendMode
 - Fix: use 'options=upsert' when update ngsiv2 CB entities and appendMode is enabled (iotagent-node-lib#956)
 - Fix: do not propagate group config (timestamp and explicitAttrs) to autoprovisioned devices (at database level) (iotagent-node-lib#1377)
