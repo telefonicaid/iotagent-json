@@ -80,10 +80,6 @@ describe('Subscription management', function () {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026', { allowUnmocked: false });
-        // .matchHeader('fiware-service', 'smartgondor')
-        // .matchHeader('fiware-servicepath', '/gardens')
-        // .post('/v2/entities?options=upsert')
-        // .reply(204);
 
         iotaJson.start(config, function () {
             iotAgentLib.clearAll(done);

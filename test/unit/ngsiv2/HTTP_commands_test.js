@@ -58,12 +58,6 @@ describe('HTTP: Commands', function () {
             .post('/v2/registrations')
             .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
 
-        // contextBrokerMock
-        //     .matchHeader('fiware-service', 'smartgondor')
-        //     .matchHeader('fiware-servicepath', '/gardens')
-        //     .post('/v2/entities?options=upsert')
-        //     .reply(204);
-
         iotagentMqtt.start(config, function () {
             request(provisionOptions, function (error, response, body) {
                 done();
@@ -158,12 +152,6 @@ describe('HTTP: Commands with expressions', function () {
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/registrations')
             .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
-
-        // contextBrokerMock
-        //     .matchHeader('fiware-service', 'smartgondor')
-        //     .matchHeader('fiware-servicepath', '/gardens')
-        //     .post('/v2/entities?options=upsert')
-        //     .reply(204);
 
         iotagentMqtt.start(config, function () {
             request(provisionOptions, function (error, response, body) {
