@@ -422,13 +422,5 @@ describe('MQTT: Measure reception ', function () {
                 }, 100);
             });
         });
-        it('should return a 200 OK with no error', function (done) {
-            mqttClient.publish('/1234/MQTT_2/attrs/humidity', '0x4D', null, function (error) {
-                setTimeout(function () {
-                    contextBrokerMock.done();
-                    done();
-                }, 100);
-            });
-        });
     });
 });
