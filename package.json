@@ -28,7 +28,7 @@
     "prettier": "prettier --config .prettierrc.json --write '**/**/**/*.js' '**/**/*.js' '**/*.js' '*.js'",
     "prettier:text": "prettier 'README.md' 'docs/*.md' 'docs/**/*.md' --no-config --tab-width 4 --print-width 120 --write --prose-wrap always",
     "start": "node ./bin/iotagent-json",
-    "test": "nyc --reporter=text mocha --recursive 'test/unit/ngsiv2/HTTP_receive_measures-test3.js' --reporter spec --timeout 5000 --ui bdd --exit  --color true",
+    "test": "nyc --reporter=text mocha --recursive 'test/**/*.js' --reporter spec --timeout 5000 --ui bdd --exit  --color true",
     "test:coverage": "nyc --reporter=lcov mocha -- --recursive 'test/**/*.js' --reporter spec --exit",
     "test:coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage",
     "test:watch": "npm run test -- -w ./lib",
