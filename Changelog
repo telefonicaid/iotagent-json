@@ -1,4 +1,4 @@
-2.3.0 (Aug 24th, 2023)
+2.3.0 (Aug 25th, 2023)
 
 - Fix: update tests to not create initial entity when append mode is enabled
 - Fix: update tests according new default value for appendMode
