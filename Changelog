@@ -5,6 +5,7 @@
 - Fix: use 'options=upsert' when update ngsiv2 CB entities and appendMode is enabled (iotagent-node-lib#956)
 - Fix: do not propagate group config (timestamp and explicitAttrs) to autoprovisioned devices (at database level) (iotagent-node-lib#1377)
 - Fix: renamed iotagent-ul to iotagent-json in commandsPolling-test (#726)
+- Upgrade iotagent-node-lib dependency from 3.2.0 to 3.3.0
 - Remove: RPM stuff (no longer used)
 
 2.2.0 (May 23rd, 2023)
