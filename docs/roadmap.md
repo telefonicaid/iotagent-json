@@ -1,4 +1,4 @@
-# IoT Agent for the Ultralight 2.0 protocol Roadmap
+# IoT Agent JSON Roadmap
 
 This product is a FIWARE Generic Enabler. If you would like to learn about the overall Roadmap of FIWARE, please check
 "Roadmap" on the [FIWARE Catalogue](https://www.fiware.org/developers/catalogue/).
