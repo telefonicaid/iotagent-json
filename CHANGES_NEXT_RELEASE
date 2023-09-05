@@ -1,1 +1,1 @@
-- Ensure device apikey in already provisioned device (iota-node-lib#1430)
+- Fix: ensure device apikey in already provisioned device (iota-node-lib#1430)
