@@ -63,7 +63,7 @@ RUN \
 	apt-get update -y && \
 	apt-get upgrade -y && \
 	# Ensure that unzip is installed prior to downloading
-	apt-get install -y --no-install-recommends unzip && \
+	apt-get install -y --no-install-recommends unzip tar curl && \
 	if [ "${DOWNLOAD}" = "latest" ] ; \
 	then \
 		RELEASE="${SOURCE_BRANCH}"; \
@@ -84,6 +84,8 @@ RUN \
 	# Remove unzip and clean apt cache
 	apt-get clean && \
 	apt-get remove -y unzip && \
+	# Remove curl and clean apt cache
+	apt-get remove -y curl && \
 	apt-get -y autoremove && \
 	rm -rf /var/lib/apt/lists/* 
 
