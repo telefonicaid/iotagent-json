@@ -1,1 +1,2 @@
+- Fix: try to use apikey from measure/group to find device in first attempt (iota-node-lib#1426)
 - Fix: ensure device apikey in already provisioned device (iota-node-lib#1430)
