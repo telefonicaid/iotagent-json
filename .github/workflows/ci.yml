@@ -57,7 +57,7 @@ jobs:
     name: Unit Tests
     runs-on: ubuntu-latest
     services:
-      db:
+      mongodb:
         image: mongo:7.0
         ports:
           - 27017:27017
@@ -92,7 +92,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-test
     services:
-      db:
+      mongodb:
         image: mongo:7.0
         ports:
           - 27017:27017
