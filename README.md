@@ -2,8 +2,10 @@
 
 [![FIWARE IoT Agents](https://nexus.lab.fiware.org/static/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
 [![License: APGL](https://img.shields.io/github/license/telefonicaid/iotagent-json.svg)](https://opensource.org/licenses/AGPL-3.0)
-[![Docker badge](https://img.shields.io/docker/pulls/fiware/iotagent-json.svg)](https://hub.docker.com/r/fiware/iotagent-json/)
-[![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
+[![Support badge](https://img.shields.io/badge/tag-fiware+iot-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware+iot)
+<br/>
+[![Quay badge](https://img.shields.io/badge/quay.io-fiware%2Fiotagent--json-grey?logo=red%20hat&labelColor=EE0000)](https://quay.io/repository/fiware/iotagent-json)
+[![Docker badge](https://img.shields.io/badge/docker-telefonicaiot%2Fiotagent--json-blue?logo=docker)](https://hub.docker.com/r/telefonicaiot/iotagent-json/)
 <br/>
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/?badge=latest)
 [![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
@@ -24,8 +26,8 @@ library's GitHub repository.
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
-| :books: [Documentation](https://fiware-iotagent-json.readthedocs.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/docs/roadmap.md) |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| :books: [Documentation](https://fiware-iotagent-json.readthedocs.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | <img style="height:1em" src="https://quay.io/static/img/quay_favicon.png"/> [quay.io](https://quay.io/repository/fiware/iotagent-json)  | :whale: [Docker Hub](https://hub.docker.com/r/telefonicaiot/iotagent-json/) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/docs/roadmap.md) |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | --- |
 
 
 ## Contents
@@ -144,7 +146,10 @@ To run requirements you can type:
 
 The IoT Agent for JSON is licensed under [Affero General Public License (GPL) version 3](./LICENSE).
 
-© 2022 Telefonica Investigación y Desarrollo, S.A.U
+© 2023 Telefonica Investigación y Desarrollo, S.A.U
+
+<details>
+<summary><strong>Further information on the use of the AGPL open source license</strong></summary>
 
 ### Are there any legal issues with AGPL 3.0? Is it safe for me to use?
 
@@ -160,3 +165,5 @@ public statement as follows:
 > incorporate enhancements is considered a derivative work of the product. Software that merely uses or aggregates (i.e.
 > links to) an otherwise unmodified version of existing software is not considered a derivative work, and therefore it
 > does not need to be released as under the same license, or even released as open source.
+
+</details>
