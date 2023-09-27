@@ -46,6 +46,8 @@ describe('Startup tests', function () {
             process.env.IOTA_MQTT_RETRY_TIME = '5';
             process.env.IOTA_MQTT_KEEPALIVE = '0';
             process.env.IOTA_MQTT_DISABLED = 'true';
+            process.env.IOTA_MQTT_DISABLE_SHARED_SUBSCRIPTIONS = 'true';
+            process.env.IOTA_MQTT_GROUP_ID_SUFIX = 'X';
         });
 
         afterEach(function () {
@@ -65,6 +67,8 @@ describe('Startup tests', function () {
             delete process.env.IOTA_MQTT_RETRY_TIME;
             delete process.env.IOTA_MQTT_KEEPALIVE;
             delete process.env.IOTA_MQTT_DISABLED;
+            delete process.env.IOTA_MQTT_DISABLE_SHARED_SUBSCRIPTIONS;
+            delete process.env.IOTA_MQTT_GROUP_ID_SUFIX;
         });
 
         it('should load the MQTT environment variables in the internal configuration', function (done) {
@@ -83,6 +87,8 @@ describe('Startup tests', function () {
             config.getConfig().mqtt.retryTime.should.equal('5');
             config.getConfig().mqtt.keepalive.should.equal('0');
             config.getConfig().mqtt.disabled.should.equal(true);
+            config.getConfig().mqtt.sharedSubscriptionsDisabled.should.equal(true);
+            config.getConfig().mqtt.groupIdSufix.should.equal('X');
             done();
         });
     });

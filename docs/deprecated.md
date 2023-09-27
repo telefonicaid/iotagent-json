@@ -39,10 +39,10 @@ in the case you want to use old versions:
 
 The following table provides information about the last iotagent-json version supporting currently removed features:
 
-| **Removed feature**    | **Last iotagent-json version supporting feature**   | **That version release date** |
-| ---------------------- | --------------------------------------------------- | ----------------------------- |
-| NGSIv1 API             | 1.17.0                                              | February 18th, 2021           |
-| Support to Node.js v4  | 1.9.0                                               | December 19th, 2018           |
-| Support to Node.js v6  | 1.10.0                                              | May 22nd, 2019                |
-| Support to Node.js v8  | 1.14.0                                              | April 7th, 2020               |
-| Support to Node.js v10 | 1.17.0                                              | February 18th, 2021           |
+| **Removed feature**    | **Last iotagent-json version supporting feature** | **That version release date** |
+| ---------------------- | ------------------------------------------------- | ----------------------------- |
+| NGSIv1 API             | 1.17.0                                            | February 18th, 2021           |
+| Support to Node.js v4  | 1.9.0                                             | December 19th, 2018           |
+| Support to Node.js v6  | 1.10.0                                            | May 22nd, 2019                |
+| Support to Node.js v8  | 1.14.0                                            | April 7th, 2020               |
+| Support to Node.js v10 | 1.17.0                                            | February 18th, 2021           |

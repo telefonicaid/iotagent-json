@@ -136,8 +136,12 @@ These are the currently available MQTT configuration options:
     order versions) or without the slash. See
     [discussion](https://github.com/telefonicaid/iotagent-node-lib/issues/866).
 -   **clean**: this flag is by default true, set to false to receive QoS 1 and 2 messages while offline.
--   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed prefix 
-    `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
+-   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed
+    prefix `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
+-   **sharedSubscriptionsDisabled**: this flag is by default undefined and shared subscriptions are enabled, to disable
+    shared subscriptions set to true
+-   **groupIdSufix**: defaults to undefined and is not set, when set to a value the value is appended to the groupId of
+    the mqtt subscriptions
 
 TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the
 [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
@@ -183,41 +187,43 @@ The ones relating global configuration described in the following table.
 
 The ones relating specific JSON bindings are described in the following table.
 
-| Environment variable          | Configuration attribute |
-| :---------------------------- | :---------------------- |
-| IOTA_MQTT_PROTOCOL            | mqtt.protocol           |
-| IOTA_MQTT_HOST                | mqtt.host               |
-| IOTA_MQTT_PORT                | mqtt.port               |
-| IOTA_MQTT_CA                  | mqtt.ca                 |
-| IOTA_MQTT_CERT                | mqtt.cert               |
-| IOTA_MQTT_KEY                 | mqtt.key                |
-| IOTA_MQTT_REJECT_UNAUTHORIZED | mqtt.rejectUnauthorized |
-| IOTA_MQTT_USERNAME            | mqtt.username           |
-| IOTA_MQTT_PASSWORD            | mqtt.password           |
-| IOTA_MQTT_QOS                 | mqtt.qos                |
-| IOTA_MQTT_RETAIN              | mqtt.retain             |
-| IOTA_MQTT_RETRIES             | mqtt.retries            |
-| IOTA_MQTT_RETRY_TIME          | mqtt.retryTime          |
-| IOTA_MQTT_KEEPALIVE           | mqtt.keepalive          |
-| IOTA_MQTT_AVOID_LEADING_SLASH | mqtt.avoidLeadingSlash  |
-| IOTA_MQTT_CLEAN               | mqtt.clean              |
-| IOTA_MQTT_CLIENT_ID           | mqtt.clientId           |
-| IOTA_MQTT_DISABLED            | mqtt.disabled           |
-| IOTA_AMQP_HOST                | amqp.host               |
-| IOTA_AMQP_PORT                | amqp.port               |
-| IOTA_AMQP_USERNAME            | amqp.username           |
-| IOTA_AMQP_PASSWORD            | amqp.password           |
-| IOTA_AMQP_EXCHANGE            | amqp.exchange           |
-| IOTA_AMQP_QUEUE               | amqp.queue              |
-| IOTA_AMQP_DURABLE             | amqp.durable            |
-| IOTA_AMQP_RETRIES             | amqp.retries            |
-| IOTA_AMQP_RETRY_TIME          | amqp.retryTime          |
-| IOTA_AMQP_DISABLED            | amqp.disabled           |
-| IOTA_HTTP_HOST                | http.host               |
-| IOTA_HTTP_PORT                | http.port               |
-| IOTA_HTTP_TIMEOUT             | http.timeout            |
-| IOTA_HTTP_KEY                 | http.key                |
-| IOTA_HTTP_CERT                | http.cert               |
+| Environment variable                   | Configuration attribute          |
+| :------------------------------------- | :------------------------------- |
+| IOTA_MQTT_PROTOCOL                     | mqtt.protocol                    |
+| IOTA_MQTT_HOST                         | mqtt.host                        |
+| IOTA_MQTT_PORT                         | mqtt.port                        |
+| IOTA_MQTT_CA                           | mqtt.ca                          |
+| IOTA_MQTT_CERT                         | mqtt.cert                        |
+| IOTA_MQTT_KEY                          | mqtt.key                         |
+| IOTA_MQTT_REJECT_UNAUTHORIZED          | mqtt.rejectUnauthorized          |
+| IOTA_MQTT_USERNAME                     | mqtt.username                    |
+| IOTA_MQTT_PASSWORD                     | mqtt.password                    |
+| IOTA_MQTT_QOS                          | mqtt.qos                         |
+| IOTA_MQTT_RETAIN                       | mqtt.retain                      |
+| IOTA_MQTT_RETRIES                      | mqtt.retries                     |
+| IOTA_MQTT_RETRY_TIME                   | mqtt.retryTime                   |
+| IOTA_MQTT_KEEPALIVE                    | mqtt.keepalive                   |
+| IOTA_MQTT_AVOID_LEADING_SLASH          | mqtt.avoidLeadingSlash           |
+| IOTA_MQTT_CLEAN                        | mqtt.clean                       |
+| IOTA_MQTT_CLIENT_ID                    | mqtt.clientId                    |
+| IOTA_MQTT_DISABLED                     | mqtt.disabled                    |
+| IOTA_MQTT_DISABLE_SHARED_SUBSCRIPTIONS | mqtt.sharedSubscriptionsDisabled |
+| IOTA_MQTT_GROUP_ID_SUFIX               | mqtt.groupIdSufix                |
+| IOTA_AMQP_HOST                         | amqp.host                        |
+| IOTA_AMQP_PORT                         | amqp.port                        |
+| IOTA_AMQP_USERNAME                     | amqp.username                    |
+| IOTA_AMQP_PASSWORD                     | amqp.password                    |
+| IOTA_AMQP_EXCHANGE                     | amqp.exchange                    |
+| IOTA_AMQP_QUEUE                        | amqp.queue                       |
+| IOTA_AMQP_DURABLE                      | amqp.durable                     |
+| IOTA_AMQP_RETRIES                      | amqp.retries                     |
+| IOTA_AMQP_RETRY_TIME                   | amqp.retryTime                   |
+| IOTA_AMQP_DISABLED                     | amqp.disabled                    |
+| IOTA_HTTP_HOST                         | http.host                        |
+| IOTA_HTTP_PORT                         | http.port                        |
+| IOTA_HTTP_TIMEOUT                      | http.timeout                     |
+| IOTA_HTTP_KEY                          | http.key                         |
+| IOTA_HTTP_CERT                         | http.cert                        |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 
