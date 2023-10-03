@@ -1,8 +1,8 @@
 {
     "id":"Second MQTT Device",
-    "type":"AnMQTTDevice",     
+    "type":"AnMQTTDevice", 
   "humidity":{
     "type": "degrees",
-     "value": "3332"
+    "value": "4124436931"
   }
 }
