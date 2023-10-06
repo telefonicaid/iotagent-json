@@ -101,9 +101,9 @@ broker will be:
 }
 ```
 
-where every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte received in the payload (in this 
-case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple tools available online like 
-[this one](https://string-functions.com/string-hex.aspx)
+where every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte received in 
+the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple tools available 
+online like [this one](https://string-functions.com/string-hex.aspx)
 
 #### Configuration retrieval
 
