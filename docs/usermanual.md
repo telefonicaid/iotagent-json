@@ -87,7 +87,21 @@ It is possible to send a single measure to IoT Platform using an HTTP POST reque
 `/iot/json/attrs/<attributeName>` and the previously explained query parameters.
 
 In this case, sending a single measure, there is possible to send other kinds of payloads like `text/plain` and
-`application/octet-stream`, not just `application/json`
+`application/octet-stream`, not just `application/json`. In case of using `application/octet-stream`, data will be 
+treated as binary data, saved in the attribute maped as hex string. I.E:
+
+For a measure sent to `/iot/json/attrs/attrHex` with value `hi` the resulting attribute value persisten in the context
+broker will be:
+
+```json
+{
+    ...
+    "attrHex":"6869"
+    ...
+}
+```
+
+Which `68` correspond to the character `h` and `69` corresponds to `i`  ASCII enconded.
 
 #### Configuration retrieval
 
