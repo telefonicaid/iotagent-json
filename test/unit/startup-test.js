@@ -89,6 +89,7 @@ describe('Startup tests', function () {
 
     describe('When the AMQP transport is started with environment variables', function () {
         beforeEach(function () {
+            process.env.IOTA_AMQP_PROTOCOL = 'xxx';
             process.env.IOTA_AMQP_HOST = 'localhost';
             process.env.IOTA_AMQP_PORT = '9090';
             process.env.IOTA_AMQP_USERNAME = 'useramqp';
@@ -102,6 +103,7 @@ describe('Startup tests', function () {
         });
 
         afterEach(function () {
+            delete process.env.IOTA_AMQP_PROTOCOL;
             delete process.env.IOTA_AMQP_HOST;
             delete process.env.IOTA_AMQP_PORT;
             delete process.env.IOTA_AMQP_USERNAME;
