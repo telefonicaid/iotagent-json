@@ -31,7 +31,6 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-const configS = require('../../../lib/configService');
 const utils = require('../../utils');
 const request = utils.request;
 let contextBrokerMock;
