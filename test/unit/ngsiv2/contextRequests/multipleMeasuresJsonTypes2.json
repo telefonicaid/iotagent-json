@@ -1,13 +1,13 @@
 {
     "id":"Second MQTT Device",
-    "type":"AnMQTTDevice",    
+    "type":"AnMQTTDevice",
   "humidity":{
     "type": "degrees",
-    "value": "33"   
+    "value": "33"
   },
   "temperature":{
     "type": "celsius",
-    "value": "89"    
+    "value": "89"
   },
   "luminosity": {
         "type": "Integer",
@@ -33,9 +33,5 @@
   "enabled": {
         "type": "Boolean",
         "value": true
-  },
-  "alive": {
-        "type": "Null",
-        "value": null
   }
 }

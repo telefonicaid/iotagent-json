@@ -268,7 +268,7 @@ describe('MQTT: Measure reception ', function () {
             const values = {
                 humidity: '32',
                 temperature: '87',
-                TimeInstant: '20071103T131805'
+                TimeInstant: '2007-11-03T13:18:05Z'
             };
 
             mqttClient.publish('/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
@@ -282,7 +282,7 @@ describe('MQTT: Measure reception ', function () {
             const values = {
                 humidity: '32',
                 temperature: '87',
-                TimeInstant: '20071103T131805'
+                TimeInstant: '2007-11-03T13:18:05Z'
             };
 
             mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {

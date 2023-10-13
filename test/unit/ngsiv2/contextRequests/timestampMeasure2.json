@@ -3,26 +3,14 @@
     "type":"AnMQTTDevice",
   "humidity":{
     "type": "degrees",
-    "value": "33",
-    "metadata": {
-        "TimeInstant":{
-            "type": "DateTime",
-            "value": "+002007-11-03T13:18:05"
-        }
-    }
+    "value": "33"
   },
   "temperature":{
     "type": "celsius",
-    "value": "89",
-    "metadata": {
-        "TimeInstant":{
-            "type": "DateTime",
-            "value": "+002007-11-03T13:18:05"
-        }
-    }
+    "value": "89"
   },
   "TimeInstant":{
     "type": "DateTime",
-    "value": "+002007-11-03T13:18:05"
+    "value": "2007-11-03T13:18:06Z"
   }
 }

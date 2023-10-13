@@ -31,7 +31,7 @@ const config = require('./config-test.js');
 const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
-
+const configS = require('../../../lib/configService');
 const utils = require('../../utils');
 const request = utils.request;
 let contextBrokerMock;
@@ -90,7 +90,7 @@ describe('Attribute alias', function () {
             const values = {
                 humidity: '32',
                 temperature: '87',
-                tt: '20071103T131805'
+                tt: '2007-03-11T12:18:05.000Z'
             };
 
             mqttClient.publish('/json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
