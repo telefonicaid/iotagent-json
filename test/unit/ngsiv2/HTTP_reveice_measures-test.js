@@ -34,7 +34,7 @@ const async = require('async');
 
 const utils = require('../../utils');
 const request = utils.request;
-const groupCreation = {
+let groupCreation = {
     url: 'http://localhost:' + config.iota.server.port + '/iot/services',
     method: 'POST',
     json: {
@@ -83,7 +83,6 @@ describe('HTTP: Measure reception ', function () {
         // device provisioning functionality. Appropriate verification is done in tests under
         // provisioning folder of iotagent-node-lib
         contextBrokerMock = nock('http://192.168.1.1:1026');
-
         iotaJson.start(config, function () {
             request(provisionOptions, function (error, response, body) {
                 done();
@@ -467,6 +466,55 @@ describe('HTTP: Measure reception ', function () {
                     body.devices[0].transport.should.equal('HTTP');
                     done();
                 });
+            });
+        });
+    });
+
+    describe('When a POST measure arrives for an unprovisioned device with TimeInstant as query param and attribute', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '32',
+                temperature: '87'
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'JSON_UNPROVISIONED',
+                k: 'KL223HHV8732SFL1',
+                t: '2020-02-22T22:22:22Z'
+            }
+        };
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
+        beforeEach(function (done) {
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026');
+            contextBrokerUnprovMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDeviceTimeInstant.json')
+                )
+                .reply(204);
+            groupCreation.json.services[0].attributes[1] = {
+                object_id: 't',
+                name: 'TimeInstant',
+                type: 'DateTime'
+            };
+            request(groupCreation, function (error, response, body) {
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerUnprovMock.done();
+                done();
             });
         });
     });

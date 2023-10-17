@@ -1,0 +1,16 @@
+{
+  "id":"TheLightType:JSON_UNPROVISIONED",
+  "type":"TheLightType",
+  "humidity":{
+    "type": "string",
+    "value": "32"    
+  },
+  "temperature":{
+    "type": "string",
+    "value": "87"    
+  },
+  "TimeInstant":{
+    "type": "DateTime",
+    "value": "2020-02-22T22:22:22Z"
+  }    
+}
