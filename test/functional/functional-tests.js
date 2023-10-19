@@ -54,7 +54,6 @@ describe('FUNCTIONAL TESTS', function () {
     });
 
     describe('Basic group provision without attributes', function () {
-        // Provision
         const provision = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/services',
             method: 'POST',
@@ -64,7 +63,6 @@ describe('FUNCTIONAL TESTS', function () {
                         resource: '/iot/json',
                         apikey: '123456',
                         entity_type: 'TheLightType',
-                        trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
                         cbHost: 'http://192.168.1.1:1026',
                         commands: [],
                         lazy: [],
@@ -79,7 +77,6 @@ describe('FUNCTIONAL TESTS', function () {
             }
         };
 
-        // Measure
         const measure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -130,7 +127,6 @@ describe('FUNCTIONAL TESTS', function () {
     });
 
     describe('Basic group provision with attributes', function () {
-        // Provision
         const provision = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/services',
             method: 'POST',
@@ -140,7 +136,6 @@ describe('FUNCTIONAL TESTS', function () {
                         resource: '/iot/json',
                         apikey: '123456',
                         entity_type: 'TheLightType2',
-                        trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
                         cbHost: 'http://192.168.1.1:1026',
                         commands: [],
                         lazy: [],
@@ -166,7 +161,6 @@ describe('FUNCTIONAL TESTS', function () {
             }
         };
 
-        // Measure
         const measure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -194,19 +188,15 @@ describe('FUNCTIONAL TESTS', function () {
         };
 
         beforeEach(function (done) {
-            // logger.setLevel('DEBUG');
-
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert', expectation)
                 .reply(204);
 
-            // iotaJson.start(config, function () {
             request(provision, function (error, response, body) {
                 done();
             });
-            // });
         });
 
         it('should return a 200 OK with no error', function (done) {

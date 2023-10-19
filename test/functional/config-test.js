@@ -64,8 +64,7 @@ config.iota = {
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
-    defaultResource: '/iot/json',
-    compressTimestamp: true
+    defaultResource: '/iot/json'
 };
 
 config.defaultKey = '1234';
