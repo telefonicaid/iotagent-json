@@ -1,3 +1,4 @@
+- Add: allow read measures in application/soap+xml content-type (#759)
 - Fix: binary data representation when sending data through HTTP & MQTT (#690)
 - Fix: ensure service and subservice from device in logs about error proccesing message
 - Remove: legacy code about unused parsedMessageError flag
