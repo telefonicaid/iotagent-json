@@ -1,0 +1,57 @@
+{
+    "id": "Second MQTT Device",
+    "type": "AnMQTTDevice",
+    "data": {
+        "type": "None",
+        "value": {
+            "soap:Envelope": {
+                "$": {
+                    "xmlns:soap": "http://www.w3.org/2003/05/soap-envelope"
+                },
+                "soapenv:Header": [
+                    {
+                        "$": {
+                            "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                        }
+                    }
+                ],
+                "soapenv:Body": [
+                    {
+                        "$": {
+                            "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                        },
+                        "ns21:notificationEventRequest": [
+                            {
+                                "$": {
+                                    "xmlns:ns21": "http://myurl.com"
+                                },
+                                "ns21:Param1": [
+                                    "ABC12345"
+                                ],
+                                "ns21:Param2": [
+                                    ""
+                                ],
+                                "ns21:Date": [
+                                    "28/09/2023 11:48:15 +0000"
+                                ],
+                                "ns21:NestedAttr": [
+                                    {
+                                        "ns21:SubAttr": [
+                                            "This is a description"
+                                        ]
+                                    }
+                                ],
+                                "ns21:Status": [
+                                    "Assigned"
+                                ],
+                                "ns21:OriginSystem": [
+                                    ""
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}
