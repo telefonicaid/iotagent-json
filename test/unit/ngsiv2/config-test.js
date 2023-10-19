@@ -65,7 +65,6 @@ config.iota = {
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
     defaultResource: '/iot/json',
-    compressTimestamp: true
 };
 
 config.defaultKey = '1234';
