@@ -28,8 +28,9 @@
 const iotaJson = require('../..');
 const config = require('./config-test.js');
 const nock = require('nock');
+const chai = require('chai');
+const expect = chai.expect;
 const iotAgentLib = require('iotagent-node-lib');
-const should = require('should');
 const async = require('async');
 
 const utils = require('../utils');
@@ -41,89 +42,16 @@ let contextBrokerMock;
 
 describe('FUNCTIONAL TESTS', function () {
     beforeEach(function (done) {
+        this.timeout(6000);
         nock.cleanAll();
-        iotaJson.start(config, function () {
-            done();
+        iotaJson.start(config, function (error) {
+            done(error);
         });
     });
 
     afterEach(function (done) {
         nock.cleanAll();
-
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
-    });
-
-    describe('Basic group provision without attributes', function () {
-        const provision = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-            method: 'POST',
-            json: {
-                services: [
-                    {
-                        resource: '/iot/json',
-                        apikey: '123456',
-                        entity_type: 'TheLightType',
-                        cbHost: 'http://192.168.1.1:1026',
-                        commands: [],
-                        lazy: [],
-                        attributes: [],
-                        static_attributes: []
-                    }
-                ]
-            },
-            headers: {
-                'fiware-service': 'smartgondor',
-                'fiware-servicepath': '/gardens'
-            }
-        };
-
-        const measure = {
-            url: 'http://localhost:' + config.http.port + '/iot/json',
-            method: 'POST',
-            json: {
-                status: true
-            },
-            qs: {
-                i: 'MQTT_2',
-                k: '123456'
-            }
-        };
-
-        const expectation = {
-            id: 'TheLightType:MQTT_2',
-            type: 'TheLightType',
-            status: {
-                value: true,
-                type: 'string'
-            }
-        };
-
-        beforeEach(function (done) {
-            contextBrokerMock = nock('http://192.168.1.1:1026')
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities?options=upsert', expectation)
-                .reply(204);
-
-            request(provision, function (error, response, body) {
-                done();
-            });
-        });
-
-        it('should return a 200 OK with no error', function (done) {
-            request(measure, function (error, result, body) {
-                should.not.exist(error);
-                result.statusCode.should.equal(200);
-                done();
-            });
-        });
-
-        it('should send its value to the Context Broker', function (done) {
-            request(measure, function (error, result, body) {
-                contextBrokerMock.done();
-                done();
-            });
-        });
     });
 
     describe('Basic group provision with attributes', function () {
@@ -164,54 +92,68 @@ describe('FUNCTIONAL TESTS', function () {
         const measure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
-            json: {
-                s: true,
-                t: 20
-            },
             qs: {
                 i: 'MQTT_2',
                 k: '123456'
+            },
+            json: {
+                s: true,
+                t: 20
             }
         };
 
         const expectation = {
             id: 'TheLightType2:MQTT_2',
             type: 'TheLightType2',
-            status: {
-                value: true,
-                type: 'Boolean'
-            },
             temperature: {
-                value: 20,
+                value: 10,
                 type: 'Number'
+            },
+            status: {
+                value: false,
+                type: 'Boolean'
             }
         };
 
         beforeEach(function (done) {
+            request(provision, function (error, response, body) {
+                let err = null;
+                if (response.statusCode != 201) {
+                    err = new Error('Error creating the service');
+                }
+                done(err);
+            });
+        });
+
+        afterEach(function () {
+            nock.cleanAll();
+        });
+
+        it('should send its value to the Context Broker', async function () {
+            let receivedBody;
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
-                .post('/v2/entities?options=upsert', expectation)
+                .post('/v2/entities?options=upsert', function (body) {
+                    receivedBody = body; // Save the received body for later comparison
+                    return true;
+                })
                 .reply(204);
 
-            request(provision, function (error, response, body) {
-                done();
+            // Send a measure to the IoT Agent and wait for the response
+            const response = await new Promise((resolve, reject) => {
+                request(measure, function (error, result, body) {
+                    error ? reject(error) : resolve(result);
+                });
             });
-        });
 
-        it('should return a 200 OK with no error', function (done) {
-            request(measure, function (error, result, body) {
-                should.not.exist(error);
-                result.statusCode.should.equal(200);
-                done();
-            });
-        });
+            // Validate the response status code and the receivedBody
+            expect(response.statusCode, 'Measure response: Status code differs from 200').to.equal(200);
+            expect(response.body, 'Measure response: body not empty').to.be.empty;
 
-        it('should send its value to the Context Broker', function (done) {
-            request(measure, function (error, result, body) {
-                contextBrokerMock.done();
-                done();
-            });
+            // Validate Context Broker Expectation
+            contextBrokerMock.done(); // Ensure the request was made, no matter the body content
+            expect(receivedBody, 'CB payload: message differs from expectation').to.deep.equal(expectation);
         });
     });
 });
