@@ -23,7 +23,7 @@
  * Modified by: Miguel Angel Pedraza
  */
 
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars no-unused-expressions */
 
 const iotaJson = require('../..');
 const config = require('./config-test.js');
@@ -118,7 +118,7 @@ describe('FUNCTIONAL TESTS', function () {
         beforeEach(function (done) {
             request(provision, function (error, response, body) {
                 let err = null;
-                if (response.statusCode != 201) {
+                if (response.statusCode !== 201) {
                     err = new Error('Error creating the service');
                 }
                 done(err);
