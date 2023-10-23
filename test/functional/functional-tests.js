@@ -41,6 +41,10 @@ const logger = require('logops');
 
 let contextBrokerMock;
 
+const ERR_CB_EXPECTATION_DIFFER = 'Assertion Error - Context Broker received payload differs from expectation';
+const ERR_MEAS_BODY = 'Assertion Error - Measure response is not empty';
+const ERR_MEAS_CODE = 'Assertion Error - Measure response status code differs from 200';
+
 describe('FUNCTIONAL TESTS', function () {
     beforeEach(function (done) {
         this.timeout(6000);
@@ -131,30 +135,26 @@ describe('FUNCTIONAL TESTS', function () {
         });
 
         it('should send its value to the Context Broker', async function () {
-            let receivedBody;
+            let receivedContext = null;
             contextBrokerMock = nock('http://192.168.1.1:1026')
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/entities?options=upsert', function (body) {
-                    receivedBody = body; // Save the received body for later comparison
+                    receivedContext = body; // Save the received body for later comparison
                     return true;
                 })
                 .reply(204);
 
             // Send a measure to the IoT Agent and wait for the response
-            const response = await new Promise((resolve, reject) => {
-                request(measure, function (error, result, body) {
-                    error ? reject(error) : resolve(result);
-                });
-            });
+            const response = await utils.sendMeasurePromise(measure);
 
-            // Validate the response status code and the receivedBody
-            expect(response.statusCode, 'Measure response: Status code differs from 200').to.equal(200);
-            expect(response.body, 'Measure response: body not empty').to.be.empty;
+            // Validate the response status code and the response body
+            expect(response.statusCode, ERR_MEAS_CODE).to.equal(200);
+            expect(response.body, ERR_MEAS_BODY).to.be.empty;
 
             // Validate Context Broker Expectation
             contextBrokerMock.done(); // Ensure the request was made, no matter the body content
-            expect(receivedBody, 'CB payload: message differs from expectation').to.deep.equal(expectation);
+            expect(receivedContext, ERR_CB_EXPECTATION_DIFFER).to.deep.equal(expectation);
         });
     });
 });
