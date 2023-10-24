@@ -82,27 +82,6 @@ their APIs can be found in the IoT Agent Library [documentation](https://iotagen
 The latest IoT Agent for JSON documentation is also available on
 [ReadtheDocs](https://fiware-iotagent-json.readthedocs.io/en/latest/)
 
-## Command-line Client
-
-The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be
-executed with the following command:
-
-```console
-bin/iotaJsonTester.js
-```
-
-This will show a prompt where commands can be issued to the MQTT broker. For a list of the currently available commands
-type `help`.
-
-The client loads a global configuration used for all the commands, containing the host and port of the MQTT broker and
-the API Key and Device ID of the device to simulate. This information can be changed with the `config` command.
-
-In order to use any of the MQTT commands, you have to connect to the MQTT broker first. If no connection is available,
-MQTT commands will show an error message reminding you to connect.
-
-The command-line Client gets its default values from a config file in the root of the project: `client-config.js`. This
-config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
-
 ## Contributing
 
 If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has
