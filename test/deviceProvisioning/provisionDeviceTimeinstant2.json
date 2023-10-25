@@ -9,8 +9,7 @@
         },
         {
           "type": "DateTime",
-          "name": "TimeInstant",
-          "object_id": "t"
+          "name": "TimeInstant"
         }
       ],
       "entity_type": "sensor",
