@@ -357,12 +357,12 @@ describe('MQTT: Measure reception ', function () {
                 {
                     humidity: '32',
                     temperature: '87',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:05Z'
                 },
                 {
                     humidity: '33',
                     temperature: '89',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:06Z'
                 }
             ];
 
@@ -378,12 +378,12 @@ describe('MQTT: Measure reception ', function () {
                 {
                     humidity: '32',
                     temperature: '87',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:05Z'
                 },
                 {
                     humidity: '33',
                     temperature: '89',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:06Z'
                 }
             ];
 
