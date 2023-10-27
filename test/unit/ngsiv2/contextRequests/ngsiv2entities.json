@@ -1,6 +1,6 @@
 {
-    actionType: 'append',
-    entities: [
+    "actionType": "append",
+    "entities": [
         {
             "id": "urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2",
             "type": "Streetlight",
@@ -50,5 +50,5 @@
             }
         }
     ]
-
+}
 
