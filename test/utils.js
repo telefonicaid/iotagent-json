@@ -41,15 +41,6 @@ function delay(ms) {
     };
 }
 
-function sendMeasurePromise(measure) {
-    return new Promise((resolve, reject) => {
-        request(measure, function (error, result, body) {
-            error ? reject(error) : resolve(result);
-        });
-    });
-}
-
 exports.readExampleFile = readExampleFile;
 exports.delay = delay;
 exports.request = request;
-exports.sendMeasurePromise = sendMeasurePromise;
