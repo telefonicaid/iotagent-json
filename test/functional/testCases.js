@@ -1,6 +1,6 @@
 const config = require('./config-test.js');
 
-globalEnv = {
+const globalEnv = {
     service: 'smartgondor',
     servicePath: '/gardens',
     apikey: '123456',

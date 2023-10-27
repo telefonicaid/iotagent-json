@@ -67,6 +67,7 @@ function sendMeasurePromise(measure) {
 
 async function testCase(measure, expectation, env, config, type, transport) {
     let receivedContext = [];
+    let cbMockRoute = '';
     // Set the correct route depending if the test is multientity or not
     if (type === 'multientity') {
         cbMockRoute = '/v2/op/update';
@@ -81,7 +82,7 @@ async function testCase(measure, expectation, env, config, type, transport) {
         mockTimes = expectation.length;
     }
 
-    contextBrokerMock = nock('http://192.168.1.1:1026')
+    let contextBrokerMock = nock('http://192.168.1.1:1026')
         .matchHeader('fiware-service', env.service)
         .matchHeader('fiware-servicepath', env.servicePath)
         .post(cbMockRoute, function (body) {
