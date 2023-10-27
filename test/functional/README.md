@@ -303,8 +303,9 @@ Example of a test case with the loglevel set to `debug`:
 ```javascript
 should:[
     {
-        transport: 'MQTT',
         shouldName: 'should send its value to the Context Broker when using MQTT',
+        loglevel: 'debug',
+        transport: 'MQTT',
         type: 'single',
         measure: {...},
         expectation: {...}
