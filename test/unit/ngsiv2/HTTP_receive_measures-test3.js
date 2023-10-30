@@ -43,8 +43,9 @@ const groupCreation = {
                 resource: '/iot/json',
                 apikey: 'KL223HHV8732SFL1',
                 entity_type: 'TheLightType',
-                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                cbHost: 'http://unexistentHost:1026',
+                service: 'smartgondor',
+                subservice: 'gardens',
+                cbHost: 'http://192.168.1.1:1026',
                 commands: [],
                 lazy: [],
                 attributes: [
