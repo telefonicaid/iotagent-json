@@ -360,7 +360,7 @@ describe('HTTP: Measure reception ', function () {
             },
             qs: {
                 i: 'MQTT_2',
-                k: '1234'
+                k: 'KL223HHV8732SFL1'
             }
         };
 
@@ -370,6 +370,10 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post('/v2/op/update', utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2entities.json'))
                 .reply(204);
+
+            request(groupCreation, function (error, response, body) {
+                done();
+            });
         });
         it('should return a 200 OK with no error', function (done) {
             request(optionsMeasure, function (error, result, body) {
