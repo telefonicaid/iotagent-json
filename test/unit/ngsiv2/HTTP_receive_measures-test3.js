@@ -364,7 +364,7 @@ describe('HTTP: Measure reception ', function () {
             }
         };
 
-        beforeEach(function () {
+        beforeEach(function (done) {
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
@@ -377,7 +377,6 @@ describe('HTTP: Measure reception ', function () {
         });
         it('should return a 200 OK with no error', function (done) {
             request(optionsMeasure, function (error, result, body) {
-                //console.log(error);
                 should.not.exist(error);
                 result.statusCode.should.equal(200);
                 done();
