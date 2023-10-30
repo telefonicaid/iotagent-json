@@ -36,7 +36,6 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 -   [Install](#build--install)
 -   [Usage](#usage)
 -   [API](#api)
--   [Command-line Client](#command-line-client)
 -   [Contributing](#contributing)
 -   [Testing](#testing)
 -   [License](#license)
