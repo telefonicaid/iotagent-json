@@ -69,7 +69,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-    describe('When a POST single NGSIv2 measure format arrives for the HTTP binding and NGSIV2 is the expected payload type', function () {
+    describe('When a POST single NGSIv2 append measure format arrives for the HTTP binding and NGSIV2 is the expected payload type', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json/',
             method: 'POST',
@@ -151,6 +151,230 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
             });
         });
 
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST multiple NGSIv2 append measure format arrives for the HTTP binding and NGSIV2 is the expected payload type', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json/',
+            method: 'POST',
+            json: {
+                actionType: 'APPEND',
+                entities: [
+                    {
+                        id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                        type: 'Streetlight',
+                        name: {
+                            type: 'Text',
+                            value: 'MyLightPoint-test1'
+                        },
+                        description: {
+                            type: 'Text',
+                            value: 'testdescription'
+                        },
+                        status: {
+                            type: 'Text',
+                            value: 'connected'
+                        },
+                        dateServiceStarted: {
+                            type: 'DateTime',
+                            value: '2020-06-04T09: 55: 02'
+                        },
+                        locationComment: {
+                            type: 'Text',
+                            value: 'Test1'
+                        },
+                        location: {
+                            type: 'geo:json',
+                            value: {
+                                coordinates: [-87.88429, 41.99499],
+                                type: 'Point'
+                            }
+                        },
+                        address: {
+                            type: 'Text',
+                            value: {
+                                streetAddress: 'MyStreet'
+                            }
+                        },
+                        isRemotelyManaged: {
+                            type: 'Integer',
+                            value: 1
+                        },
+                        installationDate: {
+                            type: 'DateTime',
+                            value: '2022-04-17T02: 30: 04'
+                        }
+                    },
+                    {
+                        id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-3',
+                        type: 'Streetlight',
+                        name: {
+                            type: 'Text',
+                            value: 'MyLightPoint-test2'
+                        },
+                        description: {
+                            type: 'Text',
+                            value: 'testdescription'
+                        },
+                        status: {
+                            type: 'Text',
+                            value: 'connected'
+                        },
+                        dateServiceStarted: {
+                            type: 'DateTime',
+                            value: '2022-06-04T09: 55: 02'
+                        },
+                        locationComment: {
+                            type: 'Text',
+                            value: 'Test3'
+                        },
+                        location: {
+                            type: 'geo:json',
+                            value: {
+                                coordinates: [-84.88429, 42.99499],
+                                type: 'Point'
+                            }
+                        },
+                        address: {
+                            type: 'Text',
+                            value: {
+                                streetAddress: 'MyFarStreet'
+                            }
+                        },
+                        isRemotelyManaged: {
+                            type: 'Integer',
+                            value: 3
+                        },
+                        installationDate: {
+                            type: 'DateTime',
+                            value: '2023-04-17T02: 30: 04'
+                        }
+                    }
+                ]
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure.json')
+                )
+                .reply(204);
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure2.json')
+                )
+                .reply(204);
+        });
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                should.not.exist(error);
+                result.statusCode.should.equal(200);
+                done();
+            });
+        });
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST single NGSIv2 entity measure format arrives for the HTTP binding and NGSIV2 is the expected payload type', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json/',
+            method: 'POST',
+            json: {
+                id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                type: 'Streetlight',
+                name: {
+                    type: 'Text',
+                    value: 'MyLightPoint-test1'
+                },
+                description: {
+                    type: 'Text',
+                    value: 'testdescription'
+                },
+                status: {
+                    type: 'Text',
+                    value: 'connected'
+                },
+                dateServiceStarted: {
+                    type: 'DateTime',
+                    value: '2020-06-04T09: 55: 02'
+                },
+                locationComment: {
+                    type: 'Text',
+                    value: 'Test1'
+                },
+                location: {
+                    type: 'geo:json',
+                    value: {
+                        coordinates: [-87.88429, 41.99499],
+                        type: 'Point'
+                    }
+                },
+                address: {
+                    type: 'Text',
+                    value: {
+                        streetAddress: 'MyStreet'
+                    }
+                },
+                isRemotelyManaged: {
+                    type: 'Integer',
+                    value: 1
+                },
+                installationDate: {
+                    type: 'DateTime',
+                    value: '2022-04-17T02: 30: 04'
+                }
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure.json')
+                )
+                .reply(204);
+        });
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                should.not.exist(error);
+                result.statusCode.should.equal(200);
+                done();
+            });
+        });
         it('should send its value to the Context Broker', function (done) {
             request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
