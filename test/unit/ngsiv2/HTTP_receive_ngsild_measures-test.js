@@ -146,6 +146,123 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
         });
     });
 
+    describe('When a POST multiple NGSILD append measure with NGSILD format arrives for the HTTP binding and NGSILD is the expected payload type', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json/',
+            method: 'POST',
+            json: {
+                actionType: 'APPEND',
+                entities: [
+                    {
+                        id: 'urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3',
+                        type: 'ParkingSpot',
+                        status: {
+                            type: 'Property',
+                            value: 'free',
+                            observedAt: '2018-09-21T12:00:00Z'
+                        },
+                        category: {
+                            type: 'Property',
+                            value: ['onstreet']
+                        },
+                        refParkingSite: {
+                            type: 'Relationship',
+                            object: 'urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5'
+                        },
+                        name: {
+                            type: 'Property',
+                            value: 'A-13'
+                        },
+                        location: {
+                            type: 'GeoProperty',
+                            value: {
+                                type: 'Point',
+                                coordinates: [-3.80356167695194, 43.46296641666926]
+                            }
+                        },
+                        '@context': [
+                            'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
+                            'https://schema.lab.fiware.org/ld/context'
+                        ]
+                    },
+                    {
+                        id: 'urn:ngsi-ld:ParkingSpot:santander:reyes_magos_1_1:1',
+                        type: 'ParkingSpot',
+                        status: {
+                            type: 'Property',
+                            value: 'free',
+                            observedAt: '2012-09-21T12:00:00Z'
+                        },
+                        category: {
+                            type: 'Property',
+                            value: ['onstreet']
+                        },
+                        refParkingSite: {
+                            type: 'Relationship',
+                            object: 'urn:ngsi-ld:ParkingSite:santander:reyes_magos_1_1'
+                        },
+                        name: {
+                            type: 'Property',
+                            value: 'A-12'
+                        },
+                        location: {
+                            type: 'GeoProperty',
+                            value: {
+                                type: 'Point',
+                                coordinates: [-3.90356167695194, 42.46296641666926]
+                            }
+                        },
+                        '@context': [
+                            'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
+                            'https://schema.lab.fiware.org/ld/context'
+                        ]
+                    }
+                ]
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure.json')
+                )
+                .reply(204);
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure2.json')
+                )
+                .reply(204);
+        });
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                should.not.exist(error);
+                result.statusCode.should.equal(200);
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
     describe('When a POST single NGSILD entity measure with NGSILD format arrives for the HTTP binding and NGSILD is the expected payload type', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json/',
