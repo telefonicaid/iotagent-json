@@ -390,4 +390,57 @@ describe('HTTP: Measure reception ', function () {
             });
         });
     });
+
+    describe('When a POST single XML measure arrives for the HTTP binding', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/configuration',
+            method: 'POST',
+            json: false,
+            body: `<?xml version="1.0" encoding="UTF-8"?>
+                <settings>
+                    <single>value1</single>
+                    <list>
+                        <item>item1</item>
+                        <item>item2</item>
+                    </list>
+                    <with attr="value2">
+                        and text
+                    </with>
+                </settings>`,
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens',
+                'Content-Type': 'text/xml'
+            },
+            qs: {
+                i: 'MQTT_2',
+                k: '1234'
+            }
+        };
+
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresXmlTypes.json')
+                )
+                .reply(204);
+        });
+        it('should return a 200 OK with no error', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                should.not.exist(error);
+                result.statusCode.should.equal(200);
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
 });

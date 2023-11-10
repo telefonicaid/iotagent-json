@@ -1,0 +1,21 @@
+{
+  "id": "Second MQTT Device",
+  "type": "AnMQTTDevice",
+  "configuration": {
+    "type": "Object",
+    "value": {
+      "settings": {
+        "single": "value1",
+        "list": {
+          "item": ["item1", "item2"]
+        },
+        "with": {
+          "$": {
+            "attr": "value2"
+          },
+          "_": "and text"
+        }
+      }
+    }
+  }
+}

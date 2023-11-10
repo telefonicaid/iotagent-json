@@ -1,3 +1,5 @@
+- Add: support XML payload in attribute updates, using xml2js (https://www.npmjs.com/package/xml2js)
+
 2.4.0 (Sep 20th, 2023)
 - Fix: try to use apikey from measure/group to find, update and remove device in first attempt (iota-node-lib#1426)
 - Fix: ensure device apikey in already provisioned device (iota-node-lib#1430, iota-node-lib#1435)
