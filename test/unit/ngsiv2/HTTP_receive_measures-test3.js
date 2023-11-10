@@ -397,16 +397,16 @@ describe('HTTP: Measure reception ', function () {
             method: 'POST',
             json: false,
             body: `<?xml version="1.0" encoding="UTF-8"?>
-                <settings>
+                <ns:settings xmlns:ns="http://strip.ns">
                     <single>value1</single>
                     <list>
-                        <item>item1</item>
-                        <item>item2</item>
+                        <ns:item>item1</ns:item>
+                        <ns:item>item2</ns:item>
                     </list>
                     <with attr="value2">
                         and text
                     </with>
-                </settings>`,
+                </ns:settings>`,
             headers: {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens',

@@ -5,9 +5,15 @@
     "type": "Object",
     "value": {
       "settings": {
+        "$": {
+          "xmlns:ns": "http://strip.ns"
+        },
         "single": "value1",
         "list": {
-          "item": ["item1", "item2"]
+          "item": [
+            "item1",
+            "item2"
+          ]
         },
         "with": {
           "$": {

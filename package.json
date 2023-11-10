@@ -68,7 +68,8 @@
     "logops": "2.1.2",
     "mqtt": "4.3.7",
     "sinon": "~6.1.0",
-    "underscore": "1.12.1"
+    "underscore": "1.12.1",
+    "xml2js": "0.6.2"
   },
   "husky": {
     "hooks": {
