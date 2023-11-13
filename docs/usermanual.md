@@ -124,7 +124,7 @@ In case of using `application/soap+xml` a measure like:
     </soap:Envelope>
 ```
 
-is resulting attribute data sent to context borker:
+is resulting attribute `data` sent to context borker:
 
 ```
 "data": {
