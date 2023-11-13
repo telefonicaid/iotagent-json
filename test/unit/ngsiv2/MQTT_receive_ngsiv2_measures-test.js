@@ -21,7 +21,6 @@
  * please contact with::[contacto@tid.es]
  *
  */
-
 /* eslint-disable no-unused-vars */
 
 const iotaJson = require('../../../');
@@ -135,6 +134,130 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                 .post(
                     '/v2/entities?options=upsert',
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure.json')
+                )
+                .reply(204);
+        });
+        it('should send its value to the Context Broker', function (done) {
+            mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(measure), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+
+    describe('When a publish multiple NGSIv2 append measure format arrives for the MQTT binding and NGSIV2 is the expected payload type', function () {
+        const measure = {
+            actionType: 'APPEND',
+            entities: [
+                {
+                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                    type: 'Streetlight',
+                    name: {
+                        type: 'Text',
+                        value: 'MyLightPoint-test1'
+                    },
+                    description: {
+                        type: 'Text',
+                        value: 'testdescription'
+                    },
+                    status: {
+                        type: 'Text',
+                        value: 'connected'
+                    },
+                    dateServiceStarted: {
+                        type: 'DateTime',
+                        value: '2020-06-04T09: 55: 02'
+                    },
+                    locationComment: {
+                        type: 'Text',
+                        value: 'Test1'
+                    },
+                    location: {
+                        type: 'geo:json',
+                        value: {
+                            coordinates: [-87.88429, 41.99499],
+                            type: 'Point'
+                        }
+                    },
+                    address: {
+                        type: 'Text',
+                        value: {
+                            streetAddress: 'MyStreet'
+                        }
+                    },
+                    isRemotelyManaged: {
+                        type: 'Integer',
+                        value: 1
+                    },
+                    installationDate: {
+                        type: 'DateTime',
+                        value: '2022-04-17T02: 30: 04'
+                    }
+                },
+                {
+                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-3',
+                    type: 'Streetlight',
+                    name: {
+                        type: 'Text',
+                        value: 'MyLightPoint-test2'
+                    },
+                    description: {
+                        type: 'Text',
+                        value: 'testdescription'
+                    },
+                    status: {
+                        type: 'Text',
+                        value: 'connected'
+                    },
+                    dateServiceStarted: {
+                        type: 'DateTime',
+                        value: '2022-06-04T09: 55: 02'
+                    },
+                    locationComment: {
+                        type: 'Text',
+                        value: 'Test3'
+                    },
+                    location: {
+                        type: 'geo:json',
+                        value: {
+                            coordinates: [-84.88429, 42.99499],
+                            type: 'Point'
+                        }
+                    },
+                    address: {
+                        type: 'Text',
+                        value: {
+                            streetAddress: 'MyFarStreet'
+                        }
+                    },
+                    isRemotelyManaged: {
+                        type: 'Integer',
+                        value: 3
+                    },
+                    installationDate: {
+                        type: 'DateTime',
+                        value: '2023-04-17T02: 30: 04'
+                    }
+                }
+            ]
+        };
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure.json')
+                )
+                .reply(204);
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure2.json')
                 )
                 .reply(204);
         });
