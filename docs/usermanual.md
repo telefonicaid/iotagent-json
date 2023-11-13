@@ -104,6 +104,87 @@ Note that every group of 2 character (I.E, the first group, `68`) corresponds to
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
 tools available online like [this one](https://string-functions.com/string-hex.aspx)
 
+In case of using `application/soap+xml` a measure like:
+
+```
+   <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soapenv:Header xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"/>
+        <soapenv:Body xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+            <ns21:notificationEventRequest  xmlns:ns21="http://myurl.com">
+                <ns21:Param1>ABC12345</ns21:Param1>
+                <ns21:Param2/>
+                <ns21:Date>28/09/2023 11:48:15 +0000</ns21:Date>
+                <ns21:NestedAttr>
+                    <ns21:SubAttr>This is a description</ns21:SubAttr>
+                </ns21:NestedAttr>
+                <ns21:Status>Assigned</ns21:Status>
+                <ns21:OriginSystem/>
+            </ns21:notificationEventRequest>
+        </soapenv:Body>
+    </soap:Envelope>
+```
+
+is resulting attribute data sent to context borker:
+
+```
+"data": {
+            "type": "None",
+            "value": {
+                "Envelope": {
+                    "$": {
+                        "xmlns:soap": "http://www.w3.org/2003/05/soap-envelope"
+                    },
+                    "Header": [
+                        {
+                            "$": {
+                                "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                            }
+                        }
+                    ],
+                    "Body": [
+                        {
+                            "$": {
+                                "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                            },
+                            "notificationEventRequest": [
+                                {
+                                    "$": {
+                                        "xmlns:ns21": "http://myurl.com"
+                                    },
+                                    "Param1": [
+                                        "ABC12345"
+                                    ],
+                                    "Param2": [
+                                        ""
+                                    ],
+                                    "Date": [
+                                        "28/09/2023 11:48:15 +0000"
+                                    ],
+                                    "NestedAttr": [
+                                        {
+                                            "SubAttr": [
+                                                "This is a description"
+                                            ]
+                                        }
+                                    ],
+                                    "Status": [
+                                        "Assigned"
+                                    ],
+                                    "OriginSystem": [
+                                        ""
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+```
+
+Note that XML namespaces might change from one request to the next. It is useful to remove them from the document, to be
+able to refer to tags later in JEXL transformations. See https://github.com/Leonidas-from-XIV/node-xml2js/issues/87
+
 #### Configuration retrieval
 
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
