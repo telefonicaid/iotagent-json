@@ -104,11 +104,11 @@ Note that every group of 2 character (I.E, the first group, `68`) corresponds to
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
 tools available online like [this one](https://string-functions.com/string-hex.aspx)
 
-##### NGSIv2 and NGSILD Measure reporting
+##### NGSI-v2 and NGSI-LD Measure reporting
 
 It is possible report as a measure a NGSIv2 or NGSILD payload when related device/group is configured with payloadType
 `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure attributes and
-id and type are ignored, since id and type from device/group configuration provisioned are used.
+id and type are ignored, since `id` and `type` from device/group configuration provisioned are used.
 
 Examples of these ngsi payloads are:
 
