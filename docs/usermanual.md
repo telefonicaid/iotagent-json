@@ -183,7 +183,8 @@ is resulting attribute data sent to context borker:
 ```
 
 Note that XML namespaces might change from one request to the next. It is useful to remove them from the document, to be
-able to refer to tags later in JEXL transformations. See https://github.com/Leonidas-from-XIV/node-xml2js/issues/87
+able to refer to tags later in JEXL transformations. See
+[this issue](https://github.com/Leonidas-from-XIV/node-xml2js/issues/87)
 
 #### Configuration retrieval
 
