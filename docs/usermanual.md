@@ -110,7 +110,7 @@ It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related dev
 `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure attributes and
 `id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used.
 
-Examples of these ngsi payloads are:
+Examples of these `ngsi-v2` payloads are:
 
 ```
  {
@@ -124,7 +124,7 @@ Examples of these ngsi payloads are:
         },
         ...
     ]
-}
+ }
 ```
 
 and
@@ -138,7 +138,86 @@ and
           ...
     },
     ...
-]
+ ]
+```
+
+Examples of these `ngsi-ld` payloads are:
+
+```
+ {
+    actionType: 'APPEND',
+    entities: [
+                    {
+                        id: 'urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3',
+                        type: 'ParkingSpot',
+                        status: {
+                            type: 'Property',
+                            value: 'free',
+                            observedAt: '2018-09-21T12:00:00Z'
+                        },
+                        category: {
+                            type: 'Property',
+                            value: ['onstreet']
+                        },
+                        refParkingSite: {
+                            type: 'Relationship',
+                            object: 'urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5'
+                        },
+                        name: {
+                            type: 'Property',
+                            value: 'A-13'
+                        },
+                        location: {
+                            type: 'GeoProperty',
+                            value: {
+                                type: 'Point',
+                                coordinates: [-3.80356167695194, 43.46296641666926]
+                            }
+                        },
+                        '@context': [
+                            'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
+                            'https://schema.lab.fiware.org/ld/context'
+                        ]
+                    }
+    ]
+ }
+```
+
+and
+
+```
+ {
+                id: 'urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3',
+                type: 'ParkingSpot',
+                status: {
+                    type: 'Property',
+                    value: 'free',
+                    observedAt: '2018-09-21T12:00:00Z'
+                },
+                category: {
+                    type: 'Property',
+                    value: ['onstreet']
+                },
+                refParkingSite: {
+                    type: 'Relationship',
+                    object: 'urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5'
+                },
+                name: {
+                    type: 'Property',
+                    value: 'A-13'
+                },
+                location: {
+                    type: 'GeoProperty',
+                    value: {
+                        type: 'Point',
+                        coordinates: [-3.80356167695194, 43.46296641666926]
+                    }
+                },
+                '@context': [
+                    'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
+                    'https://schema.lab.fiware.org/ld/context'
+                ]
+ }
 ```
 
 Note that array of entitles are handled as a multiple measure, each entity is a measure.
