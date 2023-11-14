@@ -114,12 +114,12 @@ Examples of these ngsi payloads are:
 
 ```
  {
-     actionType: 'APPEND',
-     entities: [
+     "actionType": "append",
+     "entities": [
         {
-          id: 'MyEntityId1',
-          type: 'MyEntityType1',
-          attr1: { type: 'text', value: 'MyAttr1Value'},
+          "id": "MyEntityId1",
+          "type": "MyEntityType1",
+          "attr1": { type: "Text", "value": "MyAttr1Value"},
           ...
         },
         ...
