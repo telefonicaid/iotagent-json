@@ -127,7 +127,7 @@ Examples of these `ngsi-v2` payloads are:
  }
 ```
 
-and
+and (NGSI-v2 plain entities array format):
 
 ```
  [
