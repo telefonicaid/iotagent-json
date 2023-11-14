@@ -104,7 +104,7 @@ Note that every group of 2 character (I.E, the first group, `68`) corresponds to
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
 tools available online like [this one](https://string-functions.com/string-hex.aspx)
 
-In case of using `application/soap+xml` a measure like:
+In case of `POST /iot/json/attrs/myAttr` with content-type `application/soap+xml` a measure like:
 
 ```
    <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
@@ -124,10 +124,10 @@ In case of using `application/soap+xml` a measure like:
     </soap:Envelope>
 ```
 
-is resulting attribute `data` sent to context borker:
+then the resulting attribute `myAttr` sent to context borker:
 
 ```
-"data": {
+"myAttr": {
             "type": "None",
             "value": {
                 "Envelope": {
