@@ -447,6 +447,11 @@ Note this works differently that in HTTP transport. In HTTP the JSON vs. binary 
 `application/octed-stream` `content-type` header. Given that in MQTT we don't have anything equivalent to HTTP headers,
 we apply the heuristics of checking for JSON format.
 
+##### NGSI-v2 and NGSI-LD Measure reporting
+
+Using topics for multiple measure reporting its possible also ingest `ngsiv2` and `ngsild` payloads in the same way that
+was described for http binding.
+
 #### Configuration retrieval
 
 The protocol offers a mechanism for the devices to retrieve its configuration (or any other value it needs from those
