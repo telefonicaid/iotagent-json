@@ -108,7 +108,8 @@ tools available online like [this one](https://string-functions.com/string-hex.a
 
 It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with payloadType
 `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure attributes and
-`id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used.
+`id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used, as well as
+`actionType`.
 
 Examples of these `ngsi-v2` payloads are:
 
