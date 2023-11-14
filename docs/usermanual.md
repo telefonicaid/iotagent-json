@@ -132,9 +132,9 @@ and
 ```
  [
     {
-          id: 'MyEntityId1',
-          type: 'MyEntityType1',
-          attr1: { type: 'text', value: 'MyAttr1Value'},
+          "id": "MyEntityId1",
+          "type": "MyEntityType1",
+          "attr1": { "type": "Text", "value": "MyAttr1Value"},
           ...
     },
     ...
