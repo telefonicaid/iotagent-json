@@ -142,7 +142,7 @@ and (NGSI-v2 plain entities array format):
  ]
 ```
 
-Examples of these `ngsi-ld` payloads are:
+Examples of these `ngsild` payloads are:
 
 ```
  {
