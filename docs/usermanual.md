@@ -438,7 +438,15 @@ hello
 
 then the resulting attribute sent to ContextBroker:
 
-{ ... "attrHex": { "value": "68656c6c6f" "type": "<the one used at provisiong time for attrHex attribute>" } }
+```
+{
+   ...
+   "attrHex": {
+     "value": "68656c6c6f",
+     "type": "<the one used at provisiong time for attrHex attribute>"
+   }
+}
+```
 
 Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
