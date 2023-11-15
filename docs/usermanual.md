@@ -111,7 +111,7 @@ It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related dev
 `id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used, as well as
 `actionType`.
 
-Examples of these `ngsi-v2` payloads are:
+Examples of these `ngsiv2` payloads are (NGSI-v2 batch update format):
 
 ```
  {
