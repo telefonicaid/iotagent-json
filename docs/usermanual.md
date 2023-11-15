@@ -221,7 +221,7 @@ and
  }
 ```
 
-Note that array of entitles are handled as a multiple measure, each entity is a measure.
+Note that array of entities are handled as a multiple measure, each entity is a measure.
 
 #### Configuration retrieval
 
