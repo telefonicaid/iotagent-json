@@ -104,6 +104,8 @@ Note that every group of 2 character (I.E, the first group, `68`) corresponds to
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
 tools available online like [this one](https://string-functions.com/string-hex.aspx)
 
+##### SOAP-XML Measure reporting
+
 In case of `POST /iot/json/attrs/myAttr` with content-type `application/soap+xml` a measure like:
 
 ```
