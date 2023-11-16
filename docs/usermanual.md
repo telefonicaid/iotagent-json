@@ -119,7 +119,9 @@ It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related dev
 attributes and `id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used,
 as well as `actionType`.
 
-Examples of these `ngsiv2` payloads are (NGSI-v2 batch update format):
+Examples of these `ngsiv2` payloads are the following ones:
+
+(1) NGSI-v2 batch update format:
 
 ```
  {
@@ -136,7 +138,7 @@ Examples of these `ngsiv2` payloads are (NGSI-v2 batch update format):
  }
 ```
 
-and (NGSI-v2 plain entities array format):
+(2) NGSI-v2 plain entities array format:
 
 ```
  [
@@ -150,7 +152,21 @@ and (NGSI-v2 plain entities array format):
  ]
 ```
 
-Example of these `ngsild` payloads is:
+(3) NGSI-v2 plain single entity format:
+
+```
+{
+    "id": "MyEntityId1",
+    "type": "MyEntityType1",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"},
+    ...
+}
+```
+```
+
+Example of these `ngsild` payloads are the following ones:
+
+(1) NGSI-LD entities array format:
 
 ```
  [
@@ -188,6 +204,43 @@ Example of these `ngsild` payloads is:
           },
           ...
  ]
+```
+
+(2) NGSI-LD single entity format:
+
+```
+{
+    "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
+    "type": "ParkingSpot",
+    "status": {
+        "type": "Property",
+        "value": "free",
+        "observedAt": "2018-09-21T12:00:00Z"
+    },
+    "category": {
+        "type": "Property",
+        "value": ["onstreet"]
+    },
+    "refParkingSite": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
+    },
+    "name": {
+        "type": "Property",
+        "value": "A-13"
+    },
+    "location": {
+        "type": "GeoProperty",
+        "value": {
+            "type": "Point",
+            "coordinates": [-3.80356167695194, 43.46296641666926]
+        }
+    },
+    "@context": [
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "https://schema.lab.fiware.org/ld/context"
+    ]
+}
 ```
 
 Note that array of entities are handled as a multiple measure, each entity is a measure.

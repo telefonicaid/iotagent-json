@@ -76,7 +76,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
                 actionType: 'append',
                 entities: [
                     {
-                        id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                        id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                         type: 'Streetlight',
                         name: {
                             type: 'Text',
@@ -166,7 +166,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
                 actionType: 'append',
                 entities: [
                     {
-                        id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                        id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                         type: 'Streetlight',
                         name: {
                             type: 'Text',
@@ -211,7 +211,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
                         }
                     },
                     {
-                        id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-3',
+                        id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3',
                         type: 'Streetlight',
                         name: {
                             type: 'Text',
@@ -304,7 +304,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json/',
             method: 'POST',
             json: {
-                id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                 type: 'Streetlight',
                 name: {
                     type: 'Text',
@@ -388,7 +388,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
             method: 'POST',
             json: [
                 {
-                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                    id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                     type: 'Streetlight',
                     name: {
                         type: 'Text',
@@ -433,7 +433,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
                     }
                 },
                 {
-                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-3',
+                    id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3',
                     type: 'Streetlight',
                     name: {
                         type: 'Text',

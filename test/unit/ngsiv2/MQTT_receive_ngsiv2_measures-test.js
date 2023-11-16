@@ -80,7 +80,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
             actionType: 'append',
             entities: [
                 {
-                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                    id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                     type: 'Streetlight',
                     name: {
                         type: 'Text',
@@ -152,7 +152,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
             actionType: 'append',
             entities: [
                 {
-                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                    id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                     type: 'Streetlight',
                     name: {
                         type: 'Text',
@@ -197,7 +197,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                     }
                 },
                 {
-                    id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-3',
+                    id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3',
                     type: 'Streetlight',
                     name: {
                         type: 'Text',
@@ -273,7 +273,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
 
     describe('When a publish single NGSIv2 entity measure format arrives for the MQTT binding and NGSIV2 is the expected payload type', function () {
         const measure = {
-            id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+            id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
             type: 'Streetlight',
             name: {
                 type: 'Text',
@@ -340,7 +340,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
     describe('When a publish multiple NGSIv2 entity measure format arrives for the MQTT binding and NGSIV2 is the expected payload type', function () {
         const measure = [
             {
-                id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
+                id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2',
                 type: 'Streetlight',
                 name: {
                     type: 'Text',
@@ -385,7 +385,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                 }
             },
             {
-                id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-3',
+                id: 'urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3',
                 type: 'Streetlight',
                 name: {
                     type: 'Text',
