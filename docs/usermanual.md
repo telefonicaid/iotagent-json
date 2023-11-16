@@ -168,7 +168,7 @@ Example of these `ngsild` payloads are the following ones:
 
 (1) NGSI-LD entities array format:
 
-```
+```JSON
  [
          {
                 "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
