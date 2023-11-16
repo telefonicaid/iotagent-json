@@ -106,10 +106,10 @@ tools available online like [this one](https://string-functions.com/string-hex.a
 
 ##### NGSI-v2 and NGSI-LD Measure reporting
 
-It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with `payloadType`
-`ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure attributes and
-`id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used, as well as
-`actionType`.
+It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
+`payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
+attributes and `id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used,
+as well as `actionType`.
 
 Examples of these `ngsiv2` payloads are (NGSI-v2 batch update format):
 
@@ -179,15 +179,17 @@ Examples of these `ngsild` payloads are:
                             'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
                             'https://schema.lab.fiware.org/ld/context'
                         ]
-                    }
-    ]
+                    },
+                    ...
+              ]
  }
 ```
 
 and
 
 ```
- {
+ [
+         {
                 id: 'urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3',
                 type: 'ParkingSpot',
                 status: {
@@ -218,7 +220,9 @@ and
                     'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
                     'https://schema.lab.fiware.org/ld/context'
                 ]
- }
+          },
+          ...
+ ]
 ```
 
 Note that array of entities are handled as a multiple measure, each entity is a measure.
