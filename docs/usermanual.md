@@ -98,11 +98,152 @@ hello
 
 then the resulting attribute sent to ContextBroker:
 
-{ ... "attrHex": { "value": "68656c6c6f", "type": "<the one used at provisiong time for attrHex attribute>" } }
+```
+{
+   ...
+   "attrHex": {
+     "value": "68656c6c6f",
+     "type": "<the one used at provisiong time for attrHex attribute>"
+   }
+}
+```
 
 Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
 tools available online like [this one](https://string-functions.com/string-hex.aspx)
+
+##### NGSI-v2 and NGSI-LD Measure reporting
+
+It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
+`payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
+attributes and `id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used,
+as well as `actionType`.
+
+Examples of these `ngsiv2` payloads are the following ones:
+
+(1) NGSI-v2 batch update format:
+
+```
+ {
+     "actionType": "append",
+     "entities": [
+        {
+          "id": "MyEntityId1",
+          "type": "MyEntityType1",
+          "attr1": { type: "Text", "value": "MyAttr1Value"},
+          ...
+        },
+        ...
+    ]
+ }
+```
+
+(2) NGSI-v2 plain entities array format:
+
+```
+ [
+    {
+          "id": "MyEntityId1",
+          "type": "MyEntityType1",
+          "attr1": { "type": "Text", "value": "MyAttr1Value"},
+          ...
+    },
+    ...
+ ]
+```
+
+(3) NGSI-v2 plain single entity format:
+
+```
+{
+    "id": "MyEntityId1",
+    "type": "MyEntityType1",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"},
+    ...
+}
+```
+```
+
+Example of these `ngsild` payloads are the following ones:
+
+(1) NGSI-LD entities array format:
+
+```JSON
+ [
+         {
+                "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
+                "type": "ParkingSpot",
+                "status": {
+                    "type": "Property",
+                    "value": "free",
+                    "observedAt": "2018-09-21T12:00:00Z"
+                },
+                "category": {
+                    "type": "Property",
+                    "value": [ "onstreet" ]
+                },
+                "refParkingSite": {
+                    "type": "Relationship",
+                    "object": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
+                },
+                "name": {
+                    "type": "Property",
+                    "value": "A-13"
+                },
+                "location": {
+                    "type": "GeoProperty",
+                    "value": {
+                        "type": "Point",
+                        "coordinates": [ -3.80356167695194, 43.46296641666926 ]
+                    }
+                },
+                "@context": [
+                    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+                    "https://schema.lab.fiware.org/ld/context"
+                ]
+          },
+          ...
+ ]
+```
+
+(2) NGSI-LD single entity format:
+
+```
+{
+    "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
+    "type": "ParkingSpot",
+    "status": {
+        "type": "Property",
+        "value": "free",
+        "observedAt": "2018-09-21T12:00:00Z"
+    },
+    "category": {
+        "type": "Property",
+        "value": [ "onstreet" ]
+    },
+    "refParkingSite": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
+    },
+    "name": {
+        "type": "Property",
+        "value": "A-13"
+    },
+    "location": {
+        "type": "GeoProperty",
+        "value": {
+            "type": "Point",
+            "coordinates": [ -3.80356167695194, 43.46296641666926 ]
+        }
+    },
+    "@context": [
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "https://schema.lab.fiware.org/ld/context"
+    ]
+}
+```
+
+Note that array of entities are handled as a multiple measure, each entity is a measure.
 
 ##### SOAP-XML Measure reporting
 
@@ -403,7 +544,15 @@ hello
 
 then the resulting attribute sent to ContextBroker:
 
-{ ... "attrHex": { "value": "68656c6c6f", "type": "<the one used at provisiong time for attrHex attribute>" } }
+```
+{
+   ...
+   "attrHex": {
+     "value": "68656c6c6f",
+     "type": "<the one used at provisiong time for attrHex attribute>"
+   }
+}
+```
 
 Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
@@ -412,6 +561,11 @@ tools available online like [this one](https://string-functions.com/string-hex.a
 Note this works differently that in HTTP transport. In HTTP the JSON vs. binary decission is based on
 `application/octet-stream` `content-type` header. Given that in MQTT we don't have anything equivalent to HTTP headers,
 we apply the heuristics of checking for JSON format.
+
+##### NGSI-v2 and NGSI-LD Measure reporting
+
+Using topics for multiple measure reporting its possible also ingest `ngsiv2` and `ngsild` payloads in the same way that
+was described for http binding.
 
 #### Configuration retrieval
 
