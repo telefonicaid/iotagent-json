@@ -98,7 +98,15 @@ hello
 
 then the resulting attribute sent to ContextBroker:
 
-{ ... "attrHex": { "value": "68656c6c6f", "type": "<the one used at provisiong time for attrHex attribute>" } }
+```
+{
+   ...
+   "attrHex": {
+     "value": "68656c6c6f",
+     "type": "<the one used at provisiong time for attrHex attribute>"
+   }
+}
+```
 
 Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte
 received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
@@ -147,35 +155,35 @@ Example of these `ngsild` payloads is:
 ```
  [
          {
-                id: 'urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3',
-                type: 'ParkingSpot',
-                status: {
-                    type: 'Property',
-                    value: 'free',
-                    observedAt: '2018-09-21T12:00:00Z'
+                "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
+                "type": "ParkingSpot",
+                "status": {
+                    "type": "Property",
+                    "value": "free",
+                    "observedAt": "2018-09-21T12:00:00Z"
                 },
-                category: {
-                    type: 'Property',
-                    value: ['onstreet']
+                "category": {
+                    "type": "Property",
+                    "value": ["onstreet"]
                 },
-                refParkingSite: {
-                    type: 'Relationship',
-                    object: 'urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5'
+                "refParkingSite": {
+                    "type": "Relationship",
+                    "object": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
                 },
-                name: {
-                    type: 'Property',
-                    value: 'A-13'
+                "name": {
+                    "type": "Property",
+                    "value": "A-13"
                 },
-                location: {
-                    type: 'GeoProperty',
-                    value: {
-                        type: 'Point',
-                        coordinates: [-3.80356167695194, 43.46296641666926]
+                "location": {
+                    "type": "GeoProperty",
+                    "value": {
+                        "type": "Point",
+                        "coordinates": [-3.80356167695194, 43.46296641666926]
                     }
                 },
-                '@context': [
-                    'https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld',
-                    'https://schema.lab.fiware.org/ld/context'
+                "@context": [
+                    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+                    "https://schema.lab.fiware.org/ld/context"
                 ]
           },
           ...
