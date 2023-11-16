@@ -73,7 +73,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json/',
             method: 'POST',
             json: {
-                actionType: 'APPEND',
+                actionType: 'append',
                 entities: [
                     {
                         id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
@@ -163,7 +163,7 @@ describe('HTTP: NGSIv2 Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json/',
             method: 'POST',
             json: {
-                actionType: 'APPEND',
+                actionType: 'append',
                 entities: [
                     {
                         id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',

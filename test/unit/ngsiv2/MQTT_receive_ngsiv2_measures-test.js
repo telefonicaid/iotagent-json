@@ -77,7 +77,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
 
     describe('When a Publish single NGSIv2 append measure format arrives for the MQTT binding and NGSIV2 is the expected payload type', function () {
         const measure = {
-            actionType: 'APPEND',
+            actionType: 'append',
             entities: [
                 {
                     id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
@@ -149,7 +149,7 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
 
     describe('When a publish multiple NGSIv2 append measure format arrives for the MQTT binding and NGSIV2 is the expected payload type', function () {
         const measure = {
-            actionType: 'APPEND',
+            actionType: 'append',
             entities: [
                 {
                     id: 'urn:ngsi-ld:Streetlight:Streetlight-Mylightpoint-2',
