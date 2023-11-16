@@ -559,7 +559,7 @@ received in the payload (in this case, the value `0x68` corresponds to `h` in AS
 tools available online like [this one](https://string-functions.com/string-hex.aspx).
 
 Note this works differently that in HTTP transport. In HTTP the JSON vs. binary decission is based on
-`application/octed-stream` `content-type` header. Given that in MQTT we don't have anything equivalent to HTTP headers,
+`application/octet-stream` `content-type` header. Given that in MQTT we don't have anything equivalent to HTTP headers,
 we apply the heuristics of checking for JSON format.
 
 ##### NGSI-v2 and NGSI-LD Measure reporting
