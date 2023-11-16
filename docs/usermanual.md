@@ -180,7 +180,7 @@ Example of these `ngsild` payloads are the following ones:
                 },
                 "category": {
                     "type": "Property",
-                    "value": ["onstreet"]
+                    "value": [ "onstreet" ]
                 },
                 "refParkingSite": {
                     "type": "Relationship",
@@ -194,7 +194,7 @@ Example of these `ngsild` payloads are the following ones:
                     "type": "GeoProperty",
                     "value": {
                         "type": "Point",
-                        "coordinates": [-3.80356167695194, 43.46296641666926]
+                        "coordinates": [ -3.80356167695194, 43.46296641666926 ]
                     }
                 },
                 "@context": [
@@ -219,7 +219,7 @@ Example of these `ngsild` payloads are the following ones:
     },
     "category": {
         "type": "Property",
-        "value": ["onstreet"]
+        "value": [ "onstreet" ]
     },
     "refParkingSite": {
         "type": "Relationship",
@@ -233,7 +233,7 @@ Example of these `ngsild` payloads are the following ones:
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [-3.80356167695194, 43.46296641666926]
+            "coordinates": [ -3.80356167695194, 43.46296641666926 ]
         }
     },
     "@context": [
