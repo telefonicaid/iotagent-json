@@ -86,9 +86,9 @@ following query parameters:
 It is possible to send a single measure to IoT Platform using an HTTP POST request to the
 `/iot/json/attrs/<attributeName>` and the previously explained query parameters.
 
-In this case, sending a single measure, there is possible to send other kinds of payloads like `text/plain` and
-`application/octet-stream`, not just `application/json`. In case of using `application/octet-stream`, data will be
-treated as binary data, saved in the attribute maped as hex string. I.E:
+In this case, sending a single measure, there is possible to send other kinds of payloads like `text/plain`,
+`application/octet-stream` and `application/soap+xml`, not just `application/json`. In case of using
+`application/octet-stream`, data will be treated as binary data, saved in the attribute maped as hex string. I.E:
 
 For a measure sent to `POST /iot/json/attrs/attrHex` with content-type: application/octet-stream and binary value
 
@@ -244,6 +244,90 @@ Example of these `ngsild` payloads are the following ones:
 ```
 
 Note that array of entities are handled as a multiple measure, each entity is a measure.
+
+##### SOAP-XML Measure reporting
+
+In case of `POST /iot/json/attrs/myAttr` with content-type `application/soap+xml` a measure like:
+
+```
+   <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soapenv:Header xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"/>
+        <soapenv:Body xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+            <ns21:notificationEventRequest  xmlns:ns21="http://myurl.com">
+                <ns21:Param1>ABC12345</ns21:Param1>
+                <ns21:Param2/>
+                <ns21:Date>28/09/2023 11:48:15 +0000</ns21:Date>
+                <ns21:NestedAttr>
+                    <ns21:SubAttr>This is a description</ns21:SubAttr>
+                </ns21:NestedAttr>
+                <ns21:Status>Assigned</ns21:Status>
+                <ns21:OriginSystem/>
+            </ns21:notificationEventRequest>
+        </soapenv:Body>
+    </soap:Envelope>
+```
+
+then the resulting attribute `myAttr` sent to context borker:
+
+```
+"myAttr": {
+            "type": "None",
+            "value": {
+                "Envelope": {
+                    "$": {
+                        "xmlns:soap": "http://www.w3.org/2003/05/soap-envelope"
+                    },
+                    "Header": [
+                        {
+                            "$": {
+                                "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                            }
+                        }
+                    ],
+                    "Body": [
+                        {
+                            "$": {
+                                "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                            },
+                            "notificationEventRequest": [
+                                {
+                                    "$": {
+                                        "xmlns:ns21": "http://myurl.com"
+                                    },
+                                    "Param1": [
+                                        "ABC12345"
+                                    ],
+                                    "Param2": [
+                                        ""
+                                    ],
+                                    "Date": [
+                                        "28/09/2023 11:48:15 +0000"
+                                    ],
+                                    "NestedAttr": [
+                                        {
+                                            "SubAttr": [
+                                                "This is a description"
+                                            ]
+                                        }
+                                    ],
+                                    "Status": [
+                                        "Assigned"
+                                    ],
+                                    "OriginSystem": [
+                                        ""
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+```
+
+Note that XML namespaces might change from one request to the next. It is useful to remove them from the document, to be
+able to refer to tags later in JEXL transformations. See
+[this issue](https://github.com/Leonidas-from-XIV/node-xml2js/issues/87)
 
 #### Configuration retrieval
 
