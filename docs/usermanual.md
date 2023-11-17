@@ -243,7 +243,7 @@ Example of these `ngsild` payloads are the following ones:
 }
 ```
 
-Some additional consideration to take into account:
+Some additional considerations to take into account:
 
 * In the case of array of entities, they are handled as a multiple measure, i.e. each entity is a measure.
 * In the case of NGSI-LD, fields different from `type` or `value` (e.g. `observedAt` in the examples above) are include as NGSI-v2 metadata in the entity corresponding to the measure at Context Broker.
