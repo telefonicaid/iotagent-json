@@ -34,11 +34,15 @@ const expect = chai.expect;
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
 const utils = require('../utils');
-const testUtils = require('./testUtils');
+const testUtils = require('../../node_modules/iotagent-node-lib/test/functional/testUtils.js');
 const request = utils.request;
 const logger = require('logops');
+const chaiMatchPattern = require('chai-match-pattern');
+const e = require('express');
+chai.config.truncateThreshold = 0;
 
-const baseTestCases = require('./testCases.js').testCases;
+const baseTestCases = require('../../node_modules/iotagent-node-lib/test/functional/testCases.js').testCases;
+const jsonTestCases = require('./testCases.js').testCases;
 
 const env = {
     service: 'smartgondor',
@@ -56,8 +60,12 @@ let testCases = [];
 // executed as well.
 testCases = testCases.concat(baseTestCases);
 
+// Add specific test cases for IoTA JSON
+testCases = testCases.concat(jsonTestCases);
+
 describe('FUNCTIONAL TESTS', function () {
     beforeEach(function (done) {
+        // Check if the test case should be skipped
         iotaJson.start(config, function (error) {
             done(error);
         });
@@ -70,6 +78,9 @@ describe('FUNCTIONAL TESTS', function () {
     testCases.forEach((testCase) => {
         describe(testCase.describeName, function () {
             beforeEach(function (done) {
+                if (testCase.skip && testUtils.checkSkip(testCase.skip, 'json')) {
+                    this.skip();
+                }
                 if (testCase.loglevel) {
                     logger.setLevel(testCase.loglevel);
                 }
@@ -89,6 +100,10 @@ describe('FUNCTIONAL TESTS', function () {
 
             testCase.should.forEach((should) => {
                 it(should.shouldName, async function () {
+                    if (testCase.skip && testUtils.checkSkip(testCase.skip, 'json')) {
+                        this.skip();
+                    }
+
                     this.retries(2); // pass the maximum no of retries
                     if (should.loglevel) {
                         // You can use this line to set a breakpoint in the test in order to debug it
@@ -101,10 +116,12 @@ describe('FUNCTIONAL TESTS', function () {
                     await testUtils.testCase(
                         should.measure,
                         should.expectation,
+                        testCase.provision,
                         env,
                         config,
                         should.type ? should.type : 'single',
-                        should.transport ? should.transport : 'HTTP'
+                        should.transport ? should.transport : 'HTTP',
+                        should.isRegex ? should.isRegex : false
                     );
                 });
             });

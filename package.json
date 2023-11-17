@@ -38,6 +38,7 @@
   "devDependencies": {
     "async-mqtt": "~2.6.3",
     "chai": "~4.3.10",
+    "chai-match-pattern": "~1.3.0",
     "coveralls": "~3.1.0",
     "eslint": "~7.5.0",
     "eslint-config-tamia": "~7.2.5",
@@ -66,7 +67,7 @@
     "body-parser": "1.20.0",
     "dateformat": "3.0.3",
     "express": "4.18.1",
-    "iotagent-node-lib": "https://github.com/telefonicaid/iotagent-node-lib.git#master",
+    "iotagent-node-lib": "github:telefonicaid/iotagent-node-lib#task/add-functional-tests",
     "logops": "2.1.2",
     "mqtt": "4.3.7",
     "sinon": "~6.1.0",

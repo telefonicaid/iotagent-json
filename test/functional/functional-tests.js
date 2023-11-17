@@ -34,10 +34,13 @@ const expect = chai.expect;
 const iotAgentLib = require('iotagent-node-lib');
 const async = require('async');
 const utils = require('../utils');
-const testUtils = require('./testUtils');
+const testUtils = require('../../node_modules/iotagent-node-lib/test/functional/testUtils.js');
 const request = utils.request;
 const logger = require('logops');
+var chaiMatchPattern = require('chai-match-pattern');
 
+chai.use(chaiMatchPattern);
+var _ = chaiMatchPattern.getLodashModule();
 let contextBrokerMock;
 
 const env = {
@@ -136,7 +139,7 @@ describe('FUNCTIONAL TESTS', function () {
         });
 
         it('should send its value to the Context Broker', async function () {
-            await testUtils.testCase(measure, expectation, env, config, 'single', 'HTTP');
+            await testUtils.testCase(measure, expectation, provision, env, config, 'single', 'HTTP');
         });
     });
 
@@ -228,7 +231,7 @@ describe('FUNCTIONAL TESTS', function () {
 
         it('should send its value to the Context Broker', async function () {
             // logger.setLevel('DEBUG');
-            await testUtils.testCase(measure, expectation, env, config, 'multientity', 'HTTP');
+            await testUtils.testCase(measure, expectation, provision, env, config, 'multientity', 'HTTP');
         });
     });
 });
