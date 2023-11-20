@@ -92,7 +92,13 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                     },
                     status: {
                         type: 'Text',
-                        value: 'connected'
+                        value: 'connected',
+                        metadata: {
+                            TimeInstant: {
+                                type: 'DateTime',
+                                value: '2023-11-17T11:59:22.661Z'
+                            }
+                        }
                     },
                     dateServiceStarted: {
                         type: 'DateTime',
@@ -164,7 +170,13 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                     },
                     status: {
                         type: 'Text',
-                        value: 'connected'
+                        value: 'connected',
+                        metadata: {
+                            TimeInstant: {
+                                type: 'DateTime',
+                                value: '2023-11-17T11:59:22.661Z'
+                            }
+                        }
                     },
                     dateServiceStarted: {
                         type: 'DateTime',
@@ -209,7 +221,13 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                     },
                     status: {
                         type: 'Text',
-                        value: 'connected'
+                        value: 'connected',
+                        metadata: {
+                            TimeInstant: {
+                                type: 'DateTime',
+                                value: '2023-11-17T11:59:22.661Z'
+                            }
+                        }
                     },
                     dateServiceStarted: {
                         type: 'DateTime',
@@ -285,7 +303,13 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
             },
             status: {
                 type: 'Text',
-                value: 'connected'
+                value: 'connected',
+                metadata: {
+                    TimeInstant: {
+                        type: 'DateTime',
+                        value: '2023-11-17T11:59:22.661Z'
+                    }
+                }
             },
             dateServiceStarted: {
                 type: 'DateTime',
@@ -352,7 +376,13 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                 },
                 status: {
                     type: 'Text',
-                    value: 'connected'
+                    value: 'connected',
+                    metadata: {
+                        TimeInstant: {
+                            type: 'DateTime',
+                            value: '2023-11-17T11:59:22.661Z'
+                        }
+                    }
                 },
                 dateServiceStarted: {
                     type: 'DateTime',
@@ -397,7 +427,13 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                 },
                 status: {
                     type: 'Text',
-                    value: 'connected'
+                    value: 'connected',
+                    metadata: {
+                        TimeInstant: {
+                            type: 'DateTime',
+                            value: '2023-11-17T11:59:22.661Z'
+                        }
+                    }
                 },
                 dateServiceStarted: {
                     type: 'DateTime',
