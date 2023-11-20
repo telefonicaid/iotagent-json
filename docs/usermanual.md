@@ -246,7 +246,7 @@ Example of these `ngsild` payloads are the following ones:
 Some additional considerations to take into account:
 
 -   In the case of array of entities, they are handled as a multiple measure, i.e. each entity is a measure.
--   The `type` of the attribute is the one used in the provision of the attribute, not the one in the measure. The execption is the autoprovisioned devices case, in which case the `type` of the attribute is taken from the measure (given the attribte lacks proviosioned type). In this latter case, if the attribute `type` is not included in the measure the [explicit type omission rules for Context Broker](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations) are also taken into account in this case.
+-   The `type` of the attribute is the one used in the provision of the attribute, not the one in the measure. The exception is the autoprovisioned devices case, in which case the `type` of the attribute is taken from the measure (given the attribute lacks proviosioned type). In this latter case, if the attribute `type` is not included in the measure the [explicit type omission rules for Context Broker](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations) are also taken into account in this case.
 -   In the case of NGSI-LD, fields different from `type` or `value` (e.g. `observedAt` in the examples above) are include as NGSI-v2 metadata in the entity corresponding to the measure at Context Broker.
 
 ##### SOAP-XML Measure reporting
