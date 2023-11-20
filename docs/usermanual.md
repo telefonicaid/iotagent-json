@@ -130,7 +130,15 @@ Examples of these `ngsiv2` payloads are the following ones:
         {
           "id": "MyEntityId1",
           "type": "MyEntityType1",
-          "attr1": { type: "Text", "value": "MyAttr1Value"},
+          "attr1": { "type": "Text", "value": "MyAttr1Value"},
+          "attr2": { "type": "Text", "value": "MyAttr1Value"
+                     "metadata": {
+                                "TimeInstant": {
+                                    "type": "DateTime",
+                                    "value": "2023-11-17T11:59:22.661Z"
+                                }
+                            }
+                    }
           ...
         },
         ...
