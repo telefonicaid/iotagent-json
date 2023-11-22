@@ -102,6 +102,8 @@ To run tests, type
 npm test
 ```
 
+Please have a look to extra information about functional tests in [this specific document](test/functional/README.md).
+
 #### Requirements
 
 All the tests are designed to test end-to-end scenarios, and there are some requirements for its current execution:
