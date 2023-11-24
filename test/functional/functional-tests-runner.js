@@ -100,7 +100,7 @@ describe('FUNCTIONAL TESTS', function () {
 
             testCase.should.forEach((should) => {
                 it(should.shouldName, async function () {
-                    if (testCase.skip && testUtils.checkSkip(testCase.skip, 'json')) {
+                    if (should.skip && testUtils.checkSkip(should.skip, 'json')) {
                         this.skip();
                     }
 
