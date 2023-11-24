@@ -1,4 +1,14 @@
+3.0.0 (November 24th, 2023)
+
+- Add: allow to send NGSIv2 and NGSILD as measures depending on payloadType (#778)
+- Add: allow read measures in application/soap+xml content-type (#759)
+- Fix: binary data representation when sending data through HTTP & MQTT (#690)
+- Fix: ensure service and subservice from device in logs about error proccesing message
+- Upgrade iotagent-node-lib dependency from 3.4.0 to 4.0.0
+- Remove: legacy code about unused parsedMessageError flag
+
 2.4.0 (Sep 20th, 2023)
+
 - Fix: try to use apikey from measure/group to find, update and remove device in first attempt (iota-node-lib#1426)
 - Fix: ensure device apikey in already provisioned device (iota-node-lib#1430, iota-node-lib#1435)
 - Remove: bidirectional plugin (iota-node-lib#1413)
