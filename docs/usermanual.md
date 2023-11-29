@@ -761,14 +761,6 @@ Some additional remarks regarding MQTT commands:
 }
 ```
 
-#### Bidirectionality Syntax
-
-The latest versions of the Provisioning API allow for the definition of reverse expressions to keep data shared between
-the Context Broker and the device in sync (regardless of whether the data originated in plain data from the device or in
-a transformation expression in the IoTAgent). In this cases, when a reverse expression is defined, whenever the
-bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
-reverse expression attribute and the ID of the device (see Commands Syntax, just above).
-
 #### Commands transformations
 
 It is possible to use expressions to transform commands, in the same way that other attributes could do it, that is
@@ -850,15 +842,6 @@ The payload is the same as for the other bindings.
 
 The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
-
-#### Timestamp compression
-
-Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete
-basic calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the
-extended representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and
-queries).
-
-This feature can be enabled and disabled by using the `compressTimestamp` configuration flag.
 
 ## Development documentation
 
