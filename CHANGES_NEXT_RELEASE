@@ -1,1 +1,1 @@
-- Protect checking if measures array is a multimeasure
+- Fix: protect access to multimeasure array
