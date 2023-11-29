@@ -1,3 +1,7 @@
+3.0.2 (November 29th, 2023)
+
+- Upgrade iotagent-node-lib dependency from 4.0.0 to 4.0.1
+
 3.0.0 (November 29th, 2023)
 
 - Fix: protect acces to multimeasure array
