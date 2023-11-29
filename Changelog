@@ -1,3 +1,7 @@
+3.0.0 (November 29th, 2023)
+
+- Fix: protect acces to multimeasure array
+
 3.0.0 (November 24th, 2023)
 
 - Add: allow to send NGSIv2 and NGSILD as measures depending on payloadType (#778)
