@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  mongo:
+    image: mongo:6.0.12
+    ports:
+      - "27017:27017"
+
+  mosquitto:
+    image: eclipse-mosquitto:1.6.15
+    ports:
+      - "1883:1883"
+
+  rabbit:
+    image: rabbitmq:3.11.13
+    ports:
+      - "5672:5672"
