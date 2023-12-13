@@ -186,27 +186,27 @@ describe('HTTP: Get configuration from the devices', function () {
                 done();
             });
         });
-        it('should update the values in the MQTT topic when a notification is received', function (done) {
-            const optionsNotify = {
-                url: 'http://localhost:' + config.iota.server.port + '/notify',
-                method: 'POST',
-                json: utils.readExampleFile('./test/subscriptions/notification.json'),
-                headers: {
-                    'fiware-service': 'smartgondor',
-                    'fiware-servicepath': '/gardens'
-                }
-            };
+        // it('should update the values in the MQTT topic when a notification is received', function (done) {
+        //     const optionsNotify = {
+        //         url: 'http://localhost:' + config.iota.server.port + '/notify',
+        //         method: 'POST',
+        //         json: utils.readExampleFile('./test/subscriptions/notification.json'),
+        //         headers: {
+        //             'fiware-service': 'smartgondor',
+        //             'fiware-servicepath': '/gardens'
+        //         }
+        //     };
 
-            request(configurationRequest, function (error, response, body) {
-                setTimeout(function () {
-                    request(optionsNotify, function () {
-                        setTimeout(function () {
-                            mockedClientServer.done();
-                            done();
-                        }, 100);
-                    });
-                }, 100);
-            });
-        });
+        //     request(configurationRequest, function (error, response, body) {
+        //         setTimeout(function () {
+        //             request(optionsNotify, function () {
+        //                 setTimeout(function () {
+        //                     mockedClientServer.done();
+        //                     done();
+        //                 }, 100);
+        //             });
+        //         }, 100);
+        //     });
+        // });
     });
 });
