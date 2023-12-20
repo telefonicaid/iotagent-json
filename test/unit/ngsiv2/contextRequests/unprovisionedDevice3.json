@@ -1,0 +1,8 @@
+{
+  "id": "TheLightType:JSON_UNPROVISIONED",
+  "type": "TheLightType",
+  "h":{
+    "type": "string",
+    "value": "33"    
+  }
+}

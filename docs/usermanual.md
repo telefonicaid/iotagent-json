@@ -170,7 +170,8 @@ Examples of these `ngsiv2` payloads are the following ones:
     ...
 }
 ```
-```
+
+````
 
 Example of these `ngsild` payloads are the following ones:
 
@@ -212,7 +213,7 @@ Example of these `ngsild` payloads are the following ones:
           },
           ...
  ]
-```
+````
 
 (2) NGSI-LD single entity format:
 
@@ -254,8 +255,16 @@ Example of these `ngsild` payloads are the following ones:
 Some additional considerations to take into account:
 
 -   In the case of array of entities, they are handled as a multiple measure, i.e. each entity is a measure.
--   The `type` of the attribute is the one used in the provision of the attribute, not the one in the measure. The exception is the autoprovisioned devices case, in which case the `type` of the attribute is taken from the measure (given the attribute lacks proviosioned type). In this latter case, if the attribute `type` is not included in the measure the [explicit type omission rules for Context Broker](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations) are also taken into account in this case.
--   In the case of NGSI-LD, fields different from `type`, `value` or `object` (e.g. `observedAt` in the examples above) are include as NGSI-v2 metadata in the entity corresponding to the measure at Context Broker. Note IOTA doesn't provide the `type` for that metadata, so the Context Broker applies [a default type based in the metadata `value` JSON type](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations).
+-   The `type` of the attribute is the one used in the provision of the attribute, not the one in the measure. The
+    exception is the autoprovisioned devices case, in which case the `type` of the attribute is taken from the measure
+    (given the attribute lacks proviosioned type). In this latter case, if the attribute `type` is not included in the
+    measure the
+    [explicit type omission rules for Context Broker](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations)
+    are also taken into account in this case.
+-   In the case of NGSI-LD, fields different from `type`, `value` or `object` (e.g. `observedAt` in the examples above)
+    are include as NGSI-v2 metadata in the entity corresponding to the measure at Context Broker. Note IOTA doesn't
+    provide the `type` for that metadata, so the Context Broker applies
+    [a default type based in the metadata `value` JSON type](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations).
 
 ##### SOAP-XML Measure reporting
 
@@ -412,8 +421,8 @@ and
 [Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-error).
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
-`endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
-command will be poll. When using the HTTP transport, the command handling have two flavours:
+`endpoint` attribute, from device or group device, that will contain the URL where the IoT Agent will send the received
+commands. Otherwise the command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
     device will reply with a 200OK response containing the result of the command in the JSON result format. Example of
@@ -587,7 +596,8 @@ commands and a topic to receive configuration information. This mechanism can be
 configuration flag, `configRetrieval`.
 
 In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be
-provisioned using "MQTT" as transport key. By default it will be considered "HTTP" as transport.
+provisioned using "MQTT" as transport key, at device or group level. By default it will be considered "HTTP" as
+transport if none transport is defined at device or group level.
 
 The parameter will be given as follows:
 
@@ -985,9 +995,10 @@ simple restart should be enough).
 
 In order to distinguish which device uses which attribute, a new field, `transport`, will be added to the device
 provisioning. When a command or a notification arrives to the IoTAgent, this field is read to guess what plugin to
-invoke in order to execute the requested task. If the field is not found, the value of the configuration parameter
-`defaultTransport` will be used instead. In order to associate a module with a device, the value of the `transport`
-attribute of the device provisioning must match the value of the `protocol` field of the binding.
+invoke in order to execute the requested task. If the field is not found, the same field is search in configuration
+group and then used, but if not the value of the configuration parameter `defaultTransport` will be used instead. In
+order to associate a module with a device, the value of the `transport` attribute of the device provisioning must match
+the value of the `protocol` field of the binding.
 
 ### API
 
