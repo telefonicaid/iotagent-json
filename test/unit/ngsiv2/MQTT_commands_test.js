@@ -38,6 +38,34 @@ const request = utils.request;
 let contextBrokerMock;
 let mqttClient;
 
+const groupCreation = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL1',
+                entity_type: 'TheLightType',
+                transport: 'MQTT',
+                commands: [
+                    {
+                        name: 'cmd1',
+                        type: 'command'
+                    }
+                ],
+                lazy: [],
+                attributes: [],
+                static_attributes: []
+            }
+        ]
+    },
+    headers: {
+        'fiware-service': 'smartgondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+
 describe('MQTT: Commands', function () {
     beforeEach(function (done) {
         const provisionOptions = {
@@ -282,6 +310,171 @@ describe('MQTT: Commands', function () {
                     payload.should.equal(commandMsg);
                     done();
                 }, 100);
+            });
+        });
+    });
+});
+
+describe('MQTT: Commands from groups', function () {
+    beforeEach(function (done) {
+        config.logLevel = 'INFO';
+
+        nock.cleanAll();
+
+        mqttClient = mqtt.connect('mqtt://' + config.mqtt.host, {
+            keepalive: 0,
+            connectTimeout: 60 * 60 * 1000
+        });
+
+        mqttClient.subscribe('/KL223HHV8732SFL1/JSON_UNPROVISIONED/cmd', null);
+
+        contextBrokerMock = nock('http://192.168.1.1:1026')
+            .matchHeader('fiware-service', 'smartgondor')
+            .matchHeader('fiware-servicepath', '/gardens')
+            .post('/v2/registrations')
+            .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
+
+        iotagentMqtt.start(config, function () {
+            done();
+        });
+    });
+
+    afterEach(function (done) {
+        nock.cleanAll();
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
+    });
+    describe('When a POST measure arrives for an unprovisioned device in a command group', function () {
+        const values = {
+            h: '33'
+        };
+
+        // provisioning folder of iotagent-node-lib
+        beforeEach(function (done) {
+            //contextBrokerUnprovMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice3.json')
+                )
+                .reply(204);
+
+            request(groupCreation, function (error, response, body) {
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function (
+                error
+            ) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+
+        it('should not add a transport to the registered devices', function (done) {
+            const getDeviceOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+                method: 'GET',
+                headers: {
+                    'fiware-service': 'smartgondor',
+                    'fiware-servicepath': '/gardens'
+                },
+                qs: {
+                    i: 'JSON_UNPROVISIONED',
+                    k: 'KL223HHV8732SFL1'
+                }
+            };
+            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function (
+                error
+            ) {
+                setTimeout(function () {
+                    request(getDeviceOptions, function (error, response, body) {
+                        should.not.exist(error);
+                        response.statusCode.should.equal(200);
+                        should.not.exist(body.devices[0].transport);
+                        done();
+                    });
+                }, 100);
+            });
+        });
+
+        describe('When a command arrive to the Agent for a device with the MQTT protocol', function () {
+            const commandOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
+                method: 'POST',
+                json: utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand2.json'),
+                headers: {
+                    'fiware-service': 'smartgondor',
+                    'fiware-servicepath': '/gardens'
+                }
+            };
+            beforeEach(function () {
+                contextBrokerMock
+                    .matchHeader('fiware-service', 'smartgondor')
+                    .matchHeader('fiware-servicepath', '/gardens')
+                    .post(
+                        '/v2/entities?options=upsert',
+                        utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus9.json')
+                    )
+                    .reply(204);
+                contextBrokerMock
+                    .matchHeader('fiware-service', 'smartgondor')
+                    .matchHeader('fiware-servicepath', '/gardens')
+                    .post(
+                        '/v2/entities?options=upsert',
+                        utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus10.json')
+                    )
+                    .reply(204);
+            });
+            it('should return a 204 OK without errors', function (done) {
+                mqttClient.publish(
+                    '/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs',
+                    JSON.stringify(values),
+                    null,
+                    function (error) {
+                        setTimeout(function () {
+                            request(commandOptions, function (error, response, body) {
+                                should.not.exist(error);
+                                response.statusCode.should.equal(204);
+                                done();
+                            });
+                        }, 100);
+                    }
+                );
+            });
+            it('should publish the command information in the MQTT topic', function (done) {
+                let payload;
+                mqttClient.on('message', function (topic, data) {
+                    payload = data.toString();
+                });
+                mqttClient.publish(
+                    '/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs',
+                    JSON.stringify(values),
+                    null,
+                    function (error) {
+                        setTimeout(function () {
+                            request(commandOptions, function (error, response, body) {
+                                mqttClient.publish(
+                                    '/KL223HHV8732SFL1/JSON_UNPROVISIONED/cmdexe',
+                                    '{ "cmd1": {"data":"22"}}',
+                                    null,
+                                    function (error) {
+                                        setTimeout(function () {
+                                            contextBrokerMock.done();
+                                            done();
+                                        }, 200);
+                                    }
+                                );
+                            });
+                        }, 100);
+                    }
+                );
             });
         });
     });

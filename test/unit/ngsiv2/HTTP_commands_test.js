@@ -149,7 +149,7 @@ describe('HTTP: Commands', function () {
                 done();
             });
         });
-        it('should publish the command information in the MQTT topic', function (done) {
+        it('should publish the command information in the HTTP endpoint', function (done) {
             request(commandOptions, function (error, response, body) {
                 setTimeout(function () {
                     mockedClientServer.done();
@@ -244,7 +244,7 @@ describe('HTTP: Commands with expressions', function () {
                 done();
             });
         });
-        it('should publish the command information in the MQTT topic', function (done) {
+        it('should publish the command information in the HTTP endpoint', function (done) {
             request(commandOptions, function (error, response, body) {
                 setTimeout(function () {
                     mockedClientServer.done();
