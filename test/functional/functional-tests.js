@@ -143,6 +143,106 @@ describe('FUNCTIONAL TESTS', function () {
         });
     });
 
+    describe('Basic group provision with attributes and multimeasure', function () {
+        const provision = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+            method: 'POST',
+            json: {
+                services: [
+                    {
+                        resource: '/iot/json',
+                        apikey: '123456',
+                        entity_type: 'TheLightType3',
+                        cbHost: 'http://192.168.1.1:1026',
+                        commands: [],
+                        lazy: [],
+                        attributes: [
+                            {
+                                object_id: 's',
+                                name: 'status',
+                                type: 'Boolean'
+                            },
+                            {
+                                object_id: 't',
+                                name: 'temperature',
+                                type: 'Number'
+                            }
+                        ],
+                        static_attributes: []
+                    }
+                ]
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        const multimeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            qs: {
+                i: 'MQTT_2',
+                k: '123456'
+            },
+            json: [
+                {
+                    s: true,
+                    t: 11
+                },                
+                {
+                    s: false,
+                    t: 10
+                },
+            ]
+        };
+
+        const expectation = [
+            {
+                id: 'TheLightType3:MQTT_2',
+                type: 'TheLightType3',
+                temperature: {
+                    value: 11,
+                    type: 'Number'
+                },
+                status: {
+                    value: true,
+                    type: 'Boolean'
+                }
+            },
+            {
+                id: 'TheLightType3:MQTT_2',
+                type: 'TheLightType3',
+                temperature: {
+                    value: 10,
+                    type: 'Number'
+                },
+                status: {
+                    value: false,
+                    type: 'Boolean'
+                }
+            }
+        ];
+
+        beforeEach(function (done) {
+            request(provision, function (error, response, body) {
+                let err = null;
+                if (response.statusCode !== 201) {
+                    err = new Error('Error creating the device group');
+                }
+                done(err);
+            });
+        });
+
+        afterEach(function () {
+            nock.cleanAll();
+        });
+
+        it('should send its value to the Context Broker', async function () {
+            await testUtils.testCase(multimeasure, expectation, provision, env, config, 'single', 'MQTT');
+        });
+    });
+
     describe('Basic group provision with attributes and multientity', function () {
         const provision = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/services',
