@@ -1,7 +1,8 @@
 3.1.0 (January 8th, 2024)
 
-- Fix: protect access to multimeasure array
 - Add: check and usage endpoint and transport from Group level when commands
+- Fix: protect access to multimeasure array
+- Upgrade iotagent-node-lib dependency from 4.0.0 to 4.1.0
 
 3.0.0 (November 24th, 2023)
 
