@@ -1,3 +1,8 @@
+3.1.0 (January 8th, 2024)
+
+- Fix: protect access to multimeasure array
+- Add: check and usage endpoint and transport from Group level when commands
+
 3.0.0 (November 24th, 2023)
 
 - Add: allow to send NGSIv2 and NGSILD as measures depending on payloadType (#778)
