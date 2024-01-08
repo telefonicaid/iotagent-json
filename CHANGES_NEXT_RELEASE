@@ -1,2 +1,1 @@
-- Fix: protect access to multimeasure array
-- Add: check and usage endpoint and transport from Group level when commands
+
