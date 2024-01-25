@@ -171,7 +171,6 @@ Examples of these `ngsiv2` payloads are the following ones:
 }
 ```
 
-````
 
 Example of these `ngsild` payloads are the following ones:
 
