@@ -116,10 +116,36 @@ tools available online like [this one](https://string-functions.com/string-hex.a
 
 It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
 `payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
-attributes and `id` and `type` are ignored, since `id` and `type` from device/group configuration provisioned are used,
-as well as `actionType`.
+attributes. The entity `id` and `type` are are also include as attributes `ngsi_id` and `ngsi_type` (both with attribute
+type `string`). Destination entity `id` and entity `type` from device/group configuration provisioned are used,
+as well as `actionType`. It is possible to use the same entity `id` that the original one by using `entityNameExp` 
+at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel)
 
-Examples of these `ngsiv2` payloads are the following ones:
+Taking as an example the follwing entity as measure:
+
+```json
+{
+    "id": "MyEntityId1",
+    "type": "MyEntityType1",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"}
+}
+```
+
+It would generate an entity like the following one
+
+```json
+{
+    "id":"MyProvisionID",
+    "type":"MyProvisionType",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"},
+    "ngsi_id": {"type":"string","value":"MyEntityId1"},
+    "ngsi_type":{"type":"string","value":"MyEntityType1"}
+}
+```
+
+The IoTA is able to ingest different types of `NGSI-V2` and `NGSI-LD` payloads like the following ones:
+
+**NGSI-V2**
 
 (1) NGSI-v2 batch update format:
 
@@ -172,7 +198,7 @@ Examples of these `ngsiv2` payloads are the following ones:
 ```
 
 
-Example of these `ngsild` payloads are the following ones:
+**NGSI-LD**
 
 (1) NGSI-LD entities array format:
 
