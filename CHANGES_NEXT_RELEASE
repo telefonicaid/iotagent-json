@@ -1,1 +1,1 @@
-
+- Include entity id and entity type as measure value when measure is an ngsi payload
