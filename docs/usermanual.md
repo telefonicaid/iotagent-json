@@ -121,7 +121,7 @@ type `string`). Destination entity `id` and entity `type` from device/group conf
 as well as `actionType`. It is possible to use the same entity `id` that the original one by using `entityNameExp` 
 at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel)
 
-Given an incoming **measure** ad the follwing one:
+Given an incoming **measure** as the follwing one:
 
 ```json
 {
