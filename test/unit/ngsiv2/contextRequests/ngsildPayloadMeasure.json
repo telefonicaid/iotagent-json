@@ -1,11 +1,11 @@
 {
     "id": "Second MQTT Device",
     "type": "AnMQTTDevice",
-    "ngsild_id": {
+    "ngsi_id": {
         "type": "string",
         "value": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3"
     },
-    "ngsild_type": {
+    "ngsi_type": {
         "type": "string",
         "value": "ParkingSpot"
     },
