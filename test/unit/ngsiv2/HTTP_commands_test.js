@@ -462,6 +462,14 @@ describe('HTTP: Commands from CB notifications', function () {
                 }
             };
             beforeEach(function () {
+                contextBrokerMock
+                    .matchHeader('fiware-service', 'smartgondor')
+                    .matchHeader('fiware-servicepath', '/gardens')
+                    .post(
+                        '/v2/entities?options=upsert',
+                        utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus10.json')
+                    )
+                    .reply(204);
                 mockedClientServer = nock('http://localhost:9876')
                     .post('/command', function (body) {
                         return body.cmd1 || body.cmd1.data || body.cmd1.data === 22;
