@@ -198,7 +198,6 @@ The IoTA is able to ingest different types of `NGSI-V2` and `NGSI-LD` payloads l
 }
 ```
 
-
 **NGSI-LD**
 
 (1) NGSI-LD entities array format:
@@ -239,7 +238,7 @@ The IoTA is able to ingest different types of `NGSI-V2` and `NGSI-LD` payloads l
           },
           ...
  ]
-````
+```
 
 (2) NGSI-LD single entity format:
 
