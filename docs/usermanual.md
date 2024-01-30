@@ -171,8 +171,6 @@ Examples of these `ngsiv2` payloads are the following ones:
 }
 ```
 
-````
-
 Example of these `ngsild` payloads are the following ones:
 
 (1) NGSI-LD entities array format:
@@ -213,7 +211,7 @@ Example of these `ngsild` payloads are the following ones:
           },
           ...
  ]
-````
+```
 
 (2) NGSI-LD single entity format:
 
@@ -414,11 +412,11 @@ E.g.:
 #### Commands
 
 All the interations between IotAgent and ContextBroker related to comamnds are described in
-[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands)
+[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands)
 and
-[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-happy-path)
+[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-happy-path)
 and
-[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-error).
+[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-error).
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, from device or group device, that will contain the URL where the IoT Agent will send the received
