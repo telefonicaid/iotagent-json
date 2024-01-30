@@ -1,11 +1,11 @@
 {
     "id": "Second MQTT Device",
     "type": "AnMQTTDevice",
-    "ngsi_id": {
+    "measure_id": {
         "type": "string",
         "value": "urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3"
     },
-    "ngsi_type": {
+    "measure_type": {
         "type": "string",
         "value": "Streetlight"
     },

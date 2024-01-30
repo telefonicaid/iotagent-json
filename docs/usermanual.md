@@ -171,7 +171,6 @@ Examples of these `ngsiv2` payloads are the following ones:
 }
 ```
 
-
 Example of these `ngsild` payloads are the following ones:
 
 (1) NGSI-LD entities array format:
@@ -212,7 +211,7 @@ Example of these `ngsild` payloads are the following ones:
           },
           ...
  ]
-````
+```
 
 (2) NGSI-LD single entity format:
 

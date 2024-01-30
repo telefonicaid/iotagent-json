@@ -1,1 +1,2 @@
 - Fix: include entity id and entity type as measure value when measure is an ngsi (both NGSIv2 and NGSI-LD) payload
+
