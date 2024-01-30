@@ -467,6 +467,14 @@ describe('HTTP: Commands from CB notifications', function () {
                     .matchHeader('fiware-servicepath', '/gardens')
                     .post(
                         '/v2/entities?options=upsert',
+                        utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus9.json')
+                    )
+                    .reply(204);
+                contextBrokerMock
+                    .matchHeader('fiware-service', 'smartgondor')
+                    .matchHeader('fiware-servicepath', '/gardens')
+                    .post(
+                        '/v2/entities?options=upsert',
                         utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus10.json')
                     )
                     .reply(204);
