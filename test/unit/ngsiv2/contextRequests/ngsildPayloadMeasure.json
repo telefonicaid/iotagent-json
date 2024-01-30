@@ -2,11 +2,9 @@
     "id": "Second MQTT Device",
     "type": "AnMQTTDevice",
     "measure_id": {
-        "type": "string",
         "value": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3"
     },
     "measure_type": {
-        "type": "string",
         "value": "ParkingSpot"
     },
     "status": {
