@@ -2,9 +2,11 @@
     "id": "Second MQTT Device",
     "type": "AnMQTTDevice",
     "measure_id": {
+        "type": "string",
         "value": "urn:ngsi-ld:ParkingSpot:santander:reyes_magos_1_1:1"
     },
     "measure_type": {
+        "type": "string",
         "value": "ParkingSpot"
     },
     "status": {

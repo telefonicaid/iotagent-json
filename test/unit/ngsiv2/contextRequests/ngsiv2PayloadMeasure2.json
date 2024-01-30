@@ -2,9 +2,11 @@
     "id": "Second MQTT Device",
     "type": "AnMQTTDevice",
     "measure_id": {
+        "type": "string",
         "value": "urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3"
     },
     "measure_type": {
+        "type": "string",
         "value": "Streetlight"
     },
     "name": {
