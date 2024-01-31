@@ -118,7 +118,7 @@ It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related dev
 `payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
 attributes. The entity ID and type are also include as attributes `measure_id` and `measure_type` as described 
 [here](https://github.dev/telefonicaid/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names) (both using 
-attribute type `string`). Destination entity ID and entity type is taken from device/group configuration or provision,
+attribute type `string`(**FIXME [#810](https://github.com/telefonicaid/iotagent-json/issues/810)**: The type is going to be changed to `Text` instead of `string` )). Destination entity ID and entity type is taken from device/group configuration or provision,
 as well as `actionType`. It is possible to use the same entity ID that the original one by using `entityNameExp` 
 at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel)
 
