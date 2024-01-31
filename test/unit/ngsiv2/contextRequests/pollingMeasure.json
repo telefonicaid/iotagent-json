@@ -2,7 +2,7 @@
     "id":"Second MQTT Device",
     "type":"AnMQTTDevice",
   "a": {
-    "type": "string",
+    "type": "Text",
     "value": 23
   }
 }

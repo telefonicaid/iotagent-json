@@ -2,7 +2,7 @@
   "id": "TheLightType:JSON_UNPROVISIONED",
   "type": "TheLightType",
   "h":{
-    "type": "string",
+    "type": "Text",
     "value": "33"    
   }
 }
