@@ -6,7 +6,7 @@
      "value": "111222"
   },
   "pressure":{
-    "type": "string",
+    "type": "Text",
       "value": "20"
   },
   "TimeInstant":{

@@ -3,7 +3,7 @@
     "type":"AnMQTTDevice",    
     "actionType": {
         "value": "APPEND",
-        "type": "string"
+        "type": "Text"
     },
     "entities": {
         "value": [
@@ -56,6 +56,6 @@
                 }
             }
         ],
-        "type": "string"
+        "type": "Text"
     }
 }

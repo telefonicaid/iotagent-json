@@ -6,7 +6,7 @@
     "value": "32"   
   },
   "weight":{
-    "type": "string",
+    "type": "Text",
     "value": "87"    
   }
 }
