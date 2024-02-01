@@ -126,7 +126,7 @@ However, it is possible to use the same entity ID that the original one by using
 at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel), this way:
 
 ```
-"entityNameExp": "measure_type"
+"entityNameExp": "measure_id"
 ```
 
 The `actionType` used in the update sent to Context Broker is taken from the measure in the case that measure corresponds to
