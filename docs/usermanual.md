@@ -116,13 +116,23 @@ tools available online like [this one](https://string-functions.com/string-hex.a
 
 It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
 `payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
-attributes. The entity ID and type are also include as attributes `measure_id` and `measure_type` as described 
-[here](https://github.dev/telefonicaid/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names) (both using 
-attribute type `string` (**FIXME [#810](https://github.com/telefonicaid/iotagent-json/issues/810)**: The type is going to be changed to `Text` instead of `string` , fix also examples above). Destination entity ID and entity type is taken from device/group configuration or provision,
-as well as `actionType`. It is possible to use the same entity ID that the original one by using `entityNameExp` 
-at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel)
+attributes.
 
-Given an incoming **measure** as the follwing one:
+Note that the entity ID and type in the measure are also include as attributes `measure_id` and `measure_type` as described 
+[here](https://github.dev/telefonicaid/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names) (both using 
+attribute type `Text`). The ID and type of the entity updated at Context Broker is taken from device/group configuration or provision,
+
+However, it is possible to use the same entity ID that the original one by using `entityNameExp` 
+at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel), this way:
+
+```
+"entityNameExp": "measure_type"
+```
+
+The `actionType` used in the update sent to Context Broker is taken from the measure in the case that measure corresponds to
+a NGSI-v2 batch update. In other cases (i.e. NGSI-LD or NGSI-v2 non-bath update), the `actionType` is the default one (`append`).
+
+For instance, given an incoming **measure** as the follwing one:
 
 ```json
 {
@@ -139,8 +149,8 @@ It would persist an entity into the Context Broker like the following one:
     "id":"MyProvisionID",
     "type":"MyProvisionType",
     "attr1": { "type": "Text", "value": "MyAttr1Value"},
-    "ngsi_id": {"type":"string","value":"MyEntityId1"},
-    "ngsi_type":{"type":"string","value":"MyEntityType1"}
+    "ngsi_id": {"type": "Text","value":"MyEntityId1"},
+    "ngsi_type":{"type": "Text","value":"MyEntityType1"}
 }
 ```
 
