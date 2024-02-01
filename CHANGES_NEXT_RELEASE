@@ -1,1 +1,1 @@
-- Fix: DEFAULT_ATTRIBUTE_TYPE is changed to Text (#810)
+- Fix: default attribute type changed from 'string' to 'Text' (#810)
