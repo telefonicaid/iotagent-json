@@ -130,7 +130,7 @@ at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/bl
 ```
 
 The `actionType` used in the update sent to Context Broker is taken from the measure in the case that measure corresponds to
-a NGSI-v2 batch update. In other cases (i.e. NGSI-LD or NGSI-v2 non-bath update), the `actionType` is the default one (`append`).
+a NGSI-v2 batch update. In other cases (i.e. NGSI-LD or NGSI-v2 non-batch update), the `actionType` is the default one (`append`).
 
 For instance, given an incoming **measure** as the follwing one:
 
@@ -149,8 +149,8 @@ It would persist an entity into the Context Broker like the following one:
     "id":"MyProvisionID",
     "type":"MyProvisionType",
     "attr1": { "type": "Text", "value": "MyAttr1Value"},
-    "ngsi_id": {"type": "Text","value":"MyEntityId1"},
-    "ngsi_type":{"type": "Text","value":"MyEntityType1"}
+    "measure_id": {"type": "Text","value": "MyEntityId1"},
+    "measure_type":{"type": "Text","value": "MyEntityType1"}
 }
 ```
 
