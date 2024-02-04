@@ -391,26 +391,34 @@ describe('HTTP: Measure reception ', function () {
         });
     });
 
-    describe('When a POST single XML measure arrives for the HTTP binding', function () {
+    describe('When a POST single SOAP/XML measure arrives for the HTTP binding', function () {
+        var soapReq =
+            '<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope"> ' +
+            '<soapenv:Header xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"/> ' +
+            '<soapenv:Body ' +
+            'xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"> ' +
+            '<ns21:notificationEventRequest ' +
+            'xmlns:ns21="http://myurl.com"> ' +
+            '<ns21:Param1>ABC12345</ns21:Param1> ' +
+            '<ns21:Param2/> ' +
+            '<ns21:Date>28/09/2023 11:48:15 +0000</ns21:Date> ' +
+            '<ns21:NestedAttr> ' +
+            '<ns21:SubAttr>This is a description</ns21:SubAttr> ' +
+            '</ns21:NestedAttr> ' +
+            '<ns21:Status>Assigned</ns21:Status> ' +
+            '<ns21:OriginSystem/> ' +
+            '</ns21:notificationEventRequest> ' +
+            '</soapenv:Body> ' +
+            '</soap:Envelope>';
         const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/configuration',
+            url: 'http://localhost:' + config.http.port + '/iot/json/attrs/data',
             method: 'POST',
             json: false,
-            body: `<?xml version="1.0" encoding="UTF-8"?>
-                <ns:settings xmlns:ns="http://strip.ns">
-                    <single>value1</single>
-                    <list>
-                        <ns:item>item1</ns:item>
-                        <ns:item>item2</ns:item>
-                    </list>
-                    <with attr="value2">
-                        and text
-                    </with>
-                </ns:settings>`,
+            body: soapReq,
             headers: {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens',
-                'Content-Type': 'text/xml'
+                'content-type': 'application/soap+xml'
             },
             qs: {
                 i: 'MQTT_2',
@@ -424,7 +432,7 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresXmlTypes.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureSoapXml.json')
                 )
                 .reply(204);
         });

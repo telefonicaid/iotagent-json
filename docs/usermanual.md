@@ -86,9 +86,9 @@ following query parameters:
 It is possible to send a single measure to IoT Platform using an HTTP POST request to the
 `/iot/json/attrs/<attributeName>` and the previously explained query parameters.
 
-In this case, sending a single measure, there is possible to send other kinds of payloads like `text/plain` and
-`application/octet-stream`, not just `application/json`. In case of using `application/octet-stream`, data will be 
-treated as binary data, saved in the attribute maped as hex string. I.E:
+In this case, sending a single measure, there is possible to send other kinds of payloads like `text/plain`,
+`application/octet-stream` and `application/soap+xml`, not just `application/json`. In case of using
+`application/octet-stream`, data will be treated as binary data, saved in the attribute maped as hex string. I.E:
 
 For a measure sent to `POST /iot/json/attrs/attrHex` with content-type: application/octet-stream and binary value
 
@@ -98,17 +98,292 @@ hello
 
 then the resulting attribute sent to ContextBroker:
 
+```
 {
    ...
    "attrHex": {
-     "value": "68656c6c6f"
+     "value": "68656c6c6f",
      "type": "<the one used at provisiong time for attrHex attribute>"
    }
 }
+```
 
-Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte received in 
-the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple tools available 
-online like [this one](https://string-functions.com/string-hex.aspx)
+Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte
+received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
+tools available online like [this one](https://string-functions.com/string-hex.aspx)
+
+##### NGSI-v2 and NGSI-LD Measure reporting
+
+It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
+`payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
+attributes.
+
+Note that the entity ID and type in the measure are also include as attributes `measure_id` and `measure_type` as described 
+[here](https://github.dev/telefonicaid/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names) (both using 
+attribute type `Text`). The ID and type of the entity updated at Context Broker is taken from device/group configuration or provision,
+
+However, it is possible to use the same entity ID that the original one by using `entityNameExp` 
+at [device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel), this way:
+
+```
+"entityNameExp": "measure_id"
+```
+
+The `actionType` used in the update sent to Context Broker is taken from the measure in the case that measure corresponds to
+a NGSI-v2 batch update. In other cases (i.e. NGSI-LD or NGSI-v2 non-batch update), the `actionType` is the default one (`append`).
+
+For instance, given an incoming **measure** as the follwing one:
+
+```json
+{
+    "id": "MyEntityId1",
+    "type": "MyEntityType1",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"}
+}
+```
+
+It would persist an entity into the Context Broker like the following one:
+
+```json
+{
+    "id":"MyProvisionID",
+    "type":"MyProvisionType",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"},
+    "measure_id": {"type": "Text","value": "MyEntityId1"},
+    "measure_type":{"type": "Text","value": "MyEntityType1"}
+}
+```
+
+The IoTA is able to ingest different types of `NGSI-V2` and `NGSI-LD` payloads like the following ones:
+
+**NGSI-V2**
+
+(1) NGSI-v2 batch update format:
+
+```
+ {
+     "actionType": "append",
+     "entities": [
+        {
+          "id": "MyEntityId1",
+          "type": "MyEntityType1",
+          "attr1": { "type": "Text", "value": "MyAttr1Value"},
+          "attr2": { "type": "Text", "value": "MyAttr1Value"
+                     "metadata": {
+                                "TimeInstant": {
+                                    "type": "DateTime",
+                                    "value": "2023-11-17T11:59:22.661Z"
+                                }
+                            }
+                    }
+          ...
+        },
+        ...
+    ]
+ }
+```
+
+(2) NGSI-v2 plain entities array format:
+
+```
+ [
+    {
+          "id": "MyEntityId1",
+          "type": "MyEntityType1",
+          "attr1": { "type": "Text", "value": "MyAttr1Value"},
+          ...
+    },
+    ...
+ ]
+```
+
+(3) NGSI-v2 plain single entity format:
+
+```
+{
+    "id": "MyEntityId1",
+    "type": "MyEntityType1",
+    "attr1": { "type": "Text", "value": "MyAttr1Value"},
+    ...
+}
+```
+
+**NGSI-LD**
+
+(1) NGSI-LD entities array format:
+
+```JSON
+ [
+         {
+                "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
+                "type": "ParkingSpot",
+                "status": {
+                    "type": "Property",
+                    "value": "free",
+                    "observedAt": "2018-09-21T12:00:00Z"
+                },
+                "category": {
+                    "type": "Property",
+                    "value": [ "onstreet" ]
+                },
+                "refParkingSite": {
+                    "type": "Relationship",
+                    "object": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
+                },
+                "name": {
+                    "type": "Property",
+                    "value": "A-13"
+                },
+                "location": {
+                    "type": "GeoProperty",
+                    "value": {
+                        "type": "Point",
+                        "coordinates": [ -3.80356167695194, 43.46296641666926 ]
+                    }
+                },
+                "@context": [
+                    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+                    "https://schema.lab.fiware.org/ld/context"
+                ]
+          },
+          ...
+ ]
+```
+
+(2) NGSI-LD single entity format:
+
+```
+{
+    "id": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3",
+    "type": "ParkingSpot",
+    "status": {
+        "type": "Property",
+        "value": "free",
+        "observedAt": "2018-09-21T12:00:00Z"
+    },
+    "category": {
+        "type": "Property",
+        "value": [ "onstreet" ]
+    },
+    "refParkingSite": {
+        "type": "Relationship",
+        "object": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
+    },
+    "name": {
+        "type": "Property",
+        "value": "A-13"
+    },
+    "location": {
+        "type": "GeoProperty",
+        "value": {
+            "type": "Point",
+            "coordinates": [ -3.80356167695194, 43.46296641666926 ]
+        }
+    },
+    "@context": [
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+        "https://schema.lab.fiware.org/ld/context"
+    ]
+}
+```
+
+Some additional considerations to take into account:
+
+-   In the case of array of entities, they are handled as a multiple measure, i.e. each entity is a measure.
+-   The `type` of the attribute is the one used in the provision of the attribute, not the one in the measure. The
+    exception is the autoprovisioned devices case, in which case the `type` of the attribute is taken from the measure
+    (given the attribute lacks proviosioned type). In this latter case, if the attribute `type` is not included in the
+    measure the
+    [explicit type omission rules for Context Broker](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations)
+    are also taken into account in this case.
+-   In the case of NGSI-LD, fields different from `type`, `value` or `object` (e.g. `observedAt` in the examples above)
+    are include as NGSI-v2 metadata in the entity corresponding to the measure at Context Broker. Note IOTA doesn't
+    provide the `type` for that metadata, so the Context Broker applies
+    [a default type based in the metadata `value` JSON type](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations).
+
+##### SOAP-XML Measure reporting
+
+In case of `POST /iot/json/attrs/myAttr` with content-type `application/soap+xml` a measure like:
+
+```
+   <soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+    <soapenv:Header xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope"/>
+        <soapenv:Body xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope">
+            <ns21:notificationEventRequest  xmlns:ns21="http://myurl.com">
+                <ns21:Param1>ABC12345</ns21:Param1>
+                <ns21:Param2/>
+                <ns21:Date>28/09/2023 11:48:15 +0000</ns21:Date>
+                <ns21:NestedAttr>
+                    <ns21:SubAttr>This is a description</ns21:SubAttr>
+                </ns21:NestedAttr>
+                <ns21:Status>Assigned</ns21:Status>
+                <ns21:OriginSystem/>
+            </ns21:notificationEventRequest>
+        </soapenv:Body>
+    </soap:Envelope>
+```
+
+then the resulting attribute `myAttr` sent to context borker:
+
+```
+"myAttr": {
+            "type": "None",
+            "value": {
+                "Envelope": {
+                    "$": {
+                        "xmlns:soap": "http://www.w3.org/2003/05/soap-envelope"
+                    },
+                    "Header": [
+                        {
+                            "$": {
+                                "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                            }
+                        }
+                    ],
+                    "Body": [
+                        {
+                            "$": {
+                                "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+                            },
+                            "notificationEventRequest": [
+                                {
+                                    "$": {
+                                        "xmlns:ns21": "http://myurl.com"
+                                    },
+                                    "Param1": [
+                                        "ABC12345"
+                                    ],
+                                    "Param2": [
+                                        ""
+                                    ],
+                                    "Date": [
+                                        "28/09/2023 11:48:15 +0000"
+                                    ],
+                                    "NestedAttr": [
+                                        {
+                                            "SubAttr": [
+                                                "This is a description"
+                                            ]
+                                        }
+                                    ],
+                                    "Status": [
+                                        "Assigned"
+                                    ],
+                                    "OriginSystem": [
+                                        ""
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+```
+
+Note that XML namespaces might change from one request to the next. It is useful to remove them from the document, to be
+able to refer to tags later in JEXL transformations. See
+[this issue](https://github.com/Leonidas-from-XIV/node-xml2js/issues/87)
 
 #### Configuration retrieval
 
@@ -174,15 +449,15 @@ E.g.:
 #### Commands
 
 All the interations between IotAgent and ContextBroker related to comamnds are described in
-[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands)
+[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands)
 and
-[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-happy-path)
+[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-happy-path)
 and
-[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-error).
+[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-error).
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
-`endpoint` attribute, that will contain the URL where the IoT Agent will send the received commands. Otherwise the
-command will be poll. When using the HTTP transport, the command handling have two flavours:
+`endpoint` attribute, from device or group device, that will contain the URL where the IoT Agent will send the received
+commands. Otherwise the command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
     device will reply with a 200OK response containing the result of the command in the JSON result format. Example of
@@ -316,8 +591,8 @@ attribute IDs `h` and `t`, then humidity measures are reported this way:
 $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 ```
 
-In the single measure case, when the published data is not a valid JSON, it is interpreted as binary content. For instance,
-if the following is published to `/json/ABCDEF/id_sen1/attrs/attrHex` topic:
+In the single measure case, when the published data is not a valid JSON, it is interpreted as binary content. For
+instance, if the following is published to `/json/ABCDEF/id_sen1/attrs/attrHex` topic:
 
 ```
 hello
@@ -325,20 +600,28 @@ hello
 
 then the resulting attribute sent to ContextBroker:
 
+```
 {
    ...
    "attrHex": {
-     "value": "68656c6c6f"
+     "value": "68656c6c6f",
      "type": "<the one used at provisiong time for attrHex attribute>"
    }
 }
+```
 
-Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte received in 
-the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple tools available 
-online like [this one](https://string-functions.com/string-hex.aspx).
+Note that every group of 2 character (I.E, the first group, `68`) corresponds to a single ASCII character or byte
+received in the payload (in this case, the value `0x68` corresponds to `h` in ASCII). You can use one of the multiple
+tools available online like [this one](https://string-functions.com/string-hex.aspx).
 
-Note this works differently that in HTTP transport. In HTTP the JSON vs. binary decission is based on `application/octed-stream` `content-type` header.
-Given that in MQTT we don't have anything equivalent to HTTP headers, we apply the heuristics of checking for JSON format.
+Note this works differently that in HTTP transport. In HTTP the JSON vs. binary decission is based on
+`application/octet-stream` `content-type` header. Given that in MQTT we don't have anything equivalent to HTTP headers,
+we apply the heuristics of checking for JSON format.
+
+##### NGSI-v2 and NGSI-LD Measure reporting
+
+Using topics for multiple measure reporting its possible also ingest `ngsiv2` and `ngsild` payloads in the same way that
+was described for http binding.
 
 #### Configuration retrieval
 
@@ -348,7 +631,8 @@ commands and a topic to receive configuration information. This mechanism can be
 configuration flag, `configRetrieval`.
 
 In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be
-provisioned using "MQTT" as transport key. By default it will be considered "HTTP" as transport.
+provisioned using "MQTT" as transport key, at device or group level. By default it will be considered "HTTP" as
+transport if none transport is defined at device or group level.
 
 The parameter will be given as follows:
 
@@ -522,14 +806,6 @@ Some additional remarks regarding MQTT commands:
 }
 ```
 
-#### Bidirectionality Syntax
-
-The latest versions of the Provisioning API allow for the definition of reverse expressions to keep data shared between
-the Context Broker and the device in sync (regardless of whether the data originated in plain data from the device or in
-a transformation expression in the IoTAgent). In this cases, when a reverse expression is defined, whenever the
-bidirectional attribute is modified, the IoTAgent sends a command to the original device, with the name defined in the
-reverse expression attribute and the ID of the device (see Commands Syntax, just above).
-
 #### Commands transformations
 
 It is possible to use expressions to transform commands, in the same way that other attributes could do it, that is
@@ -611,15 +887,6 @@ The payload is the same as for the other bindings.
 
 The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
-
-#### Timestamp compression
-
-Any attribute coming to the IoTA with the "timeInstant" name will be expected to be a timestamp in ISO8601 complete
-basic calendar representation (e.g.: 20071103T131805). The IoT Agent will automatically transform this values to the
-extended representation (e.g.: +002007-11-03T13:18:05) for any interaction with the Context Broker (updates and
-queries).
-
-This feature can be enabled and disabled by using the `compressTimestamp` configuration flag.
 
 ## Development documentation
 
@@ -763,9 +1030,10 @@ simple restart should be enough).
 
 In order to distinguish which device uses which attribute, a new field, `transport`, will be added to the device
 provisioning. When a command or a notification arrives to the IoTAgent, this field is read to guess what plugin to
-invoke in order to execute the requested task. If the field is not found, the value of the configuration parameter
-`defaultTransport` will be used instead. In order to associate a module with a device, the value of the `transport`
-attribute of the device provisioning must match the value of the `protocol` field of the binding.
+invoke in order to execute the requested task. If the field is not found, the same field is search in configuration
+group and then used, but if not the value of the configuration parameter `defaultTransport` will be used instead. In
+order to associate a module with a device, the value of the `transport` attribute of the device provisioning must match
+the value of the `protocol` field of the binding.
 
 ### API
 

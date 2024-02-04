@@ -1,0 +1,15 @@
+{
+  "actionType": "update",
+  "entities": [
+    {
+        "id": "TheLightType:JSON_UNPROVISIONED",
+        "type": "TheLightType",
+        "cmd1": {
+            "type": "command",
+            "value":{
+                "data": "22"
+            }
+        }
+    }
+  ]
+}
