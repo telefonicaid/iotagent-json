@@ -1,2 +1,2 @@
 - Fix: default attribute type changed from 'string' to 'Text' (#810)
-- ADD: Log and return device/group information when DeviceNotFound GroupNotFound errors
+- Add: log and return device/group information when DeviceNotFound and GroupNotFound errors (#815)
