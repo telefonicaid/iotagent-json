@@ -1,4 +1,4 @@
-3.2.0 (January 30th, 2024)
+3.3.0 (February 27th, 2024)
 
 - Add: ARGO binding
 - Add: log and return device/group information when DeviceNotFound and GroupNotFound errors (#815)
