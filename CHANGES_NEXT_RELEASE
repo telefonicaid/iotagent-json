@@ -1,2 +1,1 @@
 - allow receive command notifications from CB (iotagent-node-lib#1455)
-- Fix: default attribute type changed from 'string' to 'Text' (#810)

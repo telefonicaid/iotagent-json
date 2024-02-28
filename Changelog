@@ -1,3 +1,10 @@
+3.3.0 (February 27th, 2024)
+
+- Add: ARGO binding
+- Add: log and return device/group information when DeviceNotFound and GroupNotFound errors (#815)
+- Fix: default attribute type changed from 'string' to 'Text' (#810)
+- Upgrade iotagent-node-lib dependency from 4.2.0 to 4.3.0
+
 3.2.0 (January 30th, 2024)
 
 - Fix: include entity id and entity type as measure_id and measure_type at CB when measure is an ngsi (both NGSIv2 and NGSI-LD) payload
