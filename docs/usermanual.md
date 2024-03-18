@@ -114,7 +114,7 @@ tools available online like [this one](https://string-functions.com/string-hex.a
 
 ##### NGSI-v2 and NGSI-LD Measure reporting
 
-It is possible report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
+It is possible to report as a measure a NGSI-v2 or NGSI-LD payload when related device/group is configured with
 `payloadType` `ngsiv2` or `ngsild`. In these cases payload is ingested as measure where entity attributes are measure
 attributes.
 
