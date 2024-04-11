@@ -182,7 +182,7 @@ describe('HTTP: Measure reception ', function () {
                 },
                 {
                     h: '111333',
-                    TimeInstant: '2020-02-22T22:22:22Z'
+                    TimeInstant: '2023-03-23T23:33:33Z'
                 }
             ],
             headers: {
@@ -197,7 +197,7 @@ describe('HTTP: Measure reception ', function () {
         const provisionOptions = {
             url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
             method: 'POST',
-            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant.json'),
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant3.json'),
             headers: {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
@@ -216,7 +216,7 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures1b.json')
                 )
                 .reply(204);
 
@@ -225,7 +225,7 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
                     '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2b.json')
                 )
                 .reply(204);
 
@@ -255,7 +255,6 @@ describe('HTTP: Measure reception ', function () {
             json: [
                 {
                     h: '111222'
-            
                 },
                 {
                     h: '111333'
@@ -267,8 +266,8 @@ describe('HTTP: Measure reception ', function () {
             },
             qs: {
                 i: 'dev0130101',
-                k: '1234' ,
-                t:'2020-02-22T22:22:22Z'          
+                k: '1234',
+                t: '2020-02-22T22:22:22Z'
             }
         };
         const provisionOptions = {
