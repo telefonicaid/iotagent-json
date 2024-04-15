@@ -1,0 +1,24 @@
+{
+  "devices": [
+    {
+      "attributes": [
+        {
+          "type": "datetime",
+          "name": "TimeInstant",
+          "object_id": "TimeInstant"
+        },
+        {
+          "type": "percent",
+          "name": "humidity",
+          "object_id": "h"
+        }
+      ],
+      "entity_type": "sensor",
+      "protocol": "IoTA-JSON",
+      "entity_name": "e0130101",
+      "device_id": "dev0130101",
+      "explicitAttrs": false,
+      "timestamp": true        
+    }
+  ]
+}
