@@ -1,3 +1,8 @@
+3.4.0 (April 26th, 2024)
+
+- Upgrade express dep from 4.18.1 to 4.19.2 due to a vulnerability
+- Upgrade iotagent-node-lib dependency from 4.2.0 to 4.3.0
+
 3.3.0 (February 27th, 2024)
 
 - Add: ARGO binding
