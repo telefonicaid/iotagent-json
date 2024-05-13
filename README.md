@@ -33,7 +33,7 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 ## Contents
 
 -   [Background](#background)
--   [Install](#build--install)
+-   [Install](#install)
 -   [Usage](#usage)
 -   [API](#api)
 -   [Contributing](#contributing)
