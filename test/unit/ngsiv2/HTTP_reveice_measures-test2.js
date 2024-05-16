@@ -389,7 +389,8 @@ describe('HTTP: Measure reception ', function () {
                     TimeInstant: '2023-03-23T23:33:33Z'
                 },
                 {
-                    h: '111111'
+                    h: '111111',
+                    TimeInstant: '2024-03-23T23:33:33Z'
                 }
             ],
             headers: {

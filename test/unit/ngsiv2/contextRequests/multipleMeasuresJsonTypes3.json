@@ -46,11 +46,11 @@
             "type": "AnMQTTDevice",
             "temperature": {
                 "type": "celsius",
-                "value": "89"
+                "value": "87"
             },
             "humidity": {
                 "type": "degrees",
-                "value": "33"
+                "value": "32"
             },
             "luminosity": {
                 "type": "Integer",
