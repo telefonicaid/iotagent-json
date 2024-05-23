@@ -69,7 +69,6 @@ describe('HTTP: NGSILD Measure reception ', function () {
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-
     describe('When a POST single NGSILD entity measure with NGSILD format arrives for the HTTP binding and NGSILD is the expected payload type', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json/',
@@ -227,16 +226,8 @@ describe('HTTP: NGSILD Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure.json')
-                )
-                .reply(204);
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMultipleMeasure.json')
                 )
                 .reply(204);
         });

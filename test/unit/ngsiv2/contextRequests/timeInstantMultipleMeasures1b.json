@@ -1,0 +1,59 @@
+{
+    "actionType": "append",
+    "entities": [
+        {
+            "id": "e0130101",
+            "type": "sensor",
+            "TimeInstant": {
+                "type": "DateTime",
+                "value": "2020-02-22T22:22:22Z"
+            },
+            "humidity": {
+                "type": "percent",
+                "value": "111222",
+                "metadata": {
+                    "TimeInstant": {
+                        "type": "DateTime",
+                        "value": "2020-02-22T22:22:22Z"
+                    }
+                }
+            }
+        },
+        {
+            "id": "e0130101",
+            "type": "sensor",
+            "TimeInstant": {
+                "type": "DateTime",
+                "value": "2023-03-23T23:33:33Z"
+            },
+            "humidity": {
+                "type": "percent",
+                "value": "111333",
+                "metadata": {
+                    "TimeInstant": {
+                        "type": "DateTime",
+                        "value": "2023-03-23T23:33:33Z"
+                    }
+                }
+            }
+        },
+        {
+            "id": "e0130101",
+            "type": "sensor",
+            "TimeInstant": {
+                "type": "DateTime",
+                "value": "2024-03-23T23:33:33Z"
+            },
+            "humidity": {
+                "type": "percent",
+                "value": "111111",
+                "metadata": {
+                    "TimeInstant": {
+                        "type": "DateTime",
+                        "value": "2024-03-23T23:33:33Z"
+                    }
+                }
+            }
+        }
+    ]
+}

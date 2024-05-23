@@ -142,16 +142,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes2.json')
-                )
-                .reply(204);
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes3.json')
                 )
                 .reply(204);
         });
@@ -215,17 +207,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures.json')
                 )
                 .reply(204);
 
@@ -295,27 +278,9 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures1b.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2b.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert'
+                    '/v2/op/update'
                     // FIXME: Mock about h atttribute + current timestamp
-                    //utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    //utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures1b.json')
                 )
                 .reply(204);
 
@@ -385,25 +350,7 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures1b.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2b.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert'
+                    '/v2/op/update'
                     // FIXME: Mock about h atttribute + current timestamp
                     //utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
                 )
@@ -442,7 +389,8 @@ describe('HTTP: Measure reception ', function () {
                     TimeInstant: '2023-03-23T23:33:33Z'
                 },
                 {
-                    h: '111111'
+                    h: '111111',
+                    TimeInstant: '2024-03-23T23:33:33Z'
                 }
             ],
             headers: {
@@ -475,27 +423,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures1b.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2b.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert'
-                    // FIXME: Mock about h atttribute + current timestamp
-                    //utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures1b.json')
                 )
                 .reply(204);
 
@@ -561,17 +490,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures.json')
                 )
                 .reply(204);
 
@@ -627,17 +547,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice2.json')
-                )
-                .reply(204);
-
-            contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDeviceMultiple.json')
                 )
                 .reply(204);
 
