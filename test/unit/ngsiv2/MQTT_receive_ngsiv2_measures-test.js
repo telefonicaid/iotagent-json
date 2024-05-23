@@ -266,16 +266,8 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure.json')
-                )
-                .reply(204);
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMultipleMeasure.json')
                 )
                 .reply(204);
         });
