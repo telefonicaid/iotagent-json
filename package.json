@@ -68,7 +68,7 @@
     "body-parser-xml": "2.0.5",
     "dateformat": "3.0.3",
     "express": "4.19.2",
-    "iotagent-node-lib": "https://github.com/telefonicaid/iotagent-node-lib.git#task/device_update_handler_with_old_device_value",
+    "iotagent-node-lib": "https://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "2.1.2",
     "mqtt": "4.3.7",
     "sinon": "~6.1.0",
