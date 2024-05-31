@@ -48,7 +48,7 @@ describe('HTTP binding - Update provisioned devices with a new apikey', function
     };
 
     beforeEach(function (done) {
-        config.logLevel = 'DEBUG';
+        config.logLevel = 'FATAL';
         nock.cleanAll();
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartgondor')
