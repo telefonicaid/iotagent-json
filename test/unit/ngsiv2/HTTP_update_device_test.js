@@ -60,7 +60,7 @@ describe('HTTP binding - Update provisioned devices with a new apikey', function
 
     it('should have provisioned with APIKEY1', function (done) {
         const options = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/devices/MQTT_2',
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices/MQTT_4',
             headers: {
                 'fiware-service': 'smartgondor',
                 'fiware-servicepath': '/gardens'
@@ -82,7 +82,7 @@ describe('HTTP binding - Update provisioned devices with a new apikey', function
 
     describe('When a request to update a provision device arrives', function () {
         const optionsUpdate = {
-            url: 'http://localhost:' + config.iota.server.port + '/iot/devices/MQTT_2',
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices/MQTT_4',
             method: 'PUT',
             headers: {
                 'fiware-service': 'smartgondor',
@@ -102,7 +102,7 @@ describe('HTTP binding - Update provisioned devices with a new apikey', function
         it('should have updated device apikey', function (done) {
             request(optionsUpdate, function (error, response, body) {
                 const options = {
-                    url: 'http://localhost:' + config.iota.server.port + '/iot/devices/MQTT_2',
+                    url: 'http://localhost:' + config.iota.server.port + '/iot/devices/MQTT_4',
                     headers: {
                         'fiware-service': 'smartgondor',
                         'fiware-servicepath': '/gardens'
