@@ -1,7 +1,7 @@
 {
   "devices": [
     {
-      "device_id": "MQTT_2",
+      "device_id": "MQTT_4",
       "protocol": "GENERIC_PROTO",
       "apikey": "APIKEY1",
       "entity_name": "Second MQTT Device",
