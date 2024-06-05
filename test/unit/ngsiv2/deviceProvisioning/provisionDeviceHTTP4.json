@@ -1,0 +1,47 @@
+{
+  "devices": [
+    {
+      "device_id": "MQTT_4",
+      "protocol": "GENERIC_PROTO",
+      "apikey": "APIKEY1",
+      "entity_name": "Second MQTT Device",
+      "timezone": "America/Santiago",
+      "entity_type": "AnMQTTDevice",
+      "attributes": [
+        {
+          "name": "temperature",
+          "type": "celsius"
+        },
+        {
+          "name": "humidity",
+          "type": "degrees"
+        },
+        {
+          "name": "luminosity",
+          "type": "Integer"
+
+        },
+        {
+          "name": "pollution",
+          "type": "Float"
+        },
+        {
+          "name": "configuration",
+          "type": "Object"
+        },
+        {
+          "name": "tags",
+          "type": "Array"
+        },
+        {
+          "name": "enabled",
+          "type": "Boolean"
+        },
+        {
+          "name": "alive",
+          "type": "Null"          
+        }
+      ]
+    }
+  ]
+}
