@@ -1,3 +1,15 @@
+3.5.0 (June 11th, 2024)
+
+- Fix: update device using previous device apikey to avoid error when apikey is updated (#833)
+- Fix: allow send multiple measures to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612)
+- Fix: default express limit to 1Mb instead default 100Kb and allow change it throught a conf env var 'IOTA_EXPRESS_LIMIT' (#827)
+- Upgrade iotagent-node-lib dependency from 4.4.0 to 4.5.0
+
+3.4.0 (April 26th, 2024)
+
+- Upgrade express dep from 4.18.1 to 4.19.2 due to a vulnerability
+- Upgrade iotagent-node-lib dependency from 4.2.0 to 4.3.0
+
 3.3.0 (February 27th, 2024)
 
 - Add: ARGO binding

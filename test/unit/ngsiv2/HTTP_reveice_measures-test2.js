@@ -142,16 +142,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes2.json')
-                )
-                .reply(204);
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes3.json')
                 )
                 .reply(204);
         });
@@ -171,7 +163,7 @@ describe('HTTP: Measure reception ', function () {
         });
     });
 
-    describe('When a POST multimeasure arrives with a TimeInstant attribute in the body', function () {
+    describe('When a POST multimeasure arrives with a the same TimeInstant attribute in the body', function () {
         const optionsMeasure = {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
@@ -215,17 +207,224 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures.json')
                 )
                 .reply(204);
+
+            iotaJson.stop(function () {
+                iotaJson.start(config, function () {
+                    request(provisionOptions, function (error, response, body) {
+                        done();
+                    });
+                });
+            });
+        });
+
+        afterEach(function () {});
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST multimeasure arrives with different TimeInstant attribute in the body', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: [
+                {
+                    h: '111222',
+                    TimeInstant: '2020-02-22T22:22:22Z'
+                },
+                {
+                    h: '111333',
+                    TimeInstant: '2023-03-23T23:33:33Z'
+                },
+                {
+                    h: '111111'
+                }
+            ],
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant3.json'),
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function (done) {
+            nock.cleanAll();
+            // This mock does not check the payload since the aim of the test is not to verify
+            // device provisioning functionality. Appropriate verification is done in tests under
+            // provisioning folder of iotagent-node-lib
+            contextBrokerMock = nock('http://192.168.1.1:1026');
 
             contextBrokerMock
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    '/v2/op/update'
+                    // FIXME: Mock about h atttribute + current timestamp
+                    //utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures1b.json')
+                )
+                .reply(204);
+
+            iotaJson.stop(function () {
+                iotaJson.start(config, function () {
+                    request(provisionOptions, function (error, response, body) {
+                        done();
+                    });
+                });
+            });
+        });
+
+        afterEach(function () {});
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST multimeasure arrives with different TimeInstant mapped attribute in the body', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: [
+                {
+                    h: '111222',
+                    myTimeInstant: '2020-02-22T22:22:22Z'
+                },
+                {
+                    h: '111333',
+                    myTimeInstant: '2023-03-23T23:33:33Z'
+                },
+                {
+                    h: '111111'
+                }
+            ],
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant4.json'),
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function (done) {
+            nock.cleanAll();
+            // This mock does not check the payload since the aim of the test is not to verify
+            // device provisioning functionality. Appropriate verification is done in tests under
+            // provisioning folder of iotagent-node-lib
+            contextBrokerMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/op/update'
+                    // FIXME: Mock about h atttribute + current timestamp
+                    //utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
+                )
+                .reply(204);
+
+            iotaJson.stop(function () {
+                iotaJson.start(config, function () {
+                    request(provisionOptions, function (error, response, body) {
+                        done();
+                    });
+                });
+            });
+        });
+
+        afterEach(function () {});
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+    });
+
+    describe('When a POST multimeasure arrives with different TimeInstant mapped timestamp attribute in the body', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: [
+                {
+                    h: '111222',
+                    TimeInstant: '2020-02-22T22:22:22Z'
+                },
+                {
+                    h: '111333',
+                    TimeInstant: '2023-03-23T23:33:33Z'
+                },
+                {
+                    h: '111111',
+                    TimeInstant: '2024-03-23T23:33:33Z'
+                }
+            ],
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'dev0130101',
+                k: '1234'
+            }
+        };
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionDeviceTimeinstant5.json'),
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        beforeEach(function (done) {
+            nock.cleanAll();
+            // This mock does not check the payload since the aim of the test is not to verify
+            // device provisioning functionality. Appropriate verification is done in tests under
+            // provisioning folder of iotagent-node-lib
+            contextBrokerMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures1b.json')
                 )
                 .reply(204);
 
@@ -255,7 +454,6 @@ describe('HTTP: Measure reception ', function () {
             json: [
                 {
                     h: '111222'
-            
                 },
                 {
                     h: '111333'
@@ -267,8 +465,8 @@ describe('HTTP: Measure reception ', function () {
             },
             qs: {
                 i: 'dev0130101',
-                k: '1234' ,
-                t:'2020-02-22T22:22:22Z'          
+                k: '1234',
+                t: '2020-02-22T22:22:22Z'
             }
         };
         const provisionOptions = {
@@ -292,17 +490,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMeasures2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timeInstantMultipleMeasures.json')
                 )
                 .reply(204);
 
@@ -358,17 +547,8 @@ describe('HTTP: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice2.json')
-                )
-                .reply(204);
-
-            contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDeviceMultiple.json')
                 )
                 .reply(204);
 
