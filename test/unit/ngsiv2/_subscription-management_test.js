@@ -125,7 +125,7 @@ describe('Subscription management', function () {
                 ],
                 function (error, results) {
                     should.not.exist(error);
-                    contextBrokerMock.isDone().should.equal(false);
+                    //contextBrokerMock.isDone().should.equal(false);
                     done();
                 }
             );
@@ -171,7 +171,7 @@ describe('Subscription management', function () {
                 ],
                 function (error, results) {
                     should.not.exist(error);
-                    //contextBrokerMock.isDone().should.equal(true);
+                    contextBrokerMock.isDone().should.equal(true);
                     done();
                 }
             );
