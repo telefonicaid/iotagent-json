@@ -125,6 +125,7 @@ describe('Subscription management', function () {
                 ],
                 function (error, results) {
                     should.not.exist(error);
+                    // FIXME: following check is not working:
                     //contextBrokerMock.isDone().should.equal(false);
                     done();
                 }
