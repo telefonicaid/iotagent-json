@@ -1,3 +1,8 @@
+3.6.0 (September 18th, 2024)
+
+- Upgrade body-parser dep from 1.20.0 to 1.20.3
+- Upgrade iotagent-node-lib dependency from 4.5.0 to 4.6.0
+
 3.5.0 (June 11th, 2024)
 
 - Fix: update device using previous device apikey to avoid error when apikey is updated (#833)
