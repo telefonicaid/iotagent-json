@@ -92,7 +92,10 @@ describe('Subscription management', function () {
         iotAgentLib.clearAll(done);
     });
 
-    // FIXME: following test is not working as expected
+    // FIXME: following test is not working as expected. The second mock expectations (the one with
+    // alternativeUpdate.json, which includes the NGSIv2 update for 53 and 1 measures) is not correct,
+    // as the IOTA is stopedd with iotaJson.stop before doing sendMeasures('53', '1'). Surprisingly, removing
+    // that expectation doesn't work either...
     // describe('When the iotagent stops', function () {
     //     beforeEach(function () {
     //         contextBrokerMock
