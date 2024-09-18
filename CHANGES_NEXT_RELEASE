@@ -1,1 +1,2 @@
 - Upgrade body-parser dep from 1.20.0 to 1.20.3
+- Upgrade express de from 4.19.2 to 4.20.0
