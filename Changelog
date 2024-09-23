@@ -1,3 +1,5 @@
+- ADD: reponse header about procesing time (iotagent-node-lib#1650)
+
 3.6.0 (September 18th, 2024)
 
 - Upgrade body-parser dep from 1.20.0 to 1.20.3
