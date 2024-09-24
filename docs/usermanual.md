@@ -526,7 +526,8 @@ Content-type: application/json
 
 #### Time processing
 
-HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time expended by current request.
+HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time expended by current HTTP measure
+request.
 
 ### MQTT binding
 
