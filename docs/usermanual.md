@@ -527,7 +527,10 @@ Content-type: application/json
 #### Time processing
 
 HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time (in milliseconds) expended by current HTTP measure
-request.
+request. For example
+```
+X-Processing-Time: 38 ms
+```
 
 ### MQTT binding
 
