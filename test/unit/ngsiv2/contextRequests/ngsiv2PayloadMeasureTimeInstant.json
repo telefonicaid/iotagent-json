@@ -4,7 +4,7 @@
     "TimeInstant": {
         "type": "DateTime",
         "value": "2023-11-15T15:52:32Z"   
-    }
+    },
     "measure_id": {
         "type": "Text",
         "value": "urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2"
