@@ -64,7 +64,8 @@ config.iota = {
     providerUrl: 'http://localhost:4041',
     deviceRegistrationDuration: 'P1M',
     defaultType: 'Thing',
-    defaultResource: '/iot/json'
+    defaultResource: '/iot/json',
+    useCBflowControl: true
 };
 
 config.defaultKey = '1234';
