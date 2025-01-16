@@ -642,8 +642,8 @@ commands and a topic to receive configuration information. This mechanism can be
 configuration flag, `configRetrieval`.
 
 In case of MQTT to retrieve configuration parameters from the Context Broker, it is required that the device should be
-provisioned using "MQTT" as transport key, at device or group level. By default it will be considered "HTTP" as
-transport if none transport is defined at device or group level.
+provisioned using "MQTT" as transport key, at device or group level. By default it will be considered "MQTT" as
+transport if none transport is defined at device or group level or IOTA_DEFAULT_TRANSPORT env var.
 
 The parameter will be given as follows:
 
