@@ -45,7 +45,7 @@ const groupCreation = {
                 resource: '/iot/json',
                 apikey: 'KL223HHV8732SFL1',
                 entity_type: 'TheLightType',
-                endpoint: 'http://localhost:9876/command',
+                endpoint: '"http://localhost:9876/" + "command"',
                 transport: 'HTTP',
                 commands: [
                     {
