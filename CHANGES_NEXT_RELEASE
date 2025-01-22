@@ -2,3 +2,4 @@
 - Fix: use config.defaultTransport (from config.js or IOTA_DEFAULT_TRANSPORT env var) instead of magic 'HTTP' at provision device
 - Add: X-Processing-Time response header with processing time (in milliseconds) expended by current HTTP measure (iotagent-node-lib#1650)
 - Add: print also IOTA_CONFIG_RETRIEVAL, IOTA_DEFAULT_KEY, IOTA_DEFAULT_TRANSPORT env var values at iotagent startup
+- Upgrade express from 4.20.0 to 4.21.2
