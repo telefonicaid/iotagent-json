@@ -62,6 +62,36 @@ const groupCreation = {
         'fiware-servicepath': '/gardens'
     }
 };
+const groupCreationStoreLastMeasure = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL2',
+                entity_type: 'TheLightType',
+                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                cbHost: 'http://192.168.1.1:1026',
+                storeLastMeasure: true,
+                commands: [],
+                lazy: [],
+                attributes: [
+                    {
+                        name: 'status',
+                        type: 'Boolean'
+                    }
+                ],
+                static_attributes: []
+            }
+        ]
+    },
+    headers: {
+        'fiware-service': 'smartgondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+
 let contextBrokerMock;
 let contextBrokerUnprovMock;
 
@@ -465,6 +495,79 @@ describe('HTTP: Measure reception ', function () {
                     response.statusCode.should.equal(200);
                     should.exist(body.devices[0].transport);
                     body.devices[0].transport.should.equal('HTTP');
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('When a POST measure arrives for an unprovisioned device with storeLastMeasure', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '32',
+                temperature: '87'
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'JSON_UNPROVISIONED2',
+                k: 'KL223HHV8732SFL2'
+            }
+        };
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
+        beforeEach(function (done) {
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerUnprovMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedStoreLastMeasure.json')
+                )
+                .reply(204);
+
+            request(groupCreationStoreLastMeasure, function (error, response, body) {
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerUnprovMock.done();
+                done();
+            });
+        });
+
+        it('should add a lastMeasure to the registered devices', function (done) {
+            const getDeviceOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+                method: 'GET',
+                headers: {
+                    'fiware-service': 'smartgondor',
+                    'fiware-servicepath': '/gardens'
+                },
+                qs: {
+                    i: 'JSON_UNPROVISIONED2',
+                    k: 'KL223HHV8732SFL2'
+                }
+            };
+
+            request(optionsMeasure, function (error, response, body) {
+                request(getDeviceOptions, function (error, response, body) {
+                    should.not.exist(error);
+                    response.statusCode.should.equal(200);
+                    should.exist(body.devices[1].lastMeasure);
+                    body.devices[1].lastMeasure[0][0].name.should.equal('humidity');
+                    body.devices[1].lastMeasure[0][0].value.should.equal('32');
+                    body.devices[1].lastMeasure[0][1].name.should.equal('temperature');
+                    body.devices[1].lastMeasure[0][1].value.should.equal('87');
                     done();
                 });
             });
