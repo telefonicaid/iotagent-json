@@ -209,14 +209,6 @@ describe('MQTT: NGSILD Measure reception ', function () {
                     utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure3.json')
                 )
                 .reply(204);
-            // contextBrokerMock
-            //     .matchHeader('fiware-service', 'smartgondor')
-            //     .matchHeader('fiware-servicepath', '/gardens')
-            //     .post(
-            //         '/v2/entities?options=upsert',
-            //         utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure2.json')
-            //     )
-            //     .reply(204);
         });
 
         it('should send its value to the Context Broker', function (done) {
