@@ -1,4 +1,4 @@
-- Fix: allow send multiple measures in MQTT to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612)
+- Fix: allow send multiple measures in MQTT to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612) (reopened)
 - Fix: check endpoint expression when execute http command
 - Fix: use config.defaultTransport (from config.js or IOTA_DEFAULT_TRANSPORT env var) instead of magic 'HTTP' at provision device
 - Add: X-Processing-Time response header with processing time (in milliseconds) expended by current HTTP measure (iotagent-node-lib#1650)
