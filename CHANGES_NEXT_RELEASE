@@ -1,3 +1,4 @@
+- Add: allow MQTT single array measures (#856)
 - Fix: check endpoint expression when execute http command
 - Fix: use config.defaultTransport (from config.js or IOTA_DEFAULT_TRANSPORT env var) instead of magic 'HTTP' at provision device
 - Add: X-Processing-Time response header with processing time (in milliseconds) expended by current HTTP measure (iotagent-node-lib#1650)
