@@ -589,9 +589,15 @@ $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs -m '{"h": 70, "t": 15}' -h <mosqui
 /json/{{api-key}}/{{device-id}}/attrs/<attributeName>
 ```
 
-Indicating in the topic the name of the attribute to be modified.
+Indicating in the topic the name of the attribute to be modified. For example:
 
-In both cases, the key is the one provisioned in the IoT Agent through the Configuration API, and the Device ID the ID
+```bash
+$ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m '33' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+$ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m '[{"timestamp": "2025-01-26T12:00:00Z", "value":44},{"timestamp": "2025-01-27T09:00:00Z", "value":33}]' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
+```
+Attribute value could be a single value or a JSON value (including JSON array)
+
+In both cases, multiple and single measures, the key is the one provisioned in the IoT Agent through the Configuration API, and the Device ID the ID
 that was provisioned using the Provisioning API. API Key **must** be present, although can be any string in case the
 Device was provisioned without a link to any particular configuration.
 
