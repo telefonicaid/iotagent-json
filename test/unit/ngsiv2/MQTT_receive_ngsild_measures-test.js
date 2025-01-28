@@ -77,7 +77,6 @@ describe('MQTT: NGSILD Measure reception ', function () {
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
-
     describe('When a publish single NGSILD entity measure with NGSILD format arrives for the HTTP binding and NGSILD is the expected payload type', function () {
         const measure = {
             id: 'urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3',
@@ -206,18 +205,18 @@ describe('MQTT: NGSILD Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure3.json')
                 )
                 .reply(204);
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure2.json')
-                )
-                .reply(204);
+            // contextBrokerMock
+            //     .matchHeader('fiware-service', 'smartgondor')
+            //     .matchHeader('fiware-servicepath', '/gardens')
+            //     .post(
+            //         '/v2/entities?options=upsert',
+            //         utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsildPayloadMeasure2.json')
+            //     )
+            //     .reply(204);
         });
 
         it('should send its value to the Context Broker', function (done) {

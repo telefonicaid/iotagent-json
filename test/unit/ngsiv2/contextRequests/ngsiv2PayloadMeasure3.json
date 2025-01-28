@@ -1,0 +1,129 @@
+{
+        "actionType": "append",
+        "entities": [
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "measure_id": {
+                    "type": "Text",
+                    "value": "urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-2"
+                },
+                "measure_type": {
+                    "type": "Text",
+                    "value": "Streetlight"
+                },
+                "name": {
+                    "type": "Text",
+                    "value": "MyLightPoint-test1"
+                },
+                "description": {
+                    "type": "Text",
+                    "value": "testdescription"
+                },
+                "status": {
+                    "type": "Text",
+                    "value": "connected",
+                    "metadata": {
+                        "TimeInstant": {
+                            "type": "DateTime",
+                            "value": "2023-11-17T11:59:22.661Z"
+                        }
+                    }
+                },
+                "dateServiceStarted": {
+                    "type": "DateTime",
+                    "value": "2020-06-04T09: 55: 02"
+                },
+                "locationComment": {
+                    "type": "Text",
+                    "value": "Test1"
+                },
+                "location": {
+                    "type": "geo:json",
+                    "value": {
+                        "coordinates": [
+                            -87.88429,
+                            41.99499
+                        ],
+                        "type": "Point"
+                    }
+                },
+                "address": {
+                    "type": "Text",
+                    "value": {
+                        "streetAddress": "MyStreet"
+                    }
+                },
+                "isRemotelyManaged": {
+                    "type": "Integer",
+                    "value": 1
+                },
+                "installationDate": {
+                    "type": "DateTime",
+                    "value": "2022-04-17T02: 30: 04"
+                }
+            },
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "measure_id": {
+                    "type": "Text",
+                    "value": "urn:ngsiv2:Streetlight:Streetlight-Mylightpoint-3"
+                },
+                "measure_type": {
+                    "type": "Text",
+                    "value": "Streetlight"
+                },
+                "name": {
+                    "type": "Text",
+                    "value": "MyLightPoint-test2"
+                },
+                "description": {
+                    "type": "Text",
+                    "value": "testdescription"
+                },
+                "status": {
+                    "type": "Text",
+                    "value": "connected",
+                    "metadata": {
+                        "TimeInstant": {
+                            "type": "DateTime",
+                            "value": "2023-11-17T11:59:22.661Z"
+                        }
+                    }
+                },
+                "dateServiceStarted": {
+                    "type": "DateTime",
+                    "value": "2022-06-04T09: 55: 02"
+                },
+                "locationComment": {
+                    "type": "Text",
+                    "value": "Test3"
+                },
+                "location": {
+                    "type": "geo:json",
+                    "value": {
+                        "coordinates": [
+                            -84.88429,
+                            42.99499
+                        ],
+                        "type": "Point"
+                    }
+                },
+                "address": {
+                    "type": "Text",
+                    "value": {
+                        "streetAddress": "MyFarStreet"
+                    }
+                },
+                "isRemotelyManaged": {
+                    "type": "Integer",
+                    "value": 3
+                },
+                "installationDate": {
+                    "type": "DateTime",
+                    "value": "2023-04-17T02: 30: 04"
+                }
+            }
+        ]
+    }

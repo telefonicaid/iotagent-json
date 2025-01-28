@@ -464,18 +464,18 @@ describe('MQTT: NGSIv2 Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure3.json')
                 )
                 .reply(204);
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure2.json')
-                )
-                .reply(204);
+            // contextBrokerMock
+            //     .matchHeader('fiware-service', 'smartgondor')
+            //     .matchHeader('fiware-servicepath', '/gardens')
+            //     .post(
+            //         '/v2/entities?options=upsert',
+            //         utils.readExampleFile('./test/unit/ngsiv2/contextRequests/ngsiv2PayloadMeasure2.json')
+            //     )
+            //     .reply(204);
         });
         it('should send its value to the Context Broker', function (done) {
             mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(measure), null, function (error) {
