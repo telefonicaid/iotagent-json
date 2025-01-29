@@ -564,10 +564,12 @@ describe('HTTP: Measure reception ', function () {
                     should.not.exist(error);
                     response.statusCode.should.equal(200);
                     should.exist(body.devices[1].lastMeasure);
-                    body.devices[1].lastMeasure[0][0].name.should.equal('humidity');
-                    body.devices[1].lastMeasure[0][0].value.should.equal('32');
-                    body.devices[1].lastMeasure[0][1].name.should.equal('temperature');
-                    body.devices[1].lastMeasure[0][1].value.should.equal('87');
+                    should.exist(body.devices[1].lastMeasure.measure);
+                    should.exist(body.devices[1].lastMeasure.timestamp);
+                    body.devices[1].lastMeasure.measure[0][0].name.should.equal('humidity');
+                    body.devices[1].lastMeasure.measure[0][0].value.should.equal('32');
+                    body.devices[1].lastMeasure.measure[0][1].name.should.equal('temperature');
+                    body.devices[1].lastMeasure.measure[0][1].value.should.equal('87');
                     done();
                 });
             });
