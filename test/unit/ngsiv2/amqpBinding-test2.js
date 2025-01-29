@@ -100,19 +100,10 @@ describe('AMQP Transport binding: multiple measures', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP3.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasureAMQP4.json')
                 )
-                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasureAMQP2.json')
-                )
-                .reply(200, utils.readExampleFile('./test/contextResponses/singleMeasureSuccess.json'));
+                .reply(204);
         });
 
         it('should send a single update context request with all the attributes', function (done) {
@@ -135,17 +126,8 @@ describe('AMQP Transport binding: multiple measures', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasure.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasure2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasure3.json')
                 )
                 .reply(204);
         });

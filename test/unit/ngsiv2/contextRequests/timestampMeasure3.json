@@ -1,0 +1,37 @@
+{
+        "actionType": "append",
+        "entities": [
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "temperature": {
+                    "type": "celsius",
+                    "value": "87"
+                },
+                "humidity": {
+                    "type": "degrees",
+                    "value": "32"
+                },
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2007-11-03T13:18:05Z"
+                }
+            },
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "temperature": {
+                    "type": "celsius",
+                    "value": "89"
+                },
+                "humidity": {
+                    "type": "degrees",
+                    "value": "33"
+                },
+                "TimeInstant": {
+                    "type": "DateTime",
+                    "value": "2007-11-03T13:18:06Z"
+                }
+            }
+        ]
+    }
