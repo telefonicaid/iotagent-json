@@ -1,3 +1,5 @@
+- FIx: Allow single array measures of 1 element handed like array, not single value (#856)
+
 3.6.0 (September 18th, 2024)
 
 - Upgrade body-parser dep from 1.20.0 to 1.20.3
