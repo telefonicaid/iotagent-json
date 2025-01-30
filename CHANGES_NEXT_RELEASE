@@ -1,3 +1,4 @@
+- Fix: Allow single array measures of 1 element handed like array, not single value (#856)
 - Fix: allow send multiple measures in MQTT to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612) (reopened)
 - Add: allow MQTT single array measures (#856)
 - Fix: check endpoint expression when execute http command
