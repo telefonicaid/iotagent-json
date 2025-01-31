@@ -1,0 +1,13 @@
+{
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",
+    "temperature": {
+        "type": "celsius",
+        "value": [
+            {
+                "timestamp": "2025-01-27T09:00:00Z",
+                "value": 10.67
+            }
+        ]
+    }
+}
