@@ -1,3 +1,14 @@
+3.7.0 (February 3rd, 2025)
+
+- Fix: allow single array MQTT measures of 1 element handed like array, not single value (#856)
+- Fix: allow send multiple measures in MQTT to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612) (reopened)
+- Add: allow MQTT single array measures (#856)
+- Fix: check endpoint expression when execute http command
+- Fix: use config.defaultTransport (from config.js or IOTA_DEFAULT_TRANSPORT env var) instead of magic 'HTTP' at provision device
+- Add: X-Processing-Time response header with processing time (in milliseconds) expended by current HTTP measure (iotagent-node-lib#1650)
+- Add: print also IOTA_CONFIG_RETRIEVAL, IOTA_DEFAULT_KEY, IOTA_DEFAULT_TRANSPORT env var values at iotagent startup
+- Upgrade express from 4.20.0 to 4.21.2
+
 3.6.0 (September 18th, 2024)
 
 - Upgrade body-parser dep from 1.20.0 to 1.20.3
