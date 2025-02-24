@@ -2,7 +2,7 @@
   "name": "iotagent-json",
   "license": "AGPL-3.0-only",
   "description": "IoT Agent for the JSON protocol",
-  "version": "3.6.0-next",
+  "version": "3.7.0-next",
   "homepage": "https://github.com/telefonicaid/iotagent-json",
   "author": {
     "name": "Daniel Moran",
@@ -67,7 +67,7 @@
     "body-parser": "1.20.3",
     "body-parser-xml": "2.0.5",
     "dateformat": "3.0.3",
-    "express": "4.20.0",
+    "express": "4.21.2",
     "iotagent-node-lib": "https://github.com/telefonicaid/iotagent-node-lib.git#master",
     "logops": "2.1.2",
     "mqtt": "4.3.7",

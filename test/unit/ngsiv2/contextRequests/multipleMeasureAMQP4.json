@@ -1,0 +1,21 @@
+{
+        "actionType": "append",
+        "entities": [
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "a": {
+                    "type": "celsius",
+                    "value": "23"
+                }
+            },
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "a": {
+                    "type": "celsius",
+                    "value": "25"
+                }
+            }
+        ]
+    }

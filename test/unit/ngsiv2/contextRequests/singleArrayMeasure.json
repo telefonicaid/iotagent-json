@@ -1,0 +1,42 @@
+{
+    "id":"Second MQTT Device",
+    "type":"AnMQTTDevice",
+    "temperature": {
+        "type": "celsius",
+        "value": [
+            {
+                "timestamp": "2025-01-27T09:00:00Z",
+                "value": 10.67
+            },
+            {
+                "timestamp": "2025-01-27T12:00:00Z",
+                "value": 10.2
+            },
+            {
+                "timestamp": "2025-01-27T15:00:00Z",
+                "value": 9.16
+            },
+            {
+                "timestamp": "2025-01-27T18:00:00Z",
+                "value": 7.72
+            },
+            {
+                "timestamp": "2025-01-27T21:00:00Z",
+                "value": 7.39
+            },
+            {
+                "timestamp": "2025-01-28T00:00:00Z",
+                "value": 6.39
+            },
+            {
+                "timestamp": "2025-01-28T03:00:00Z",
+                "value": 5.87
+            },
+            {
+                "timestamp": "2025-01-28T06:00:00Z",
+                "value": 5.54
+            }
+        ]
+    }
+}
+

@@ -323,6 +323,75 @@ describe('MQTT: Measure reception ', function () {
         });
     });
 
+    describe('When a new single array measure arrives to the MQTT Topic', function () {
+        const values = [
+            { timestamp: '2025-01-27T09:00:00Z', value: 10.67 },
+            { timestamp: '2025-01-27T12:00:00Z', value: 10.2 },
+            { timestamp: '2025-01-27T15:00:00Z', value: 9.16 },
+            { timestamp: '2025-01-27T18:00:00Z', value: 7.72 },
+            { timestamp: '2025-01-27T21:00:00Z', value: 7.39 },
+            { timestamp: '2025-01-28T00:00:00Z', value: 6.39 },
+            { timestamp: '2025-01-28T03:00:00Z', value: 5.87 },
+            { timestamp: '2025-01-28T06:00:00Z', value: 5.54 }
+        ];
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleArrayMeasure.json')
+                )
+                .reply(204);
+        });
+        it('should send its values to the Context Broker', function (done) {
+            mqttClient.publish('/1234/MQTT_2/attrs/temperature', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its values to the Context Broker (without leading slash)', function (done) {
+            mqttClient.publish('json/1234/MQTT_2/attrs/temperature', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+
+    describe('When a new single array measure of 1 element arrives to the MQTT Topic', function () {
+        const values = [{ timestamp: '2025-01-27T09:00:00Z', value: 10.67 }];
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleArrayMeasure2.json')
+                )
+                .reply(204);
+        });
+        it('should send its values to the Context Broker', function (done) {
+            mqttClient.publish('/1234/MQTT_2/attrs/temperature', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+        it('should send its values to the Context Broker (without leading slash)', function (done) {
+            mqttClient.publish('json/1234/MQTT_2/attrs/temperature', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+
     describe('When a malformed multiple measure arrives to the MQTT Topic', function () {
         it('should not crash', function (done) {
             mqttClient.publish('/1234/MQTT_2/attrs', '{"humidity": " }(}', null, function (error) {

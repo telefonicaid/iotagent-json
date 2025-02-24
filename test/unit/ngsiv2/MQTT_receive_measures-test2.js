@@ -110,17 +110,8 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes4.json')
                 )
                 .reply(204);
         });
@@ -207,20 +198,10 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice4.json')
                 )
                 .reply(204);
-
-            contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice2.json')
-                )
-                .reply(204);
-
             request(groupCreation, function (error, response, body) {
                 done();
             });
@@ -278,17 +259,8 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures3.json')
                 )
                 .reply(204);
         });
@@ -338,17 +310,8 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure3.json')
                 )
                 .reply(204);
         });
