@@ -136,8 +136,8 @@ These are the currently available MQTT configuration options:
     order versions) or without the slash. See
     [discussion](https://github.com/telefonicaid/iotagent-node-lib/issues/866).
 -   **clean**: this flag is by default true, set to false to receive QoS 1 and 2 messages while offline.
--   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed prefix 
-    `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
+-   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed
+    prefix `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
 
 TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the
 [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
@@ -203,6 +203,8 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_MQTT_CLEAN               | mqtt.clean              |
 | IOTA_MQTT_CLIENT_ID           | mqtt.clientId           |
 | IOTA_MQTT_DISABLED            | mqtt.disabled           |
+| IOTA_MQTT_THROTTLE_INTERVAL   | mqtt.throttleInterval   |
+| IOTA_MQTT_MAX_QUEUE_SIZE      | mqtt.maxQueueSize       |
 | IOTA_AMQP_HOST                | amqp.host               |
 | IOTA_AMQP_PORT                | amqp.port               |
 | IOTA_AMQP_USERNAME            | amqp.username           |

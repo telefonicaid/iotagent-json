@@ -879,8 +879,9 @@ transport in command. Default value will be `application/json` but other valids 
 #### Throttling
 
 In order to avoid create duplicated devices when a measure burst arrives for MQTT binding and no provisioned device is
-still created, it is possible to configure a throttling queue for each topic in order to delay deliver a second measure
-for the same topic when is retrieved in a period of time minor tan throttling interval.
+still created, it is possible to configure a throttling queue (through IOTA_MQTT_THROTTLE_INTERVAL and
+IOTA_MQTT_MAX_QUEUE_SIZE) for each topic in order to delay deliver a second measure for the same topic when is retrieved
+in a period of time minor tan throttling interval.
 
 ### AMQP binding
 
