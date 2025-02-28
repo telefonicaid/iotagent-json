@@ -526,10 +526,11 @@ Content-type: application/json
 
 #### Time processing
 
-HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time (in milliseconds) expended by current HTTP measure
-request. For example
+HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time (in milliseconds) expended by
+current HTTP measure request. For example
+
 ```
-X-Processing-Time: 38 
+X-Processing-Time: 38
 ```
 
 ### MQTT binding
@@ -591,9 +592,9 @@ $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs -m '{"h": 70, "t": 15}' -h <mosqui
 
 Indicating in the topic the name of the attribute to be modified.
 
-In both cases, multiple and single measures, the key is the one provisioned in the IoT Agent through the Configuration API, and the Device ID the ID
-that was provisioned using the Provisioning API. API Key **must** be present, although can be any string in case the
-Device was provisioned without a link to any particular configuration.
+In both cases, multiple and single measures, the key is the one provisioned in the IoT Agent through the Configuration
+API, and the Device ID the ID that was provisioned using the Provisioning API. API Key **must** be present, although can
+be any string in case the Device was provisioned without a link to any particular configuration.
 
 For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID `id_sen1`, API Key `ABCDEF` and
 attribute IDs `h` and `t`, then humidity measures are reported this way:
@@ -603,9 +604,11 @@ $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <
 ```
 
 Also single measure could be an array of measure values like:
+
 ```bash
 $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m '[{"timestamp": "2025-01-26T12:00:00Z", "value":44},{"timestamp": "2025-01-27T09:00:00Z", "value":33}]' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 ```
+
 In the single measure case, when the published data is not a valid JSON, it is interpreted as binary content. For
 instance, if the following is published to `/json/ABCDEF/id_sen1/attrs/attrHex` topic:
 
@@ -873,7 +876,13 @@ Moreover a command could define a `contentType` in their definnition with the ai
 transport in command. Default value will be `application/json` but other valids content-type could be: `text/plain`,
 `text/html`, etc
 
-#### AMQP binding
+#### Throttling
+
+In order to avoid create duplicated devices when a measure burst arrives for MQTT binding and no provisioned device is
+still created, it is possible to configure a throttling queue for each topic in order to delay deliver a second measure
+for the same topic when is retrieved in a period of time minor tan throttling interval.
+
+### AMQP binding
 
 [AMQP](https://www.amqp.org/) stands for Advance Message Queuing Protocol, and is one of the most popular protocols for
 message-queue systems. Although the protocol itself is software independent and allows for a great architectural
