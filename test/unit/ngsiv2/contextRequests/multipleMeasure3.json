@@ -1,0 +1,29 @@
+{
+        "actionType": "append",
+        "entities": [
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "a": {
+                    "type": "celsius",
+                    "value": "23"
+                },
+                "b": {
+                    "type": "degrees",
+                    "value": "98"
+                }
+            },
+            {
+                "id": "Second MQTT Device",
+                "type": "AnMQTTDevice",
+                "a": {
+                    "type": "celsius",
+                    "value": "25"
+                },
+                "b": {
+                    "type": "degrees",
+                    "value": "100"
+                }
+            }
+        ]
+    }

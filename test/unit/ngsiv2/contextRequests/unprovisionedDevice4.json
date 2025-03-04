@@ -1,0 +1,29 @@
+{
+        "actionType": "append",
+        "entities": [
+            {
+                "id": "TheLightType:JSON_UNPROVISIONED",
+                "type": "TheLightType",
+                "humidity": {
+                    "type": "Text",
+                    "value": "32"
+                },
+                "temperature": {
+                    "type": "Text",
+                    "value": "87"
+                }
+            },
+            {
+                "id": "TheLightType:JSON_UNPROVISIONED",
+                "type": "TheLightType",
+                "humidity": {
+                    "type": "Text",
+                    "value": "33"
+                },
+                "temperature": {
+                    "type": "Text",
+                    "value": "89"
+                }
+            }
+        ]
+    }

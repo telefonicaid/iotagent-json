@@ -1,0 +1,110 @@
+{
+    "actionType": "append",
+    "entities": [
+        {
+            "id": "Second MQTT Device",
+            "type": "AnMQTTDevice",
+            "measure_id": {
+                "type": "Text",
+                "value": "urn:ngsi-ld:ParkingSpot:santander:daoiz_velarde_1_5:3"
+            },
+            "measure_type": {
+                "type": "Text",
+                "value": "ParkingSpot"
+            },
+            "status": {
+                "type": "Property",
+                "value": "free",
+                "metadata": {
+                    "observedAt": {
+                        "value": "2018-09-21T12:00:00Z"
+                    }
+                }
+            },
+            "category": {
+                "type": "Property",
+                "value": [
+                    "onstreet"
+                ]
+            },
+            "refParkingSite": {
+                "type": "Relationship",
+                "value": "urn:ngsi-ld:ParkingSite:santander:daoiz_velarde_1_5"
+            },
+            "name": {
+                "type": "Property",
+                "value": "A-13"
+            },
+            "location": {
+                "type": "GeoProperty",
+                "value": {
+                    "type": "Point",
+                    "coordinates": [
+                        -3.80356167695194,
+                        43.46296641666926
+                    ]
+                }
+            },
+            "@context": {
+                "type": "@context",
+                "value": [
+                    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+                    "https://schema.lab.fiware.org/ld/context"
+                ]
+            }
+        },
+        {
+            "id": "Second MQTT Device",
+            "type": "AnMQTTDevice",
+            "measure_id": {
+                "type": "Text",
+                "value": "urn:ngsi-ld:ParkingSpot:santander:reyes_magos_1_1:1"
+            },
+            "measure_type": {
+                "type": "Text",
+                "value": "ParkingSpot"
+            },
+            "status": {
+                "type": "Property",
+                "value": "free",
+                "metadata": {
+                    "observedAt": {
+                        "value": "2012-09-21T12:00:00Z"
+                    }
+                }
+            },
+            "category": {
+                "type": "Property",
+                "value": [
+                    "onstreet"
+                ]
+            },
+            "refParkingSite": {
+                "type": "Relationship",
+                "value": "urn:ngsi-ld:ParkingSite:santander:reyes_magos_1_1"
+            },
+            "name": {
+                "type": "Property",
+                "value": "A-12"
+            },
+            "location": {
+                "type": "GeoProperty",
+                "value": {
+                    "type": "Point",
+                    "coordinates": [
+                        -3.90356167695194,
+                        42.46296641666926
+                    ]
+                }
+            },
+            "@context": {
+                "type": "@context",
+                "value": [
+                    "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld",
+                    "https://schema.lab.fiware.org/ld/context"
+                ]
+            }
+        }
+    ]
+}
+

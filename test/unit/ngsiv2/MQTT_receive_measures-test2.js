@@ -110,17 +110,8 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/multipleMeasuresJsonTypes4.json')
                 )
                 .reply(204);
         });
@@ -207,20 +198,10 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice4.json')
                 )
                 .reply(204);
-
-            contextBrokerUnprovMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice2.json')
-                )
-                .reply(204);
-
             request(groupCreation, function (error, response, body) {
                 done();
             });
@@ -278,17 +259,8 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unknownMeasures3.json')
                 )
                 .reply(204);
         });
@@ -338,17 +310,8 @@ describe('MQTT: Measure reception ', function () {
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
                 .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure.json')
-                )
-                .reply(204);
-
-            contextBrokerMock
-                .matchHeader('fiware-service', 'smartgondor')
-                .matchHeader('fiware-servicepath', '/gardens')
-                .post(
-                    '/v2/entities?options=upsert',
-                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure2.json')
+                    '/v2/op/update',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/timestampMeasure3.json')
                 )
                 .reply(204);
         });
@@ -357,12 +320,12 @@ describe('MQTT: Measure reception ', function () {
                 {
                     humidity: '32',
                     temperature: '87',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:05Z'
                 },
                 {
                     humidity: '33',
                     temperature: '89',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:06Z'
                 }
             ];
 
@@ -378,16 +341,36 @@ describe('MQTT: Measure reception ', function () {
                 {
                     humidity: '32',
                     temperature: '87',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:05Z'
                 },
                 {
                     humidity: '33',
                     temperature: '89',
-                    TimeInstant: '20071103T131805'
+                    TimeInstant: '2007-11-03T13:18:06Z'
                 }
             ];
 
             mqttClient.publish('json/1234/MQTT_2/attrs', JSON.stringify(values), null, function (error) {
+                setTimeout(function () {
+                    contextBrokerMock.done();
+                    done();
+                }, 100);
+            });
+        });
+    });
+    describe('When a POST single Raw measure arrives for the HTTP binding', function () {
+        beforeEach(function () {
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/singleMeasuresRawTypes1.json')
+                )
+                .reply(204);
+        });
+        it('should send its value to the Context Broker', function (done) {
+            mqttClient.publish('/1234/MQTT_2/attrs/humidity', 'A$Ci1', null, function (error) {
                 setTimeout(function () {
                     contextBrokerMock.done();
                     done();

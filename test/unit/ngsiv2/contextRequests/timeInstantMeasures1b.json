@@ -1,0 +1,18 @@
+{
+  "id":"e0130101",
+  "type":"sensor",
+  "humidity":{
+    "type": "percent",
+    "value": "111222",
+    "metadata": {
+        "TimeInstant": {
+            "type": "DateTime",
+            "value": "2020-02-22T22:22:22Z"
+        }
+    }
+  },
+  "TimeInstant":{
+    "type": "DateTime",
+    "value": "2020-02-22T22:22:22Z"
+  }
+}

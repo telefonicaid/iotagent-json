@@ -62,6 +62,65 @@ const groupCreation = {
         'fiware-servicepath': '/gardens'
     }
 };
+const groupCreationStoreLastMeasure = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL2',
+                entity_type: 'TheLightType',
+                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                cbHost: 'http://192.168.1.1:1026',
+                storeLastMeasure: true,
+                commands: [],
+                lazy: [],
+                attributes: [
+                    {
+                        name: 'status',
+                        type: 'Boolean'
+                    }
+                ],
+                static_attributes: []
+            }
+        ]
+    },
+    headers: {
+        'fiware-service': 'smartgondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+const groupCreationOldJexlCtxt = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL1',
+                entity_type: 'TheLightType',
+                trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
+                cbHost: 'http://192.168.1.1:1026',
+                explicitAttrs: 'oldCtxt.humidity > 31 ? false : []',
+                commands: [],
+                lazy: [],
+                attributes: [
+                    {
+                        name: 'status',
+                        type: 'Boolean'
+                    }
+                ],
+                static_attributes: []
+            }
+        ]
+    },
+    headers: {
+        'fiware-service': 'smartgondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+
 let contextBrokerMock;
 let contextBrokerUnprovMock;
 
@@ -154,9 +213,9 @@ describe('HTTP: Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                humidity: '111222',
+                h: '111222',
                 pressure: '20',
-                TimeInstant: '20200222T222222'
+                TimeInstant: '2020-02-22T22:22:22Z'
             },
             headers: {
                 'fiware-service': 'smartgondor',
@@ -217,9 +276,9 @@ describe('HTTP: Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                humidity: '111222',
+                h: '111222',
                 pressure: '20',
-                TimeInstant: '20200222T222222'
+                TimeInstant: '2020-02-22T22:22:22Z'
             },
             headers: {
                 'fiware-service': 'smartgondor',
@@ -280,7 +339,7 @@ describe('HTTP: Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                humidity: '111222',
+                h: '111222',
                 pressure: '20'
             },
             headers: {
@@ -290,7 +349,7 @@ describe('HTTP: Measure reception ', function () {
             qs: {
                 i: 'dev0130101',
                 k: '1234',
-                t: '20200222T222222'
+                t: '2020-02-22T22:22:22Z'
             }
         };
         const provisionOptions = {
@@ -343,7 +402,7 @@ describe('HTTP: Measure reception ', function () {
             url: 'http://localhost:' + config.http.port + '/iot/json',
             method: 'POST',
             json: {
-                humidity: '111222',
+                h: '111222',
                 pressure: '20'
             },
             headers: {
@@ -353,7 +412,7 @@ describe('HTTP: Measure reception ', function () {
             qs: {
                 i: 'dev0130101',
                 k: '1234',
-                t: '20200222T222222'
+                t: '2020-02-22T22:22:22Z'
             }
         };
         const provisionOptions = {
@@ -465,6 +524,128 @@ describe('HTTP: Measure reception ', function () {
                     response.statusCode.should.equal(200);
                     should.exist(body.devices[0].transport);
                     body.devices[0].transport.should.equal('HTTP');
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('When a POST measure arrives for an unprovisioned device with storeLastMeasure', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '32',
+                temperature: '87'
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'JSON_UNPROVISIONED2',
+                k: 'KL223HHV8732SFL2'
+            }
+        };
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
+        beforeEach(function (done) {
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerUnprovMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedStoreLastMeasure.json')
+                )
+                .reply(204);
+
+            request(groupCreationStoreLastMeasure, function (error, response, body) {
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerUnprovMock.done();
+                done();
+            });
+        });
+
+        it('should add a lastMeasure to the registered devices', function (done) {
+            const getDeviceOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+                method: 'GET',
+                headers: {
+                    'fiware-service': 'smartgondor',
+                    'fiware-servicepath': '/gardens'
+                },
+                qs: {
+                    i: 'JSON_UNPROVISIONED2',
+                    k: 'KL223HHV8732SFL2'
+                }
+            };
+
+            request(optionsMeasure, function (error, response, body) {
+                request(getDeviceOptions, function (error, response, body) {
+                    should.not.exist(error);
+                    response.statusCode.should.equal(200);
+                    should.exist(body.devices[1].lastMeasure);
+                    should.exist(body.devices[1].lastMeasure.measure);
+                    should.exist(body.devices[1].lastMeasure.timestamp);
+                    body.devices[1].lastMeasure.measure[0][0].name.should.equal('humidity');
+                    body.devices[1].lastMeasure.measure[0][0].value.should.equal('32');
+                    body.devices[1].lastMeasure.measure[0][1].name.should.equal('temperature');
+                    body.devices[1].lastMeasure.measure[0][1].value.should.equal('87');
+                    done();
+                });
+            });
+        });
+    });
+
+    describe('When a POST measure arrives for an unprovisioned device with explicitAttrs based on previos JexlCtxt', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                humidity: '32',
+                temperature: '87'
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'JSON_UNPROVISIONED',
+                k: 'KL223HHV8732SFL1'
+            }
+        };
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
+        beforeEach(function (done) {
+            contextBrokerUnprovMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerUnprovMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice.json')
+                )
+                .reply(204);
+
+            request(groupCreationOldJexlCtxt, function (error, response, body) {
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker just one time', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                request(optionsMeasure, function (error, result, body) {
+                    contextBrokerUnprovMock.done();
                     done();
                 });
             });

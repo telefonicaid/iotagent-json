@@ -1,3 +1,67 @@
+3.7.0 (February 3rd, 2025)
+
+- Add: allow MQTT single array measures (#856)
+- Add: X-Processing-Time response header with processing time (in milliseconds) expended by current HTTP measure (iotagent-node-lib#1650)
+- Add: print also IOTA_CONFIG_RETRIEVAL, IOTA_DEFAULT_KEY, IOTA_DEFAULT_TRANSPORT env var values at iotagent startup
+- Fix: allow single array MQTT measures of 1 element handed like array, not single value (#856)
+- Fix: allow send multiple measures in MQTT to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612) (reopened)
+- Fix: check endpoint expression when execute http command
+- Fix: use config.defaultTransport (from config.js or IOTA_DEFAULT_TRANSPORT env var) instead of magic 'HTTP' at provision device
+- Upgrade express from 4.20.0 to 4.21.2
+- Upgrade iotagent-node-lib dependency from 4.6.0 to 4.7.0
+
+3.6.0 (September 18th, 2024)
+
+- Upgrade body-parser dep from 1.20.0 to 1.20.3
+- Upgrade express dep from 4.19.2 to 4.20.0
+- Upgrade iotagent-node-lib dependency from 4.5.0 to 4.6.0
+
+3.5.0 (June 11th, 2024)
+
+- Fix: update device using previous device apikey to avoid error when apikey is updated (#833)
+- Fix: allow send multiple measures to CB in a batch (POST /v2/op/update) and sorted by TimeInstant when possible, instead of using multiples single request (#825, iotagent-node-lib#1612)
+- Fix: default express limit to 1Mb instead default 100Kb and allow change it throught a conf env var 'IOTA_EXPRESS_LIMIT' (#827)
+- Upgrade iotagent-node-lib dependency from 4.4.0 to 4.5.0
+
+3.4.0 (April 26th, 2024)
+
+- Upgrade express dep from 4.18.1 to 4.19.2 due to a vulnerability
+- Upgrade iotagent-node-lib dependency from 4.2.0 to 4.3.0
+
+3.3.0 (February 27th, 2024)
+
+- Add: ARGO binding
+- Add: log and return device/group information when DeviceNotFound and GroupNotFound errors (#815)
+- Fix: default attribute type changed from 'string' to 'Text' (#810)
+- Upgrade iotagent-node-lib dependency from 4.2.0 to 4.3.0
+
+3.2.0 (January 30th, 2024)
+
+- Fix: include entity id and entity type as measure_id and measure_type at CB when measure is an ngsi (both NGSIv2 and NGSI-LD) payload
+- Upgrade iotagent-node-lib dependency from 4.1.0 to 4.2.0
+
+3.1.0 (January 8th, 2024)
+
+- Add: check and usage endpoint and transport from Group level when commands
+- Fix: protect access to multimeasure array
+- Upgrade iotagent-node-lib dependency from 4.0.0 to 4.1.0
+
+3.0.0 (November 24th, 2023)
+
+- Add: allow to send NGSIv2 and NGSILD as measures depending on payloadType (#778)
+- Add: allow read measures in application/soap+xml content-type (#759)
+- Fix: binary data representation when sending data through HTTP & MQTT (#690)
+- Fix: ensure service and subservice from device in logs about error proccesing message
+- Upgrade iotagent-node-lib dependency from 3.4.0 to 4.0.0
+- Remove: legacy code about unused parsedMessageError flag
+
+2.4.0 (Sep 20th, 2023)
+
+- Fix: try to use apikey from measure/group to find, update and remove device in first attempt (iota-node-lib#1426)
+- Fix: ensure device apikey in already provisioned device (iota-node-lib#1430, iota-node-lib#1435)
+- Remove: bidirectional plugin (iota-node-lib#1413)
+- Upgrade iotagent-node-lib dependency from 3.3.0 to 3.4.0 (some ngsild flows would not work as expected)
+
 2.3.0 (Aug 25th, 2023)
 
 - Fix: update tests to not create initial entity when append mode is enabled

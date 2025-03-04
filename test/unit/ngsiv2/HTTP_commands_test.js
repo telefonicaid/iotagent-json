@@ -36,6 +36,35 @@ const request = utils.request;
 let mockedClientServer;
 let contextBrokerMock;
 
+const groupCreation = {
+    url: 'http://localhost:' + config.iota.server.port + '/iot/services',
+    method: 'POST',
+    json: {
+        services: [
+            {
+                resource: '/iot/json',
+                apikey: 'KL223HHV8732SFL1',
+                entity_type: 'TheLightType',
+                endpoint: '"http://localhost:9876/" + "command"',
+                transport: 'HTTP',
+                commands: [
+                    {
+                        name: 'cmd1',
+                        type: 'command'
+                    }
+                ],
+                lazy: [],
+                attributes: [],
+                static_attributes: []
+            }
+        ]
+    },
+    headers: {
+        'fiware-service': 'smartgondor',
+        'fiware-servicepath': '/gardens'
+    }
+};
+
 describe('HTTP: Commands', function () {
     beforeEach(function (done) {
         const provisionOptions = {
@@ -120,7 +149,7 @@ describe('HTTP: Commands', function () {
                 done();
             });
         });
-        it('should publish the command information in the MQTT topic', function (done) {
+        it('should publish the command information in the HTTP endpoint', function (done) {
             request(commandOptions, function (error, response, body) {
                 setTimeout(function () {
                     mockedClientServer.done();
@@ -215,12 +244,146 @@ describe('HTTP: Commands with expressions', function () {
                 done();
             });
         });
-        it('should publish the command information in the MQTT topic', function (done) {
+        it('should publish the command information in the HTTP endpoint', function (done) {
             request(commandOptions, function (error, response, body) {
                 setTimeout(function () {
                     mockedClientServer.done();
                     done();
                 }, 100);
+            });
+        });
+    });
+});
+
+describe('HTTP: Commands from groups', function () {
+    beforeEach(function (done) {
+        config.logLevel = 'INFO';
+
+        nock.cleanAll();
+
+        contextBrokerMock = nock('http://192.168.1.1:1026')
+            .matchHeader('fiware-service', 'smartgondor')
+            .matchHeader('fiware-servicepath', '/gardens')
+            .post('/v2/registrations')
+            .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
+
+        iotagentMqtt.start(config, function () {
+            done();
+        });
+    });
+
+    afterEach(function (done) {
+        nock.cleanAll();
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
+    });
+    describe('When a POST measure arrives for an unprovisioned device in a command group', function () {
+        const optionsMeasure = {
+            url: 'http://localhost:' + config.http.port + '/iot/json',
+            method: 'POST',
+            json: {
+                h: '33'
+            },
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            },
+            qs: {
+                i: 'JSON_UNPROVISIONED',
+                k: 'KL223HHV8732SFL1'
+            }
+        };
+        // This mock does not check the payload since the aim of the test is not to verify
+        // device provisioning functionality. Appropriate verification is done in tests under
+        // provisioning folder of iotagent-node-lib
+        beforeEach(function (done) {
+            //contextBrokerUnprovMock = nock('http://192.168.1.1:1026');
+
+            contextBrokerMock
+                .matchHeader('fiware-service', 'smartgondor')
+                .matchHeader('fiware-servicepath', '/gardens')
+                .post(
+                    '/v2/entities?options=upsert',
+                    utils.readExampleFile('./test/unit/ngsiv2/contextRequests/unprovisionedDevice3.json')
+                )
+                .reply(204);
+
+            request(groupCreation, function (error, response, body) {
+                done();
+            });
+        });
+
+        it('should send its value to the Context Broker', function (done) {
+            request(optionsMeasure, function (error, result, body) {
+                contextBrokerMock.done();
+                done();
+            });
+        });
+
+        it('should not add a transport to the registered devices', function (done) {
+            const getDeviceOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+                method: 'GET',
+                headers: {
+                    'fiware-service': 'smartgondor',
+                    'fiware-servicepath': '/gardens'
+                },
+                qs: {
+                    i: 'JSON_UNPROVISIONED',
+                    k: 'KL223HHV8732SFL1'
+                }
+            };
+            request(optionsMeasure, function (error, result, body) {
+                request(getDeviceOptions, function (error, response, body) {
+                    should.not.exist(error);
+                    response.statusCode.should.equal(200);
+                    should.not.exist(body.devices[0].transport);
+                    done();
+                });
+            });
+        });
+
+        describe('When a command arrive to the Agent for a device with the HTTP protocol', function () {
+            const commandOptions = {
+                url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
+                method: 'POST',
+                json: utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand2.json'),
+                headers: {
+                    'fiware-service': 'smartgondor',
+                    'fiware-servicepath': '/gardens'
+                }
+            };
+            beforeEach(function () {
+                contextBrokerMock
+                    .matchHeader('fiware-service', 'smartgondor')
+                    .matchHeader('fiware-servicepath', '/gardens')
+                    .post(
+                        '/v2/entities?options=upsert',
+                        utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus9.json')
+                    )
+                    .reply(204);
+                contextBrokerMock
+                    .matchHeader('fiware-service', 'smartgondor')
+                    .matchHeader('fiware-servicepath', '/gardens')
+                    .post(
+                        '/v2/entities?options=upsert',
+                        utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateStatus10.json')
+                    )
+                    .reply(204);
+                mockedClientServer = nock('http://localhost:9876')
+                    .post('/command', function (body) {
+                        return body.cmd1 || body.cmd1.data || body.cmd1.data === 22;
+                    })
+                    .reply(200, '{"cmd1":{"data":"22"}}');
+            });
+            it('should return a 204 OK without errors', function (done) {
+                request(optionsMeasure, function (error, result, body) {
+                    request(commandOptions, function (error, response, body) {
+                        should.not.exist(error);
+                        response.statusCode.should.equal(204);
+                        contextBrokerMock.done();
+                        done();
+                    });
+                });
             });
         });
     });

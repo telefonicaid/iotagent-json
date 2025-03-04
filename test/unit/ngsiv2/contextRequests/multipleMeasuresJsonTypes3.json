@@ -1,0 +1,86 @@
+{
+    "actionType": "append",
+    "entities": [
+        {
+            "id": "Second MQTT Device",
+            "type": "AnMQTTDevice",
+            "temperature": {
+                "type": "celsius",
+                "value": "89"
+            },
+            "humidity": {
+                "type": "degrees",
+                "value": "33"
+            },
+            "luminosity": {
+                "type": "Integer",
+                "value": 10
+            },
+            "pollution": {
+                "type": "Float",
+                "value": 43.4
+            },
+            "configuration": {
+                "type": "Object",
+                "value": {
+                    "firmware": {
+                        "version": "1.1.0",
+                        "hash": "cf23df2207d99a74fbe169e3eba035e633b65d94"
+                    }
+                }
+            },
+            "tags": {
+                "type": "Array",
+                "value": [
+                    "iot",
+                    "device"
+                ]
+            },
+            "enabled": {
+                "type": "Boolean",
+                "value": true
+            }
+        },
+        {
+            "id": "Second MQTT Device",
+            "type": "AnMQTTDevice",
+            "temperature": {
+                "type": "celsius",
+                "value": "87"
+            },
+            "humidity": {
+                "type": "degrees",
+                "value": "32"
+            },
+            "luminosity": {
+                "type": "Integer",
+                "value": 10
+            },
+            "pollution": {
+                "type": "Float",
+                "value": 43.4
+            },
+            "configuration": {
+                "type": "Object",
+                "value": {
+                    "firmware": {
+                        "version": "1.1.0",
+                        "hash": "cf23df2207d99a74fbe169e3eba035e633b65d94"
+                    }
+                }
+            },
+            "tags": {
+                "type": "Array",
+                "value": [
+                    "iot",
+                    "device"
+                ]
+            },
+            "enabled": {
+                "type": "Boolean",
+                "value": true
+            }
+        }
+    ]
+}
+

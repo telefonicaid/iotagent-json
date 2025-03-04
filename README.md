@@ -2,8 +2,10 @@
 
 [![FIWARE IoT Agents](https://nexus.lab.fiware.org/static/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
 [![License: APGL](https://img.shields.io/github/license/telefonicaid/iotagent-json.svg)](https://opensource.org/licenses/AGPL-3.0)
-[![Docker badge](https://img.shields.io/docker/pulls/fiware/iotagent-json.svg)](https://hub.docker.com/r/fiware/iotagent-json/)
-[![Support badge](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
+[![Support badge](https://img.shields.io/badge/tag-fiware+iot-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware+iot)
+<br/>
+[![Quay badge](https://img.shields.io/badge/quay.io-fiware%2Fiotagent--json-grey?logo=red%20hat&labelColor=EE0000)](https://quay.io/repository/fiware/iotagent-json)
+[![Docker badge](https://img.shields.io/badge/docker-telefonicaiot%2Fiotagent--json-blue?logo=docker)](https://hub.docker.com/r/telefonicaiot/iotagent-json/)
 <br/>
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/?badge=latest)
 [![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
@@ -24,17 +26,16 @@ library's GitHub repository.
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
-| :books: [Documentation](https://fiware-iotagent-json.readthedocs.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :whale: [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/docs/roadmap.md) |
-| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| :books: [Documentation](https://fiware-iotagent-json.readthedocs.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | <img style="height:1em" src="https://quay.io/static/img/quay_favicon.png"/> [quay.io](https://quay.io/repository/fiware/iotagent-json) | :whale: [Docker Hub](https://hub.docker.com/r/telefonicaiot/iotagent-json/) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/docs/roadmap.md) |
+| -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
 
 
 ## Contents
 
 -   [Background](#background)
--   [Install](#build--install)
+-   [Install](#install)
 -   [Usage](#usage)
 -   [API](#api)
--   [Command-line Client](#command-line-client)
 -   [Contributing](#contributing)
 -   [Testing](#testing)
 -   [License](#license)
@@ -80,27 +81,6 @@ their APIs can be found in the IoT Agent Library [documentation](https://iotagen
 The latest IoT Agent for JSON documentation is also available on
 [ReadtheDocs](https://fiware-iotagent-json.readthedocs.io/en/latest/)
 
-## Command-line Client
-
-The JSON IoT Agent comes with a client that can be used to test its features, simulating a device. The client can be
-executed with the following command:
-
-```console
-bin/iotaJsonTester.js
-```
-
-This will show a prompt where commands can be issued to the MQTT broker. For a list of the currently available commands
-type `help`.
-
-The client loads a global configuration used for all the commands, containing the host and port of the MQTT broker and
-the API Key and Device ID of the device to simulate. This information can be changed with the `config` command.
-
-In order to use any of the MQTT commands, you have to connect to the MQTT broker first. If no connection is available,
-MQTT commands will show an error message reminding you to connect.
-
-The command-line Client gets its default values from a config file in the root of the project: `client-config.js`. This
-config file can be used to permanently tune the MQTT broker parameters, or the default device ID and APIKey.
-
 ## Contributing
 
 If you'd like to contribute, start by searching through the issues and pull requests to see whether someone else has
@@ -122,6 +102,8 @@ To run tests, type
 npm test
 ```
 
+Please have a look to extra information about functional tests in [this specific document](test/functional/README.md).
+
 #### Requirements
 
 All the tests are designed to test end-to-end scenarios, and there are some requirements for its current execution:
@@ -133,9 +115,9 @@ All the tests are designed to test end-to-end scenarios, and there are some requ
 To run requirements you can type:
 
 ```
-   docker run -d -p 27017:27017 --hostname mongo --name mongo mongo:4.4.19
-   docker run -d -p 1883:1883 -l mosquitto eclipse-mosquitto:1.6.15
-   docker run -d -p 5672:5672 --hostname my-rabbit --name some-rabbit rabbitmq:3.11.13
+   docker run -d -p 27017:27017 --hostname mongo --name mongo mongo:6.0.12
+   docker run -d -p 1883:1883 --hostname mosquitto --name mosquitto eclipse-mosquitto:1.6.15
+   docker run -d -p 5672:5672 --hostname rabbit --name rabbit rabbitmq:3.11.13
 ```
 
 ---
@@ -144,7 +126,10 @@ To run requirements you can type:
 
 The IoT Agent for JSON is licensed under [Affero General Public License (GPL) version 3](./LICENSE).
 
-© 2022 Telefonica Investigación y Desarrollo, S.A.U
+© 2023 Telefonica Investigación y Desarrollo, S.A.U
+
+<details>
+<summary><strong>Further information on the use of the AGPL open source license</strong></summary>
 
 ### Are there any legal issues with AGPL 3.0? Is it safe for me to use?
 
@@ -160,3 +145,5 @@ public statement as follows:
 > incorporate enhancements is considered a derivative work of the product. Software that merely uses or aggregates (i.e.
 > links to) an otherwise unmodified version of existing software is not considered a derivative work, and therefore it
 > does not need to be released as under the same license, or even released as open source.
+
+</details>

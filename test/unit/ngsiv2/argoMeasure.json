@@ -1,0 +1,55 @@
+{
+    "id": "Second MQTT Device",
+    "type": "AnMQTTDevice",
+    "Envelope": {
+      "type": "string",
+      "value": {
+        "$": {
+          "xmlns:soap": "http://www.w3.org/2003/05/soap-envelope"
+        },
+        "Header": [
+          {
+            "$": {
+              "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+            }
+          }
+        ],
+        "Body": [
+          {
+            "$": {
+              "xmlns:soapenv": "http://www.w3.org/2003/05/soap-envelope"
+            },
+            "notificationEventRequest": [
+              {
+                "$": {
+                  "xmlns:ns21": "http://myurl.com"
+                },
+                "Param1": [
+                  "ABC12345"
+                ],
+                "Param2": [
+                  ""
+                ],
+                "Date": [
+                  "28/09/2023 11:48:15 +0000"
+                ],
+                "NestedAttr": [
+                  {
+                    "SubAttr": [
+                      "This is a description"
+                    ]
+                  }
+                ],
+                "Status": [
+                  "Assigned"
+                ],
+                "OriginSystem": [
+                  ""
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }

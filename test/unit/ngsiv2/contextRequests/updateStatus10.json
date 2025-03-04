@@ -1,0 +1,14 @@
+{
+    "id":"TheLightType:JSON_UNPROVISIONED",
+    "type":"TheLightType",
+    "cmd1_status": {
+        "type": "commandStatus",
+        "value": "OK"
+    },
+    "cmd1_info": {
+        "type": "commandResult",
+        "value": {
+            "data": "22"
+        }
+    }
+}
