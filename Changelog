@@ -1,3 +1,5 @@
+- Add: throttle based on topic (deviceId + apiKey) for HTTP, MQTT and AMQP bindings, including env vars to configure throttle interval and queue size (#865)
+
 3.7.0 (February 3rd, 2025)
 
 - Add: allow MQTT single array measures (#856)
