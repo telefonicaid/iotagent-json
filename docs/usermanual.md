@@ -915,6 +915,13 @@ all the messages must be published to the selected exchange, using the following
 
 The payload is the same as for the other bindings.
 
+#### Throttling
+
+In order to avoid create duplicated devices when a measure burst arrives for AMQP binding and no provisioned device is
+still created, it is possible to configure a throttling queue (through IOTA_AMQP_THROTTLE_INTERVAL and
+IOTA_AMQP_MAX_QUEUE_SIZE) for each topic in order to delay deliver a second measure for the same topic when is retrieved
+in a period of time minor tan throttling interval.
+
 ### Value conversion
 
 The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the

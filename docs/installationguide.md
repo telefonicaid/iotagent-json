@@ -158,6 +158,8 @@ IoT Agent. The following attributes are accepted:
 -   **durable**: durable queue flag (default is `false`).
 -   **retries**: Number of AMQP connection error retries (default is 5).
 -   **retryTime**: Time between AMQP connection retries (default is 5 seconds).
+-   **throttleInterval**: Time interval to apply throttling (default is 0, no throttling)
+-   **maxQueueSize**: Max queue size when throttling interval is upper than 0 (default is 0)
 
 #### HTTP Binding configuration
 
