@@ -533,6 +533,13 @@ current HTTP measure request. For example
 X-Processing-Time: 38
 ```
 
+#### Throttling
+
+In order to avoid create duplicated devices when a measure burst arrives for HTTP binding and no provisioned device is
+still created, it is possible to configure a throttling queue (through IOTA_HTTP_THROTTLE_INTERVAL and
+IOTA_HTTP_MAX_QUEUE_SIZE) for each pair of deviceId and apiKey in order to delay deliver a second measure for the same
+pair of deviceId and apiKey when is retrieved in a period of time minor tan throttling interval.
+
 ### MQTT binding
 
 MQTT binding is based on the existence of a MQTT broker and the usage of different topics to separate the different
