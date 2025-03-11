@@ -138,6 +138,8 @@ These are the currently available MQTT configuration options:
 -   **clean**: this flag is by default true, set to false to receive QoS 1 and 2 messages while offline.
 -   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed
     prefix `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
+-   **throttleInterval**: Time interval to apply throttling (default is 0, no throttling)
+-   **maxQueueSize**: Max queue size when throttling interval is upper than 0 (default is 0)
 
 TLS options (i.e. **ca**, **cert**, **key**, **rejectUnauthorized**) are directly linked with the ones supported by the
 [tls module of Node.js](https://nodejs.org/api/tls.html#tls_tls_createsecurecontext_options).
@@ -166,6 +168,8 @@ transport protocol binding. The following options are accepted:
 -   **timeout**: HTTP Timeout for the HTTP endpoint (in miliseconds).
 -   **key**: Path to your private key for HTTPS binding
 -   **cert**: Path to your certificate for HTTPS binding
+-   **throttleInterval**: Time interval to apply throttling (default is 0, no throttling)
+-   **maxQueueSize**: Max queue size when throttling interval is upper than 0 (default is 0)
 
 #### Configuration with environment variables
 
@@ -220,6 +224,8 @@ The ones relating specific JSON bindings are described in the following table.
 | IOTA_HTTP_TIMEOUT             | http.timeout            |
 | IOTA_HTTP_KEY                 | http.key                |
 | IOTA_HTTP_CERT                | http.cert               |
+| IOTA_HTTP_THROTTLE_INTERVAL   | http.throttleInterval   |
+| IOTA_HTTP_MAX_QUEUE_SIZE      | http.maxQueueSize       |
 
 (HTTP-related environment variables will be used in the upcoming HTTP binding)
 
