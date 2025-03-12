@@ -1,0 +1,64 @@
+{
+    "subscriptionId": "60b0cedd497e8b681d40b58e",
+    "data": [{
+         "id": "123456abcdefg",
+         "type": "cmd1Execution",
+         "targetEntityId": {
+                 "type": "Text",
+                 "value": "TheLightType:JSON_UNPROVISIONED",
+                 "metadata": {}
+         },
+         "targetEntityType": {
+                 "type": "Text",
+                 "value": "TheLightType",
+                 "metadata": {}
+         },
+         "execTs": {
+                 "type": "DateTime",
+                 "value": "2020-05-27T00:00:00.000Z",
+                 "metadata": {}
+         },
+         "cmd": {
+                 "type": "Text",
+                 "value": "cmd1",
+                 "metadata": {}
+         },
+         "params": {
+                 "type": "Text",
+                 "value": { "data": "22" },
+                 "metadata": {}
+         },
+         "status": {
+                 "type": "Text",
+                 "value": "FORWARDED",
+                 "metadata": {}
+         },
+         "info": {
+                 "type": "Text",
+                 "value": null,
+                 "metadata": {}
+         },
+         "onDelivered": {
+                 "type": "Request"
+         },
+         "onOk": {
+                 "type": "Request"
+         },
+         "onError": {
+                 "type": "Request"
+         },
+         "onInfo": {
+                 "type": "Request"
+         },
+         "cmdExecution": {
+                 "type": "value",
+                 "value": true,
+                 "metadata": {}
+         },
+         "dateExpiration": {
+                 "type": "DateTime",
+                 "value": "2030-05-27T20:00:00.000Z",
+                 "metadata": {}
+         }
+    }]
+}
