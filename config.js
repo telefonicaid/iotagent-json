@@ -102,7 +102,17 @@ config.mqtt = {
     /**
      * Flag to disable the MQTT transport. (default is false).
      */
-    disabled: false
+    disabled: false,
+
+    /**
+     * Time interval to apply throttling (default is 0, no throttling).
+     */
+    throttleInterval: 0,
+
+    /**
+     * Max queue size when throttling interval is upper than 0 (default is 0).
+     */
+    maxQueueSize: 0
 };
 
 /**
@@ -151,7 +161,7 @@ config.http = {
     /**
      * South Port where the Ultralight transport binding for HTTP will be listening for device requests.
      */
-    port: 7896
+    port: 7896,
     /**
      * HTTP Timeout for the http command endpoint (in miliseconds).
      */
@@ -164,6 +174,16 @@ config.http = {
      * Path to your certificate for HTTPS binding
      */
     // cert: <path_to_cert>
+
+    /**
+     * Time interval to apply throttling (default is 0, no throttling).
+     */
+    throttleInterval: 0,
+
+    /**
+     * Max queue size when throttling interval is upper than 0 (default is 0).
+     */
+    maxQueueSize: 0
 };
 
 config.iota = {
@@ -319,7 +339,7 @@ config.iota = {
 
 /**
  * map {name: function} of extra transformations avaliable at JEXL plugin
-*  see https://github.com/telefonicaid/iotagent-node-lib/tree/master/doc/expressionLanguage.md#available-functions
+ *  see https://github.com/telefonicaid/iotagent-node-lib/tree/master/doc/expressionLanguage.md#available-functions
  */
 
 config.jexlTransformations = {};
