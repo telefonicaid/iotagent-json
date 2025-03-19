@@ -31,72 +31,21 @@ const nock = require('nock');
 const iotAgentLib = require('iotagent-node-lib');
 const should = require('should');
 const async = require('async');
+const MQTT = require('async-mqtt');
 
 const utils = require('../../utils');
 const request = utils.request;
 
-const got = require('got');
-const logger = require('logops');
 const context = {
     op: 'IoTAgentNGSI.Request'
 };
-const util = require('util');
 
-function getOptions(options) {
-    const httpOptions = {
-        method: options.method,
-        searchParams: options.searchParams || options.qs,
-        headers: options.headers,
-        throwHttpErrors: options.throwHttpErrors || false,
-        retry: options.retry || 0,
-        responseType: options.responseType || 'json'
-    };
-
-    // got library is not properly documented, so it is not clear which takes precedence
-    // among body, json and form (see https://stackoverflow.com/q/70754880/1485926).
-    // Thus, we are enforcing our own precedence with the "else if" chain below.
-    // Behaviour is consistent with the one described at development.md#iotagentlibrequest
-
-    if (options.method === 'GET' || options.method === 'HEAD' || options.method === 'OPTIONS') {
-        // Do nothing - Never add a body
-    } else if (options.body) {
-        // body takes precedence over json or form
-        httpOptions.body = options.body;
-    } else if (options.json) {
-        // json takes precedence over form
-        httpOptions.json = options.json;
-    } else if (options.form) {
-        // Note that we don't consider 'form' part of the function API (check development.md#iotagentlibrequest)
-        // but we are preparing the code anyway as a safe measure
-        httpOptions.form = options.form;
-    }
-
-    return httpOptions;
-}
-
-function parallelRequest(options, options2, callback) {
-    const httpOptions = getOptions(options);
-    const httpOptions2 = getOptions(options2);
-
-    got(options2.url || options2.uri, httpOptions2)
-        .then((response) => {
-            logger.debug(context, 'Response %s', JSON.stringify(response.body, null, 4));
-            // nothing to do
-        })
-        .catch((error) => {
-            logger.debug(context, 'Error: %s', JSON.stringify(util.inspect(error), null, 4));
-            // nothing to do
-        });
-
-    got(options.url || options.uri, httpOptions)
-        .then((response) => {
-            logger.debug(context, 'Response %s', JSON.stringify(response.body, null, 4));
-            return callback(null, response, response.body);
-        })
-        .catch((error) => {
-            logger.debug(context, 'Error: %s', JSON.stringify(util.inspect(error), null, 4));
-            return callback(error);
-        });
+async function parallelPub(topic, valuesMeasure1, valuesMeasure2, callback) {
+    let client = await MQTT.connectAsync('mqtt://' + config.mqtt.host);
+    await client.publish(topic, JSON.stringify(valuesMeasure1));
+    await client.publish(topic, JSON.stringify(valuesMeasure2));
+    await client.end();
+    callback(null);
 }
 
 const groupCreation = {
@@ -130,7 +79,7 @@ const groupCreation = {
 let contextBrokerMock;
 let contextBrokerUnprovMock;
 
-describe('HTTP: Measure reception ', function () {
+describe('MQTT: Measure reception ', function () {
     beforeEach(function (done) {
         nock.cleanAll();
 
@@ -146,42 +95,17 @@ describe('HTTP: Measure reception ', function () {
 
     afterEach(function (done) {
         nock.cleanAll();
-
         async.series([iotAgentLib.clearAll, iotaJson.stop], done);
     });
 
     describe('When a burst of measures arrives for an unprovisioned device', function () {
-        const optionsMeasure = {
-            url: 'http://localhost:' + config.http.port + '/iot/json',
-            method: 'POST',
-            json: {
-                humidity: '32',
-                temperature: '87'
-            },
-            headers: {
-                'fiware-service': 'smartgondor',
-                'fiware-servicepath': '/gardens'
-            },
-            qs: {
-                i: 'JSON_UNPROVISIONED2',
-                k: 'KL223HHV8732SFL2'
-            }
+        const valuesMeasure = {
+            humidity: '32',
+            temperature: '87'
         };
-        const optionsMeasure2 = {
-            url: 'http://localhost:' + config.http.port + '/iot/json',
-            method: 'POST',
-            json: {
-                humidity: '12',
-                temperature: '17'
-            },
-            headers: {
-                'fiware-service': 'smartgondor',
-                'fiware-servicepath': '/gardens'
-            },
-            qs: {
-                i: 'JSON_UNPROVISIONED2',
-                k: 'KL223HHV8732SFL2'
-            }
+        const valuesMeasure2 = {
+            humidity: '12',
+            temperature: '17'
         };
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -226,14 +150,18 @@ describe('HTTP: Measure reception ', function () {
                 }
             };
 
-            parallelRequest(optionsMeasure2, optionsMeasure, function (error, response, body) {
-                request(getDeviceOptions, function (error, response, body) {
-                    should.not.exist(error);
-                    response.statusCode.should.equal(200);
-                    body.devices.length.should.equal(1);
-                    contextBrokerUnprovMock.done();
-                    done();
-                });
+            parallelPub('json/KL223HHV8732SFL2/JSON_UNPROVISIONED2/attrs', valuesMeasure, valuesMeasure2, function (
+                error
+            ) {
+                setTimeout(function () {
+                    request(getDeviceOptions, function (error, response, body) {
+                        should.not.exist(error);
+                        response.statusCode.should.equal(200);
+                        body.devices.length.should.equal(1);
+                        contextBrokerUnprovMock.done();
+                        done();
+                    });
+                }, 100);
             });
         });
     });
