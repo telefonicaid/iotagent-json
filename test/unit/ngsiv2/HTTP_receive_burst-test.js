@@ -134,16 +134,6 @@ let contextBrokerUnprovMock;
 
 describe('HTTP: Measure reception ', function () {
     beforeEach(function (done) {
-        // const provisionOptions = {
-        //     url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-        //     method: 'POST',
-        //     json: utils.readExampleFile('./test/unit/ngsiv2/deviceProvisioning/provisionDeviceHTTP.json'),
-        //     headers: {
-        //         'fiware-service': 'smartgondor',
-        //         'fiware-servicepath': '/gardens'
-        //     }
-        // };
-
         nock.cleanAll();
 
         // This mock does not check the payload since the aim of the test is not to verify
@@ -152,9 +142,6 @@ describe('HTTP: Measure reception ', function () {
         contextBrokerMock = nock('http://192.168.1.1:1026');
 
         iotaJson.start(config, function () {
-            // request(provisionOptions, function (error, response, body) {
-            //     done();
-            // });
             done();
         });
     });
@@ -245,7 +232,6 @@ describe('HTTP: Measure reception ', function () {
                 request(getDeviceOptions, function (error, response, body) {
                     should.not.exist(error);
                     response.statusCode.should.equal(200);
-                    console.log('devices: ' + JSON.stringify(body));
                     body.devices.length.should.equal(1);
                     contextBrokerUnprovMock.done();
                     done();
