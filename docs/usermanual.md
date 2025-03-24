@@ -524,6 +524,8 @@ Content-type: application/json
 }
 ```
 
+-  Commands can be defined at group level as well as device level. When a command is just defined at group level command is copied to device and futher modifications are not reflected to device level. So if a command was defined at group level and then modified just at group level, devide command should be modified manually in order to get the same modification.
+
 #### Time processing
 
 HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time (in milliseconds) expended by current HTTP measure
