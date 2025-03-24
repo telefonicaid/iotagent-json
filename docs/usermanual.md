@@ -523,8 +523,7 @@ Content-type: application/json
   "move": 20
 }
 ```
-
--   Commands can be defined at group level as well as device level. When a command is just defined at group level command is copied to device and futher modifications are not reflected to device level. So if a command was defined at group level and then modified just at group level, devide command should be modified manually in order to get the same modification.
+-   Commands can be defined at the group level as well as the device level. When a command is defined at the group level, the command is copied to the device, and further modifications are not reflected at the device level. So if a command was defined at the group level and then modified only at the group level, the device command should be modified manually to reflect the same changes.
 
 #### Time processing
 
