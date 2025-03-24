@@ -856,10 +856,16 @@ expression of the **command** as well as the **device endpoint** when apply. In 
 -   `attribute`: attribute name and value involved in the command.
 
 This way an example for use jexl expressions for **endpoint** could be:
-
 ```json
 {
     "endpoint": "'https://myendpoint' + '/' + service + '/' + subservice + '/' + id + '/' + type"
+}
+```
+
+And following with the same command example usage, an example for use jexl expression with commands could be:
+```json
+{
+    "set": id + '_reset_' + reset
 }
 ```
 
