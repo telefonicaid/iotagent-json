@@ -865,7 +865,7 @@ This way an example for use jexl expressions for **endpoint** could be:
 And following with the same command example usage, an example for use jexl expression with commands could be:
 ```json
 {
-    "set": id + '_reset_' + reset
+    "set": "id + '_reset_' + reset"
 }
 ```
 
