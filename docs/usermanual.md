@@ -843,6 +843,16 @@ the example case the command will be:
 }
 ```
 
+The agent provides additional information, hereafter referred as **context**, in order to be used to evaluate the
+expression of the **command** as well as the **device endpoint** when apply. In all cases the following data is available to all expressions:
+
+-   `id`: device ID
+-   `type`: NGSI entity type (principal)
+-   `service`: device service (`Fiware-Service`)
+-   `subservice`: device subservice (`Fiware-ServicePath`)
+-   `staticAttributes`: static attributes defined in the device or config group
+-   `attribute`: attribute name and value involved in the command.
+
 Additionally a command could define a `payloadType` in their definition with the aim to transform payload command with
 the following meanings:
 
