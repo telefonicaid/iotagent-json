@@ -855,6 +855,14 @@ expression of the **command** as well as the **device endpoint** when apply. In 
 -   `staticAttributes`: static attributes defined in the device or config group
 -   `attribute`: attribute name and value involved in the command.
 
+This way an example for use jexl expressions for **endpoint** could be:
+
+```json
+{
+    "endpoint": "'https://myendpoint' + '/' + service + '/' + subservice + '/' + id + '/' + type"
+}
+```
+
 Additionally a command could define a `payloadType` in their definition with the aim to transform payload command with
 the following meanings:
 
