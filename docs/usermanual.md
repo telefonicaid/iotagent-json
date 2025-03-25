@@ -850,8 +850,8 @@ expression of the **command** as well as the **device endpoint** when apply. In 
 -   `entity_name`: Entity Name
 -   `service`: device service (`Fiware-Service`)
 -   `subservice`: device subservice (`Fiware-ServicePath`)
--   `staticAttributes`: static attributes defined in the device or config group (flatted into context object).
--   `attribute`: attribute name and value involved in the command.
+-  Static attributes defined in the device or config group (flatted into context object), by name.
+-  The attribute involved in the command, by name.
 
 An example of JEXL context could be like:
 
