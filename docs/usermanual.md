@@ -847,10 +847,18 @@ expression of the **command** as well as the **device endpoint** when apply. In 
 
 -   `id`: device ID
 -   `type`: NGSI entity type (principal)
+-   `entity_name`: Entity Name
 -   `service`: device service (`Fiware-Service`)
 -   `subservice`: device subservice (`Fiware-ServicePath`)
--   `staticAttributes`: static attributes defined in the device or config group
+-   `staticAttributes`: static attributes defined in the device or config group (flatted into context object).
 -   `attribute`: attribute name and value involved in the command.
+
+An example of JEXL context could be like:
+
+```json
+{"id":"disp2","type":"thing","service":"smartcity","subservice":"/","entity_name":"thing:disp2","color":"blue","brand":"tef","reset":0}
+```
+Where *color* and *brand* are static attrs and *reset* is the command name and *0* is the value for the command.
 
 This way an example for use jexl expressions for **endpoint** could be:
 ```json
