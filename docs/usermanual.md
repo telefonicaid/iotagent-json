@@ -858,7 +858,7 @@ An example of JEXL context could be like:
 ```json
 {"id":"disp2","type":"thing","service":"smartcity","subservice":"/","entity_name":"thing:disp2","color":"blue","brand":"tef","reset":0}
 ```
-Where *color* and *brand* are static attrs and *reset* is the command name and *0* is the value for the command.
+Where *color* and *brand* are static attrs and *reset* is the command name and *0* is the value for the command. Note that from a jexl context point of view, there is no distinction between static attributes and the attribute for the command (it is supposed that the writer of jexl expression knows the name of command and the names of the static attributes).
 
 This way an example for use jexl expressions for **endpoint** could be:
 ```json
