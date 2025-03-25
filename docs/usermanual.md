@@ -842,7 +842,7 @@ the example case the command will be:
 }
 ```
 
-The agent provides additional information, hereafter referred as **context**, in order to be used to evaluate the
+The agent provides additional information, hereafter referred as **JEXL context**, in order to be used to evaluate the
 expression of the **command** as well as the **device endpoint** when apply. In all cases the following data is available to all expressions within the JEXL context:
 
 -   `id`: device ID
