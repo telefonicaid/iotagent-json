@@ -863,7 +863,7 @@ Where *color* and *brand* are static attrs and *reset* is the command name and *
 This way an example for use jexl expressions for **endpoint** could be:
 ```json
 {
-    "endpoint": "'https://myendpoint' + '/' + service + '/' + subservice + '/' + id + '/' + type"
+    "endpoint": "'https://myendpoint' + '/' + service + subservice + '/' + id + '/' + type"
 }
 ```
 
