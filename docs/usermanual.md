@@ -860,7 +860,7 @@ An example of JEXL context could be like:
 ```
 Where *color* and *brand* are static attrs and *reset* is the command name and *0* is the value for the command. Note that from a jexl context point of view, there is no distinction between static attributes and the attribute for the command (it is supposed that the writer of jexl expression knows the name of command and the names of the static attributes).
 
-This way an example for use jexl expressions for **endpoint** could be:
+This way an example for use jexl expressions for **endpoint** could be (note that the `subservice` element includes the `/` as first character):
 ```json
 {
     "endpoint": "'https://myendpoint' + '/' + service + subservice + '/' + id + '/' + type"
