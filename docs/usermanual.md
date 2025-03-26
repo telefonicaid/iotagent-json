@@ -451,12 +451,11 @@ E.g.:
 
 #### Commands
 
-All the interations between IotAgent and ContextBroker related to comamnds are described in
-[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands)
-and
-[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-happy-path)
-and
-[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-error).
+All the interations between IotAgent and ContextBroker related to comamnds are described in:
+
+-   [Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands)
+-   [Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-happy-path)
+-   [Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-error)
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, from device or group device, that will contain the URL where the IoT Agent will send the received
@@ -524,12 +523,19 @@ Content-type: application/json
 }
 ```
 
+-   Commands can be defined at the group level as well as the device level. When a command is defined at the group
+    level, the command is copied to the device, and further modifications are not reflected at the device level. So if a
+    command was defined at the group level and then modified only at the group level, the device command should be
+    modified manually to reflect the same changes. In other words, the command at group level could be seen as a
+    _template_ that it is _instantiated_ each time a new device on that group is created.
+
 #### Time processing
 
-HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time (in milliseconds) expended by current HTTP measure
-request. For example
+HTTP bindig is returning in a HTTP header named `X-Processing-Time` processing time (in milliseconds) expended by
+current HTTP measure request. For example
+
 ```
-X-Processing-Time: 38 
+X-Processing-Time: 38
 ```
 
 ### MQTT binding
@@ -591,9 +597,9 @@ $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs -m '{"h": 70, "t": 15}' -h <mosqui
 
 Indicating in the topic the name of the attribute to be modified.
 
-In both cases, multiple and single measures, the key is the one provisioned in the IoT Agent through the Configuration API, and the Device ID the ID
-that was provisioned using the Provisioning API. API Key **must** be present, although can be any string in case the
-Device was provisioned without a link to any particular configuration.
+In both cases, multiple and single measures, the key is the one provisioned in the IoT Agent through the Configuration
+API, and the Device ID the ID that was provisioned using the Provisioning API. API Key **must** be present, although can
+be any string in case the Device was provisioned without a link to any particular configuration.
 
 For instance, if using [Mosquitto](https://mosquitto.org/) with a device with ID `id_sen1`, API Key `ABCDEF` and
 attribute IDs `h` and `t`, then humidity measures are reported this way:
@@ -603,9 +609,11 @@ $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m 70 -h <mosquitto_broker> -p <
 ```
 
 Also single measure could be an array of measure values like:
+
 ```bash
 $ mosquitto_pub -t /json/ABCDEF/id_sen1/attrs/h -m '[{"timestamp": "2025-01-26T12:00:00Z", "value":44},{"timestamp": "2025-01-27T09:00:00Z", "value":33}]' -h <mosquitto_broker> -p <mosquitto_port> -u <user> -P <password>
 ```
+
 In the single measure case, when the published data is not a valid JSON, it is interpreted as binary content. For
 instance, if the following is published to `/json/ABCDEF/id_sen1/attrs/attrHex` topic:
 
@@ -840,6 +848,81 @@ the example case the command will be:
 ```json
 {
     "set": 0
+}
+```
+
+The agent provides additional information, hereafter referred as **JEXL context**, in order to be used to evaluate the
+expression of the **command** as well as the **device endpoint** when apply. In all cases the following data is
+available to all expressions within the JEXL context:
+
+-   `id`: device ID
+-   `type`: NGSI entity type (principal)
+-   `entity_name`: Entity Name
+-   `service`: device service (`Fiware-Service`)
+-   `subservice`: device subservice (`Fiware-ServicePath`)
+-   Static attributes defined in the device or config group (flatted into context object), by name.
+-   The attribute involved in the command, by name.
+
+An example of JEXL context could be like:
+
+```json
+{
+    "id": "myDisp",
+    "type": "thing",
+    "service": "smartcity",
+    "subservice": "/",
+    "entity_name": "thing:myDisp",
+    "color": "blue",
+    "brand": "tef",
+    "reset": 0
+}
+```
+
+Where _color_ and _brand_ are static attrs and _reset_ is the command name and _0_ is the value for the command. Note
+that from a jexl context point of view, there is no distinction between static attributes and the attribute for the
+command (it is supposed that the writer of jexl expression knows the name of command and the names of the static
+attributes).
+
+This way an example for use jexl expressions for **endpoint** could be (note that the `subservice` element includes the
+`/` as first character):
+
+```json
+{
+    "endpoint": "'https://myendpoint' + '/' + service + subservice + '/' + id + '/' + type"
+}
+```
+
+following with the same command example usage, an example for use jexl expression with commands could be:
+
+```json
+{
+    "name": "reset",
+    "type": "command",
+    "expression": "{ set: id + '_reset_' + reset }"
+}
+```
+
+And full device example could be:
+
+```json
+{
+    "device_id": "myDisp",
+    "apikey": "APIKEY",
+    "service": "smartcity",
+    "service_path": "/",
+    "entity_name": "thing:myDisp",
+    "entity_type": "thing",
+    "endpoint": "'https://myendpoint' + '/' + service + subservice + '/' + id + '/' + type",
+    "polling": false,
+    "transport": "HTTP",
+    "attributes": [],
+    "lazy": [],
+    "commands": [{ "name": "reset", "type": "command", "expression": "{ set: id + '_reset_' + reset }" }],
+    "static_attributes": [
+        { "name": "color", "type": "text", "value": "blue" },
+        { "name": "brand", "type": "text", "value": "tef" }
+    ],
+    "protocol": "IoTA-JSON"
 }
 ```
 
