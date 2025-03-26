@@ -45,7 +45,9 @@ config.amqp = {
     port: 5672,
     exchange: 'amq.topic',
     queue: 'iota_queue',
-    options: { durable: true }
+    options: { durable: true },
+    throttleInterval: 5,
+    maxQueueSize: 100
 };
 
 config.iota = {
