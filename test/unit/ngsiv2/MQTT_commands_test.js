@@ -87,7 +87,7 @@ describe('MQTT: Commands', function () {
             connectTimeout: 60 * 60 * 1000
         });
 
-        mqttClient.subscribe('/1234/MQTT_2/cmd', null);
+        mqttClient.subscribe('/1234/MQTT_2/cmd');
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartgondor')
@@ -104,7 +104,7 @@ describe('MQTT: Commands', function () {
 
     afterEach(function (done) {
         nock.cleanAll();
-        mqttClient.unsubscribe('/1234/MQTT_2/cmd', null);
+        mqttClient.unsubscribe('/1234/MQTT_2/cmd');
         mqttClient.end();
 
         async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
@@ -326,7 +326,7 @@ describe('MQTT: Commands from groups', function () {
             connectTimeout: 60 * 60 * 1000
         });
 
-        mqttClient.subscribe('/KL223HHV8732SFL1/JSON_UNPROVISIONED/cmd', null);
+        mqttClient.subscribe('/KL223HHV8732SFL1/JSON_UNPROVISIONED/cmd');
 
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartgondor')
