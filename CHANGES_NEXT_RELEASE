@@ -1,1 +1,2 @@
 - Fix: bad json measures are reported as 500 Error instead of 400 (#863)
+- Fix: Subscription fails on AWS IoT Core broker (#875)
