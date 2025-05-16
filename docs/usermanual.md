@@ -967,7 +967,7 @@ And example of command with customer headers using jexl-expressions could be:
 {
     "name": "reset",
     "type": "command",
-    "expression": "{ set: id + '_reset_' + reset }"
+    "expression": "{ set: id + '_reset_' + reset }",
     "headers" {
         "MyCustomHeader": "id + type"
     }
