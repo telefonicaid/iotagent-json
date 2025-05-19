@@ -103,13 +103,13 @@ describe('MQTT: Get configuration from the devices', function () {
                             value: '80'
                         }
                     });
-                mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
+                mqttClient.subscribe('/1234/MQTT_2/configuration/values');
 
                 configurationReceived = false;
             });
 
             afterEach(function (done) {
-                mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
+                mqttClient.unsubscribe('/1234/MQTT_2/configuration/values');
 
                 done();
             });
@@ -179,13 +179,13 @@ describe('MQTT: Get configuration from the devices', function () {
                 .post('/v2/subscriptions')
                 .reply(201, null, { Location: '/v2/subscriptions/51c0ac9ed714fb3b37d7d5a8' });
 
-            mqttClient.subscribe('/1234/MQTT_2/configuration/values', null);
+            mqttClient.subscribe('/1234/MQTT_2/configuration/values');
 
             configurationReceived = false;
         });
 
         afterEach(function (done) {
-            mqttClient.unsubscribe('/1234/MQTT_2/configuration/values', null);
+            mqttClient.unsubscribe('/1234/MQTT_2/configuration/values');
 
             done();
         });
