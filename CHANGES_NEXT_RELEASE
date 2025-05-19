@@ -1,3 +1,4 @@
++ Add: config.mqtt.subscribeBatchSize option (IOTA_MQTT_SUBSCRIBE_BATCH_SIZE) to batch topic subscriptions into multiple SUBSCRIBE packets (#875)
 - Fix: bad json measures are reported as 500 Error instead of 400 (#863)
 - Fix: Subscription fails on AWS IoT Core broker (#875)
 - Upgrade mqtt from 4.3.7 to 5.13.0

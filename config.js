@@ -102,7 +102,14 @@ config.mqtt = {
     /**
      * Flag to disable the MQTT transport. (default is false).
      */
-    disabled: false
+    disabled: false,
+
+    /**
+     * Maximum number of topics per SUBSCRIBE packet. (default is null; no batching — all topics sent at once)
+     * Useful for AWS IoT Core, which enforces a limit of 8 topics per SUBSCRIBE packet.
+     * When set to a number, the IOTA automatically splits subscriptions into multiple packets of this size.
+     */
+    subscribeBatchSize: null
 };
 
 /**
