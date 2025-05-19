@@ -351,6 +351,42 @@ describe('HTTP: Commands with extra headers', function () {
     });
 });
 
+describe('HTTP: Commands with extra headers in a bad format', function () {
+    beforeEach(function (done) {
+        config.logLevel = 'INFO';
+        nock.cleanAll();
+        iotagentMqtt.start(config, function () {
+            done();
+        });
+    });
+
+    afterEach(function (done) {
+        nock.cleanAll();
+        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
+    });
+
+    describe('When a POST of a wrong headers format device  arrives', function () {
+        const provisionOptions = {
+            url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
+            method: 'POST',
+            json: utils.readExampleFile('./test/deviceProvisioning/provisionCommandHTTP4.json'),
+            headers: {
+                'fiware-service': 'smartgondor',
+                'fiware-servicepath': '/gardens'
+            }
+        };
+
+        it('should report error in format', function (done) {
+            request(provisionOptions, function (error, result, body) {
+                result.statusCode.should.equal(400);
+                body.name.should.equal('WRONG_SYNTAX');
+                body.message.should.equal('Wrong syntax in request: Errors found validating request.');
+                done();
+            });
+        });
+    });
+});
+
 describe('HTTP: Commands from groups', function () {
     beforeEach(function (done) {
         config.logLevel = 'INFO';
