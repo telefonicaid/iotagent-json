@@ -952,9 +952,27 @@ The following table shows some examples of values the payload takes depending on
 
 _Note that `☐` represents a non-printable character_
 
-Moreover a command could define a `contentType` in their definnition with the aim to set `content-type` header for http
+Moreover a command could define a `contentType` in their definition with the aim to set `content-type` header for http
 transport in command. Default value will be `application/json` but other valids content-type could be: `text/plain`,
 `text/html`, etc
+
+Furthermore a command could define a `headers` object in their definition with the aim to set new custom headers for
+http transport in command, or overwrite current headers (like `fiware-service`, `fiware-servicepath` and `content-type`.
+The `headers` object is a map (dictionary) of HTTP headers, where each entry consists of a header name (key) and its
+associated value, which could be defined using Jexl expression.
+
+And example of command with customer headers using jexl-expressions could be:
+
+```json
+{
+    "name": "reset",
+    "type": "command",
+    "expression": "{ set: id + '_reset_' + reset }",
+    "headers" {
+        "MyCustomHeader": "id + type"
+    }
+}
+```
 
 #### AMQP binding
 

@@ -1,3 +1,5 @@
+- Add: allow define custom headers with jexl expressions in http commands (#873)
+
 3.7.0 (February 3rd, 2025)
 
 - Add: allow MQTT single array measures (#856)
