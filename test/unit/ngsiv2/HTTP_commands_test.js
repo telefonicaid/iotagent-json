@@ -785,7 +785,7 @@ describe('HTTP: Commands from CB notifications', function () {
                 request(optionsMeasure, function (error, result, body) {
                     request(commandOptions, function (error, response, body) {
                         should.not.exist(error);
-                        response.statusCode.should.equal(200);
+                        response.statusCode.should.equal(204);
                         contextBrokerMock.done();
                         done();
                     });
