@@ -1,5 +1,6 @@
-3.8.0 (May 22nd, 2025)
+3.8.0 (May 23rd, 2025)
 
+- Add: allow receive command notifications from CB (iotagent-node-lib#1455)
 - Add: config.mqtt.subscribeBatchSize option (IOTA_MQTT_SUBSCRIBE_BATCH_SIZE) to batch topic subscriptions into multiple SUBSCRIBE packets (#875)
 - Add: allow define custom headers with jexl expressions in http commands (#873)
 - Fix: bad json measures are reported as 500 Error instead of 400 (#863)
