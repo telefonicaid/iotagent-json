@@ -1,1 +1,1 @@
-
+- Upgrade NodeJS version from 16-slim to 16-bullseye-slim in Dockerfile
