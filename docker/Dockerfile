@@ -42,7 +42,7 @@ ARG SOURCE_BRANCH=master
 # --target=builder
 #
 ######################################################################################## 
-FROM node:${NODE_VERSION} AS builder
+FROM node:${NODE_VERSION}-bullseye AS builder
 ARG GITHUB_ACCOUNT
 ARG GITHUB_REPOSITORY
 ARG DOWNLOAD
@@ -109,7 +109,7 @@ RUN \
 # --target=pm2-install
 #
 ########################################################################################
-FROM node:${NODE_VERSION}-slim AS pm2
+FROM node:${NODE_VERSION}-bullseye-slim AS pm2
 ARG GITHUB_ACCOUNT
 ARG GITHUB_REPOSITORY
 ARG NODE_VERSION
@@ -195,7 +195,7 @@ HEALTHCHECK  --interval=30s --timeout=3s --start-period=10s \
 # - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
 #
 ########################################################################################
-FROM node:${NODE_VERSION}-slim AS slim
+FROM node:${NODE_VERSION}-bullseye-slim AS slim
 ARG GITHUB_ACCOUNT
 ARG GITHUB_REPOSITORY
 ARG NODE_VERSION
