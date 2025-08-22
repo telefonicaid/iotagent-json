@@ -595,10 +595,8 @@ describe('HTTP: Measure reception ', function () {
                     should.exist(body.devices[1].lastMeasure);
                     should.exist(body.devices[1].lastMeasure.measure);
                     should.exist(body.devices[1].lastMeasure.timestamp);
-                    body.devices[1].lastMeasure.measure[0][0].name.should.equal('humidity');
-                    body.devices[1].lastMeasure.measure[0][0].value.should.equal('32');
-                    body.devices[1].lastMeasure.measure[0][1].name.should.equal('temperature');
-                    body.devices[1].lastMeasure.measure[0][1].value.should.equal('87');
+                    body.devices[1].lastMeasure.measure[0]['humidity'].should.equal('32');
+                    body.devices[1].lastMeasure.measure[0]['temperature'].should.equal('87');
                     done();
                 });
             });
