@@ -154,6 +154,8 @@ RUN sed -i -r "/^(root|nobody)/!d" /etc/passwd /etc/shadow /etc/group \
 # - IOTA_AUTH_USER, IOTA_AUTH_PASSWORD - when using Keystone Security 
 # - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
 #
+# FIXME: distroless stuff disabled. See https://github.com/telefonicaid/iotagent-json/issues/891
+#
 ########################################################################################
 #FROM gcr.io/distroless/nodejs:${NODE_VERSION} AS distroless
 #ARG GITHUB_ACCOUNT
