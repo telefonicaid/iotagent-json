@@ -1,1 +1,2 @@
+- Upgrade NodeJS version from 16-bullseye-slim to 24-bullseye-slim in Dockerfile
 - Set Nodejs 20 as minimum version in packages.json (effectively removing Nodev16 and Nodev18 from supported versions)
