@@ -30,6 +30,6 @@
 
 docker image push $IMAGE_NAME-pm2 
 
-docker image push $IMAGE_NAME-distroless
+#docker image push $IMAGE_NAME-distroless
 
 
