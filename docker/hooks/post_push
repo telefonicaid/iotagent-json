@@ -30,6 +30,7 @@
 
 docker image push $IMAGE_NAME-pm2 
 
-docker image push $IMAGE_NAME-distroless
+# FIXME: distroless stuff disabled. See https://github.com/telefonicaid/iotagent-json/issues/891
+#docker image push $IMAGE_NAME-distroless
 
 
