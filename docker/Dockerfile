@@ -155,7 +155,7 @@ RUN sed -i -r "/^(root|nobody)/!d" /etc/passwd /etc/shadow /etc/group \
 # - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
 #
 ########################################################################################
-# hadolint ignore=DL3007
+# hadolint ignore=DL3006,DL3007
 FROM gcr.io/distroless/nodejs${NODE_VERSION}-debian12 AS distroless
 ARG GITHUB_ACCOUNT
 ARG GITHUB_REPOSITORY
