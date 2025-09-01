@@ -154,35 +154,33 @@ RUN sed -i -r "/^(root|nobody)/!d" /etc/passwd /etc/shadow /etc/group \
 # - IOTA_AUTH_USER, IOTA_AUTH_PASSWORD - when using Keystone Security 
 # - IOTA_AUTH_CLIENT_ID, IOTA_AUTH_CLIENT_SECRET - when using OAuth2 Security
 #
-# FIXME: distroless stuff disabled. See https://github.com/telefonicaid/iotagent-json/issues/891
-#
 ########################################################################################
-#FROM gcr.io/distroless/nodejs:${NODE_VERSION} AS distroless
-#ARG GITHUB_ACCOUNT
-#ARG GITHUB_REPOSITORY
-#ARG NODE_VERSION
-#
-#LABEL "maintainer"="FIWARE IoTAgent Team. Telefónica I+D"
-#LABEL "org.opencontainers.image.authors"="iot_support@tid.es"
-#LABEL "org.opencontainers.image.documentation"="https://fiware-iotagent-json.rtfd.io/"
-#LABEL "org.opencontainers.image.vendor"="Telefónica Investigación y Desarrollo, S.A.U"
-#LABEL "org.opencontainers.image.licenses"="AGPL-3.0-only"
-#LABEL "org.opencontainers.image.title"="IoT Agent for the JSON protocol (Distroless)"
-#LABEL "org.opencontainers.image.description"="An Internet of Things Agent for the JSON protocol (with AMQP, HTTP and MQTT transports). This IoT Agent is designed to be a bridge between Ultralight and the NGSI interface of a context broker."
-#LABEL "org.opencontainers.image.source"="https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}"
-#LABEL "org.nodejs.version"="${NODE_VERSION}"
-#
-#COPY --from=builder /opt/iotagent-json /opt/iotagent-json
-#COPY --from=anon-user /etc/passwd /etc/shadow /etc/group /etc/
-#WORKDIR /opt/iotagent-json
-#
-#USER nobody
-#ENV NODE_ENV=production
-## Expose 4041 for NORTH PORT, 7896 for HTTP PORT
-#EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
-#CMD ["./bin/iotagent-json", "-- ", "config.js"]
-#HEALTHCHECK  --interval=30s --timeout=3s --start-period=10s \
-#  CMD ["/nodejs/bin/node", "./bin/healthcheck"]
+FROM gcr.io/distroless/nodejs${NODE_VERSION}-debian12 AS distroless
+ARG GITHUB_ACCOUNT
+ARG GITHUB_REPOSITORY
+ARG NODE_VERSION
+
+LABEL "maintainer"="FIWARE IoTAgent Team. Telefónica I+D"
+LABEL "org.opencontainers.image.authors"="iot_support@tid.es"
+LABEL "org.opencontainers.image.documentation"="https://fiware-iotagent-json.rtfd.io/"
+LABEL "org.opencontainers.image.vendor"="Telefónica Investigación y Desarrollo, S.A.U"
+LABEL "org.opencontainers.image.licenses"="AGPL-3.0-only"
+LABEL "org.opencontainers.image.title"="IoT Agent for the JSON protocol (Distroless)"
+LABEL "org.opencontainers.image.description"="An Internet of Things Agent for the JSON protocol (with AMQP, HTTP and MQTT transports). This IoT Agent is designed to be a bridge between Ultralight and the NGSI interface of a context broker."
+LABEL "org.opencontainers.image.source"="https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}"
+LABEL "org.nodejs.version"="${NODE_VERSION}"
+
+COPY --from=builder /opt/iotagent-json /opt/iotagent-json
+COPY --from=anon-user /etc/passwd /etc/shadow /etc/group /etc/
+WORKDIR /opt/iotagent-json
+
+USER nobody
+ENV NODE_ENV=production
+# Expose 4041 for NORTH PORT, 7896 for HTTP PORT
+EXPOSE ${IOTA_NORTH_PORT:-4041} ${IOTA_HTTP_PORT:-7896}
+CMD ["./bin/iotagent-json", "-- ", "config.js"]
+HEALTHCHECK  --interval=30s --timeout=3s --start-period=10s \
+  CMD ["/nodejs/bin/node", "./bin/healthcheck"]
 
 
 ########################################################################################
