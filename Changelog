@@ -1,3 +1,9 @@
+3.10.0 (Oct 3rd, 2025)
+
+- Set Nodejs 20 as minimum version in packages.json (effectively removing Nodev16 and Nodev18 from supported versions)
+- Upgrade NodeJS version from 16-bullseye-slim to 24-bullseye-slim in Dockerfile
+- Upgrade iotagent-node-lib dependency from 4.9.0 to 4.10.0
+
 3.9.0 (Aug 22nd, 2025)
 
 - Fix: init express trust proxy to proper fill from field of domain logger
