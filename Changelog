@@ -1,3 +1,8 @@
+3.11.0 (Oct 23rd, 2025)
+
+- Fix: receive and store cmd notification when command mode is notification
+- Upgrade iotagent-node-lib dependency from 4.10.0 to 4.11.0
+
 3.10.0 (Oct 6th, 2025)
 
 - Set Nodejs 20 as minimum version in packages.json (effectively removing Nodev16 and Nodev18 from supported versions)
