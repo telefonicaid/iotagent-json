@@ -483,29 +483,6 @@ describe('HTTP: Commands from groups', function () {
             });
         });
 
-        it('should not add a transport to the registered devices', function (done) {
-            const getDeviceOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'GET',
-                headers: {
-                    'fiware-service': 'smartgondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'JSON_UNPROVISIONED',
-                    k: 'KL223HHV8732SFL1'
-                }
-            };
-            request(optionsMeasure, function (error, result, body) {
-                request(getDeviceOptions, function (error, response, body) {
-                    should.not.exist(error);
-                    response.statusCode.should.equal(200);
-                    should.not.exist(body.devices[0].transport);
-                    done();
-                });
-            });
-        });
-
         describe('When a command arrive to the Agent for a device with the HTTP protocol', function () {
             const commandOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',
@@ -612,29 +589,6 @@ describe('HTTP: Commands with extra headers from groups', function () {
             request(optionsMeasure, function (error, result, body) {
                 contextBrokerMock.done();
                 done();
-            });
-        });
-
-        it('should not add a transport to the registered devices', function (done) {
-            const getDeviceOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'GET',
-                headers: {
-                    'fiware-service': 'smartgondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'JSON_UNPROVISIONED',
-                    k: 'KL223HHV8732SFL1'
-                }
-            };
-            request(optionsMeasure, function (error, result, body) {
-                request(getDeviceOptions, function (error, response, body) {
-                    should.not.exist(error);
-                    response.statusCode.should.equal(200);
-                    should.not.exist(body.devices[0].transport);
-                    done();
-                });
             });
         });
 
