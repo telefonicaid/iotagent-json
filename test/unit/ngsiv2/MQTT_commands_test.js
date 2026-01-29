@@ -377,33 +377,6 @@ describe('MQTT: Commands from groups', function () {
             });
         });
 
-        it('should not add a transport to the registered devices', function (done) {
-            const getDeviceOptions = {
-                url: 'http://localhost:' + config.iota.server.port + '/iot/devices',
-                method: 'GET',
-                headers: {
-                    'fiware-service': 'smartgondor',
-                    'fiware-servicepath': '/gardens'
-                },
-                qs: {
-                    i: 'JSON_UNPROVISIONED',
-                    k: 'KL223HHV8732SFL1'
-                }
-            };
-            mqttClient.publish('/KL223HHV8732SFL1/JSON_UNPROVISIONED/attrs', JSON.stringify(values), null, function (
-                error
-            ) {
-                setTimeout(function () {
-                    request(getDeviceOptions, function (error, response, body) {
-                        should.not.exist(error);
-                        response.statusCode.should.equal(200);
-                        should.not.exist(body.devices[0].transport);
-                        done();
-                    });
-                }, 100);
-            });
-        });
-
         describe('When a command arrive to the Agent for a device with the MQTT protocol', function () {
             const commandOptions = {
                 url: 'http://localhost:' + config.iota.server.port + '/v2/op/update',

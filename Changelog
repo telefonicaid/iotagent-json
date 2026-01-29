@@ -1,3 +1,26 @@
+3.12.0 (Jan 28th, 2025)
+
+- Upgrade iotagent-node-lib dependency from 4.11.0 to 4.12.0
+
+3.11.0 (Oct 23rd, 2025)
+
+- Fix: receive and store cmd notification when command mode is notification
+- Upgrade iotagent-node-lib dependency from 4.10.0 to 4.11.0
+
+3.10.0 (Oct 6th, 2025)
+
+- Set Nodejs 20 as minimum version in packages.json (effectively removing Nodev16 and Nodev18 from supported versions)
+- Upgrade NodeJS version from 16-bullseye-slim to 24-bullseye-slim in Dockerfile
+- Upgrade iotagent-node-lib dependency from 4.9.0 to 4.10.0
+
+3.9.0 (Aug 22nd, 2025)
+
+- Fix: init express trust proxy to proper fill from field of domain logger
+- Fix: fill from log field with real IP
+- Fix: store as lastMeasure just orignal measure when is provided (iota-node-lib#1669)
+- Upgrade NodeJS version from 16-slim to 16-bullseye-slim in Dockerfile
+- Upgrade iotagent-node-lib dependency from 4.8.0 to 4.9.0
+
 3.8.0 (May 23rd, 2025)
 
 - Add: allow receive command notifications from CB (iotagent-node-lib#1455)
@@ -6,7 +29,7 @@
 - Fix: bad json measures are reported as 500 Error instead of 400 (#863)
 - Fix: Subscription fails on AWS IoT Core broker (#875)
 - Upgrade mqtt from 4.3.7 to 5.13.0
-- Upgrade iotagent-node-lib dependency from 4.6.0 to 4.7.0
+- Upgrade iotagent-node-lib dependency from 4.7.0 to 4.8.0
 
 3.7.0 (February 3rd, 2025)
 
