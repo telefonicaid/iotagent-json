@@ -1004,6 +1004,27 @@ The payload is the same as for the other bindings.
 The IoTA may perform some ad-hoc conversion for specific types of values, in order to minimize the parsing logic in the
 device. This section lists those conversions.
 
+### Enabling custom Jexl Transformations
+
+'IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH' environment variable allows users to extend the JEXL parser with custom extra
+transformations. It must point to a Node.js module exporting a jexlTransformations object whose values are functions.
+These transformations are loaded at startup and merged with the built-in transformations (built-ins take precedence in
+case of name conflicts).
+
+Example:
+
+Setting IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH=/opt/iotagent/customJexl.js will load the following file:
+
+```js
+module.exports = {
+    extraJexlTransformations: {
+        customsubstr: (value, start, length) => String(value).substr(start, length),
+    },
+};
+```
+
+The customsubstr transformation can then be used inside JEXL expressions.
+
 ## Development documentation
 
 ### Contributions
