@@ -1,2 +1,3 @@
-- Add IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH to enable custom jexl tranformations (#906)
+- Add: IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH / config.extraJexlTransformationsPath to enable custom jexl tranformations (#906)
+- Remove: config.jexlTransformations (replaced by new IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH / config.extraJexlTransformationsPath)
 
