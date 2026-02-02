@@ -68,7 +68,7 @@
     "body-parser-xml": "2.0.5",
     "dateformat": "3.0.3",
     "express": "4.21.2",
-    "iotagent-node-lib": "4.12.0",
+    "iotagent-node-lib": "4.13.0",
     "logops": "2.1.2",
     "mqtt": "5.13.0",
     "sinon": "~6.1.0",
