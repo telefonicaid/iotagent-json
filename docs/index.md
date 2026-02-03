@@ -1,7 +1,7 @@
 # Welcome to the FIWARE IoT Agent for JSON
 
-[![FIWARE IoT Agents](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
-[![](https://nexus.lab.fiware.org/repository/raw/public/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
+[![FIWARE IoT Agents](https://fiware.github.io/catalogue/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
+[![](https://fiware.github.io/catalogue/badges/stackoverflow/iot-agents.svg)](https://stackoverflow.com/questions/tagged/fiware+iot)
 
 This Internet of Things Agent is a bridge that can be used to communicate devices using a simple JSON protocol and NGSI
 Context Brokers (like [Orion](https://github.com/Fiware/context.Orion)). This protocol is based on simple single level
