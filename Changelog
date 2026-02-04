@@ -1,4 +1,4 @@
-3.13.0 (Feb 2nd, 2026)
+3.13.0 (Feb 4th, 2026)
 
 - Add: IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH / config.extraJexlTransformationsPath to enable custom jexl tranformations (#906)
 - Remove: config.jexlTransformations (replaced by new IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH / config.extraJexlTransformationsPath)
