@@ -1043,7 +1043,7 @@ module.exports = extraJexlTransformations;
 
 will procude this log at startup
 
-> time=2026-02-03T09:14:27.302Z | lvl=INFO | corr=6350789e-522f-4886-a80b-b402fd0711b3 | trans=6350789e-522f-4886-a80b-b402fd0711b3 | op=IoTAgentNGSI.JEXL | from=n/a | srv=n/a | subsrv=n/a | msg=badTransform1,badTransform2,badTransform3,badTransform4,badTransform5 must be a function | comp=IoTAgent
+> time=2026-02-03T09:14:27.302Z | lvl=WARN| corr=6350789e-522f-4886-a80b-b402fd0711b3 | trans=6350789e-522f-4886-a80b-b402fd0711b3 | op=IoTAgentNGSI.JEXL | from=n/a | srv=n/a | subsrv=n/a | msg=badTransform1,badTransform2,badTransform3,badTransform4,badTransform5 must be a function | comp=IoTAgent
 
 In the case of severe error with the file (i.e. a syntax error in the JavaScript code or not a JavaScript file at all) it is also logged in traces, but IOTA JSON starts and works as expected. For instance:
 
