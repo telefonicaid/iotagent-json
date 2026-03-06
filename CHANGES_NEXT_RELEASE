@@ -1,2 +1,3 @@
 - Upgrade express dep from 4.21.2 to 4.22.1
 - Upgrade underscore dep from 1.12.1 to 1.13.8 due to CVE-2026-27601
+- Upgrade markdown dep from 3.3.4 to 3.8.1 
