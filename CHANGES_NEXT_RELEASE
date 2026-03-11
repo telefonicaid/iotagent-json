@@ -1,0 +1,2 @@
+- ADD: propagate mqtt config to iota node lib
+- FIX: callbacks in bindings to allow set READY metric (#1763)
