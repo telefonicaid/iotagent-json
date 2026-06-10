@@ -204,6 +204,94 @@ Once your devices are fully switched over:
 -   Monitor for errors or missing data.
 
 ---
+---
+
+## 🔁 9. Alternative Migration Strategy: UL Payload + JEXL Transformation
+
+If modifying devices to send JSON is not feasible, you can adopt an intermediate approach:
+
+➡️ Send the **Ultralight payload as a raw string** to a JSON attribute, and  
+➡️ Use **JEXL expressions** in the IoTAgent-JSON mappings to parse and extract values.
+
+---
+
+### ✅ Step 1: Send UL Payload as a JSON Attribute
+
+Instead of converting the payload in the device, send it unchanged as a string:
+
+```bash
+POST 'http://localhost:7897/iot/json/attrs/tramaUL?i=disp2&k=APIKEY1' \
+  -H 'Content-Type: application/json' \
+  -d '"t|23|h|45"'
+```
+📌 This stores the full UL message in the attribute tramaUL.
+
+### ✅ Step 2: Configure JEXL Transformations
+
+Define attribute mappings in IoTAgent-JSON using JEXL expressions to extract values from tramaUL.
+Example mapping for temperature (t):
+
+```
+{
+  "name": "t",
+  "type": "Number",
+  "expression": "tramaUL | substr(tramaUL | indexOf('t|') + 2, tramaUL | indexOf('|h') - 2)"
+}
+```
+🔎 Explanation:
+
+    indexOf('t|') + 2 → start of value
+    indexOf('|h') → end delimiter
+    substr(...) → extracts "23"
+
+Result in Orion:
+```
+"t": {
+  "type": "Number",
+  "value": 23
+}
+```
+### ✅ Step 3: Apply the Same Logic for Other Attributes
+Example mapping for humidity (h):
+
+```
+{
+  "name": "h",
+  "type": "Number",
+  "expression": "tramaUL | substr(tramaUL | indexOf('h|') + 2)"
+}
+```
+
+Result in Orion: 
+```
+"h": {
+  "type": "Number",
+  "value": 45
+}
+```
+### ⚠️ Considerations
+
+    This approach avoids modifying device firmware, ideal for legacy deployments.
+    String parsing via JEXL can become complex for larger payloads.
+    Performance may be impacted if expressions are very heavy.
+    Ensure delimiters (|) and attribute identifiers (t, h) are consistent.
+
+### 🧠 When to Use This Approach
+
+✔️ Devices cannot be updated
+✔️ Quick migration needed
+✔️ UL format is simple and stable
+
+### 🚫 Avoid if:
+
+    Payload format changes frequently
+    Many attributes with complex parsing are required
+
+### 💡 Recommendation
+
+Use this method as a transitional strategy, and plan to eventually move to native JSON payloads for better scalability and maintainability.
+
+---
 
 ## 📚 Resources
 
