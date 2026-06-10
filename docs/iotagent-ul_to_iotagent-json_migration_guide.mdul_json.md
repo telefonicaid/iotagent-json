@@ -222,12 +222,13 @@ POST 'http://localhost:7897/iot/json/attrs/tramaUL?i=disp2&k=APIKEY' \
   -H 'Content-Type: application/json' \
   -d '"t|23|h|45"'
 ```
+
 📌 This stores the full UL message in the attribute tramaUL.
 
 ### ✅ Step 2: Configure JEXL Transformations
 
-Define attribute mappings in IoTAgent-JSON using JEXL expressions to extract values from tramaUL.
-Example mapping for temperature (t):
+Define attribute mappings in IoTAgent-JSON using JEXL expressions to extract values from tramaUL. Example mapping for
+temperature (t):
 
 ```
 {
@@ -236,6 +237,7 @@ Example mapping for temperature (t):
   "expression": "tramaUL | substr(tramaUL | indexOf('t|') + 2, tramaUL | indexOf('|h') - 2)"
 }
 ```
+
 🔎 Explanation:
 
     indexOf('t|') + 2 → start of value
@@ -243,13 +245,16 @@ Example mapping for temperature (t):
     substr(...) → extracts "23"
 
 Result in Orion:
+
 ```
 "temperature": {
   "type": "Number",
   "value": 23
 }
 ```
+
 ### ✅ Step 3: Apply the Same Logic for Other Attributes
+
 Example mapping for humidity (h):
 
 ```
@@ -260,34 +265,37 @@ Example mapping for humidity (h):
 }
 ```
 
-Result in Orion: 
+Result in Orion:
+
 ```
 "humidity": {
   "type": "Number",
   "value": 45
 }
 ```
+
 ### ⚠️ Considerations
 
-  - This approach avoids modifying device firmware, ideal for legacy deployments.
-  - String parsing via JEXL can become complex for larger payloads.
-  - Performance may be impacted if expressions are very heavy.
-  - Ensure delimiters (|) and attribute identifiers (t, h) are consistent.
+-   This approach avoids modifying device firmware, ideal for legacy deployments.
+-   String parsing via JEXL can become complex for larger payloads.
+-   Performance may be impacted if expressions are very heavy.
+-   Ensure delimiters (|) and attribute identifiers (t, h) are consistent.
 
 ### 🧠 When to Use This Approach
 
- - Devices cannot be updated
- - Quick migration needed
- - UL format is simple and stable
+-   Devices cannot be updated
+-   Quick migration needed
+-   UL format is simple and stable
 
 ### 🚫 Avoid if:
 
-  - Payload format changes frequently
-  - Many attributes with complex parsing are required
+-   Payload format changes frequently
+-   Many attributes with complex parsing are required
 
 ### 💡 Recommendation
 
-Use this method as a transitional strategy, and plan to eventually move to native JSON payloads for better scalability and maintainability.
+Use this method as a transitional strategy, and plan to eventually move to native JSON payloads for better scalability
+and maintainability.
 
 ---
 
