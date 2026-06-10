@@ -163,7 +163,6 @@ iotagent-json:
         - IOTA_MONGO_DB=iotagentjson
         - IOTA_DEFAULT_RESOURCE=/iot/json
         - IOTA_TIMESTAMP=true
-        - IOTA_AUTOCAST=true
 ```
 
 ---
@@ -219,7 +218,7 @@ If modifying devices to send JSON is not feasible, you can adopt an intermediate
 Instead of converting the payload in the device, send it unchanged as a string:
 
 ```bash
-POST 'http://localhost:7897/iot/json/attrs/tramaUL?i=disp2&k=APIKEY1' \
+POST 'http://localhost:7897/iot/json/attrs/tramaUL?i=disp2&k=APIKEY' \
   -H 'Content-Type: application/json' \
   -d '"t|23|h|45"'
 ```
@@ -232,7 +231,7 @@ Example mapping for temperature (t):
 
 ```
 {
-  "name": "t",
+  "name": "temperature",
   "type": "Number",
   "expression": "tramaUL | substr(tramaUL | indexOf('t|') + 2, tramaUL | indexOf('|h') - 2)"
 }
@@ -245,7 +244,7 @@ Example mapping for temperature (t):
 
 Result in Orion:
 ```
-"t": {
+"temperature": {
   "type": "Number",
   "value": 23
 }
@@ -255,7 +254,7 @@ Example mapping for humidity (h):
 
 ```
 {
-  "name": "h",
+  "name": "humidity",
   "type": "Number",
   "expression": "tramaUL | substr(tramaUL | indexOf('h|') + 2)"
 }
@@ -263,7 +262,7 @@ Example mapping for humidity (h):
 
 Result in Orion: 
 ```
-"h": {
+"humidity": {
   "type": "Number",
   "value": 45
 }
