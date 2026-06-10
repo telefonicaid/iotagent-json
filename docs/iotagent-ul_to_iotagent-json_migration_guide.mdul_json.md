@@ -204,7 +204,6 @@ Once your devices are fully switched over:
 -   Monitor for errors or missing data.
 
 ---
----
 
 ## 🔁 9. Alternative Migration Strategy: UL Payload + JEXL Transformation
 
@@ -271,10 +270,10 @@ Result in Orion:
 ```
 ### ⚠️ Considerations
 
-    This approach avoids modifying device firmware, ideal for legacy deployments.
-    String parsing via JEXL can become complex for larger payloads.
-    Performance may be impacted if expressions are very heavy.
-    Ensure delimiters (|) and attribute identifiers (t, h) are consistent.
+  - This approach avoids modifying device firmware, ideal for legacy deployments.
+  - String parsing via JEXL can become complex for larger payloads.
+  - Performance may be impacted if expressions are very heavy.
+  - Ensure delimiters (|) and attribute identifiers (t, h) are consistent.
 
 ### 🧠 When to Use This Approach
 
@@ -284,8 +283,8 @@ Result in Orion:
 
 ### 🚫 Avoid if:
 
-    Payload format changes frequently
-    Many attributes with complex parsing are required
+  - Payload format changes frequently
+  - Many attributes with complex parsing are required
 
 ### 💡 Recommendation
 
