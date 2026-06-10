@@ -277,9 +277,9 @@ Result in Orion:
 
 ### 🧠 When to Use This Approach
 
-✔️ Devices cannot be updated
-✔️ Quick migration needed
-✔️ UL format is simple and stable
+ - Devices cannot be updated
+ - Quick migration needed
+ - UL format is simple and stable
 
 ### 🚫 Avoid if:
 
