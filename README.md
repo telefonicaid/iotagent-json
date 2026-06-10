@@ -1,6 +1,6 @@
 # FIWARE IoT Agent for a JSON-based Protocol
 
-[![FIWARE IoT Agents](https://nexus.lab.fiware.org/static/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
+[![FIWARE IoT Agents](https://fiware.github.io/catalogue/badges/chapters/iot-agents.svg)](https://www.fiware.org/developers/catalogue/)
 [![License: APGL](https://img.shields.io/github/license/telefonicaid/iotagent-json.svg)](https://opensource.org/licenses/AGPL-3.0)
 [![Support badge](https://img.shields.io/badge/tag-fiware+iot-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware+iot)
 <br/>
@@ -10,7 +10,7 @@
 [![Documentation badge](https://img.shields.io/readthedocs/fiware-iotagent-json.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/?badge=latest)
 [![CI](https://github.com/telefonicaid/iotagent-json/workflows/CI/badge.svg)](https://github.com/telefonicaid/iotagent-json/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/telefonicaid/iotagent-json/badge.svg?branch=master)](https://coveralls.io/github/telefonicaid/iotagent-json?branch=master)
-![Status](https://nexus.lab.fiware.org/static/badges/statuses/iot-json.svg)
+![Status](https://fiware.github.io/catalogue/badges/statuses/status-full.svg)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4695/badge)](https://bestpractices.coreinfrastructure.org/projects/4695)
 
 An Internet of Things Agent for a JSON based protocol (with [AMQP](https://www.amqp.org/),

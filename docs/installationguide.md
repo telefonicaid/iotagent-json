@@ -102,6 +102,8 @@ There are also some global configuration options:
 -   **config.defaultTransport**: code of the MQTT transport that will be used to resolve incoming commands and lazy
     attributes in case a transport protocol could not be inferred for the device.
 -   **compressTimestamp**: this flag enables the timestamp compression mechanism, described in the User Manual.
+-   **config.jexlTransformations**: allows users to extend the JEXL parser with custom extra transformations.
+    It must point to a Node.js module exporting a jexlTransformations object whose values are functions.
 
 #### MQTT configuration
 
@@ -183,6 +185,7 @@ The ones relating global configuration described in the following table.
 | IOTA_CONFIG_RETRIEVAL  | configRetrieval         |
 | IOTA_DEFAULT_KEY       | defaultKey              |
 | IOTA_DEFAULT_TRANSPORT | defaultTransport        |
+| IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH | jexlTransformations |
 
 The ones relating specific JSON bindings are described in the following table.
 
