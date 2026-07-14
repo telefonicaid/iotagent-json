@@ -318,7 +318,6 @@ and maintainability.
 ## 📞 Need Help?
 
 Post issues at
-[https://github.com/telefonicaid/iotagent-json/issues](https://github.com/telefonicaid/iotagent-json/issues) or ask in
-the [FIWARE Forum](https://fiware.discourse.group/).
+[https://github.com/telefonicaid/iotagent-json/issues](https://github.com/telefonicaid/iotagent-json/issues).
 
 ---
