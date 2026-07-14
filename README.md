@@ -35,6 +35,7 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 -   [Background](#background)
 -   [Install](#install)
 -   [Usage](#usage)
+-   [Migration from UL TO JSON l](./docs/iotagent-ul_to_iotagent-json_migration_guide.mdul_json.md).
 -   [API](#api)
 -   [Contributing](#contributing)
 -   [Testing](#testing)
