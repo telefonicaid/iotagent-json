@@ -1,0 +1,8 @@
+{
+  "id":"light1",
+  "type":"Light",    
+  "consumption": {
+    "type": "Number",
+    "value": 0.44
+  }
+}

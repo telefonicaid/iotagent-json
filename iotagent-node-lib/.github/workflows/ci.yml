@@ -1,0 +1,144 @@
+name: CI
+'on':
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  lint-markdown:
+    name: Lint Markdown
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - name: Run Remark Markdown Linter
+        run: |
+          npm install
+          npm run lint:md
+      - name: Run Textlint Markdown Linter
+        run: npm run lint:text
+
+  lint-code:
+    name: Lint JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - name: Run EsLint Node.js Linter
+        run: |
+          npm install
+          npm run lint
+
+  unit-test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:8.0
+        ports:
+        - 27017:27017
+    strategy:
+      matrix:
+        node-version:
+          - 20.x
+          - 22.x
+          - 24.x
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+      - name: 'Install Node.js ${{ matrix.node-version }}'
+        uses: actions/setup-node@v1
+        with:
+          node-version: '${{ matrix.node-version }}'
+      - name: 'Unit and Functional Tests with Node.js ${{ matrix.node-version }}'
+        run: |
+          npm install
+          npm test
+
+  coverage:
+    name: Coveralls Code Coverage
+    runs-on: ubuntu-latest
+    needs: unit-test
+    services:
+      mongodb:
+        image: mongo:8.0
+        ports:
+        - 27017:27017
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+      - name: 'Test Coverage with Node.js 24.x'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - run: |
+          npm install
+          npm run test:coverage
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+
+      - name: Push to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  dispatch:
+    needs: unit-test
+    if: ${{ github.ref == 'refs/heads/master'  && github.event_name == 'push' }}
+    strategy:
+      matrix:
+        repo: ['telefonicaid/iotagent-ul', 'telefonicaid/sigfox-iotagent', 'telefonicaid/iotagent-json', 'telefonicaid/lightweightm2m-iotagent', 'telefonicaid/iotagent-manager']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: ${{ matrix.repo }}
+          event-type: lib-update
+
+
+  sonar:
+    name: Build and analyze
+    needs: coverage
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage
+          path: coverage
+
+      - uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      # If you wish to fail your job when the Quality Gate is red, uncomment the
+      # following lines. This would typically be used to fail a deployment.
+      # We do not recommend to use this in a pull request. Prefer using pull request
+      # decoration instead.
+      # - uses: SonarSource/sonarqube-quality-gate-action@v1
+      #   timeout-minutes: 5
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
