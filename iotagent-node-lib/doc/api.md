@@ -2033,7 +2033,7 @@ the API resource fields and the same fields in the database model.
 | `timestamp`           | ✓        | `string`  |            | Flag about whether or not to add the `TimeInstant` attribute to the device entity created, as well as a `TimeInstant` metadata to each attribute, with the current server timestamp or provided `TimeInstant` as measure when follows ISO 8601 format (see [timestamp processing](#timestamp-processing) section for aditional detail). With NGSI-LD, the Standard `observedAt` property-of-a-property is created instead. |
 | `apikey`              | ✓        | `string`  |            | Apikey key string to use instead of group apikey                                                                                                                                                                                                                                                                                                                                                                           |
 | `endpoint`            | ✓        | `string`  |            | Endpoint where the device is going to receive commands, if any.                                                                                                                                                                                                                                                                                                                                                            |
-| `protocol`            | ✓        | `string`  |            | Pame of the device protocol, for its use with an IoT Manager                                                                                                                                                                                                                                                                                                                                                               |
+| `protocol`            | ✓        | `string`  |            | Name of the device protocol                                                                                                                                                                                                                                                                                                                                                                                                |
 | `transport`           | ✓        | `string`  |            | Transport protocol used by the device to send updates, for the IoT Agents with multiple transport protocols.                                                                                                                                                                                                                                                                                                               |
 | `attributes`          | ✓        | `array`   |            | List of attributes that will be stored in the Context Broker.                                                                                                                                                                                                                                                                                                                                                              |
 | `commands`            | ✓        | `array`   |            | List of commands that will be stored in the Context Broker.                                                                                                                                                                                                                                                                                                                                                                |
@@ -2395,12 +2395,12 @@ Example:
 
 Returns a useful information about component version and deployment information. It can be used as a heartbeat operation
 to check the health of the IoT Agent if required since includes a health-check system for some dependencies: the Context
-Broker, the IoT Agent Manager, MongoDB, and the MQTT broker. Each dependency is checked using the most appropriate
-mechanism (HTTP requests for the Context Broker and IoT Agent Manager, a native database ping via Mongoose for MongoDB,
-and a real connection handshake for MQTT). The checks run at a configurable interval, use short timeouts, and tolerate
-transient errors by requiring several consecutive failures before marking a dependency as DOWN. Results are cached in
-memory and exposed through the /iot/about endpoint, providing real-time visibility into both configuration status and
-runtime connectivity without impacting normal agent operation.
+Broker, MongoDB, and the MQTT broker. Each dependency is checked using the most appropriate mechanism (HTTP requests for
+the Context Broker, a native database ping via Mongoose for MongoDB, and a real connection handshake for MQTT). The
+checks run at a configurable interval, use short timeouts, and tolerate transient errors by requiring several
+consecutive failures before marking a dependency as DOWN. Results are cached in memory and exposed through the
+/iot/about endpoint, providing real-time visibility into both configuration status and runtime connectivity without
+impacting normal agent operation.
 
 _**Response payload**_
 
@@ -2430,9 +2430,6 @@ Example:
            "latencyMs":7,
            "consecutiveFails":0
         },
-        "iotagentManager":{
-           ...
-        }
         "mongodb":{
            ...
         },
@@ -2494,7 +2491,7 @@ updateEntityRequestsError 5
 # EOF
 ```
 
-Also are included health check metrics for endpoints used by iotagent (CB, IotaM, MongoDb, ..) like:
+Also are included health check metrics for endpoints used by iotagent (CB, MongoDb, ..) like:
 
 ```
 mqttOK true
@@ -2512,11 +2509,6 @@ mongodbLastOK 2026-03-06T07:19:39.922Z
 mongodbLastError null
 mongodbLatencyMs 4
 mongodbConsecutiveFails 0
-iotagentManagerOK true
-iotagentManagerLastOk 2026-03-06T07:19:39.927Z
-iotagentManagerLastError null
-iotagentManagerLatencyMs 10
-iotagentManagerConsecutiveFails 0
 ready 1
 
 ```
@@ -2530,9 +2522,8 @@ telemetry collectors to gather application statistics.
 
 _**Response code**_
 
--   `200` `OK` if iotagent was successful started (specially iotagent-manager registration).
--   `503` `SERVICE UNAVAILABLE` if there was any error when iotagent was startged (i.e. iotagent was not register into
-    iotagent-manager).
+-   `200` `OK` if iotagent was successful started.
+-   `503` `SERVICE UNAVAILABLE` if there was any error when iotagent was started.
 
 _**Response body**_
 

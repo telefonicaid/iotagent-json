@@ -22,7 +22,6 @@
  */
 
 const async = require('async');
-const iotManagerService = require('./../common/iotManagerService');
 const intoTrans = require('../common/domain').intoTrans;
 const apply = async.apply;
 const deviceService = require('../devices/deviceService');
@@ -102,7 +101,6 @@ function createGroup(groupSet, callback) {
         insertedGroups.push(groupSet.services[i]);
     }
 
-    insertions.push(iotManagerService.register);
     async.series(insertions, callback);
 }
 
@@ -131,19 +129,15 @@ function checkServiceIdentity(service, subservice, deviceGroup, callback) {
 }
 
 /**
- * Generates a handler for group management functions that, if the operation went out correctly, calls the
- * IoT Manager registration for group information update.
+ * Generates a handler for group management functions that discards the result of the operation, passing just the
+ * error (if any) to the callback.
  *
  * @return {Function}      A handler for the group related functions.
  */
-function handleWithIotaRegistration(callback) {
+function handleWithoutResult(callback) {
     /* eslint-disable-next-line  no-unused-vars */
     return function (error, objectResult) {
-        if (error) {
-            callback(error);
-        } else {
-            iotManagerService.register(callback);
-        }
+        callback(error || undefined);
     };
 }
 
@@ -194,7 +188,7 @@ function remove(service, subservice, resource, apikey, device, callback) {
             apply(deleteDevices, device, service, subservice),
             config.getGroupRegistry().remove
         ],
-        handleWithIotaRegistration(callback)
+        handleWithoutResult(callback)
     );
 }
 
@@ -220,7 +214,7 @@ function update(service, subservice, resource, apikey, body, callback) {
             extractId,
             config.getGroupRegistry().update
         ],
-        handleWithIotaRegistration(callback)
+        handleWithoutResult(callback)
     );
 }
 

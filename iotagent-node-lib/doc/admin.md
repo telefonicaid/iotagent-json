@@ -8,7 +8,6 @@
         -   [authentication](#authentication)
         -   [deviceRegistry](#deviceregistry)
         -   [mongodb](#mongodb)
-        -   [iotManager](#iotmanager)
         -   [types](#types)
         -   [service](#service)
         -   [subservice](#subservice)
@@ -281,24 +280,6 @@ available in [this reference](http://mongodb.github.io/node-mongodb-native/drive
 }
 ```
 
-#### `iotManager`
-
-This parameter configures all the information needed to register the IoT Agent in the IoTManager. If this section is
-present, the IoTA will try to register to a IoTAM in the `host`, `port` and `path` indicated, with the information
-configured in the object. The IoTAgent URL that will be reported will be the `providedUrl` (described below) with the
-added `agentPath`:
-
-```javascript
-{
-    host: 'mockediotam.com',
-    port: 9876,
-    path: '/protocols',
-    protocol: 'GENERIC_PROTOCOL',
-    description: 'A generic protocol',
-    agentPath: '/iot'
-}
-```
-
 #### `types`
 
 This parameter includes additional groups configuration as described into the
@@ -516,13 +497,6 @@ overrides.
 | IOTA_REGISTRY_TYPE                               | `deviceRegistry.type`               |
 | IOTA_LOG_LEVEL                                   | `logLevel`                          |
 | IOTA_TIMESTAMP                                   | `timestamp`                         |
-| IOTA_IOTAM_URL                                   | `iotManager.url`                    |
-| IOTA_IOTAM_HOST                                  | `iotManager.host`                   |
-| IOTA_IOTAM_PORT                                  | `iotManager.port`                   |
-| IOTA_IOTAM_PATH                                  | `iotManager.path`                   |
-| IOTA_IOTAM_AGENTPATH                             | `iotManager.agentPath`              |
-| IOTA_IOTAM_PROTOCOL                              | `iotManager.protocol`               |
-| IOTA_IOTAM_DESCRIPTION                           | `iotManager.description`            |
 | IOTA_MONGO_URI                                   | `mongodb.uri`                       |
 | IOTA_POLLING_EXPIRATION                          | `pollingExpiration`                 |
 | IOTA_POLLING_DAEMON_FREQ                         | `pollingDaemonFrequency`            |
@@ -566,7 +540,6 @@ composed by a prefix and a number. The following table shows the prefixes used i
 | Prefix             | Type of operation                                          |
 | :----------------- | :--------------------------------------------------------- |
 | `MONGODB`          | Errors related with the MongoDB repository                 |
-| `IOTAM`            | Errors related with the IoTA Manager                       |
 | `KEYSTONE`         | Errors related with trust token retrieval                  |
 | `ORION`            | Errors in Context Broker access                            |
 | `VALIDATION-FATAL` | Errors related with management of the Validation templates |
@@ -580,7 +553,6 @@ composed by a prefix and a number. The following table shows the prefixes used i
 | `MONGODB-002`          | Error found after [%d] attempts: %s                                | Indicates that it was impossible to establish a connection to the MongoDB cluster, even after retrying N times. This could be caused by a connectivity problem with the MongoDB machine, a problem in the MongoDB cluster, or a misconfiguration of the IoTA Manager. Check the conectivity, the state of the MongoDB cluster and the Mongo configuration data.                                                                                                                                                                                                              |
 | `MONGODB-003`          | No host found for MongoDB driver.                                  | This error will thrown if MongoDB is selected as the configured repository for data but some information is missing in the configuration file. Check the configuration file and add all the required information.                                                                                                                                                                                                                                                                                                                                                            |
 | `MONGODB-004`          | MongoDB connection was lost.                                       | Indicates that it was impossible to reestablish the connection with the MongoDB server after retrying N times. This could be caused by a connectivity problem with the MongoDB machine or by changes on the configuration of the MongoDB server done while the IoT Agent was running. This error is only thrown when using a single MongoDB instance or when using sharding but just a single mongos proxy. When using MongoDB instances using replica sets or multiple mongos servers, the IoT Agent will retry connecting forever alternating between the different nodes. |
-| `IOTAM-001`            | Error updating information in the IOTAM. Status Code [%d]          | The IoT Agent could not contact the IoT Agent manager to update its information. This condition may indicate a lack of connectivity between machines or a problem in the IoT Agent Manager. The IoT Agent information in the IoT Agent Manager will be out-of-date until this problem is solved.                                                                                                                                                                                                                                                                             |
 | `KEYSTONE-001`         | Error retrieving token from Keystone: %s                           | There was connection error connecting with Keystone to retrieve a token. This condition may indicate a lack of connectivity between both machines or a problem with Keystone.                                                                                                                                                                                                                                                                                                                                                                                                |
 | `KEYSTONE-002`         | Unexpected status code: %d                                         | There was a problem retrieving a token from keystone that was not caused by connectivity errors. Check the Keystone log for errors and the security configuration in the IoTAgent. This may also be caused by a wrong trust token used by the user.                                                                                                                                                                                                                                                                                                                          |
 | `KEYSTONE-003`         | Token missing in the response headers.                             | Authentication flow worked correctly, but the response headers did not include the expected header `x-subject-token`. Check the Keystone logs and configuration.                                                                                                                                                                                                                                                                                                                                                                                                             |
@@ -601,7 +573,6 @@ with the prefix "Releasing [%s]". These texts appear in the `msg=` field of the 
 | :--------------- | :----------- | :------------------------------------------------------- |
 | `MONGO-ALARM_XX` | **Critical** | Indicates an error in the MongoDB connectivity           |
 | `ORION-ALARM`    | **Critical** | Indicates a persistent error accesing the Context Broker |
-| `IOTAM-ALARM`    | **Critical** | Indicates a persistent error accessing the IoTAM         |
 
 while the 'Severity' criterium is as follows:
 

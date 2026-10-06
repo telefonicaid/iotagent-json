@@ -131,11 +131,6 @@ function processEnvironmentVariables() {
         'IOTA_REGISTRY_TYPE',
         'IOTA_LOG_LEVEL',
         'IOTA_TIMESTAMP',
-        'IOTA_IOTAM_HOST',
-        'IOTA_IOTAM_PORT',
-        'IOTA_IOTAM_PATH',
-        'IOTA_IOTAM_PROTOCOL',
-        'IOTA_IOTAM_DESCRIPTION',
         'IOTA_DEFAULT_RESOURCE',
         'IOTA_EXPLICIT_ATTRS',
         'IOTA_POLLING_EXPIRATION',
@@ -158,15 +153,6 @@ function processEnvironmentVariables() {
         'IOTA_HEALTH_CHECK_TIMEOUT',
         'IOTA_HEALTH_CHECK_DOWN_AFTER_FAILS',
         'IOTA_HEALTH_CHECK_CONSIDER_HTTP_RESPONSE_UP'
-    ];
-    const iotamVariables = [
-        'IOTA_IOTAM_URL',
-        'IOTA_IOTAM_HOST',
-        'IOTA_IOTAM_PORT',
-        'IOTA_IOTAM_PATH',
-        'IOTA_IOTAM_PROTOCOL',
-        'IOTA_IOTAM_DESCRIPTION',
-        'IOTA_IOTAM_AGENTPATH'
     ];
     const mongoVariables = ['IOTA_MONGO_URI'];
     const protectedVariables = [
@@ -360,38 +346,6 @@ function processEnvironmentVariables() {
         config.explicitAttrs = process.env.IOTA_EXPLICIT_ATTRS;
     }
 
-    // IoT Manager Configuration
-    if (anyIsSet(iotamVariables)) {
-        config.iotManager = {};
-    }
-
-    if (process.env.IOTA_IOTAM_URL) {
-        config.iotManager.url = process.env.IOTA_IOTAM_URL;
-    } else if (process.env.IOTA_IOTAM_HOST) {
-        config.iotManager.url = 'http://' + process.env.IOTA_IOTAM_HOST;
-        if (process.env.IOTA_IOTAM_PORT) {
-            config.iotManager.url += ':' + process.env.IOTA_IOTAM_PORT;
-        } else {
-            config.iotManager.url += ':' + config.iotManager.port;
-        }
-    }
-
-    if (process.env.IOTA_IOTAM_PATH) {
-        config.iotManager.path = process.env.IOTA_IOTAM_PATH;
-    }
-
-    if (process.env.IOTA_IOTAM_PROTOCOL) {
-        config.iotManager.protocol = process.env.IOTA_IOTAM_PROTOCOL;
-    }
-
-    if (process.env.IOTA_IOTAM_DESCRIPTION) {
-        config.iotManager.description = process.env.IOTA_IOTAM_DESCRIPTION;
-    }
-
-    if (process.env.IOTA_IOTAM_AGENTPATH) {
-        config.iotManager.agentPath = process.env.IOTA_IOTAM_AGENTPATH;
-    }
-
     // Mongo DB configuration
     if (anyIsSet(mongoVariables)) {
         config.mongodb = {};
@@ -481,6 +435,13 @@ function setConfig(newConfig) {
 
     processEnvironmentVariables();
     logAuthState();
+
+    if (config.iotManager || Object.keys(process.env).some((key) => key.startsWith('IOTA_IOTAM_'))) {
+        logger.warn(
+            'IoT Agent Manager configuration (iotManager section or IOTA_IOTAM_* variables) is no longer supported ' +
+                'and will be ignored'
+        );
+    }
 }
 
 function getConfig() {
@@ -489,7 +450,7 @@ function getConfig() {
 
 function getConfigForTypeInformation() {
     // Just return relevant configuration flags
-    // avoid to include server, authentication, mongodb, orion and iotamanger info
+    // avoid to include server, authentication, mongodb, and orion info
     const conf = {
         timestamp: config.timestamp,
         defaultResource: config.defaultResource,

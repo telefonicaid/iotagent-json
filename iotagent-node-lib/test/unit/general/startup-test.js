@@ -64,7 +64,6 @@ const iotAgentConfig = {
 };
 const iotAgentConfigNoUrl = _.clone(iotAgentConfig);
 const iotAgentConfigNoTypes = _.clone(iotAgentConfig);
-let iotamMock;
 
 describe('Startup tests', function () {
     describe('When the IoT Agent is started without a "providerUrl" config parameter', function () {
@@ -105,20 +104,11 @@ describe('Startup tests', function () {
             process.env.IOTA_REGISTRY_TYPE = 'mongo';
             process.env.IOTA_LOG_LEVEL = 'FATAL';
             process.env.IOTA_TIMESTAMP = true;
-            process.env.IOTA_IOTAM_HOST = 'iotamhost';
-            process.env.IOTA_IOTAM_PORT = '4444';
-            process.env.IOTA_IOTAM_PATH = '/iotampath';
-            process.env.IOTA_IOTAM_PROTOCOL = 'PDI_PROTOCOL';
-            process.env.IOTA_IOTAM_DESCRIPTION = 'The IoTAM Protocol';
             process.env.IOTA_MONGO_URI = 'mongodb://mongohost:5555/themongodb?replicaSet=customReplica';
             process.env.IOTA_DEFAULT_RESOURCE = '/iot/custom';
             process.env.IOTA_HEALTH_CHECK = true;
 
             nock.cleanAll();
-
-            iotamMock = nock('http://iotamhost:4444')
-                .post('/iotampath')
-                .reply(200, utils.readExampleFile('./test/unit/examples/iotamResponses/registrationSuccess.json'));
         });
 
         afterEach(function () {
@@ -130,11 +120,6 @@ describe('Startup tests', function () {
             delete process.env.IOTA_REGISTRY_TYPE;
             delete process.env.IOTA_LOG_LEVEL;
             delete process.env.IOTA_TIMESTAMP;
-            delete process.env.IOTA_IOTAM_HOST;
-            delete process.env.IOTA_IOTAM_PORT;
-            delete process.env.IOTA_IOTAM_PATH;
-            delete process.env.IOTA_IOTAM_PROTOCOL;
-            delete process.env.IOTA_IOTAM_DESCRIPTION;
             delete process.env.IOTA_MONGO_URI;
             delete process.env.IOTA_DEFAULT_RESOURCE;
             delete process.env.IOTA_HEALTH_CHECK;
@@ -153,10 +138,6 @@ describe('Startup tests', function () {
                 config.getConfig().deviceRegistry.type.should.equal('mongo');
                 config.getConfig().logLevel.should.equal('FATAL');
                 config.getConfig().timestamp.should.equal(true);
-                config.getConfig().iotManager.url.should.equal('http://iotamhost:4444');
-                config.getConfig().iotManager.path.should.equal('/iotampath');
-                config.getConfig().iotManager.protocol.should.equal('PDI_PROTOCOL');
-                config.getConfig().iotManager.description.should.equal('The IoTAM Protocol');
                 config.getConfig().defaultResource.should.equal('/iot/custom');
                 config
                     .getConfig()
@@ -173,10 +154,6 @@ describe('Startup tests', function () {
             process.env.IOTA_HEALTH_CHECK = true;
 
             nock.cleanAll();
-
-            iotamMock = nock('http://iotamhost:4444')
-                .post('/iotampath')
-                .reply(200, utils.readExampleFile('./test/unit/examples/iotamResponses/registrationSuccess.json'));
         });
 
         afterEach(function () {

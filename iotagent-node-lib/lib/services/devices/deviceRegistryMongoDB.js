@@ -23,7 +23,6 @@
 
 const logger = require('logops');
 const mongoose = require('mongoose');
-const config = require('../../commonConfig');
 const fillService = require('./../common/domain').fillService;
 const alarmsInt = require('../common/alarmManagement').intercept;
 const errors = require('../../errors');
@@ -75,11 +74,6 @@ function storeDevice(newDevice, callback) {
     attributeList.forEach((key) => {
         deviceObj[key] = newDevice[key];
     });
-
-    // Ensure protocol is in newDevice
-    if (!newDevice.protocol && config.getConfig().iotManager && config.getConfig().iotManager.protocol) {
-        deviceObj.protocol = config.getConfig().iotManager.protocol;
-    }
 
     logger.debug(context, 'Storing device with id [%s] and type [%s]', newDevice.id, newDevice.type);
 
