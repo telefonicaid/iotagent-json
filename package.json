@@ -77,6 +77,11 @@
     "sinon": "~6.1.0",
     "underscore": "1.13.8"
   },
+  "nyc": {
+    "include": [
+      "lib/**"
+    ]
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"

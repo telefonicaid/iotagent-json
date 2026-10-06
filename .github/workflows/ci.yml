@@ -6,8 +6,6 @@ name: CI
   pull_request:
     branches:
       - master
-  repository_dispatch:
-    types: [lib-update]
 jobs:
   lint-dockerfile:
     name: Lint Dockerfile
@@ -37,6 +35,10 @@ jobs:
           npm run lint:md
       - name: Run Textlint Markdown Linter
         run: npm run lint:text
+      - name: Run Remark Markdown Linter (iotagent-node-lib)
+        run: npm run lint:md -w iotagent-node-lib
+      - name: Run Textlint Markdown Linter (iotagent-node-lib)
+        run: npm run lint:text -w iotagent-node-lib
 
   lint-code:
     name: Lint JavaScript
@@ -52,6 +54,8 @@ jobs:
         run: |
           npm install
           npm run lint
+      - name: Run EsLint Node.js Linter (iotagent-node-lib)
+        run: npm run lint -w iotagent-node-lib
 
   unit-test:
     name: Unit Tests
@@ -86,6 +90,8 @@ jobs:
         run: |
           npm install
           npm test
+      - name: "iotagent-node-lib Unit and Functional Tests with Node.js ${{ matrix.node-version }}"
+        run: npm test -w iotagent-node-lib
 
   coverage:
     name: Coveralls Code Coverage
@@ -114,11 +120,18 @@ jobs:
       - run: |
           npm install
           npm run test:coverage
+      - name: "iotagent-node-lib Test Coverage with Node.js 24.x"
+        run: |
+          npm run test:coverage -w iotagent-node-lib
+          # lcov paths are relative to the workspace folder; make them relative to the repository root
+          sed -i 's#^SF:#SF:iotagent-node-lib/#' iotagent-node-lib/coverage/lcov.info
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage
-          path: coverage/
+          path: |
+            coverage/
+            iotagent-node-lib/coverage/
       - name: Push to Coveralls
         uses: coverallsapp/github-action@master
         with:
@@ -139,7 +152,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage
-          path: coverage
 
       - uses: SonarSource/sonarqube-scan-action@v6
         env:
