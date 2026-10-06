@@ -1,0 +1,13 @@
+{
+  "actionType": "append",
+    "entities": [
+    {
+      "id": "WrongStation1",
+      "type": "WrongStation",
+      "vol":{
+        "type": "Number",
+        "value": 0
+      }
+    }
+  ]
+}

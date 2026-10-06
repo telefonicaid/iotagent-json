@@ -1,0 +1,24 @@
+{
+  "id":"lamp1",
+  "type":"Lamp",
+  "luminosity": {
+    "value": "100",
+    "type": "text",
+    "metadata": {
+      "unitCode": {
+          "type": "Text",
+          "value": "CAL"
+      }
+  }
+  },
+  "controlledProperty": {
+    "value": "StaticValue",
+    "type": "text",
+    "metadata": {
+      "includes": {
+        "type": "Text",
+        "value": "bell"
+      }
+    }
+  }
+}

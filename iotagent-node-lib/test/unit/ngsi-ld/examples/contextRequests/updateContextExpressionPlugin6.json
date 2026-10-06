@@ -1,0 +1,15 @@
+[
+    {
+        "@context": "http://context.json-ld",
+        "id": "urn:ngsi-ld:Light:light1",
+        "manufacturer": {
+            "type": "Property",
+            "value": {
+                "VAT": "U12345678",
+                "name": "Manufacturer1"
+
+            }
+        },
+        "type": "Light"
+    }
+]

@@ -1,0 +1,21 @@
+{
+  "@context": "http://context.json-ld",
+  "type": "Subscription",
+  "entities": [
+    {
+      "id": "FirstMicroLight",
+      "type": "MicroLights"
+    }
+  ],
+  "watchedAttributes": [
+    "attr_name"
+  ],
+  "notification": {
+    "endpoint": {
+      "uri": "http://smartgondor.com/notify",
+      "accept": "application/json"
+    },
+    "attributes": [],
+    "format": "normalized"
+  }
+}

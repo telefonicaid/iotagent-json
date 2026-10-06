@@ -1,0 +1,14 @@
+{
+    "id":"gps1",
+    "type":"GPS",
+    "location": {
+        "value": {
+            "coordinates": [
+                13,
+                52
+            ],
+            "type": "Point"
+        },
+        "type": "geo:json"
+    }
+}

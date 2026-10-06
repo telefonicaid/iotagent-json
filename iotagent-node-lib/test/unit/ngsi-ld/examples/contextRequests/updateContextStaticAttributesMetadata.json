@@ -1,0 +1,24 @@
+[
+    {
+        "@context": "http://context.json-ld",
+        "controlledProperty": {
+            "includes": {
+                "type": "Property",
+                "value": "bell"
+            },
+            "type": "Property",
+            "value": "StaticValue"
+        },
+        "controlledAsset": {
+            "type": "Relationship",
+            "object": "urn:ngsi-ld:Building:001"
+        },
+        "id": "urn:ngsi-ld:Lamp:lamp1",
+        "luminosity": {
+            "type": "Property",
+            "unitCode": "CAL",
+            "value": 100
+        },
+        "type": "Lamp"
+    }
+]

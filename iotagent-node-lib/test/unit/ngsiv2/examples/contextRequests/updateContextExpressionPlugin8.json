@@ -1,0 +1,12 @@
+{
+  "id":"ws1",
+  "type":"WeatherStation",
+  "consumption": {
+    "type": "Number",
+    "value": 8.8
+  },
+  "weather":{
+      "type":"Summary",
+      "value":"Humidity NaN and pressure NaN"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "description": "Managed by IOTA: FirstMicroLight MicroLights attr_name",
+  "subject": {
+    "entities": [
+      {
+        "id": "FirstMicroLight",
+        "type": "MicroLights"
+      }
+    ],
+    "condition": {
+      "attrs": [
+        "attr_name"
+      ]
+    }
+  },
+  "notification": {
+    "http": {
+      "url": "http://smartgondor.com/notify"
+    },
+    "attrs": [],
+      "attrsFormat": "normalized",
+      "onlyChangedAttrs": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+    "@context": "http://context.json-ld",
+    "endpoint": "http://smartgondor.com",
+    "contextSourceInfo":[
+      {
+        "key": "jsonldContext",
+        "value": "http://context.json-ld"
+      }
+    ],
+    "information": [
+        {
+            "entities": [
+                {
+                    "id": "urn:ngsi-ld:SensorMachine:TheFirstLight",
+                    "type": "SensorMachine"
+                }
+            ],
+            "propertyNames": [
+                "luminance",
+                "luminescence",
+                "commandAttr",
+                "wheel1"
+            ]
+        }
+    ],
+    "mode": "exclusive",
+    "operations" : [
+        "retrieveOps",
+        "updateOps"
+    ],
+    "type": "ContextSourceRegistration"
+}

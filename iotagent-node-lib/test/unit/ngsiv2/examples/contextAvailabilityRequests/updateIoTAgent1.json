@@ -1,0 +1,18 @@
+{
+    "dataProvided": {
+        "entities": [
+            {
+                "type": "Light",
+                "id": "Light:light1"
+            }
+        ],
+        "attrs": [
+            "pressure"
+        ]
+    },
+    "provider": {
+        "http": {
+            "url": "http://smartgondor.com"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "actionType": "append",
+  "entities": [
+    {
+      "explicit": {
+        "type": "number",
+        "value": 52
+      },
+      "type": "GPS",
+      "id": "SO5"
+    },
+    {
+      "explicit": {
+        "type": "number",
+        "value": 13
+      },
+      "type": "GPS",
+      "id": "SO6"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+    "name": "Light1",
+    "service" : "smartGondor",
+    "service_path": "/gardens",
+    "entity_name": "TheFirstLight",
+    "entity_type": "TheLightType",
+    "attributes": [
+        {
+            "name": "temperature",
+            "type": "celsius"
+        }
+    ],
+    "lazy": [
+        {
+            "name": "luminance",
+            "type": "lumens"
+        }
+    ]
+}
+

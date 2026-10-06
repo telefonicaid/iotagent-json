@@ -1,0 +1,24 @@
+{
+  "description": "Managed by IOTA: light1 Light dimming",
+  "subject": {
+    "entities": [
+      {
+        "id": "light1",
+        "type": "Light"
+      }
+    ],
+    "condition": {
+      "attrs": [
+        "dimming"
+      ]
+    }
+  },
+  "notification": {
+    "http": {
+      "url": "http://smartgondor.com/notify"
+    },
+    "attrs": [],
+    "attrsFormat": "normalized",
+    "onlyChangedAttrs": true
+  }
+}
