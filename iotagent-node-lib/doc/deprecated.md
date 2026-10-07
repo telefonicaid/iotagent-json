@@ -33,6 +33,12 @@ A list of deprecated features and the version in which they were deprecated foll
 -   `config.stats` section, and push-mode statistics.
 -   Services API routes (`/iot/services`) in favor of the `/iot/groups`. Both are still supported, but the former is
     deprecated.
+-   Support to IoT Agent Manager: registration at startup and on group changes, `iotManager` configuration section,
+    `IOTA_IOTAM_*` env vars and `iotagentManager` health check (finally removed in 5.0.0)
+-   Default value for the device `protocol` field taken from `iotManager.protocol` (finally removed in 5.0.0)
+-   iotagent-node-lib as a standalone repository and npm package (finally removed in 5.0.0). The library code is now
+    part of the [iotagent-json repository](https://github.com/telefonicaid/iotagent-json) (under the
+    `iotagent-node-lib` folder) and shares version with iotagent-json. No new versions are published to npm.
 
 The use of Node.js v14 is highly recommended.
 
@@ -41,7 +47,7 @@ The use of Node.js v14 is highly recommended.
 Although you are encouraged to use always the newest iotagent-node-lib version, take into account the following
 information in the case you want to use old versions:
 
--   Code corresponding to old releases is available at the
+-   Code corresponding to releases older than 5.0.0 is available at the
     [iotagent-node-lib GitHub repository](https://github.com/telefonicaid/iotagent-node-lib). Each release number (e.g.
     2.7.0 ) has associated the following: _ A tag, e.g. `2.7.0`. It points to the base version. _ A release branch,
     `release/2.7.0`. The HEAD of this branch usually matches the aforementioned tag. However, if some hotfixes were
@@ -80,3 +86,5 @@ The following table provides information about the last iotagent-node-lib versio
 | config `mongodb.retryTime` (env var `IOTA_MONGO_RETRY_TIME`)   | 4.13.0                                                | February 4th, 2026                        |
 | config `mongodb.ssl` (env var `IOTA_MONGO_SSL`)                | 4.13.0                                                | February 4th, 2026                        |
 | config `mongodb.extraArgs` (env var `IOTA_MONGO_EXTRAARGS`)    | 4.13.0                                                | February 4th, 2026                        |
+| Support to IoT Agent Manager                                   | 4.14.0                                                | April 7th, 2026               |
+| Standalone repository and npm package                          | 4.14.0                                                | April 7th, 2026               |

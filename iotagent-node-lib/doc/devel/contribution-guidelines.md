@@ -150,9 +150,10 @@ point to each of the released versions of the project, they are permanent and th
 
 ## Change log
 
-The project contains a version change log, called CHANGES_NEXT_RELEASE, that can be found in the root of the project.
-Whenever a new feature or bug fix is going to be merged with `master`, a new entry should be added to this changelog.
-The new entry should contain the reference number of the issue it is solving (if any).
+The project contains a version change log, called CHANGES_NEXT_RELEASE, that can be found in the root of the
+[iotagent-json repository](https://github.com/telefonicaid/iotagent-json), where the library code lives. Whenever a new
+feature or bug fix in the library is going to be merged with `master`, a new entry should be added to the `IOTA Lib`
+section of this changelog. The new entry should contain the reference number of the issue it is solving (if any).
 
 When a new version is released, the change log is frozen, and CHANGES_NEXT_RELEASE remains fixed in the last commit of
 that version. The CHANGES_NEXT_RELEASE is flushed (i.e. all its content removed) when preparing for the next release
