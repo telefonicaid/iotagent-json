@@ -137,6 +137,9 @@ The project contains a version changelog, called CHANGES_NEXT_RELEASE, that can 
 Whenever a new feature or bug fix is going to be merged with `develop`, a new entry should be added to this changelog.
 The new entry should contain the reference number of the issue it is solving (if any).
 
+The change log has two sections: `IOTA`, for changes in the IoT Agent itself, and `IOTA Lib`, for changes in the IoT
+Agent Node.js Library (the code under the `iotagent-node-lib` folder). Add the new entry to the section it belongs to.
+
 When a new version is released, the change log is cleared, and remains fixed in the last commit of that version. The
 content of the change log is also moved to the release description in the GitHub release.
 

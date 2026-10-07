@@ -18,6 +18,12 @@ A list of deprecated features and the version in which they were deprecated foll
 -   Support to Node.js v8 in iotagent-json 1.14.0 (finally removed in 1.15.0)
 -   Support to Node.js v10 in iotagent-json 1.17.0. (finally removed in 1.18.0)
 -   Support to NGSI-LD v1.3 in iotagent-json 1.26.0
+-   Support to IoT Agent Manager (finally removed in 5.0.0). The agent no longer registers itself in iotagent-manager,
+    and the `iotManager` configuration section and the `IOTA_IOTAM_*` env vars are ignored.
+-   Use of iotagent-node-lib as an external dependency (finally removed in 5.0.0). The library code is now part of this
+    repository (under the `iotagent-node-lib` folder) and shares version with iotagent-json. The
+    [iotagent-node-lib repository](https://github.com/telefonicaid/iotagent-node-lib) and its npm package are no longer
+    maintained.
 
 The use of Node.js v14 is highly recommended.
 
@@ -39,10 +45,12 @@ in the case you want to use old versions:
 
 The following table provides information about the last iotagent-json version supporting currently removed features:
 
-| **Removed feature**    | **Last iotagent-json version supporting feature**   | **That version release date** |
-| ---------------------- | --------------------------------------------------- | ----------------------------- |
-| NGSIv1 API             | 1.17.0                                              | February 18th, 2021           |
-| Support to Node.js v4  | 1.9.0                                               | December 19th, 2018           |
-| Support to Node.js v6  | 1.10.0                                              | May 22nd, 2019                |
-| Support to Node.js v8  | 1.14.0                                              | April 7th, 2020               |
-| Support to Node.js v10 | 1.17.0                                              | February 18th, 2021           |
+| **Removed feature**                         | **Last iotagent-json version supporting feature** | **That version release date** |
+| ------------------------------------------- | ------------------------------------------------- | ----------------------------- |
+| NGSIv1 API                                  | 1.17.0                                            | February 18th, 2021           |
+| Support to Node.js v4                       | 1.9.0                                             | December 19th, 2018           |
+| Support to Node.js v6                       | 1.10.0                                            | May 22nd, 2019                |
+| Support to Node.js v8                       | 1.14.0                                            | April 7th, 2020               |
+| Support to Node.js v10                      | 1.17.0                                            | February 18th, 2021           |
+| Support to IoT Agent Manager                | 3.14.0                                            | April 7th, 2026               |
+| iotagent-node-lib as an external dependency | 3.14.0                                            | April 7th, 2026               |
