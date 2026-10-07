@@ -371,7 +371,7 @@ through the config group or device provision APIs.
 {
     "devices": [
         {
-            "protocol": "IoTA-UL",
+            "protocol": "IoTA-JSON",
             "entity_name": "urn:ngsi-ld:Device:contador12",
             "entity_type": "multientity",
             "attributes": [

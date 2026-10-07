@@ -1213,7 +1213,7 @@ You can find the description of the fields in the config group datamodel of the
 | `timestamp`           | `timestamp`          |                                                                                                                                      |
 | `apikey`              | `apikey`             |                                                                                                                                      |
 | `endpoint`            | `endpoint`           |                                                                                                                                      |
-| `protocol`            | `protocol`           | Name of the device protocol. IE: IoTA-UL                                                                                             |
+| `protocol`            | `protocol`           | Name of the device protocol. IE: IoTA-JSON                                                                                           |
 | `transport`           | `transport`          |                                                                                                                                      |
 | `attributes`          | `active`             |                                                                                                                                      |
 | `lazy`                | `lazy`               |                                                                                                                                      |
