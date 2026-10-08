@@ -156,7 +156,7 @@ config.amqp = {
  */
 config.http = {
     /**
-     * South Port where the Ultralight transport binding for HTTP will be listening for device requests.
+     * South Port where the transport binding for HTTP will be listening for device requests.
      */
     port: 7896
     /**
