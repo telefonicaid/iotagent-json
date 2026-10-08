@@ -19,9 +19,10 @@ bridge between [JSON](https://json.org/) and the
 [NGSI](https://swagger.lab.fiware.org/?url=https://raw.githubusercontent.com/Fiware/specifications/master/OpenAPI/ngsiv2/ngsiv2-openapi.json)
 interface of a context broker.
 
-It is based on the [IoT Agent Node.js Library](https://github.com/telefonicaid/iotagent-node-lib). Further general
-information about the FIWARE IoT Agents framework, its architecture and the common interaction model can be found in the
-library's GitHub repository.
+It is based on the
+[IoT Agent Node.js Library](https://github.com/telefonicaid/iotagent-json/tree/master/iotagent-node-lib), which is part
+of this repository (under the `iotagent-node-lib` folder). Further general information about the FIWARE IoT Agents
+framework, its architecture and the common interaction model can be found in the library's documentation.
 
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
@@ -45,14 +46,16 @@ This project is part of [FIWARE](https://www.fiware.org/). For more information 
 
 This IoT Agent is designed to be a bridge between an MQTT/HTTP+JSON based protocol and the FIWARE NGSI standard used in
 FIWARE. This project is based in the Node.js IoT Agent library. More information about the IoT Agents can be found
-within the library's [GitHub repository](https://github.com/telefonicaid/iotagent-node-lib).
+within the library's
+[documentation](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/index.md).
 
 A quick way to get started is to read the [Step by step Manual](./docs/stepbystep.md).
 
 As is the case in any IoT Agent, this one follows the interaction model defined in the
-[Node.js IoT Agent Library](https://github.com/telefonicaid/iotagent-node-lib), that is used for the implementation of
-the Northbound APIs. Information about the IoTAgent's architecture can be found on that global repository. This
-documentation will only address those features and characteristics that are particular to the JSON IoTAgent.
+[Node.js IoT Agent Library](https://github.com/telefonicaid/iotagent-json/tree/master/iotagent-node-lib), that is used
+for the implementation of the Northbound APIs. Information about the IoTAgent's architecture can be found in the
+library's documentation. This documentation will only address those features and characteristics that are particular to
+the JSON IoTAgent.
 
 If you want to contribute to the project, check out the [Development section](#development) and the
 [Contribution guidelines](./docs/contribution.md).
@@ -77,7 +80,8 @@ The following features are listed as [deprecated](docs/deprecated.md).
 
 Apiary reference for the Configuration API can be found
 [here](https://telefonicaiotiotagents.docs.apiary.io/#reference/configuration-api) More information about IoT Agents and
-their APIs can be found in the IoT Agent Library [documentation](https://iotagent-node-lib.readthedocs.io/).
+their APIs can be found in the IoT Agent Library
+[documentation](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/index.md).
 
 The latest IoT Agent for JSON documentation is also available on
 [ReadtheDocs](https://fiware-iotagent-json.readthedocs.io/en/latest/)

@@ -92,7 +92,7 @@ curl -iX POST \
 }'
 ```
 
-In this case an `apiKey` for identifying devices has been created and all interactions to the path `/iot/d` which
+In this case an `apiKey` for identifying devices has been created and all interactions to the path `/iot/json` which
 present this `apiKey` will be created as entities of `type=Device` rather than using the configuration default of
 `type=Thing`.
 
