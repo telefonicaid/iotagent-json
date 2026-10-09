@@ -7,8 +7,8 @@
 
 ## Overview
 
-The following document shows all the errors that can appear in the IoTAgent Ultralight 2.0 log file, and gives a brief
-idea of the severity and how to react to those errors.
+The following document shows all the errors that can appear in the IoTAgent JSON log file, and gives a brief idea of the
+severity and how to react to those errors.
 
 ## Logs
 

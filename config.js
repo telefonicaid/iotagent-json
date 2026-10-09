@@ -156,7 +156,7 @@ config.amqp = {
  */
 config.http = {
     /**
-     * South Port where the Ultralight transport binding for HTTP will be listening for device requests.
+     * South Port where the transport binding for HTTP will be listening for device requests.
      */
     port: 7896
     /**
@@ -325,7 +325,7 @@ config.iota = {
 
 /**
  * map {name: function} of extra transformations avaliable at JEXL plugin
-*  see https://github.com/telefonicaid/iotagent-node-lib/tree/master/doc/api.md#available-functions
+*  see https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#available-functions
  */
 
 config.jexlTransformations = {};

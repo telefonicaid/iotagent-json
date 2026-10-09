@@ -10,7 +10,7 @@ An IoT Agent is a component that lets groups of devices send their data to and b
 Broker using their own native protocols. IoT Agents should also be able to deal with security aspects of the FIWARE
 platform (authentication and authorization of the channel) and provide other common services to the device programmer.
 
-Github's [README.md](https://github.com/telefonicaid/iotagent-node-lib/blob/master/README.md) provides a good
+Github's [README.md](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/README.md) provides a good
 documentation summary. The [API reference](api.md) and the [Development documentation](devel/development.md) cover
 more advanced topics.
 

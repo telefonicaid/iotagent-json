@@ -18,7 +18,8 @@ Before we get started, here are a few things we expect from you (and that you sh
 
 If you'd like to contribute, start by searching through the [issues](https://github.com/telefonicaid/iotagent-json/issues) and
 [pull requests](https://github.com/telefonicaid/iotagent-json/pulls) to see whether someone else has raised a similar idea or
-question. In adition, you can also check in the IoTAgent Node Lib framework repository for [issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and [pull requests](https://github.com/telefonicaid/iotagent-node-lib/pulls) across all the IoT-Agents
+question. Issues and pull requests about the IoT Agent Node.js Library (the code under the `iotagent-node-lib` folder)
+are also managed in this repository.
 
 If you don't see your idea listed, and you think it fits into the goals of this guide, do one of the following:
 
@@ -56,7 +57,6 @@ Some additional remarks to take into account when contributing with new PRs:
 
 Discussions about the Open Source Guides take place on this repository's
 [Issues](https://github.com/telefonicaid/iotagent-json/issues) and [Pull Requests](https://github.com/telefonicaid/iotagent-json/pulls)
-and also in the IoT Agent Node Lib repository ([Issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and [Pull Requests](https://github.com/telefonicaid/iotagent-node-lib/pulls))
 sections. Anybody is welcome to join these conversations.
 
 Wherever possible, do not take these conversations to private channels, including contacting the maintainers directly.
@@ -136,6 +136,9 @@ point to each of the released versions of the project, they are permanent and th
 The project contains a version changelog, called CHANGES_NEXT_RELEASE, that can be found in the root of the project.
 Whenever a new feature or bug fix is going to be merged with `develop`, a new entry should be added to this changelog.
 The new entry should contain the reference number of the issue it is solving (if any).
+
+The change log has two sections: `IOTA`, for changes in the IoT Agent itself, and `IOTA Lib`, for changes in the IoT
+Agent Node.js Library (the code under the `iotagent-node-lib` folder). Add the new entry to the section it belongs to.
 
 When a new version is released, the change log is cleared, and remains fixed in the last commit of that version. The
 content of the change log is also moved to the release description in the GitHub release.

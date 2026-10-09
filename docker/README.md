@@ -9,9 +9,10 @@ bridge between [JSON](https://json.org/) and the
 [NGSI](https://swagger.lab.fiware.org/?url=https://raw.githubusercontent.com/Fiware/specifications/master/OpenAPI/ngsiv2/ngsiv2-openapi.json)
 interface of a context broker.
 
-It is based on the [IoT Agent Node.js Library](https://github.com/telefonicaid/iotagent-node-lib). Further general
-information about the FIWARE IoT Agents framework, its architecture and the common interaction model can be found in the
-library's GitHub repository.
+It is based on the
+[IoT Agent Node.js Library](https://github.com/telefonicaid/iotagent-json/tree/master/iotagent-node-lib), which is part of
+this repository (under the `iotagent-node-lib` folder). Further general information about the FIWARE IoT Agents
+framework, its architecture and the common interaction model can be found in the library's documentation.
 
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
@@ -99,7 +100,7 @@ environment variables such as those shown below:
 
 The full set of overrides for the general parameters applicable to all IoT Agents are described in the Configuration
 section of the IoT Agent Library
-[Installation Guide](https://iotagent-node-lib.readthedocs.io/en/latest/installationguide/index.html#configuration).
+[Installation and Administration Guide](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/admin.md#configuration).
 
 Further settings for IoT Agent for JSON itself - such as specific configurations for MQTT, AMPQ and HTTP - can be found
 in the IoT Agent for JSON

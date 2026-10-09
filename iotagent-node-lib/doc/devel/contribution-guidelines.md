@@ -17,9 +17,9 @@ Before we get started, here are a few things we expect from you (and that you sh
 ## How to contribute
 
 If you'd like to contribute, start by searching through the
-[issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and
-[pull requests](https://github.com/telefonicaid/iotagent-node-lib/pulls) to see whether someone else has raised a
-similar idea or question.
+[issues](https://github.com/telefonicaid/iotagent-json/issues) and
+[pull requests](https://github.com/telefonicaid/iotagent-json/pulls) to see whether someone else has raised a similar
+idea or question.
 
 If you don't see your idea listed, and you think it fits into the goals of this guide, do one of the following:
 
@@ -63,8 +63,8 @@ Some additional remarks to take into account when contributing with new PRs:
 ## Community
 
 Discussions about the Open Source Guides take place on this repository's
-[Issues](https://github.com/telefonicaid/iotagent-node-lib/issues) and
-[Pull Requests](https://github.com/telefonicaid/iotagent-node-lib/pulls) sections. Anybody is welcome to join these
+[Issues](https://github.com/telefonicaid/iotagent-json/issues) and
+[Pull Requests](https://github.com/telefonicaid/iotagent-json/pulls) sections. Anybody is welcome to join these
 conversations.
 
 Wherever possible, do not take these conversations to private channels, including contacting the maintainers directly.
@@ -88,11 +88,12 @@ In order to start contributing:
 git clone https://github.com/your-github-username/iotagent-node-lib.git
 ```
 
-3. Add the main iotagent-node-lib repository as a remote to your forked repository (use any name for your remote
-   repository, it does not have to be iotagent-node-lib, although we will use it in the next steps):
+3. Add the main iotagent-json repository (where the library code lives) as a remote to your forked repository (use any
+   name for your remote repository, it does not have to be iotagent-node-lib, although we will use it in the next
+   steps):
 
 ```bash
-git remote add iotagent-node-lib https://github.com/telefonicaid/iotagent-node-lib.git
+git remote add iotagent-node-lib https://github.com/telefonicaid/iotagent-json.git
 ```
 
 Before starting your contribution, remember to synchronize the `master` branch in your forked repository with the
@@ -150,9 +151,10 @@ point to each of the released versions of the project, they are permanent and th
 
 ## Change log
 
-The project contains a version change log, called CHANGES_NEXT_RELEASE, that can be found in the root of the project.
-Whenever a new feature or bug fix is going to be merged with `master`, a new entry should be added to this changelog.
-The new entry should contain the reference number of the issue it is solving (if any).
+The project contains a version change log, called CHANGES_NEXT_RELEASE, that can be found in the root of the
+[iotagent-json repository](https://github.com/telefonicaid/iotagent-json), where the library code lives. Whenever a new
+feature or bug fix in the library is going to be merged with `master`, a new entry should be added to the `IOTA Lib`
+section of this changelog. The new entry should contain the reference number of the issue it is solving (if any).
 
 When a new version is released, the change log is frozen, and CHANGES_NEXT_RELEASE remains fixed in the last commit of
 that version. The CHANGES_NEXT_RELEASE is flushed (i.e. all its content removed) when preparing for the next release
@@ -171,7 +173,9 @@ The process of making a release consists of the following steps:
 4. Create a release branch from the last version of `master` named with the version number.
 5. Create a new task for preparing the next release, adding the sufix `-next` to the current version number (to signal
    this as the development version), and flush the contents of the CHANGES_NEXT_RELEASE file.
-6. Upload the new library version to the npm repository using `npm publish` command from the release branch.
+
+The library is released together with iotagent-json, sharing its version number. It is no longer published to the npm
+repository.
 
 ## Version numbers
 
