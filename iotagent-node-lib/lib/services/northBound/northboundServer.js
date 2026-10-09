@@ -85,12 +85,10 @@ function start(config, callback) {
         config.contextBroker?.host && config.contextBroker?.port
             ? `http://${config.contextBroker.host}:${config.contextBroker.port}`
             : null;
-    const mgrUrl = config.iotManager?.url ? `${config.iotManager.url}` : null;
 
     if (config.healthCheck) {
         healthMiddleware.startHealthChecks({
             contextBrokerUrl: cbUrl,
-            iotagentManagerUrl: mgrUrl,
             deviceRegistryType: config.deviceRegistry?.type,
             configMqtt: config.mqtt,
             intervalMs: config.healthCheckInterval,

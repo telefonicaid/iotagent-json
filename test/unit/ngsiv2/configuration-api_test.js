@@ -30,12 +30,10 @@ const iotAgentLib = require('iotagent-node-lib');
 const mqtt = require('mqtt');
 const config = require('./config-test.js');
 const nock = require('nock');
-const should = require('should');
 const utils = require('../../utils');
 const request = utils.request;
 let contextBrokerMock;
 let contextBrokerUnprovMock;
-let iotamMock;
 let mqttClient;
 let originalResource;
 
@@ -58,15 +56,6 @@ describe('Configuration API support', function () {
             'fiware-servicepath': '/gardens'
         }
     };
-    const configurationOptionsWithResource = {
-        url: 'http://localhost:' + config.iota.server.port + '/iot/services',
-        method: 'POST',
-        json: utils.readExampleFile('./test/deviceProvisioning/provisionConfiguration2.json'),
-        headers: {
-            'fiware-service': 'smartgondor',
-            'fiware-servicepath': '/gardens'
-        }
-    };
 
     beforeEach(function (done) {
         nock.cleanAll();
@@ -76,25 +65,7 @@ describe('Configuration API support', function () {
             connectTimeout: 60 * 60 * 1000
         });
 
-        config.iota.iotManager = {
-            host: '127.0.0.1',
-            port: 8081,
-            path: '/iot/protocols',
-            protocol: 'TT_MQTT-JSON',
-            description: 'MQTT-JSON protocol for TT'
-        };
-
         config.iota.defaultResource = '/iotamqtt';
-
-        iotamMock = nock('http://127.0.0.1:8081')
-            .post('/iot/protocols', {
-                protocol: 'TT_MQTT-JSON',
-                description: 'MQTT-JSON protocol for TT',
-                iotagent: 'http://localhost:4041',
-                resource: '/iotamqtt',
-                services: []
-            })
-            .reply(200, {});
 
         // This mock does not check the payload since the aim of the test is not to verify
         // device provisioning functionality. Appropriate verification is done in tests under
@@ -105,7 +76,6 @@ describe('Configuration API support', function () {
     });
 
     afterEach(function (done) {
-        delete config.iota.iotManager;
         delete config.iota.defaultResource;
         config.iota.defaultResource = originalResource;
         iotAgentLib.clearAll();
@@ -116,25 +86,6 @@ describe('Configuration API support', function () {
 
     describe('When a configuration is provisioned for a service', function () {
         beforeEach(function () {
-            iotamMock
-                .post('/iot/protocols', {
-                    protocol: 'TT_MQTT-JSON',
-                    description: 'MQTT-JSON protocol for TT',
-                    iotagent: 'http://localhost:4041',
-                    resource: '/iotamqtt',
-                    services: [
-                        {
-                            apikey: '728289',
-                            token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                            entity_type: 'Light',
-                            resource: '',
-                            service: 'smartgondor',
-                            service_path: '/gardens'
-                        }
-                    ]
-                })
-                .reply(200, {});
-
             contextBrokerUnprovMock = nock('http://unexistentHost:1026')
                 .matchHeader('fiware-service', 'smartgondor')
                 .matchHeader('fiware-servicepath', '/gardens')
@@ -155,39 +106,6 @@ describe('Configuration API support', function () {
                         }, 100);
                     });
                 });
-            });
-        });
-    });
-
-    describe('When a configuration is provisioned with a Resource set', function () {
-        beforeEach(function () {
-            const configurationProvision = {
-                protocol: 'TT_MQTT-JSON',
-                description: 'MQTT-JSON protocol for TT',
-                iotagent: 'http://localhost:4041',
-                resource: '/iotamqtt',
-                services: [
-                    {
-                        apikey: '728289',
-                        token: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-                        entity_type: 'Light',
-                        cbHost: 'http://unexistentHost:1026',
-                        resource: '/AnotherValue',
-                        service: 'smartgondor',
-                        service_path: '/gardens'
-                    }
-                ]
-            };
-
-            iotamMock.post('/iot/protocols', configurationProvision).reply(200, {});
-        });
-
-        it('should reject the configuration provisioning with a BAD FORMAT error', function (done) {
-            request(configurationOptionsWithResource, function (error, response, body) {
-                should.not.exist(error);
-
-                response.statusCode.should.equal(400);
-                done();
             });
         });
     });

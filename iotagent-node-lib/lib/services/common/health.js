@@ -24,17 +24,8 @@
 const request = require('../../request-shim');
 const statsRegistry = require('../stats/statsRegistry');
 
-let healthState = {
+const healthState = {
     contextBroker: {
-        ok: null,
-        configured: false,
-        url: null,
-        lastOk: null,
-        lastError: null,
-        latencyMs: null,
-        consecutiveFails: 0
-    },
-    iotagentManager: {
         ok: null,
         configured: false,
         url: null,
@@ -110,11 +101,10 @@ function fillMongoUrlFromConnection(conn) {
     }
 }
 /**
- * Init periodic checks (cached) againts CB and IotAgent-Mananger
+ * Init periodic checks (cached) againts CB, MongoDB and MQTT
  */
 function startHealthChecks({
     contextBrokerUrl,
-    iotagentManagerUrl,
     deviceRegistryType = 'memory',
     configMqtt,
     intervalMs,
@@ -122,12 +112,10 @@ function startHealthChecks({
     downAfterFails,
     considerHttpResponseUp,
     // Allow change endpoint to use
-    managerPath = '/iot/protocols',
     cbPath = '/version'
     // if UP but response was 404
 }) {
     const cbBase = normalizeBaseUrl(contextBrokerUrl);
-    const iotaMngrBase = normalizeBaseUrl(iotagentManagerUrl);
     const mongoEnabled = deviceRegistryType && deviceRegistryType !== 'memory';
 
     // Set as configured / not configured
@@ -139,15 +127,6 @@ function startHealthChecks({
         healthState.contextBroker.ok = null;
         healthState.contextBroker.lastError = 'Not configured';
         healthState.contextBroker.consecutiveFails = 0;
-    }
-    healthState.iotagentManager.configured = Boolean(iotaMngrBase);
-    healthState.iotagentManager.url = iotaMngrBase;
-    statsRegistry.set('iotagentManagerConfigured', healthState.iotagentManager.configured, function () {});
-    statsRegistry.set('iotagentManagerUrl', healthState.iotagentManager.url, function () {});
-    if (!iotaMngrBase) {
-        healthState.iotagentManager.ok = null;
-        healthState.iotagentManager.lastError = 'Not configured';
-        healthState.iotagentManager.consecutiveFails = 0;
     }
     healthState.mongodb.configured = Boolean(mongoEnabled);
     statsRegistry.set('mongodbConfigured', healthState.mongodb.configured, function () {});
@@ -186,7 +165,7 @@ function startHealthChecks({
     }
 
     // If none configured, then timer is not started
-    if (!cbBase && !iotaMngrBase && !mongoEnabled && !mqttEnabled) {
+    if (!cbBase && !mongoEnabled && !mqttEnabled) {
         if (healthTimer) {
             clearInterval(healthTimer);
         }
@@ -403,9 +382,6 @@ function startHealthChecks({
         const tasks = [];
         if (cbBase) {
             tasks.push(ping('contextBroker', cbBase, cbPath));
-        }
-        if (iotaMngrBase) {
-            tasks.push(ping('iotagentManager', iotaMngrBase, managerPath));
         }
         if (mongoEnabled) {
             tasks.push(pingMongo(timeoutMs, downAfterFails));

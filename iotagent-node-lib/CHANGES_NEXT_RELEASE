@@ -1,2 +1,4 @@
 - Upgrade uuid dep from 8.3.2 to 14.0.0 due to CWE-787 CWE-1285
 - Upgrade mongoose from 8.9.5 to 8.24.1 due to CWE-74 CVE-2026-42334 CWE-1321
+- Remove: IoT Agent Manager support (registration at startup and on group changes, `iotManager` config section, `IOTA_IOTAM_*` env vars and `iotagentManager` health check). A warning is logged if that configuration is still present
+- Remove: default value for device `protocol` field taken from `iotManager.protocol`

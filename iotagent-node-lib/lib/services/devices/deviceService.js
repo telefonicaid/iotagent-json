@@ -665,9 +665,6 @@ function findOrCreate(deviceId, apikey, group, callback) {
                 type: group.type
             };
 
-            if (config.getConfig().iotManager && config.getConfig().iotManager.protocol) {
-                newDevice.protocol = config.getConfig().iotManager.protocol;
-            }
             if ('ngsiVersion' in group && group.ngsiVersion !== undefined) {
                 newDevice.ngsiVersion = group.ngsiVersion;
             }

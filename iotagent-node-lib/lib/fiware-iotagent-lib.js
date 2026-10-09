@@ -33,7 +33,6 @@ const domainUtils = require('./services/common/domain');
 const deviceService = require('./services/devices/deviceService');
 const groupConfig = require('./services/groups/groupService');
 const commands = require('./services/commands/commandService');
-const iotManager = require('./services/common/iotManagerService');
 const contextServer = require('./services/northBound/northboundServer');
 const errors = require('./errors');
 const constants = require('./constants');
@@ -101,14 +100,6 @@ function doActivate(newConfig, callback) {
             newConfig.contextBroker.url = 'http://' + newConfig.contextBroker.host + ':' + newConfig.contextBroker.port;
         } else if (!newConfig.contextBroker.url && newConfig.contextBroker.host && !newConfig.contextBroker.port) {
             newConfig.contextBroker.url = 'http://' + newConfig.contextBroker.host;
-        }
-    }
-
-    if (newConfig.iotManager) {
-        if (!newConfig.iotManager.url && newConfig.iotManager.host && newConfig.iotManager.port) {
-            newConfig.iotManager.url = 'http://' + newConfig.iotManager.host + ':' + newConfig.iotManager.port;
-        } else if (!newConfig.iotManager.url && newConfig.iotManager.host && !newConfig.iotManager.port) {
-            newConfig.iotManager.url = 'http://' + newConfig.iotManager.host;
         }
     }
 
@@ -212,7 +203,7 @@ function checkConfig(newConfig, callback) {
 }
 
 function activate(newConfig, callback) {
-    async.series([apply(checkConfig, newConfig), apply(doActivate, newConfig), iotManager.register], callback);
+    async.series([apply(checkConfig, newConfig), apply(doActivate, newConfig)], callback);
 }
 
 /**

@@ -31,7 +31,6 @@ const iotAgentLib = require('../../../../lib/fiware-iotagent-lib');
 const nock = require('nock');
 const utils = require('../../../tools/utils');
 const request = utils.request;
-const groupRegistryMemory = require('../../../../lib/services/groups/groupRegistryMemory');
 const should = require('should');
 const iotAgentConfig = {
     logLevel: 'FATAL',
@@ -77,40 +76,7 @@ const iotAgentConfig = {
     service: 'smartgondor',
     subservice: 'gardens',
     providerUrl: 'http://smartgondor.com',
-    iotManager: {
-        url: 'https://mockediotam.com:9876',
-        path: '/protocols',
-        protocol: 'GENERIC_PROTOCOL',
-        description: 'A generic protocol',
-        agentPath: '/iot'
-    },
     defaultResource: '/iot/d'
-};
-const groupCreation = {
-    service: 'theservice',
-    subservice: 'theSubService',
-    resource: '/deviceTest',
-    apikey: '801230BJKL23Y9090DSFL123HJK09H324HV8732',
-    type: 'SensorMachine',
-    trust: '8970A9078A803H3BL98PINEQRW8342HBAMS',
-    commands: [
-        {
-            name: 'wheel1',
-            type: 'Wheel'
-        }
-    ],
-    lazy: [
-        {
-            name: 'luminescence',
-            type: 'Lumens'
-        }
-    ],
-    attributes: [
-        {
-            name: 'status',
-            type: 'Boolean'
-        }
-    ]
 };
 const device1 = {
     id: 'light1',
@@ -119,39 +85,6 @@ const device1 = {
     subservice: 'gardens'
 };
 let contextBrokerMock;
-let iotamMock;
-
-describe('NGSI-v2 - HTTPS support tests IOTAM', function () {
-    describe('When the IoT Agents is started with https "iotManager" config', function () {
-        beforeEach(function (done) {
-            nock.cleanAll();
-
-            iotamMock = nock('https://mockediotam.com:9876')
-                .post(
-                    '/protocols',
-                    utils.readExampleFile('./test/unit/examples/iotamRequests/registrationWithGroupsWithoutCB.json')
-                )
-                .reply(200, utils.readExampleFile('./test/unit/examples/iotamResponses/registrationSuccess.json'));
-
-            groupRegistryMemory.create(groupCreation, done);
-        });
-
-        afterEach(function (done) {
-            nock.cleanAll();
-            groupRegistryMemory.clear(function () {
-                iotAgentLib.deactivate(done);
-            });
-        });
-
-        it('should register without errors to the IoT Manager', function (done) {
-            iotAgentLib.activate(iotAgentConfig, function (error) {
-                should.not.exist(error);
-                iotamMock.done();
-                done();
-            });
-        });
-    });
-});
 
 describe('NGSI-v2 - HTTPS support tests', function () {
     describe('When subscription is sent to HTTPS context broker', function () {

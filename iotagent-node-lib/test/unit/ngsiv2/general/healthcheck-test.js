@@ -42,14 +42,6 @@ const iotAgentConfig = {
         port: 4041,
         host: 'localhost'
     },
-    iotManager: {
-        host: '192.168.1.1',
-        port: 9876,
-        path: '/protocols',
-        protocol: 'GENERIC_PROTOCOL',
-        description: 'A generic protocol',
-        agentPath: '/iot'
-    },
     types: {
         Light: {
             commands: [],
@@ -120,14 +112,6 @@ const iotAgentConfig3 = {
         host: 'bad',
         port: 'bad'
     },
-    iotManager: {
-        host: 'bad',
-        port: 0,
-        path: '/protocols',
-        protocol: 'GENERIC_PROTOCOL',
-        description: 'A generic protocol',
-        agentPath: '/iot'
-    },
     types: {
         Light: {
             commands: [],
@@ -153,7 +137,6 @@ const iotAgentConfig3 = {
 };
 
 let contextBrokerMock;
-let iotamMock;
 
 describe('About API with check health', function () {
     beforeEach(function (done) {
@@ -165,11 +148,6 @@ describe('About API with check health', function () {
         nock.cleanAll();
 
         contextBrokerMock = nock('http://192.168.1.1:1026').get('/version').reply(200, '4.9.0');
-
-        iotamMock = nock('http://192.168.1.1:9876')
-            .post('/protocols', utils.readExampleFile('./test/unit/examples/iotamRequests/registrationEmpty.json'))
-            .reply(200, utils.readExampleFile('./test/unit/examples/iotamResponses/registrationSuccess.json'));
-        iotamMock.get('/iot/protocols').reply(200, 'UP');
 
         iotAgentLib.activate(iotAgentConfig, function (err) {
             iotAgentLib.clearAll(function (err2) {
@@ -207,12 +185,10 @@ describe('About API with check health', function () {
                 }
                 response.statusCode.should.equal(200);
                 body.connections.contextBroker.ok.should.equal(true);
-                body.connections.iotagentManager.ok.should.equal(true);
                 body.connections.mongodb.ok.should.equal(true);
                 body.connections.mqtt.configured.should.equal(false);
 
                 contextBrokerMock.done();
-                iotamMock.done();
                 done();
             });
         });
@@ -235,7 +211,6 @@ describe('About API with check health', function () {
                 }
                 response.statusCode.should.equal(200);
                 contextBrokerMock.done();
-                iotamMock.done();
                 done();
             });
         });
@@ -252,11 +227,6 @@ describe('About API with check health with errors in endpoints', function () {
         nock.cleanAll();
 
         contextBrokerMock = nock('http://192.168.1.1:1026').get('/version').reply(500);
-
-        iotamMock = nock('http://192.168.1.1:9876')
-            .post('/protocols', utils.readExampleFile('./test/unit/examples/iotamRequests/registrationEmpty.json'))
-            .reply(200, utils.readExampleFile('./test/unit/examples/iotamResponses/registrationSuccess.json'));
-        iotamMock.get('/iot/protocols').reply(500, 'DOWN');
 
         iotAgentLib.activate(iotAgentConfig, function (err) {
             iotAgentLib.clearAll(function (err2) {
@@ -294,12 +264,10 @@ describe('About API with check health with errors in endpoints', function () {
                 }
                 response.statusCode.should.equal(200);
                 body.connections.contextBroker.ok.should.equal(false);
-                body.connections.iotagentManager.ok.should.equal(false);
                 body.connections.mongodb.ok.should.equal(true);
                 body.connections.mqtt.configured.should.equal(false);
 
                 contextBrokerMock.done();
-                iotamMock.done();
                 done();
             });
         });
@@ -351,7 +319,6 @@ describe('About API with check health with bad urls in endpoints', function () {
                 }
                 response.statusCode.should.equal(200);
                 body.connections.contextBroker.ok.should.equal(false);
-                body.connections.iotagentManager.ok.should.equal(false);
                 body.connections.mongodb.configured.should.equal(false);
                 body.connections.mqtt.configured.should.equal(false);
 
@@ -398,7 +365,6 @@ describe('About API with check health without endpoints', function () {
                 }
                 response.statusCode.should.equal(200);
                 body.connections.contextBroker.configured.should.equal(false);
-                body.connections.iotagentManager.configured.should.equal(false);
                 body.connections.mongodb.configured.should.equal(false);
                 body.connections.mqtt.configured.should.equal(false);
 
