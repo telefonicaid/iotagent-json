@@ -56,7 +56,7 @@ check the specific documentation for each IoT Agent. You can see the a list of a
 -   [Getting started](doc/getting-started.md)
 -   [IoT Agent API](doc/api.md)
 -   [Administration manual](doc/admin.md)
--   [Deprecated features](doc/deprecated.md)
+-   [Deprecated features](../docs/deprecated.md)
 -   [Roadmap](doc/roadmap.md)
 
 ### Development documentation

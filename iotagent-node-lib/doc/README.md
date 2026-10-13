@@ -5,7 +5,7 @@
 -   [Getting started](getting-started.md)
 -   [IoT Agent API](api.md)
 -   [Administration manual](admin.md)
--   [Deprecated features](deprecated.md)
+-   [Deprecated features](../../docs/deprecated.md)
 -   [Roadmap](roadmap.md)
 -   [Data models](models/models.md)
 
