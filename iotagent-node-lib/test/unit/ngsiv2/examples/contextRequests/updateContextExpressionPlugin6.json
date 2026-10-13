@@ -1,0 +1,8 @@
+{
+  "id":"light1",
+  "type":"Light",
+  "manufacturer": {
+    "type": "Object",
+    "value": { "name":"Manufacturer1", "VAT":"U12345678" }
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "id":"light1",
+    "type":"Light",        
+  "temperature": {
+    "type":"Number",
+    "value":52,
+    "metadata": {
+      "type":"Property",
+      "value":"CEL"
+    }
+  },
+  "pressure": {
+    "type":"Number",
+    "value":"20071103T131805",
+    "metadata": {
+      "type":"Property",
+      "value":"Hgmm"
+    }
+  }
+}

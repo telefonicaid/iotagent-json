@@ -1,0 +1,25 @@
+{
+  "attributes": [
+    {
+      "name": "newAttribute",
+      "type": "Integer"
+    }
+  ],
+  "static_attributes": [
+    {
+      "name": "cellID",
+      "type": "Integer",
+      "value": "435"
+    },
+    {
+      "name": "serverURL",
+      "type": "URL",
+      "value": "http://fakeserver.com"
+    },
+    {
+      "name": "location",
+      "type": "geo:json",
+      "value": {"type": "Point", "coordinates": [-3.164485591715449, 40.62785133667262]}      
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id":"light1",
+  "type":"Light",
+  "alive": {
+    "type": "None",
+    "value": null
+  }
+}

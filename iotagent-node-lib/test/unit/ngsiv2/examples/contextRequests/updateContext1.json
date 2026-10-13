@@ -1,0 +1,13 @@
+{
+    "id":"light1",
+    "type":"Light",
+    "state": {
+        "type": "Boolean",
+        "value": "true"
+
+    },
+    "dimming": {
+        "type": "Percentage",
+        "value": "87"
+    }
+}

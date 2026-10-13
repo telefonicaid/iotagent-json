@@ -1,0 +1,13 @@
+{
+  "actionType": "append",
+  "entities": [
+    {
+      "id": "Higro2000",
+      "type": "Higrometer",
+      "pressure": {
+        "type": "Hgmm",
+        "value": "16"
+      }
+    }
+  ]
+}

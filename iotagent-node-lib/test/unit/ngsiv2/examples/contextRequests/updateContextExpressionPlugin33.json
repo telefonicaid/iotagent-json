@@ -1,0 +1,24 @@
+{
+  "id":"gps1",
+  "type":"GPS",
+  "location": {
+    "type": "geo:json",
+    "value": {
+      "coordinates": [
+        13,
+        52
+      ],
+      "type": "Point"
+    },
+    "metadata": {
+      "TimeInstant": {
+        "type": "DateTime",
+        "value": "2015-08-05T07:35:01.468Z"
+      }
+    }
+  },
+  "TimeInstant": {
+    "type": "DateTime",
+    "value": "2015-08-05T07:35:01.468Z"
+  }
+}

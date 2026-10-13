@@ -1,0 +1,11 @@
+[
+  {
+    "@context": "http://context.json-ld",
+    "id": "urn:ngsi-ld:Higrometer:Higro2000",
+    "type": "Higrometer",
+    "pressure": {
+      "type": "Property",
+      "value": "16"
+    }
+  }
+]

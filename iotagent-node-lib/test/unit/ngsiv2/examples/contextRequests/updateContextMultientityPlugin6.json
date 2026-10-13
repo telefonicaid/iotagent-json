@@ -1,0 +1,13 @@
+{
+  "actionType": "append",
+  "entities": [
+            {
+                "vol": {
+                    "type": "number",
+                    "value": "38"
+                },
+                "type": "WM",
+                "id": "SO1"
+            }
+        ]
+}

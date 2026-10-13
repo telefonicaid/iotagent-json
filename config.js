@@ -314,8 +314,7 @@ config.iota = {
      */
     defaultType: 'Thing',
     /**
-     * Default resource of the IoT Agent. This value must be different for every IoT Agent connecting to the IoT
-     * Manager.
+     * Default resource of the IoT Agent.
      */
     defaultResource: '/iot/json',
     /**

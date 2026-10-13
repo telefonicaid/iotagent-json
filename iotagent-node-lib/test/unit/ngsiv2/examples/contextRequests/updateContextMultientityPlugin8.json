@@ -1,0 +1,27 @@
+{
+  "actionType": "append",
+  "entities": [
+    {
+      "pressure": {
+        "type": "Hgmm",
+        "value": "17",
+        "metadata": {
+          "unitCode": {
+            "type": "Text",
+            "value": "Hgmm"
+          }
+        }
+      },
+      "type": "Higrometer",
+      "id": "Higro2002"
+    },
+    {
+      "pressure": {
+        "type": "Hgmm",
+        "value": "16"
+      },
+      "type": "Higrometer",
+      "id": "Higro2000"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+site_name: Fiware-iotagent-node-lib
+site_url: https://fiware-iotagent-node-lib.readthedocs.org
+repo_url: https://github.com/telefonicaid/iotagent-node-lib
+site_description: IoT Agent Library Documentation
+docs_dir: doc
+site_dir: html
+edit_uri: edit/master/doc/
+markdown_extensions: [toc,fenced_code]
+use_directory_urls: false
+theme: readthedocs
+extra_css: ["https://fiware.github.io/catalogue/style/fiware_readthedocs.css", "https://fiware.github.io/catalogue/style/fiware_readthedocs_iot.css"]
+pages:
+  - Home: 'index.md'
+  - 'Getting Started' : 'getting-started.md'
+  - 'User & Programmers Manual':
+    - 'IoT Agent API' : 'api.md'
+    - 'Installation and administration manual': 'admin.md'
+  - 'Development documentation': 
+    - 'Development manual': 'devel/development.md'
+    - 'Contributing guide': 'devel/contribution-guidelines.md'
+    - 'Architecture' : 'devel/architecture.md'
+    - 'North Port - NGSI Interactions': 'devel/northboundinteractions.md'

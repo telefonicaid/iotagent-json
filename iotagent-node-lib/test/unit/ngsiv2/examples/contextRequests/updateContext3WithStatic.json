@@ -1,0 +1,12 @@
+{
+    "id":"machine1",
+    "type":"SensorMachine",
+    "status": {
+        "value": "STARTING",
+        "type": "String"
+    },
+    "bootstrapServer": {
+        "value": "127.0.0.1",
+        "type": "Address"
+    }
+}

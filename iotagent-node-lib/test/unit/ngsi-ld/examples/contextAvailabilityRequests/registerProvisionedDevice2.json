@@ -1,0 +1,26 @@
+{
+    "@context": "http://context.json-ld",
+    "endpoint": "http://smartgondor.com",
+    "contextSourceInfo":[
+      {
+        "key": "jsonldContext",
+        "value": "http://context.json-ld"
+      }
+    ],
+    "information": [
+        {
+            "entities": [
+                {
+                    "id": "urn:ngsi-ld:TheLightType:TheSecondLight",
+                    "type": "TheLightType"
+                }
+            ],
+            "propertyNames": [
+                "luminance"
+            ]
+        }
+    ],
+    "mode": "exclusive",
+    "operations" :["retrieveOps"],
+    "type": "ContextSourceRegistration"
+}

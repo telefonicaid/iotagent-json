@@ -1,1 +1,3 @@
 - Upgrade body-parser from 1.20.3 to 1.20.6 due to CVE-2026-12590
+- Remove: IoT Agent Manager support (the agent no longer registers itself in iotagent-manager; `iotManager` config section and `IOTA_IOTAM_*` env vars are ignored)
+- Remove: INVALID_RESOURCE error on group provisioning (it was only raised when `iotManager` was configured)

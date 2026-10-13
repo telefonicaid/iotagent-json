@@ -1,0 +1,15 @@
+[
+  {
+    "@context": "http://context.json-ld",
+    "id": "urn:ngsi-ld:SensorMachine:Light1",
+    "type": "SensorMachine",
+    "status": {
+      "type": "Property",
+      "value": "STARTING"
+    },
+    "bootstrapServer": {
+      "type": "Property",
+      "value": "127.0.0.1"
+    }
+  }
+]

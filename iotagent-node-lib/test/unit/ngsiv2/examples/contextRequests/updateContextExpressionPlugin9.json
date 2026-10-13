@@ -1,0 +1,8 @@
+{
+  "id":"light1",
+  "type":"Light",
+  "updated": {
+    "value": true,
+    "type": "Boolean"
+  }
+}

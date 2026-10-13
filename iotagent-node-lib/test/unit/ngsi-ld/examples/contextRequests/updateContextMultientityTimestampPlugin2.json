@@ -1,0 +1,12 @@
+[
+  {
+    "@context": "http://context.json-ld",
+    "id": "urn:ngsi-ld:Higrometer:Higro2000",
+    "type": "Higrometer",
+    "humidity": {
+      "type": "Property",
+      "value":  "12",
+      "observedAt": "2024-06-25T16:04:13.914Z"
+    }
+  }
+]

@@ -1,0 +1,19 @@
+[
+    {
+        "@context": "http://context.json-ld",
+        "commandAttr_info": {
+            "type": "Property",
+            "value": " "
+        },
+        "commandAttr_status": {
+            "type": "Property",
+            "value":  "UNKNOWN"
+        },
+        "hardcodedAttr": {
+            "type": "Property",
+            "value": "hardcodedValue"
+        },
+        "id": "urn:ngsi-ld:TheLightType:TheFirstLight",
+        "type": "TheLightType"
+    }
+]
