@@ -413,8 +413,8 @@ e.g.:
 ```json
 {
     "entity_type": "Lamp",
-    "resource": "/iot/d",
-    "protocol": "PDI-IoTA-UltraLight",
+    "resource": "/iot/json",
+    "protocol": "IoTA-JSON",
     "commands": [
         { "name": "on", "type": "command" },
         { "name": "off", "type": "command" }
@@ -800,8 +800,8 @@ e.g.:
 ```json
 {
     "entity_type": "Lamp",
-    "resource": "/iot/d",
-    "protocol": "PDI-IoTA-UltraLight",
+    "resource": "/iot/json",
+    "protocol": "IoTA-JSON",
     "commands": [
         { "name": "on", "type": "command" },
         { "name": "off", "type": "command" }
@@ -1460,9 +1460,8 @@ Content-type: application/json
 ```
 
 For IoT Agents different from IoTA-JSON it is exactly the same just changing in the request the resource by the
-corresponding resource employed by the agent (i.e., IoTA-UL uses `/iot/d` as default resource instead of `/iot/json`)
-and setting the correct `<apikey>` and `<deviceId>`. The response will be also different depending on the IoT Agent
-employed.
+corresponding resource employed by the agent and setting the correct `<apikey>` and `<deviceId>`. The response will be
+also different depending on the IoT Agent employed.
 
 **FIXME [#1524](https://github.com/telefonicaid/iotagent-node-lib/issues/1524)**: `resource` different to the default
 one (`/iot/json` in the case of the [IoTA-JSON](https://github.com/telefonicaid/iotagent-json)) is not working at the
@@ -1485,9 +1484,6 @@ Content-type: application/json
 
 {"ping":"Ping request"}
 ```
-
-This is also possible for IoTA-UL Agent changing in the request the resource, setting the correct `<apikey>`,
-`<deviceId>`, payload and headers.
 
 Once the command is retrieved by the device the status is updated to `"<command>_status": "DELIVERED"`. Note that status
 `DELIVERED` only make sense in the case of poll commands. In the case of push command it cannot happen.
@@ -1634,8 +1630,8 @@ of tuples or a string as shown
 ```json
 {
     "entity_type": "GPS",
-    "resource":    "/iot/d",
-    "protocol":    "PDI-IoTA-JSON",
+    "resource":    "/iot/json",
+    "protocol":    "IoTA-JSON",
 ..etc
     "attributes": [
         {
@@ -1695,8 +1691,8 @@ e.g.:
 ```json
 {
      "entity_type": "Device",
-     "resource":    "/iot/d",
-     "protocol":    "PDI-IoTA-UltraLight",
+     "resource":    "/iot/json",
+     "protocol":    "IoTA-JSON",
 ..etc
      "attributes": [
         {"object_id": "l", "name": "temperature", "type":"Float",

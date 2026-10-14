@@ -89,7 +89,7 @@ This configuration file is a JavaScript file and contains three configuration ch
 
 -   **iota**: this object stores the configuration of the North Port of the IoT Agent, and is completely managed by the
     IoT Agent library. More information about this options can be found
-    [here](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+    [here](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/admin.md#configuration).
 -   **mqtt**: this object stores MQTT's specific configuration. A detailed description can be found in the next section.
 -   **http**: this object stores HTTP's specific configuration. A detailed description can be found in the next section.
 
@@ -176,7 +176,7 @@ transport protocol binding. The following options are accepted:
 
 Some of the more common variables can be configured using environment variables. The ones overriding general parameters
 in the `config.iota` set are described in the
-[IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-node-lib#configuration).
+[IoTA Library Configuration manual](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/admin.md#configuration).
 
 The ones relating global configuration described in the following table.
 

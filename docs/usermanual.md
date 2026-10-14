@@ -71,7 +71,7 @@ the NGSI entity. E.g.:
 ```
 
 The attribute names in the payload can be mapped to different attribute names in the entity, by using alias in the
-device provisioning (see the [Provisioning API](https://github.com/telefonicaid/iotagent-node-lib#provisioningapi) for
+device provisioning (see the [Provisioning API](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#api-routes) for
 details).
 
 A device can report new measures to the IoT Platform using an HTTP POST request to the `/iot/json` path with the
@@ -119,12 +119,12 @@ It is possible to report as a measure a NGSI-v2 or NGSI-LD payload when related 
 attributes.
 
 Note that the entity ID and type in the measure are also include as attributes `measure_id` and `measure_type` as
-described [here](https://github.dev/telefonicaid/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names)
+described [here](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names)
 (both using attribute type `Text`). The ID and type of the entity updated at Context Broker is taken from device/group
 configuration or provision,
 
 However, it is possible to use the same entity ID that the original one by using `entityNameExp` at
-[device group provision](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/api.md#config-group-datamodel),
+[device group provision](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#config-group-datamodel),
 this way:
 
 ```
@@ -453,9 +453,9 @@ E.g.:
 
 All the interations between IotAgent and ContextBroker related to comamnds are described in:
 
--   [Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands)
--   [Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-happy-path)
--   [Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/devel/northboundinteractions.md#scenario-3-commands-error)
+-   [Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/devel/northboundinteractions.md#scenario-3-commands)
+-   [Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/devel/northboundinteractions.md#scenario-3-commands-happy-path)
+-   [Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/devel/northboundinteractions.md#scenario-3-commands-error)
 
 MQTT devices commands are always push. For HTTP Devices commands to be push they **must** be provisioned with the
 `endpoint` attribute, from device or group device, that will contain the URL where the IoT Agent will send the received
@@ -719,11 +719,11 @@ E.g.:
 #### Commands
 
 All the interations between IotAgent and ContextBroker related to comamnds are described in
-[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands)
+[Theory: Scenario 3: commands](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/northboundinteractions.md#scenario-3-commands)
 and
-[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-happy-path)
+[Practice: Scenario 3: commands - happy path](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/northboundinteractions.md#scenario-3-commands-happy-path)
 and
-[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/northboundinteractions.md#scenario-3-commands-error).
+[Practice: Scenario 3: commands - error](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/northboundinteractions.md#scenario-3-commands-error).
 
 Commands using the MQTT transport protocol binding always work in PUSH mode: the server publishes a message in a topic
 where the device is subscribed: the _commands topic_. Once the device has finished with the command, it publishes it

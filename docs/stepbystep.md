@@ -128,7 +128,7 @@ All the configuration of the IoTAgent can be done modifying a single file, `conf
 the needs of this tutorial.
 
 For a detailed description of these values, check the
-[iotagent-node-lib configuration documentation](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/installationguide.md).
+[iotagent-node-lib configuration documentation](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/admin.md#configuration).
 
 There is a configuration value that you may want to change while following this tutorial, and that's the `logLevel`. If
 you have any problems following the instructions, or you simply want to know more of what's going on in the IoTA

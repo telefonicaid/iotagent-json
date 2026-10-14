@@ -33,8 +33,8 @@ to a Conext Broker or for authenticating with an Identity Manager).Some of commo
 This project is part of [FIWARE](https://www.fiware.org/). For more information check the FIWARE Catalogue entry for the
 [IoT Agents](https://github.com/Fiware/catalogue/tree/master/iot-agents).
 
-| :books: [Documentation](https://iotagent-node-lib.rtfd.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-node-lib/blob/master/doc/roadmap.md) |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| :books: [Documentation](https://iotagent-node-lib.rtfd.io) | :mortar_board: [Academy](https://fiware-academy.readthedocs.io/en/latest/iot-agents/idas) | :dart: [Roadmap](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/roadmap.md) |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 
 ## Content
 
@@ -56,7 +56,7 @@ check the specific documentation for each IoT Agent. You can see the a list of a
 -   [Getting started](doc/getting-started.md)
 -   [IoT Agent API](doc/api.md)
 -   [Administration manual](doc/admin.md)
--   [Deprecated features](doc/deprecated.md)
+-   [Deprecated features](../docs/deprecated.md)
 -   [Roadmap](doc/roadmap.md)
 
 ### Development documentation

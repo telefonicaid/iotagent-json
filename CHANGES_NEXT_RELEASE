@@ -1,3 +1,13 @@
+IOTA
+
+- Add: unify iotagent-node-lib code into this codebase, under the iotagent-node-lib/ folder. The library is no longer consumed as an external dependency and from now on it shares version with iotagent-json (#922)
 - Upgrade body-parser from 1.20.3 to 1.20.6 due to CVE-2026-12590
 - Remove: IoT Agent Manager support (the agent no longer registers itself in iotagent-manager; `iotManager` config section and `IOTA_IOTAM_*` env vars are ignored)
 - Remove: INVALID_RESOURCE error on group provisioning (it was only raised when `iotManager` was configured)
+
+IOTA Lib
+
+- Upgrade uuid dep from 8.3.2 to 14.0.0 due to CWE-787 CWE-1285
+- Upgrade mongoose from 8.9.5 to 8.24.1 due to CWE-74 CVE-2026-42334 CWE-1321
+- Remove: IoT Agent Manager support (registration at startup and on group changes, `iotManager` config section, `IOTA_IOTAM_*` env vars and `iotagentManager` health check). A warning is logged if that configuration is still present
+- Remove: default value for device `protocol` field taken from `iotManager.protocol`

@@ -1,5 +1,5 @@
 site_name: Fiware-iotagent-json
-site_url: https://fiware-iotagent-ul.readthedocs.org
+site_url: https://fiware-iotagent-json.readthedocs.io
 repo_url: https://github.com/telefonicaid/iotagent-json
 site_description: IoT Agent JSON (HTTP or MQTT) Documentation
 docs_dir: docs
