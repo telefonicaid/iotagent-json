@@ -86,7 +86,7 @@ describe('MQTT: Get configuration from the devices', function () {
             };
             let configurationReceived;
 
-            beforeEach(function () {
+            beforeEach(function (done) {
                 contextBrokerMock
                     .matchHeader('fiware-service', 'smartgondor')
                     .matchHeader('fiware-servicepath', '/gardens')
@@ -103,9 +103,11 @@ describe('MQTT: Get configuration from the devices', function () {
                             value: '80'
                         }
                     });
-                mqttClient.subscribe('/1234/MQTT_2/configuration/values');
-
                 configurationReceived = false;
+
+                mqttClient.subscribe('/1234/MQTT_2/configuration/values', function () {
+                    done();
+                });
             });
 
             afterEach(function (done) {

@@ -66,6 +66,15 @@ const groupCreation = {
     }
 };
 
+function waitForPayload(getPayload, callback) {
+    const interval = setInterval(function () {
+        if (getPayload()) {
+            clearInterval(interval);
+            callback();
+        }
+    }, 20);
+}
+
 describe('MQTT: Commands', function () {
     beforeEach(function (done) {
         const provisionOptions = {
@@ -87,17 +96,17 @@ describe('MQTT: Commands', function () {
             connectTimeout: 60 * 60 * 1000
         });
 
-        mqttClient.subscribe('/1234/MQTT_2/cmd');
-
         contextBrokerMock = nock('http://192.168.1.1:1026')
             .matchHeader('fiware-service', 'smartgondor')
             .matchHeader('fiware-servicepath', '/gardens')
             .post('/v2/registrations')
             .reply(201, null, { Location: '/v2/registrations/6319a7f5254b05844116584d' });
 
-        iotagentMqtt.start(config, function () {
-            request(provisionOptions, function (error, response, body) {
-                done();
+        mqttClient.subscribe('/1234/MQTT_2/cmd', function () {
+            iotagentMqtt.start(config, function () {
+                request(provisionOptions, function (error, response, body) {
+                    done();
+                });
             });
         });
     });
@@ -154,11 +163,13 @@ describe('MQTT: Commands', function () {
             });
 
             request(commandOptions, function (error, response, body) {
-                setTimeout(function () {
-                    should.exist(payload);
-                    payload.should.equal(commandMsg);
-                    done();
-                }, 100);
+                waitForPayload(
+                    () => payload,
+                    function () {
+                        payload.should.equal(commandMsg);
+                        done();
+                    }
+                );
             });
         });
     });
@@ -229,11 +240,13 @@ describe('MQTT: Commands', function () {
             });
 
             request(commandOptions, function (error, response, body) {
-                setTimeout(function () {
-                    should.exist(payload);
-                    payload.should.equal(commandMsg);
-                    done();
-                }, 100);
+                waitForPayload(
+                    () => payload,
+                    function () {
+                        payload.should.equal(commandMsg);
+                        done();
+                    }
+                );
             });
         });
     });
@@ -286,11 +299,13 @@ describe('MQTT: Commands', function () {
             commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand5.json');
 
             request(commandOptions, function (error, response, body) {
-                setTimeout(function () {
-                    should.exist(payload);
-                    payload.should.equal(commandMsg);
-                    done();
-                }, 100);
+                waitForPayload(
+                    () => payload,
+                    function () {
+                        payload.should.equal(commandMsg);
+                        done();
+                    }
+                );
             });
         });
 
@@ -305,11 +320,13 @@ describe('MQTT: Commands', function () {
             commandOptions.json = utils.readExampleFile('./test/unit/ngsiv2/contextRequests/updateCommand6.json');
 
             request(commandOptions, function (error, response, body) {
-                setTimeout(function () {
-                    should.exist(payload);
-                    payload.should.equal(commandMsg);
-                    done();
-                }, 100);
+                waitForPayload(
+                    () => payload,
+                    function () {
+                        payload.should.equal(commandMsg);
+                        done();
+                    }
+                );
             });
         });
     });
