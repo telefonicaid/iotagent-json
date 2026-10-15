@@ -92,11 +92,9 @@ describe('AMQP Transport binding: commands', function () {
     afterEach(function (done) {
         nock.cleanAll();
 
-        amqpConn.close();
-
         config.defaultTransport = oldTransport;
 
-        async.series([iotAgentLib.clearAll, iotagentMqtt.stop], done);
+        async.series([(cb) => amqpConn.close(() => cb()), iotAgentLib.clearAll, iotagentMqtt.stop], done);
     });
 
     describe('When a command arrive to the Agent for a device with the AMQP protocol', function () {
@@ -146,24 +144,31 @@ describe('AMQP Transport binding: commands', function () {
 
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
 
-            channel.assertQueue('client-queue', { exclusive: false }, function (err, q) {
-                channel.bindQueue(q.queue, config.amqp.exchange, '.' + config.defaultKey + '.MQTT_2.cmd');
-
-                channel.consume(
+            channel.assertQueue('', { exclusive: true }, function (err, q) {
+                channel.bindQueue(
                     q.queue,
-                    function (msg) {
-                        payload = msg.content.toString();
-                    },
-                    { noAck: true }
+                    config.amqp.exchange,
+                    '.' + config.defaultKey + '.MQTT_2.cmd',
+                    {},
+                    function () {
+                        channel.consume(
+                            q.queue,
+                            function (msg) {
+                                payload = msg.content.toString();
+                            },
+                            { noAck: true },
+                            function () {
+                                request(commandOptions, function (error, response, body) {
+                                    setTimeout(function () {
+                                        should.exist(payload);
+                                        payload.should.equal(commandMsg);
+                                        done();
+                                    }, 1000);
+                                });
+                            }
+                        );
+                    }
                 );
-
-                request(commandOptions, function (error, response, body) {
-                    setTimeout(function () {
-                        should.exist(payload);
-                        payload.should.equal(commandMsg);
-                        done();
-                    }, 1000);
-                });
             });
         });
     });
@@ -257,23 +262,24 @@ describe('AMQP Transport binding: commands', function () {
 
             channel.assertExchange(config.amqp.exchange, 'topic', config.amqp.options);
 
-            channel.assertQueue('client-queue', { exclusive: false }, function (err, q) {
-                channel.bindQueue(q.queue, config.amqp.exchange, '.ALTERNATIVE.MQTT_4.cmd');
-
-                channel.consume(
-                    q.queue,
-                    function (msg) {
-                        payload = msg.content.toString();
-                    },
-                    { noAck: true }
-                );
-
-                request(commandOptions, function (error, response, body) {
-                    setTimeout(function () {
-                        should.exist(payload);
-                        payload.should.equal(commandMsg);
-                        done();
-                    }, 1000);
+            channel.assertQueue('', { exclusive: true }, function (err, q) {
+                channel.bindQueue(q.queue, config.amqp.exchange, '.ALTERNATIVE.MQTT_4.cmd', {}, function () {
+                    channel.consume(
+                        q.queue,
+                        function (msg) {
+                            payload = msg.content.toString();
+                        },
+                        { noAck: true },
+                        function () {
+                            request(commandOptions, function (error, response, body) {
+                                setTimeout(function () {
+                                    should.exist(payload);
+                                    payload.should.equal(commandMsg);
+                                    done();
+                                }, 1000);
+                            });
+                        }
+                    );
                 });
             });
         });
