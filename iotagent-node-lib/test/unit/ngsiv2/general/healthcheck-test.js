@@ -32,6 +32,7 @@ const nock = require('nock');
 const utils = require('../../../tools/utils');
 const request = utils.request;
 const config = require('../../../../lib/commonConfig');
+const health = require('../../../../lib/services/common/health');
 const iotAgentConfig = {
     logLevel: 'FATAL',
     contextBroker: {
@@ -138,6 +139,17 @@ const iotAgentConfig3 = {
 
 let contextBrokerMock;
 
+// The first health check runs in background when the agent is activated, so wait for it before asking for the state
+function waitForHealthCheck(callback) {
+    const interval = setInterval(function () {
+        const state = health.getHealthState();
+        if (state.contextBroker.ok !== null && state.mongodb.ok !== null) {
+            clearInterval(interval);
+            callback();
+        }
+    }, 20);
+}
+
 describe('About API with check health', function () {
     beforeEach(function (done) {
         process.env.IOTA_HEALTH_CHECK = true;
@@ -151,7 +163,7 @@ describe('About API with check health', function () {
 
         iotAgentLib.activate(iotAgentConfig, function (err) {
             iotAgentLib.clearAll(function (err2) {
-                done();
+                waitForHealthCheck(done);
             });
         });
     });
@@ -230,7 +242,7 @@ describe('About API with check health with errors in endpoints', function () {
 
         iotAgentLib.activate(iotAgentConfig, function (err) {
             iotAgentLib.clearAll(function (err2) {
-                done();
+                waitForHealthCheck(done);
             });
         });
     });
