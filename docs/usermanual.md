@@ -171,7 +171,7 @@ The IoTA is able to ingest different types of `NGSI-V2` and `NGSI-LD` payloads l
           "id": "MyEntityId1",
           "type": "MyEntityType1",
           "attr1": { "type": "Text", "value": "MyAttr1Value"},
-          "attr2": { "type": "Text", "value": "MyAttr1Value"
+          "attr2": { "type": "Text", "value": "MyAttr1Value",
                      "metadata": {
                                 "TimeInstant": {
                                     "type": "DateTime",
@@ -303,6 +303,17 @@ Some additional considerations to take into account:
     are include as NGSI-v2 metadata in the entity corresponding to the measure at Context Broker. Note IOTA doesn't
     provide the `type` for that metadata, so the Context Broker applies
     [a default type based in the metadata `value` JSON type](https://github.com/telefonicaid/fiware-orion/blob/master/doc/manuals/orion-api.md#partial-representations).
+-   JEXL expression take place after key-value payload transformation, i.e. (1) NGSI-v2 batch update example after key-value tranformation would be:
+    ```
+    {
+      "id": "MyEntityId1",
+      "type": "MyEntityType1",
+      "attr1": "MyAttr1Value",
+      "attr2": "MyAttr1Value"
+    }
+    ```
+    So, there is no access to attribute's type or metadata.
+
 
 ##### SOAP-XML Measure reporting
 
