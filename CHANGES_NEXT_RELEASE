@@ -1,6 +1,7 @@
 IOTA
 
 - Add: unify iotagent-node-lib code into this codebase, under the iotagent-node-lib/ folder. The library is no longer consumed as an external dependency and from now on it shares version with iotagent-json (#922)
+- Fix: MQTT binding scheduled a reconnection after being stopped (#928)
 - Upgrade body-parser from 1.20.3 to 1.20.6 due to CVE-2026-12590
 - Remove: IoT Agent Manager support (the agent no longer registers itself in iotagent-manager; `iotManager` config section and `IOTA_IOTAM_*` env vars are ignored)
 - Remove: INVALID_RESOURCE error on group provisioning (it was only raised when `iotManager` was configured)
