@@ -118,6 +118,11 @@ function startHealthChecks({
     const cbBase = normalizeBaseUrl(contextBrokerUrl);
     const mongoEnabled = deviceRegistryType && deviceRegistryType !== 'memory';
 
+    // Results from a previous activation are no longer valid until the first check runs again
+    healthState.contextBroker.ok = null;
+    healthState.mongodb.ok = null;
+    healthState.mqtt.ok = null;
+
     // Set as configured / not configured
     healthState.contextBroker.configured = Boolean(cbBase);
     healthState.contextBroker.url = cbBase;
