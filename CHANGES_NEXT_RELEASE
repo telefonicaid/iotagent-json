@@ -1,3 +1,5 @@
+
+
 IOTA
 
 - Add: unify iotagent-node-lib code into this codebase, under the iotagent-node-lib/ folder. The library is no longer consumed as an external dependency and from now on it shares version with iotagent-json (#922)
