@@ -1,0 +1,37 @@
+name: Docker build
+"on":
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  docker-build:
+    name: Build Docker image (${{ matrix.target }})
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - slim
+          - distroless
+          - pm2
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: docker
+          file: docker/Dockerfile
+          target: ${{ matrix.target }}
+          push: false
+          # The Dockerfile downloads the sources from GitHub, so pin the exact commit under test
+          build-args: |
+            DOWNLOAD=${{ github.event.pull_request.head.sha || github.sha }}
+          tags: iotagent-json:${{ matrix.target }}-ci
+          cache-from: type=gha,scope=${{ matrix.target }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.target }}
