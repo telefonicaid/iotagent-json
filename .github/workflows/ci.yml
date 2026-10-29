@@ -9,7 +9,7 @@ name: CI
 jobs:
   lint-dockerfile:
     name: Lint Dockerfile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
 
   lint-markdown:
     name: Lint Markdown
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
 
   lint-code:
     name: Lint JavaScript
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Git checkout
         uses: actions/checkout@v4
@@ -59,7 +59,7 @@ jobs:
 
   unit-test:
     name: Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs: iotagent-node-lib-test
     services:
       mongodb:
@@ -94,7 +94,7 @@ jobs:
 
   iotagent-node-lib-test:
     name: iotagent-node-lib Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     services:
       mongodb:
         image: mongo:8.0
@@ -121,7 +121,7 @@ jobs:
 
   coverage:
     name: Coveralls Code Coverage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     needs:
       - unit-test
       - iotagent-node-lib-test
@@ -168,7 +168,7 @@ jobs:
   sonar:
     name: Build and analyze
     needs: coverage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
     steps:
