@@ -9,7 +9,7 @@ name: Docker build
 jobs:
   docker-build:
     name: Build Docker image (${{ matrix.target }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
       matrix:
