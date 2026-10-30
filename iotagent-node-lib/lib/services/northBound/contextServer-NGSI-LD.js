@@ -848,8 +848,18 @@ function loadContextRoutesNGSILD(router) {
     for (i = 0; i < queryPaths.length; i++) {
         router.get(queryPaths[i], [handleQueryNgsiLD, ErrorHandlingNgsiLD('Query')]);
     }
+    function ensureNotificationAuth(req, res, next) {
+        const config = require('../../commonConfig');
+        const expectedToken = config.getConfig().notificationToken;
+        if (expectedToken && req.headers['x-auth-token'] !== expectedToken) {
+            return res.status(401).json({ error: 'Unauthorized notification sender' });
+        }
+        return next();
+    }
+
     router.post('/notify', [
         middlewares.ensureType,
+        ensureNotificationAuth,
         middlewares.validateJson(notificationTemplateNgsiLD),
         preprocessNGSILD,
         validateNGSILD(false, support.datasetId),
