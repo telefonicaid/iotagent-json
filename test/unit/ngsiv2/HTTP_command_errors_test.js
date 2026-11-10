@@ -45,6 +45,43 @@ describe('HTTP command execution responses', function () {
         nock.cleanAll();
     });
 
+    it('should report HTTP 200 with a plain-text response as a command error', function (done) {
+        const commandDevice = {
+            ...device,
+            id: 'test125',
+            endpoint: 'https://command.example.test/nada'
+        };
+        const endpoint = nock('https://command.example.test', {
+            reqheaders: {
+                'fiware-service': 'smartcity',
+                'fiware-servicepath': '/',
+                'content-type': 'application/json'
+            }
+        })
+            .post('/nada', { ping: 'RRRR' })
+            .reply(200, 'Hey ya! Greetings!', { 'Content-Type': 'text/plain' });
+
+        binding.executeCommand(
+            null,
+            null,
+            commandDevice,
+            'ping',
+            '{"ping":"RRRR"}',
+            null,
+            'application/json',
+            function (error) {
+                should.exist(error);
+                error.code.should.equal(400);
+                error.name.should.equal('HTTP_COMMAND_RESPONSE_ERROR');
+                error.message.should.equal(
+                    'Command [ping] failed for device [test125]: endpoint returned HTTP 200; invalid JSON response'
+                );
+                endpoint.isDone().should.equal(true);
+                done();
+            }
+        );
+    });
+
     [
         { status: 200, body: 'Hey ya!', reason: 'invalid JSON' },
         { status: 500, body: { error: 'Command failed' }, reason: 'HTTP 500' },
