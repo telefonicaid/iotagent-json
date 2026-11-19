@@ -1,6 +1,6 @@
 IOTA
 
-- Fix: Improve error reporting for HTTP commands when delivery fails or the endpoint returns an unexpected response. The IoT Agent still returns HTTP 400.
+- Fix: Improve error reporting for HTTP commands when delivery fails or the endpoint returns an unexpected response. The IoT Agent still returns HTTP 400. (#1016)
 - Add: unify iotagent-node-lib code into this codebase, under the iotagent-node-lib/ folder. The library is no longer consumed as an external dependency and from now on it shares version with iotagent-json (#922)
 - Fix: MQTT binding scheduled a reconnection after being stopped (#928)
 - Fix: health check state from a previous activation was reported until the first new check finished (#928)
