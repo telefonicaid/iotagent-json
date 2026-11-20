@@ -64,6 +64,11 @@ docker run -it --init -v <path-to-configuration-file>:/opt/iotajson/new_config.j
 As an alternative, it is also possible to pass configuration using environmental variables, as explained in
 [Configuration with environment variables](#configuration-with-environment-variables) subsection.
 
+The GitHub Actions build workflow publishes `telefonicaid/iotagent-json:latest` on pushes to `master` and publishes the
+matching version tag for tags consisting only of digits and dots (the Docker Hub pattern `^[0-9.]+$`). Pull requests
+build the image without publishing it. Publishing requires the repository secrets `DOCKER_HUB_USERNAME` and
+`DOCKER_HUB_TOKEN`.
+
 ### Usage
 
 In order to execute the JSON IoT Agent just execute the following command from the root folder:
@@ -102,8 +107,8 @@ There are also some global configuration options:
 -   **config.defaultTransport**: code of the MQTT transport that will be used to resolve incoming commands and lazy
     attributes in case a transport protocol could not be inferred for the device.
 -   **compressTimestamp**: this flag enables the timestamp compression mechanism, described in the User Manual.
--   **config.jexlTransformations**: allows users to extend the JEXL parser with custom extra transformations.
-    It must point to a Node.js module exporting a jexlTransformations object whose values are functions.
+-   **config.jexlTransformations**: allows users to extend the JEXL parser with custom extra transformations. It must
+    point to a Node.js module exporting a jexlTransformations object whose values are functions.
 
 #### MQTT configuration
 
@@ -138,8 +143,8 @@ These are the currently available MQTT configuration options:
     order versions) or without the slash. See
     [discussion](https://github.com/telefonicaid/iotagent-node-lib/issues/866).
 -   **clean**: this flag is by default true, set to false to receive QoS 1 and 2 messages while offline.
--   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed prefix 
-    `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
+-   **clientId**: string ID which identifies client in mqtt broker. By default is using a string composed by a fixed
+    prefix `iotajson_` and a random suffix, i.e. `iotajson_43bf8a3a`.
 -   **subscribeBatchSize**: Maximum number of topics per SUBSCRIBE packet (default is null; no batching—all topics sent
     at once). Useful for AWS IoT Core, which enforces a limit of 8 topics per SUBSCRIBE packet. When set to a number,
     the IOTA automatically splits subscriptions into multiple packets of this size.
@@ -180,12 +185,12 @@ in the `config.iota` set are described in the
 
 The ones relating global configuration described in the following table.
 
-| Environment variable   | Configuration attribute |
-| :--------------------- | :---------------------- |
-| IOTA_CONFIG_RETRIEVAL  | configRetrieval         |
-| IOTA_DEFAULT_KEY       | defaultKey              |
-| IOTA_DEFAULT_TRANSPORT | defaultTransport        |
-| IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH | jexlTransformations |
+| Environment variable                 | Configuration attribute |
+| :----------------------------------- | :---------------------- |
+| IOTA_CONFIG_RETRIEVAL                | configRetrieval         |
+| IOTA_DEFAULT_KEY                     | defaultKey              |
+| IOTA_DEFAULT_TRANSPORT               | defaultTransport        |
+| IOTA_EXTRA_JEXL_TRANSFORMATIONS_PATH | jexlTransformations     |
 
 The ones relating specific JSON bindings are described in the following table.
 
