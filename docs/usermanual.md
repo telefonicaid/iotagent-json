@@ -71,8 +71,9 @@ the NGSI entity. E.g.:
 ```
 
 The attribute names in the payload can be mapped to different attribute names in the entity, by using alias in the
-device provisioning (see the [Provisioning API](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#api-routes) for
-details).
+device provisioning (see the
+[Provisioning API](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#api-routes)
+for details).
 
 A device can report new measures to the IoT Platform using an HTTP POST request to the `/iot/json` path with the
 following query parameters:
@@ -119,7 +120,8 @@ It is possible to report as a measure a NGSI-v2 or NGSI-LD payload when related 
 attributes.
 
 Note that the entity ID and type in the measure are also include as attributes `measure_id` and `measure_type` as
-described [here](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names)
+described
+[here](https://github.com/telefonicaid/iotagent-json/blob/master/iotagent-node-lib/doc/api.md#special-measures-and-attributes-names)
 (both using attribute type `Text`). The ID and type of the entity updated at Context Broker is taken from device/group
 configuration or provision,
 
@@ -462,8 +464,8 @@ MQTT devices commands are always push. For HTTP Devices commands to be push they
 commands. Otherwise the command will be poll. When using the HTTP transport, the command handling have two flavours:
 
 -   **Push commands**: The request payload format will be a plain JSON, as described in the "Payload" section. The
-    device will reply with a 200OK response containing the result of the command in the JSON result format. Example of
-    the HTTP request sent by IOTA in the case of push command:
+    device endpoint should reply with HTTP `200 OK` or `201 Created` and a JSON command result. Example of the HTTP
+    request sent by IOTA in the case of push command:
 
     ```
        POST http://[DEVICE_IP]:[PORT]
@@ -482,6 +484,15 @@ commands. Otherwise the command will be poll. When using the HTTP transport, the
     {
         "turn": "turn to left was right"
     }
+    ```
+
+    If the request fails or the endpoint returns an unexpected status or invalid JSON, the IoT Agent returns HTTP
+    `400 Bad Request` with `HTTP_COMMAND_RESPONSE_ERROR`. The error description includes the command name, the device
+    ID, the endpoint's HTTP status (if a response was received), and the reason for the failure. For example, an
+    endpoint that returns HTTP `200 OK` with plain text instead of JSON produces this description:
+
+    ```text
+    Command [ping] failed for device [test125]: endpoint returned HTTP 200; invalid JSON response
     ```
 
 -   **Polling commands**: These commands are meant to be used on those cases where the device can't be online the whole
@@ -1025,7 +1036,8 @@ module.exports = {
 
 The customsubstr transformation can then be used inside JEXL expressions.
 
-In the case of error in some tranformation, it is logged in traces, but IOTA JSON starts and works as expected. For instance:
+In the case of error in some tranformation, it is logged in traces, but IOTA JSON starts and works as expected. For
+instance:
 
 ```
 extraJexlTransformations = {
@@ -1035,19 +1047,25 @@ extraJexlTransformations = {
     badTransform3: null,
     badTransform4: [],
     badTransform5: "function (a,b) { return a }"
- 
+
 };
- 
+
 module.exports = extraJexlTransformations;
 ```
 
 will procude this log at startup
 
-> time=2026-02-03T09:14:27.302Z | lvl=WARN| corr=6350789e-522f-4886-a80b-b402fd0711b3 | trans=6350789e-522f-4886-a80b-b402fd0711b3 | op=IoTAgentNGSI.JEXL | from=n/a | srv=n/a | subsrv=n/a | msg=badTransform1,badTransform2,badTransform3,badTransform4,badTransform5 must be a function | comp=IoTAgent
+> time=2026-02-03T09:14:27.302Z | lvl=WARN| corr=6350789e-522f-4886-a80b-b402fd0711b3 |
+> trans=6350789e-522f-4886-a80b-b402fd0711b3 | op=IoTAgentNGSI.JEXL | from=n/a | srv=n/a | subsrv=n/a |
+> msg=badTransform1,badTransform2,badTransform3,badTransform4,badTransform5 must be a function | comp=IoTAgent
 
-In the case of severe error with the file (i.e. a syntax error in the JavaScript code or not a JavaScript file at all) it is also logged in traces, but IOTA JSON starts and works as expected. For instance:
+In the case of severe error with the file (i.e. a syntax error in the JavaScript code or not a JavaScript file at all)
+it is also logged in traces, but IOTA JSON starts and works as expected. For instance:
 
-> time=2026-02-03T09:45:55.515Z | lvl=ERROR | corr=bfbd22cb-637a-4825-9eba-81a658101b42 | trans=bfbd22cb-637a-4825-9eba-81a658101b42 | op=IoTAgentNGSI.NGSIService | from=n/a | srv=n/a | subsrv=n/a | msg=/opt/iotagent-json/customJexl.java - Failed to load extra JEXL transformations: Unexpected token '(' | comp=IoTAgent
+> time=2026-02-03T09:45:55.515Z | lvl=ERROR | corr=bfbd22cb-637a-4825-9eba-81a658101b42 |
+> trans=bfbd22cb-637a-4825-9eba-81a658101b42 | op=IoTAgentNGSI.NGSIService | from=n/a | srv=n/a | subsrv=n/a |
+> msg=/opt/iotagent-json/customJexl.java - Failed to load extra JEXL transformations: Unexpected token '(' |
+> comp=IoTAgent
 
 ## Development documentation
 

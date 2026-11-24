@@ -106,7 +106,7 @@ function request(options, callback) {
         })
         .catch((error) => {
             logger.debug(context, 'Error: %s', JSON.stringify(util.inspect(error), null, 4));
-            return callback(error);
+            return callback(error, error.response, error.response?.body);
         });
 }
 
